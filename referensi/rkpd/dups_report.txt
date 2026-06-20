@@ -1,0 +1,23 @@
+total 2622
+dups exact 6
+dup exact idx 351 first=350 item={'kode_unit': '1.02.2.14.0.00.02.0000', 'kode_uraian': '1.02.02.2.02', 'uraian': 'PenyediaanLayananKesehatanuntukUKMdanUKPRujukanTingkatDaerahKabupaten/Kota', 'indikator': 'TercapainyaPersentaseTempatFasilitasUmumMemenuhiSyaratKesehatan(TFU)(PengelolaanPelayananKesehatanLingkungan)', 'jenis_indikator': 'Kegiatan'}
+dup exact idx 482 first=481 item={'kode_unit': '1.02.2.14.0.00.02.0000', 'kode_uraian': '2.14.03.2.01', 'uraian': 'PelaksanaanAdvokasi,Komunikasi,InformasidanEdukasi(KIE)PengendalianPendudukdanKBSesuaiKearifanBudayaLokal', 'indikator': 'PendampinganSaranaPenyuluhdanPelayananKB', 'TARGET': 100, 'SATUAN': '%', 'jenis_indikator': 'Kegiatan'}
+dup exact idx 785 first=784 item={'kode_unit': '1.03.1.04.0.00.03.0000', 'kode_uraian': '1.03.02.2.02', 'uraian': 'PengembangandanPengelolaanSistemIrigasiPrimerdanSekunderpadaDaerahIrigasiyangLuasnyadiBawah1000Hadalam1(Satu)DaerahKabupaten/Kota', 'indikator': 'Persentaseirigasikabupatendalamkondisibaik', 'TARGET': 20, 'SATUAN': '%', 'jenis_indikator': 'Kegiatan'}
+dup exact idx 904 first=903 item={'kode_unit': '1.05.0.00.0.00.04.0000', 'kode_uraian': '1.05.04', 'uraian': 'PROGRAMPENCEGAHAN,PENANGGULANGAN,PENYELAMATANKEBAKARANDANPENYELAMATANNONKEBAKARAN', 'indikator': 'Tingkatwaktutanggap(responsetimerate)daerahlayananWilayahManajemenKebakaran(WMK)', 'TARGET': 15, 'SATUAN': 'Menit', 'jenis_indikator': 'Program'}
+dup exact idx 1173 first=1172 item={'kode_unit': '2.11.0.00.0.00.06.0000', 'kode_uraian': '2.11.10', 'uraian': 'PROGRAMPENANGANANPENGADUANLINGKUNGANHIDUP', 'indikator': 'PresentasePengaduanmasyarakatterkaitizinlingkunganyangditanganidenganbaik', 'TARGET': 100, 'SATUAN': '%', 'jenis_indikator': 'Program'}
+dup exact idx 1925 first=1924 item={'kode_unit': '4.02.0.00.0.00.15.0000', 'kode_uraian': '4.02.02.2.03', 'uraian': 'PengawasanPenyelenggaraanPemerintahan', 'indikator': 'PersentaseRapatYangTerselenggaraTerhadapJumlahRapatYangTerjadwal', 'TARGET': 100, 'SATUAN': '%', 'jenis_indikator': 'Kegiatan'}
+dups key 14
+dup key idx 153 key=('1.02.2.14.0.00.02.0000', '1.02.01.2.01', 'JumlahDokumenPerencanaanPerangkatDaerah')
+dup key idx 319 key=('1.02.2.14.0.00.02.0000', '1.02.02.2.02', 'PenemuanKasusGiziBuruk,GiziKurangdanBumilKEK(PengelolaanPelayananKesehatanGiziMasyarakat)')
+dup key idx 351 key=('1.02.2.14.0.00.02.0000', '1.02.02.2.02', 'TercapainyaPersentaseTempatFasilitasUmumMemenuhiSyaratKesehatan(TFU)(PengelolaanPelayananKesehatanLingkungan)')
+dup key idx 372 key=('1.02.2.14.0.00.02.0000', '1.02.02.2.02', 'TerlaksananyaPertemuanIntegrasiProgramKesehatanLansia(PengelolaanPelayananKesehatanPadaUsiaLanjut)')
+dup key idx 385 key=('1.02.2.14.0.00.02.0000', '1.02.02.2.02', 'TerselenggaranyaKegiatanPembinaanMonitoringEvaluasiTerhadapPemegangProgramPuskesmas(PelayananKesehatanPenyakitMenulardanTidakMenular)')
+dup key idx 450 key=('1.02.2.14.0.00.02.0000', '1.02.04.2.05', 'PersentasePemberianSertifikatProduksiAlatKesehatanKelas1TertentudanPKRTKelas1TertentuPerusahaanRumahTangga')
+dup key idx 467 key=('1.02.2.14.0.00.02.0000', '2.14.02', 'TotalFertilityRate')
+dup key idx 482 key=('1.02.2.14.0.00.02.0000', '2.14.03.2.01', 'PendampinganSaranaPenyuluhdanPelayananKB')
+dup key idx 785 key=('1.03.1.04.0.00.03.0000', '1.03.02.2.02', 'Persentaseirigasikabupatendalamkondisibaik')
+dup key idx 904 key=('1.05.0.00.0.00.04.0000', '1.05.04', 'Tingkatwaktutanggap(responsetimerate)daerahlayananWilayahManajemenKebakaran(WMK)')
+dup key idx 906 key=('1.05.0.00.0.00.04.0000', '1.05.04', 'Cakupanpelayananbencanakebakarankabupaten/kota')
+dup key idx 1173 key=('2.11.0.00.0.00.06.0000', '2.11.10', 'PresentasePengaduanmasyarakatterkaitizinlingkunganyangditanganidenganbaik')
+dup key idx 1925 key=('4.02.0.00.0.00.15.0000', '4.02.02.2.03', 'PersentaseRapatYangTerselenggaraTerhadapJumlahRapatYangTerjadwal')
+dup key idx 2001 key=('5.01.5.02.5.05.21.0000', '5.01.03.2.01', 'Persentasedokumenperencanaanbidangpemerintahandanpembangunanmanusiayangdisusun')

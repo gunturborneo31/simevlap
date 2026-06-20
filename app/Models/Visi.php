@@ -13,7 +13,7 @@ class Visi extends Model
 {
     protected $table = 'visi';
 
-    protected $fillable = ['opd_id', 'document_type', 'kode', 'uraian', 'tahun_awal', 'tahun_akhir'];
+    protected $fillable = ['opd_id', 'document_type', 'kode', 'uraian', 'deskripsi', 'tahun_awal', 'tahun_akhir'];
 
     public function opd(): BelongsTo
     {

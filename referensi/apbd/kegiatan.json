@@ -1,0 +1,3034 @@
+[
+ {
+  "NO": 1,
+  "KODE_KEGIATAN": "1.01.02.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Pendidikan Sekolah Dasar",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 2,
+  "KODE_KEGIATAN": "1.01.02.2.02",
+  "NAMA_KEGIATAN": "Pengelolaan Pendidikan Sekolah Dasar",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 3,
+  "KODE_KEGIATAN": "1.01.02.2.03",
+  "NAMA_KEGIATAN": "Pengelolaan Pendidikan Sekolah Menengah Pertama",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 4,
+  "KODE_KEGIATAN": "1.01.02.2.04",
+  "NAMA_KEGIATAN": "Pengelolaan Pendidikan Anak Usia Dini (PAUD)",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 5,
+  "KODE_KEGIATAN": "1.01.04.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Pendidikan Nonformal\/Kesetaraan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 6,
+  "KODE_KEGIATAN": "1.01.01.2.01",
+  "NAMA_KEGIATAN": "Pemerataan Kuantitas dan Kualitas Pendidik dan Tenaga Kependidikan bagi Satuan Pendidikan Dasar, PAUD, dan Pendidikan Nonformal\/Kesetaraan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 7,
+  "KODE_KEGIATAN": "1.01.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 8,
+  "KODE_KEGIATAN": "1.01.01.2.03",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 9,
+  "KODE_KEGIATAN": "1.01.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 10,
+  "KODE_KEGIATAN": "1.01.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 11,
+  "KODE_KEGIATAN": "1.01.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 12,
+  "KODE_KEGIATAN": "1.01.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 13,
+  "KODE_KEGIATAN": "2.22.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 14,
+  "KODE_KEGIATAN": "2.22.02.2.02",
+  "NAMA_KEGIATAN": "Pengelolaan Kebudayaan yang Masyarakat Pelakunya dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 15,
+  "KODE_KEGIATAN": "2.22.02.2.03",
+  "NAMA_KEGIATAN": "Pelestarian Kesenian Tradisional yang Masyarakat Pelakunya dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 16,
+  "KODE_KEGIATAN": "2.22.03.2.01",
+  "NAMA_KEGIATAN": "Pembinaan Lembaga Adat yang Penganutnya dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 17,
+  "KODE_KEGIATAN": "2.22.04.2.01",
+  "NAMA_KEGIATAN": "Pembinaan Kesenian yang Masyarakat Pelakunya dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 18,
+  "KODE_KEGIATAN": "2.22.05.2.01",
+  "NAMA_KEGIATAN": "Pembinaan Sejarah Lokal dalam 1 (Satu) Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 19,
+  "KODE_KEGIATAN": "2.22.05.2.02",
+  "NAMA_KEGIATAN": "Penetapan Cagar Budaya Peringkat Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 20,
+  "KODE_KEGIATAN": "2.22.06.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Cagar Budaya Peringkat Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 21,
+  "KODE_KEGIATAN": "1.02.02.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Museum Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 22,
+  "KODE_KEGIATAN": "1.02.02.2.02",
+  "NAMA_KEGIATAN": "Penyediaan Fasilitas Pelayanan Kesehatan untuk UKM dan UKP Kewenangan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 23,
+  "KODE_KEGIATAN": "1.02.02.2.03",
+  "NAMA_KEGIATAN": "Penyediaan Layanan Kesehatan untuk UKM dan UKP Rujukan Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 24,
+  "KODE_KEGIATAN": "1.02.02.2.04",
+  "NAMA_KEGIATAN": "Penyelenggaraan Sistem Informasi Kesehatan Secara Terintegrasi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 25,
+  "KODE_KEGIATAN": "1.02.03.2.01",
+  "NAMA_KEGIATAN": "Penerbitan Izin Rumah Sakit Kelas C, D dan Fasilitas Pelayanan Kesehatan Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 26,
+  "KODE_KEGIATAN": "1.02.03.2.02",
+  "NAMA_KEGIATAN": "Pemberian Izin Praktik Tenaga Kesehatan di Wilayah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 27,
+  "KODE_KEGIATAN": "1.02.03.2.03",
+  "NAMA_KEGIATAN": "Perencanaan Kebutuhan dan Pendayagunaan Sumber Daya Manusia Kesehatan untuk UKP dan UKM di Wilayah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 28,
+  "KODE_KEGIATAN": "1.02.04.2.01",
+  "NAMA_KEGIATAN": "Pengembangan Mutu dan Peningkatan Kompetensi Teknis Sumber Daya Manusia Kesehatan Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 29,
+  "KODE_KEGIATAN": "1.02.04.2.03",
+  "NAMA_KEGIATAN": "Pemberian Izin Apotek, Toko Obat, Toko Alat Kesehatan dan Optikal, Usaha Mikro Obat Tradisional (UMOT)",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 30,
+  "KODE_KEGIATAN": "1.02.04.2.04",
+  "NAMA_KEGIATAN": "Penerbitan Sertifikat Produksi Pangan Industri Rumah Tangga dan Nomor P-IRT sebagai Izin Produksi, untuk Produk Makanan Minuman Tertentu yang Dapat Diproduksi oleh Industri Rumah Tangga",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 31,
+  "KODE_KEGIATAN": "1.02.04.2.05",
+  "NAMA_KEGIATAN": "Penerbitan Sertifikat Laik Higiene Sanitasi Tempat Pengelolaan Makanan (TPM) antara lain Jasa Boga, Rumah Makan\/Restoran dan Depot Air Minum (DAM)",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 32,
+  "KODE_KEGIATAN": "1.02.04.2.06",
+  "NAMA_KEGIATAN": "Penerbitan Stiker Pembinaan pada Makanan Jajanan dan Sentra Makanan Jajanan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 33,
+  "KODE_KEGIATAN": "1.02.05.2.01",
+  "NAMA_KEGIATAN": "Pemeriksaan dan Tindak Lanjut Hasil Pemeriksaan Post Market pada Produksi dan Produk Makanan Minuman Industri Rumah Tangga",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 34,
+  "KODE_KEGIATAN": "1.02.05.2.02",
+  "NAMA_KEGIATAN": "Advokasi, Pemberdayaan, Kemitraan, Peningkatan Peran serta Masyarakat dan Lintas Sektor Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 35,
+  "KODE_KEGIATAN": "1.02.01.2.01",
+  "NAMA_KEGIATAN": "Pelaksanaan Sehat dalam rangka Promotif Preventif Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 36,
+  "KODE_KEGIATAN": "1.02.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 37,
+  "KODE_KEGIATAN": "1.02.01.2.03",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 38,
+  "KODE_KEGIATAN": "1.02.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 39,
+  "KODE_KEGIATAN": "1.02.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 40,
+  "KODE_KEGIATAN": "1.02.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 41,
+  "KODE_KEGIATAN": "1.02.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 42,
+  "KODE_KEGIATAN": "1.02.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 43,
+  "KODE_KEGIATAN": "1.02.01.2.10",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 44,
+  "KODE_KEGIATAN": "2.14.02.2.02",
+  "NAMA_KEGIATAN": "Peningkatan Pelayanan BLUD",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 45,
+  "KODE_KEGIATAN": "2.14.03.2.01",
+  "NAMA_KEGIATAN": "Pemetaan Perkiraan Pengendalian Penduduk Cakupan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 46,
+  "KODE_KEGIATAN": "2.14.03.2.02",
+  "NAMA_KEGIATAN": "Pelaksanaan Advokasi, Komunikasi, Informasi dan Edukasi (KIE) Pengendalian Penduduk dan KB Sesuai Kearifan Budaya Lokal",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 47,
+  "KODE_KEGIATAN": "2.14.03.2.03",
+  "NAMA_KEGIATAN": "Pendayagunaan Tenaga Penyuluh KB\/Petugas Lapangan KB (PKB\/PLKB)",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 48,
+  "KODE_KEGIATAN": "2.14.03.2.04",
+  "NAMA_KEGIATAN": "Pengendalian dan Pendistribusian Kebutuhan Alat dan Obat Kontrasepsi serta Pelaksanaan Pelayanan KB di Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 49,
+  "KODE_KEGIATAN": "2.14.04.2.01",
+  "NAMA_KEGIATAN": "Pemberdayaan dan Peningkatan Peran Serta Organisasi Kemasyarakatan Tingkat Daerah Kabupaten\/Kota dalam Pelaksanaan Pelayanan dan Pembinaan Kesertaan Ber-KB",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 50,
+  "KODE_KEGIATAN": "2.14.04.2.02",
+  "NAMA_KEGIATAN": "Pelaksanaan Pembangunan Keluarga Melalui Pembinaan Ketahanan dan Kesejahteraan Keluarga",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 51,
+  "KODE_KEGIATAN": "1.03.02.2.02",
+  "NAMA_KEGIATAN": "Pelaksanaan dan Peningkatan Peran Serta Organisasi Kemasyarakatan Tingkat Daerah Kabupaten\/ Kota dalam Pembangunan Keluarga Melalui Pembinaan Ketahanan dan Kesejahteraan Keluarga",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 52,
+  "KODE_KEGIATAN": "1.03.03.2.01",
+  "NAMA_KEGIATAN": "Pengembangan dan Pengelolaan Sistem Irigasi Primer dan Sekunder pada Daerah Irigasi yang Luasnya di Bawah 1000 Ha dalam 1 (Satu) Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 53,
+  "KODE_KEGIATAN": "1.03.05.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan dan Pengembangan Sistem Penyediaan Air Minum (SPAM) di Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 54,
+  "KODE_KEGIATAN": "1.03.06.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan dan Pengembangan Sistem Air Limbah Domestik dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 55,
+  "KODE_KEGIATAN": "1.03.08.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan dan Pengembangan Sistem Drainase yang Terhubung Langsung dengan Sungai dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 56,
+  "KODE_KEGIATAN": "1.03.09.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Bangunan Gedung di Wilayah Daerah Kabupaten\/Kota, Pemberian Izin Mendirikan Bangunan (IMB) dan Sertifikat Laik Fungsi Bangunan Gedung",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 57,
+  "KODE_KEGIATAN": "1.03.10.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Penataan Bangunan dan Lingkungannya di Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 58,
+  "KODE_KEGIATAN": "1.03.11.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Jalan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 59,
+  "KODE_KEGIATAN": "1.03.11.2.02",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pelatihan Tenaga Terampil Konstruksi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 60,
+  "KODE_KEGIATAN": "1.03.11.2.04",
+  "NAMA_KEGIATAN": "Penyelenggaraan Sistem Informasi Jasa Konstruksi Cakupan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 61,
+  "KODE_KEGIATAN": "1.03.12.2.01",
+  "NAMA_KEGIATAN": "Pengawasan Tertib Usaha, Tertib Penyelenggaraan dan Tertib Pemanfaatan Jasa Konstruksi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 62,
+  "KODE_KEGIATAN": "1.03.12.2.02",
+  "NAMA_KEGIATAN": "Penetapan Rencana Tata Ruang Wilayah (RTRW) dan Rencana Rinci Tata Ruang (RRTR) Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 63,
+  "KODE_KEGIATAN": "1.03.12.2.03",
+  "NAMA_KEGIATAN": "Koordinasi dan Sinkronisasi Perencanaan Tata Ruang Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 64,
+  "KODE_KEGIATAN": "1.03.12.2.04",
+  "NAMA_KEGIATAN": "Koordinasi dan Sinkronisasi Pemanfaatan Ruang Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 65,
+  "KODE_KEGIATAN": "1.03.01.2.01",
+  "NAMA_KEGIATAN": "Koordinasi dan Sinkronisasi Pengendalian Pemanfaatan Ruang Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 66,
+  "KODE_KEGIATAN": "1.03.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 67,
+  "KODE_KEGIATAN": "1.03.01.2.03",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 68,
+  "KODE_KEGIATAN": "1.03.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 69,
+  "KODE_KEGIATAN": "1.03.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 70,
+  "KODE_KEGIATAN": "1.03.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 71,
+  "KODE_KEGIATAN": "1.03.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 72,
+  "KODE_KEGIATAN": "1.04.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 73,
+  "KODE_KEGIATAN": "1.04.02.2.03",
+  "NAMA_KEGIATAN": "Pendataan Penyediaan dan Rehabilitasi Rumah Korban Bencana atau Relokasi Program Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 74,
+  "KODE_KEGIATAN": "1.04.03.2.03",
+  "NAMA_KEGIATAN": "Pembangunan dan Rehabilitasi Rumah Korban Bencana atau Relokasi Program Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 75,
+  "KODE_KEGIATAN": "1.04.05.2.01",
+  "NAMA_KEGIATAN": "Peningkatan Kualitas Kawasan Permukiman Kumuh dengan Luas di Bawah 10 (Sepuluh) Ha",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 76,
+  "KODE_KEGIATAN": "1.04.06.2.01",
+  "NAMA_KEGIATAN": "Urusan Penyelenggaraan PSU Perumahan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 77,
+  "KODE_KEGIATAN": "1.05.02.2.01",
+  "NAMA_KEGIATAN": "Sertifikasi dan Registrasi bagi Orang atau Badan Hukum yang Melaksanakan Perancangan dan Perencanaan Rumah serta Perencanaan Prasarana, Sarana dan Utilitas Umum PSU Tingkat Kemampuan Kecil",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 78,
+  "KODE_KEGIATAN": "1.05.02.2.02",
+  "NAMA_KEGIATAN": "Penanganan Gangguan Ketenteraman dan Ketertiban Umum dalam 1 (Satu) Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 79,
+  "KODE_KEGIATAN": "1.05.02.2.03",
+  "NAMA_KEGIATAN": "Penegakan Peraturan Daerah Kabupaten\/Kota dan Peraturan Bupati\/Wali Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 80,
+  "KODE_KEGIATAN": "1.05.04.2.01",
+  "NAMA_KEGIATAN": "Pembinaan Penyidik Pegawai Negeri Sipil (PPNS) Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 81,
+  "KODE_KEGIATAN": "1.05.04.2.03",
+  "NAMA_KEGIATAN": "Pencegahan, Pengendalian, Pemadaman, Penyelamatan, dan Penanganan Bahan Berbahaya dan Beracun Kebakaran dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 82,
+  "KODE_KEGIATAN": "1.05.04.2.04",
+  "NAMA_KEGIATAN": "Investigasi Kejadian Kebakaran",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 83,
+  "KODE_KEGIATAN": "1.05.04.2.05",
+  "NAMA_KEGIATAN": "Pemberdayaan Masyarakat dalam Pencegahan Kebakaran",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 84,
+  "KODE_KEGIATAN": "1.05.01.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Operasi Pencarian dan Pertolongan Terhadap Kondisi Membahayakan Manusia",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 85,
+  "KODE_KEGIATAN": "1.05.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 86,
+  "KODE_KEGIATAN": "1.05.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 87,
+  "KODE_KEGIATAN": "1.05.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 88,
+  "KODE_KEGIATAN": "1.05.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 89,
+  "KODE_KEGIATAN": "1.05.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 90,
+  "KODE_KEGIATAN": "1.05.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 91,
+  "KODE_KEGIATAN": "1.05.03.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Penanggulangan Bencana Daerah"
+ },
+ {
+  "NO": 92,
+  "KODE_KEGIATAN": "1.05.03.2.02",
+  "NAMA_KEGIATAN": "Pelayanan Informasi Rawan Bencana Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Penanggulangan Bencana Daerah"
+ },
+ {
+  "NO": 93,
+  "KODE_KEGIATAN": "1.05.03.2.03",
+  "NAMA_KEGIATAN": "Pelayanan Pencegahan dan Kesiapsiagaan Terhadap Bencana",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Penanggulangan Bencana Daerah"
+ },
+ {
+  "NO": 94,
+  "KODE_KEGIATAN": "1.05.03.2.04",
+  "NAMA_KEGIATAN": "Pelayanan Penyelamatan dan Evakuasi Korban Bencana",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.05.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Penanggulangan Bencana Daerah"
+ },
+ {
+  "NO": 95,
+  "KODE_KEGIATAN": "1.06.02.2.03",
+  "NAMA_KEGIATAN": "Penataan Sistem Dasar Penanggulangan Bencana",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 96,
+  "KODE_KEGIATAN": "1.06.04.2.01",
+  "NAMA_KEGIATAN": "Pengembangan Potensi Sumber Kesejahteraan Sosial Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 97,
+  "KODE_KEGIATAN": "1.06.04.2.02",
+  "NAMA_KEGIATAN": "Rehabilitasi Sosial Dasar Penyandang Disabilitas Terlantar, Anak Terlantar, Lanjut Usia Terlantar, serta Gelandangan Pengemis di Luar Panti Sosial",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 98,
+  "KODE_KEGIATAN": "1.06.05.2.01",
+  "NAMA_KEGIATAN": "Rehabilitasi Sosial Penyandang Masalah Kesejahteraan Sosial (PMKS) Lainnya Bukan Korban HIV\/AIDS dan NAPZA di Luar Panti Sosial",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 99,
+  "KODE_KEGIATAN": "1.06.05.2.02",
+  "NAMA_KEGIATAN": "Pemeliharaan Anak-Anak Terlantar",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 100,
+  "KODE_KEGIATAN": "1.06.06.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Data Fakir Miskin Cakupan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 101,
+  "KODE_KEGIATAN": "1.06.06.2.02",
+  "NAMA_KEGIATAN": "Perlindungan Sosial Korban Bencana Alam dan Sosial Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 102,
+  "KODE_KEGIATAN": "1.06.01.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pemberdayaan Masyarakat Terhadap Kesiapsiagaan Bencana Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 103,
+  "KODE_KEGIATAN": "1.06.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 104,
+  "KODE_KEGIATAN": "1.06.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 105,
+  "KODE_KEGIATAN": "1.06.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 106,
+  "KODE_KEGIATAN": "1.06.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 107,
+  "KODE_KEGIATAN": "1.06.01.2.13",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 108,
+  "KODE_KEGIATAN": "2.08.02.2.01",
+  "NAMA_KEGIATAN": "Penataan Organisasi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 109,
+  "KODE_KEGIATAN": "2.08.02.2.02",
+  "NAMA_KEGIATAN": "Pelembagaan Pengarusutamaan Gender (PUG) pada Lembaga Pemerintah Kewenangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 110,
+  "KODE_KEGIATAN": "2.08.03.2.02",
+  "NAMA_KEGIATAN": "Pemberdayaan Perempuan Bidang Politik, Hukum, Sosial, dan Ekonomi pada Organisasi Kemasyarakatan Kewenangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 111,
+  "KODE_KEGIATAN": "2.08.03.2.03",
+  "NAMA_KEGIATAN": "Penyediaan Layanan Rujukan Lanjutan bagi Perempuan Korban Kekerasan yang Memerlukan Koordinasi Kewenangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 112,
+  "KODE_KEGIATAN": "2.08.04.2.01",
+  "NAMA_KEGIATAN": "Penguatan dan Pengembangan Lembaga Penyedia Layanan Perlindungan Perempuan Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 113,
+  "KODE_KEGIATAN": "2.08.04.2.02",
+  "NAMA_KEGIATAN": "Peningkatan Kualitas Keluarga dalam Mewujudkan Kesetaraan Gender (KG) dan Hak Anak Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 114,
+  "KODE_KEGIATAN": "2.08.05.2.01",
+  "NAMA_KEGIATAN": "Penguatan dan Pengembangan Lembaga Penyedia Layanan Peningkatan Kualitas Keluarga dalam Mewujudkan KG dan Hak Anak yang Wilayah Kerjanya dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 115,
+  "KODE_KEGIATAN": "2.08.06.2.01",
+  "NAMA_KEGIATAN": "Pengumpulan, Pengolahan Analisis dan Penyajian Data Gender dan Anak Dalam Kelembagaan Data di Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 116,
+  "KODE_KEGIATAN": "2.08.06.2.02",
+  "NAMA_KEGIATAN": "Pelembagaan PHA pada Lembaga Pemerintah, Nonpemerintah, dan Dunia Usaha Kewenangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 117,
+  "KODE_KEGIATAN": "2.08.07.2.01",
+  "NAMA_KEGIATAN": "Penguatan dan Pengembangan Lembaga Penyedia Layanan Peningkatan Kualitas Hidup Anak Kewenangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 118,
+  "KODE_KEGIATAN": "2.08.07.2.02",
+  "NAMA_KEGIATAN": "Pencegahan Kekerasan Terhadap Anak yang Melibatkan para Pihak Lingkup Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 119,
+  "KODE_KEGIATAN": "2.08.07.2.03",
+  "NAMA_KEGIATAN": "Penyediaan Layanan bagi Anak yang Memerlukan Perlindungan Khusus yang Memerlukan Koordinasi Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 120,
+  "KODE_KEGIATAN": "2.11.02.2.01",
+  "NAMA_KEGIATAN": "Penguatan dan Pengembangan Lembaga Penyedia Layanan bagi Anak yang Memerlukan Perlindungan Khusus Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 121,
+  "KODE_KEGIATAN": "2.11.02.2.02",
+  "NAMA_KEGIATAN": "Rencana Perlindungan dan Pengelolaan Lingkungan Hidup (RPPLH) Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 122,
+  "KODE_KEGIATAN": "2.11.03.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Kajian Lingkungan Hidup Strategis (KLHS) Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 123,
+  "KODE_KEGIATAN": "2.11.04.2.01",
+  "NAMA_KEGIATAN": "Pencegahan Pencemaran dan\/atau Kerusakan Lingkungan Hidup Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 124,
+  "KODE_KEGIATAN": "2.11.05.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Keanekaragaman Hayati Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 125,
+  "KODE_KEGIATAN": "2.11.06.2.01",
+  "NAMA_KEGIATAN": "Penyimpanan sementara Limbah B3",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 126,
+  "KODE_KEGIATAN": "2.11.07.2.02",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengawasan Terhadap Usaha dan\/atau Kegiatan yang Izin Lingkungan dan Izin PPLH Diterbitkan oleh Pemerintah Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 127,
+  "KODE_KEGIATAN": "2.11.08.2.01",
+  "NAMA_KEGIATAN": "Peningkatan Kapasitas MHA dan Kearifan Lokal, Pengetahuan Tradisional dan Hak MHA yang Terkait dengan PPLH",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 128,
+  "KODE_KEGIATAN": "2.11.10.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pendidikan, Pelatihan, dan Penyuluhan Lingkungan Hidup untuk Lembaga Kemasyarakatan Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 129,
+  "KODE_KEGIATAN": "2.11.11.2.01",
+  "NAMA_KEGIATAN": "Penyelesaian Pengaduan Masyarakat di Bidang Perlindungan dan Pengelolaan Lingkungan Hidup (PPLH) Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 130,
+  "KODE_KEGIATAN": "2.11.01.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Sampah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 131,
+  "KODE_KEGIATAN": "2.11.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 132,
+  "KODE_KEGIATAN": "2.11.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 133,
+  "KODE_KEGIATAN": "2.11.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 134,
+  "KODE_KEGIATAN": "2.11.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 135,
+  "KODE_KEGIATAN": "2.11.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 136,
+  "KODE_KEGIATAN": "2.11.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 137,
+  "KODE_KEGIATAN": "2.12.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 138,
+  "KODE_KEGIATAN": "2.12.02.2.02",
+  "NAMA_KEGIATAN": "Pelayanan Pendaftaran Penduduk",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 139,
+  "KODE_KEGIATAN": "2.12.02.2.03",
+  "NAMA_KEGIATAN": "Penataan Pendaftaran Penduduk",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 140,
+  "KODE_KEGIATAN": "2.12.03.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pendaftaran Penduduk",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 141,
+  "KODE_KEGIATAN": "2.12.03.2.02",
+  "NAMA_KEGIATAN": "Pelayanan Pencatatan Sipil",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 142,
+  "KODE_KEGIATAN": "2.12.04.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pencatatan Sipil",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 143,
+  "KODE_KEGIATAN": "2.12.04.2.03",
+  "NAMA_KEGIATAN": "Pengumpulan Data Kependudukan dan Pemanfaatan dan Penyajian Database Kependudukan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 144,
+  "KODE_KEGIATAN": "2.12.04.2.04",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pengelolaan Informasi Administrasi Kependudukan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 145,
+  "KODE_KEGIATAN": "2.12.05.2.01",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengawasan Pengelolaan Informasi Administrasi Kependudukan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 146,
+  "KODE_KEGIATAN": "2.12.01.2.01",
+  "NAMA_KEGIATAN": "Penyusunan Profil Kependudukan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 147,
+  "KODE_KEGIATAN": "2.12.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 148,
+  "KODE_KEGIATAN": "2.12.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 149,
+  "KODE_KEGIATAN": "2.12.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 150,
+  "KODE_KEGIATAN": "2.12.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 151,
+  "KODE_KEGIATAN": "2.12.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 152,
+  "KODE_KEGIATAN": "2.12.01.2.13",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 153,
+  "KODE_KEGIATAN": "2.13.02.2.01",
+  "NAMA_KEGIATAN": "Penataan Organisasi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 154,
+  "KODE_KEGIATAN": "2.13.03.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Penataan Desa",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 155,
+  "KODE_KEGIATAN": "2.13.04.2.01",
+  "NAMA_KEGIATAN": "Fasilitasi Kerja Sama antar Desa",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 156,
+  "KODE_KEGIATAN": "2.13.05.2.01",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengawasan Penyelenggaraan Administrasi Pemerintahan Desa",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 157,
+  "KODE_KEGIATAN": "2.13.01.2.01",
+  "NAMA_KEGIATAN": "Pemberdayaan Lembaga Kemasyarakatan yang Bergerak di Bidang Pemberdayaan Desa dan Lembaga Adat Tingkat Daerah Kabupaten\/Kota serta Pemberdayaan Masyarakat Hukum Adat yang Masyarakat Pelakunya Hukum Adat yang Sama dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 158,
+  "KODE_KEGIATAN": "2.13.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 159,
+  "KODE_KEGIATAN": "2.13.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 160,
+  "KODE_KEGIATAN": "2.13.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 161,
+  "KODE_KEGIATAN": "2.13.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 162,
+  "KODE_KEGIATAN": "2.13.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 163,
+  "KODE_KEGIATAN": "2.15.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 164,
+  "KODE_KEGIATAN": "2.15.02.2.02",
+  "NAMA_KEGIATAN": "Penetapan Rencana Induk Jaringan LLAJ Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 165,
+  "KODE_KEGIATAN": "2.15.02.2.03",
+  "NAMA_KEGIATAN": "Penyediaan Perlengkapan Jalan di Jalan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 166,
+  "KODE_KEGIATAN": "2.15.02.2.05",
+  "NAMA_KEGIATAN": "Pengelolaan Terminal Penumpang Tipe C",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 167,
+  "KODE_KEGIATAN": "2.15.02.2.06",
+  "NAMA_KEGIATAN": "Pengujian Berkala Kendaraan Bermotor",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 168,
+  "KODE_KEGIATAN": "2.15.02.2.08",
+  "NAMA_KEGIATAN": "Pelaksanaan Manajemen dan Rekayasa Lalu Lintas untuk Jaringan Jalan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 169,
+  "KODE_KEGIATAN": "2.15.02.2.09",
+  "NAMA_KEGIATAN": "Audit dan Inspeksi Keselamatan LLAJ di Jalan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 170,
+  "KODE_KEGIATAN": "2.15.02.2.11",
+  "NAMA_KEGIATAN": "Penyediaan Angkutan Umum untuk Jasa Angkutan Orang dan\/atau Barang Antar Kota dalam 1 (Satu) Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 171,
+  "KODE_KEGIATAN": "2.15.02.2.16",
+  "NAMA_KEGIATAN": "Penetapan Rencana Umum Jaringan Trayek Perkotaan dalam 1 (Satu) Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 172,
+  "KODE_KEGIATAN": "2.15.03.2.03",
+  "NAMA_KEGIATAN": "Penetapan Tarif Kelas Ekonomi untuk Angkutan Orang yang Melayani Trayek serta Angkutan Perkotaan dan Perdesaan dalam 1 (Satu) Daerah Kabupaten\/Kota ",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 173,
+  "KODE_KEGIATAN": "2.15.03.2.07",
+  "NAMA_KEGIATAN": "Penerbitan Izin Usaha Penyelenggaraan Angkutan Sungai dan Danau Sesuai dengan Domisili Orang Perseorangan Warga Negara Indonesia atau Badan Usaha",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 174,
+  "KODE_KEGIATAN": "2.15.03.2.09",
+  "NAMA_KEGIATAN": "Penetapan Lintas Penyeberangan dan Persetujuan Pengoperasian untuk Kapal yang Melayani Penyeberangan dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 175,
+  "KODE_KEGIATAN": "2.15.03.2.11",
+  "NAMA_KEGIATAN": "Penetapan Tarif Angkutan Penyeberangan Penumpang Kelas Ekonomi dan Kendaraan beserta Muatannya pada Lintas Penyeberangan dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 176,
+  "KODE_KEGIATAN": "2.15.03.2.13",
+  "NAMA_KEGIATAN": "Penetapan Rencana Induk dan DLKR\/DLKP untuk Pelabuhan Sungai dan Danau",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 177,
+  "KODE_KEGIATAN": "2.15.01.2.01",
+  "NAMA_KEGIATAN": "Pembangunan dan Penerbitan Izin Pembangunan dan Pengoperasian Pelabuhan Sungai dan Danau",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 178,
+  "KODE_KEGIATAN": "2.15.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 179,
+  "KODE_KEGIATAN": "2.15.01.2.03",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 180,
+  "KODE_KEGIATAN": "2.15.01.2.04",
+  "NAMA_KEGIATAN": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 181,
+  "KODE_KEGIATAN": "2.15.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Pendapatan Daerah Kewenangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 182,
+  "KODE_KEGIATAN": "2.15.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 183,
+  "KODE_KEGIATAN": "2.15.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 184,
+  "KODE_KEGIATAN": "2.15.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 185,
+  "KODE_KEGIATAN": "2.15.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 186,
+  "KODE_KEGIATAN": "2.16.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 187,
+  "KODE_KEGIATAN": "2.16.03.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Informasi dan Komunikasi Publik Pemerintah Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 188,
+  "KODE_KEGIATAN": "2.16.03.2.02",
+  "NAMA_KEGIATAN": "Pengelolaan Nama Domain yang Telah Ditetapkan oleh Pemerintah Pusat dan Sub Domain di Lingkup Pemerintah Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 189,
+  "KODE_KEGIATAN": "2.16.01.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan E-government di Lingkup Pemerintah Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 190,
+  "KODE_KEGIATAN": "2.16.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 191,
+  "KODE_KEGIATAN": "2.16.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 192,
+  "KODE_KEGIATAN": "2.16.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 193,
+  "KODE_KEGIATAN": "2.16.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 194,
+  "KODE_KEGIATAN": "2.16.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 195,
+  "KODE_KEGIATAN": "2.20.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 196,
+  "KODE_KEGIATAN": "2.21.02.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Statistik Sektoral di Lingkup Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 197,
+  "KODE_KEGIATAN": "2.21.02.2.02",
+  "NAMA_KEGIATAN": "Penyelenggaraan Persandian untuk Pengamanan Informasi Pemerintah Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 198,
+  "KODE_KEGIATAN": "2.18.02.2.01",
+  "NAMA_KEGIATAN": "Penetapan Pola Hubungan Komunikasi Sandi Antar Perangkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 199,
+  "KODE_KEGIATAN": "2.18.02.2.02",
+  "NAMA_KEGIATAN": "Penetapan Pemberian Fasilitas\/Insentif Dibidang Penanaman Modal yang Menjadi Kewenangan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 200,
+  "KODE_KEGIATAN": "2.18.03.2.01",
+  "NAMA_KEGIATAN": "Pembuatan Peta Potensi Investasi Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 201,
+  "KODE_KEGIATAN": "2.18.04.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Promosi Penanaman Modal yang Menjadi Kewenangan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 202,
+  "KODE_KEGIATAN": "2.18.05.2.01",
+  "NAMA_KEGIATAN": "Pelayanan Perizinan dan Non Perizinan Secara Terpadu Satu Pintu dibidang Penanaman Modal yang Menjadi Kewenangan Daerah Kabupaten\/ Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 203,
+  "KODE_KEGIATAN": "2.18.06.2.01",
+  "NAMA_KEGIATAN": "Pengendalian Pelaksanaan Penanaman Modal yang Menjadi Kewenangan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 204,
+  "KODE_KEGIATAN": "2.18.01.2.02",
+  "NAMA_KEGIATAN": "Pengelolaan Data dan Informasi Perizinan dan Non Perizinan yang Terintegrasi pada Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 205,
+  "KODE_KEGIATAN": "2.18.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 206,
+  "KODE_KEGIATAN": "2.18.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 207,
+  "KODE_KEGIATAN": "2.18.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 208,
+  "KODE_KEGIATAN": "2.18.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 209,
+  "KODE_KEGIATAN": "2.19.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 210,
+  "KODE_KEGIATAN": "2.19.02.2.02",
+  "NAMA_KEGIATAN": "Penyadaran, Pemberdayaan, dan Pengembangan Pemuda dan Kepemudaan Terhadap Pemuda Pelopor Kabupaten\/Kota, Wirausaha Muda Pemula, dan Pemuda Kader Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 211,
+  "KODE_KEGIATAN": "2.19.03.2.01",
+  "NAMA_KEGIATAN": "Pemberdayaan dan Pengembangan Organisasi Kepemudaan Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 212,
+  "KODE_KEGIATAN": "2.19.03.2.02",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengembangan Olahraga Pendidikan pada Jenjang Pendidikan yang Menjadi Kewenangan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 213,
+  "KODE_KEGIATAN": "2.19.03.2.03",
+  "NAMA_KEGIATAN": "Penyelenggaraan Kejuaraan Olahraga Tingkat Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 214,
+  "KODE_KEGIATAN": "2.19.03.2.04",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengembangan Olahraga Prestasi Tingkat Daerah Provinsi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 215,
+  "KODE_KEGIATAN": "2.19.03.2.05",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengembangan Organisasi Olahraga",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 216,
+  "KODE_KEGIATAN": "2.19.04.2.01",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengembangan Olahraga Rekreasi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 217,
+  "KODE_KEGIATAN": "3.26.02.2.02",
+  "NAMA_KEGIATAN": "Pembinaan dan Pengembangan Organisasi Kepramukaan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 218,
+  "KODE_KEGIATAN": "3.26.02.2.03",
+  "NAMA_KEGIATAN": "Pengelolaan Kawasan Strategis Pariwisata Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 219,
+  "KODE_KEGIATAN": "3.26.03.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Destinasi Pariwisata Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 220,
+  "KODE_KEGIATAN": "3.26.04.2.02",
+  "NAMA_KEGIATAN": "Pemasaran Pariwisata Dalam dan Luar Negeri Daya Tarik, Destinasi dan Kawasan Strategis Pariwisata Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 221,
+  "KODE_KEGIATAN": "3.26.05.2.01",
+  "NAMA_KEGIATAN": "Pengembangan Ekosistem Ekonomi Kreatif ",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 222,
+  "KODE_KEGIATAN": "3.26.05.2.02",
+  "NAMA_KEGIATAN": "Pelaksanaan Peningkatan Kapasitas Sumber Daya Manusia Pariwisata dan Ekonomi Kreatif Tingkat Dasar",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 223,
+  "KODE_KEGIATAN": "3.26.01.2.01",
+  "NAMA_KEGIATAN": "Pengembangan Kapasitas Pelaku Ekonomi Kreatif",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 224,
+  "KODE_KEGIATAN": "3.26.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 225,
+  "KODE_KEGIATAN": "3.26.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 226,
+  "KODE_KEGIATAN": "3.26.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 227,
+  "KODE_KEGIATAN": "3.26.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 228,
+  "KODE_KEGIATAN": "3.26.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 229,
+  "KODE_KEGIATAN": "2.09.03.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 230,
+  "KODE_KEGIATAN": "2.09.03.2.02",
+  "NAMA_KEGIATAN": "Penyediaan dan Penyaluran Pangan Pokok atau Pangan Lainnya sesuai dengan Kebutuhan Daerah Kabupaten\/Kota dalam rangka Stabilisasi Pasokan dan Harga Pangan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 231,
+  "KODE_KEGIATAN": "2.09.03.2.04",
+  "NAMA_KEGIATAN": "Pengelolaan dan Keseimbangan Cadangan Pangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 232,
+  "KODE_KEGIATAN": "2.09.04.2.01",
+  "NAMA_KEGIATAN": "Pelaksanaan Pencapaian Target Konsumsi Pangan Perkapita\/Tahun sesuai dengan Angka Kecukupan Gizi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 233,
+  "KODE_KEGIATAN": "2.09.04.2.02",
+  "NAMA_KEGIATAN": "Penyusunan Peta Kerentanan dan Ketahanan Pangan Kecamatan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 234,
+  "KODE_KEGIATAN": "2.09.05.2.01",
+  "NAMA_KEGIATAN": "Penanganan Kerawanan Pangan Kewenangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 235,
+  "KODE_KEGIATAN": "3.25.03.2.01",
+  "NAMA_KEGIATAN": "Pelaksanaan Pengawasan Keamanan Pangan Segar Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 236,
+  "KODE_KEGIATAN": "3.25.04.2.02",
+  "NAMA_KEGIATAN": "Pengelolaan Penangkapan Ikan di Wilayah Sungai, Danau, Waduk, Rawa, dan Genangan Air Lainnya yang Dapat Diusahakan dalam 1 (Satu) Daerah Kabupaten\/ Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 237,
+  "KODE_KEGIATAN": "3.25.04.2.04",
+  "NAMA_KEGIATAN": "Pemberdayaan Pembudi Daya Ikan Kecil",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 238,
+  "KODE_KEGIATAN": "3.25.06.2.03",
+  "NAMA_KEGIATAN": "Pengelolaan Pembudidayaan Ikan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 239,
+  "KODE_KEGIATAN": "3.27.02.2.01",
+  "NAMA_KEGIATAN": "Penyediaan dan Penyaluran Bahan Baku Industri Pengolahan Ikan dalam 1 (Satu) Daerah Kabupaten\/ Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 240,
+  "KODE_KEGIATAN": "3.27.02.2.02",
+  "NAMA_KEGIATAN": "Pengawasan Penggunaan Sarana Pertanian",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 241,
+  "KODE_KEGIATAN": "3.27.02.2.05",
+  "NAMA_KEGIATAN": "Pengelolaan Sumber Daya Genetik (SDG) Hewan, Tumbuhan, dan Mikro Organisme Kewenangan Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 242,
+  "KODE_KEGIATAN": "3.27.03.2.01",
+  "NAMA_KEGIATAN": "Pengendalian dan Pengawasan Penyediaan dan Peredaran Benih\/Bibit Ternak, dan Hijauan Pakan Ternak dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 243,
+  "KODE_KEGIATAN": "3.27.03.2.02",
+  "NAMA_KEGIATAN": "Pengembangan Prasarana Pertanian",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 244,
+  "KODE_KEGIATAN": "3.27.04.2.01",
+  "NAMA_KEGIATAN": "Pembangunan Prasarana Pertanian",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 245,
+  "KODE_KEGIATAN": "3.27.04.2.02",
+  "NAMA_KEGIATAN": "Penjaminan Kesehatan Hewan, Penutupan dan Pembukaan Daerah Wabah Penyakit Hewan Menular Dalam daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 246,
+  "KODE_KEGIATAN": "3.27.04.2.04",
+  "NAMA_KEGIATAN": "Pengawasan Pemasukan dan Pengeluaran Hewan dan Produk Hewan Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 247,
+  "KODE_KEGIATAN": "3.27.05.2.01",
+  "NAMA_KEGIATAN": "Penerapan dan Pengawasan Persyaratan Teknis Kesehatan Masyarakat Veteriner",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 248,
+  "KODE_KEGIATAN": "3.27.06.2.01",
+  "NAMA_KEGIATAN": "Pengendalian dan Penanggulangan Bencana Pertanian Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 249,
+  "KODE_KEGIATAN": "3.27.07.2.01",
+  "NAMA_KEGIATAN": "Penerbitan Izin Usaha Pertanian yang Kegiatan Usahanya dalam Daerah Kabupaten\/Kota",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 250,
+  "KODE_KEGIATAN": "3.27.01.2.01",
+  "NAMA_KEGIATAN": "Pelaksanaan Penyuluhan Pertanian",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 251,
+  "KODE_KEGIATAN": "3.27.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 252,
+  "KODE_KEGIATAN": "3.27.01.2.03",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 253,
+  "KODE_KEGIATAN": "3.27.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 254,
+  "KODE_KEGIATAN": "3.27.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 255,
+  "KODE_KEGIATAN": "3.27.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 256,
+  "KODE_KEGIATAN": "3.27.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 257,
+  "KODE_KEGIATAN": "4.01.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 258,
+  "KODE_KEGIATAN": "4.01.02.2.02",
+  "NAMA_KEGIATAN": "Administrasi Tata Pemerintahan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 259,
+  "KODE_KEGIATAN": "4.01.02.2.03",
+  "NAMA_KEGIATAN": "Pelaksanaan Kebijakan Kesejahteraan Rakyat",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 260,
+  "KODE_KEGIATAN": "4.01.02.2.04",
+  "NAMA_KEGIATAN": "Fasilitasi dan Koordinasi Hukum",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 261,
+  "KODE_KEGIATAN": "4.01.03.2.01",
+  "NAMA_KEGIATAN": "Fasilitasi Kerja Sama Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 262,
+  "KODE_KEGIATAN": "4.01.03.2.02",
+  "NAMA_KEGIATAN": "Pelaksanaan Kebijakan Perekonomian",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 263,
+  "KODE_KEGIATAN": "4.01.03.2.03",
+  "NAMA_KEGIATAN": "Pelaksanaan Administrasi Pembangunan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 264,
+  "KODE_KEGIATAN": "4.01.03.2.04",
+  "NAMA_KEGIATAN": "Pengelolaan Pengadaan Barang dan Jasa",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 265,
+  "KODE_KEGIATAN": "4.01.01.2.01",
+  "NAMA_KEGIATAN": "Pemantauan Kebijakan Sumber Daya Alam",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 266,
+  "KODE_KEGIATAN": "4.01.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 267,
+  "KODE_KEGIATAN": "4.01.01.2.03",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 268,
+  "KODE_KEGIATAN": "4.01.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 269,
+  "KODE_KEGIATAN": "4.01.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 270,
+  "KODE_KEGIATAN": "4.01.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 271,
+  "KODE_KEGIATAN": "4.01.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 272,
+  "KODE_KEGIATAN": "4.01.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 273,
+  "KODE_KEGIATAN": "4.01.01.2.11",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 274,
+  "KODE_KEGIATAN": "4.01.01.2.12",
+  "NAMA_KEGIATAN": "Administrasi Keuangan dan Operasional Kepala Daerah dan Wakil Kepala Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 275,
+  "KODE_KEGIATAN": "4.01.01.2.13",
+  "NAMA_KEGIATAN": "Fasilitasi Kerumahtanggaan Sekretariat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 276,
+  "KODE_KEGIATAN": "4.01.01.2.14",
+  "NAMA_KEGIATAN": "Penataan Organisasi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 277,
+  "KODE_KEGIATAN": "4.02.02.2.01",
+  "NAMA_KEGIATAN": "Pelaksanaan Protokol dan Komunikasi Pimpinan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 278,
+  "KODE_KEGIATAN": "4.02.02.2.02",
+  "NAMA_KEGIATAN": "Pembentukan Peraturan Daerah dan Peraturan DPRD",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 279,
+  "KODE_KEGIATAN": "4.02.02.2.03",
+  "NAMA_KEGIATAN": "Pembahasan Kebijakan Anggaran",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 280,
+  "KODE_KEGIATAN": "4.02.02.2.04",
+  "NAMA_KEGIATAN": "Pengawasan Penyelenggaraan Pemerintahan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 281,
+  "KODE_KEGIATAN": "4.02.02.2.05",
+  "NAMA_KEGIATAN": "Peningkatan Kapasitas DPRD",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 282,
+  "KODE_KEGIATAN": "4.02.02.2.06",
+  "NAMA_KEGIATAN": "Penyerapan dan Penghimpunan Aspirasi Masyarakat",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 283,
+  "KODE_KEGIATAN": "4.02.02.2.08",
+  "NAMA_KEGIATAN": "Pelaksanaan dan Pengawasan Kode Etik DPRD",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 284,
+  "KODE_KEGIATAN": "4.02.01.2.01",
+  "NAMA_KEGIATAN": "Fasilitasi Tugas DPRD",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 285,
+  "KODE_KEGIATAN": "4.02.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 286,
+  "KODE_KEGIATAN": "4.02.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 287,
+  "KODE_KEGIATAN": "4.02.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 288,
+  "KODE_KEGIATAN": "4.02.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 289,
+  "KODE_KEGIATAN": "4.02.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 290,
+  "KODE_KEGIATAN": "4.02.01.2.13",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 291,
+  "KODE_KEGIATAN": "4.02.01.2.15",
+  "NAMA_KEGIATAN": "Penataan Organisasi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 292,
+  "KODE_KEGIATAN": "4.02.01.2.16",
+  "NAMA_KEGIATAN": "Layanan Keuangan dan Kesejahteraan DPRD",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 293,
+  "KODE_KEGIATAN": "5.01.02.2.01",
+  "NAMA_KEGIATAN": "Layanan Administrasi DPRD",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 294,
+  "KODE_KEGIATAN": "5.01.02.2.02",
+  "NAMA_KEGIATAN": "Penyusunan Perencanaan dan Pendanaan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 295,
+  "KODE_KEGIATAN": "5.01.02.2.03",
+  "NAMA_KEGIATAN": "Analisis Data dan Informasi Pemerintahan Daerah Bidang Perencanaan Pembangunan Daerah ",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 296,
+  "KODE_KEGIATAN": "5.01.03.2.01",
+  "NAMA_KEGIATAN": "Pengendalian, Evaluasi dan Pelaporan Bidang Perencanaan Pembangunan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 297,
+  "KODE_KEGIATAN": "5.01.03.2.02",
+  "NAMA_KEGIATAN": "Koordinasi Perencanaan Bidang Pemerintahan dan Pembangunan Manusia",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 298,
+  "KODE_KEGIATAN": "5.01.03.2.03",
+  "NAMA_KEGIATAN": "Koordinasi Perencanaan Bidang Perekonomian dan SDA (Sumber Daya Alam)",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 299,
+  "KODE_KEGIATAN": "5.01.01.2.01",
+  "NAMA_KEGIATAN": "Koordinasi Perencanaan Bidang Infrastruktur dan Kewilayahan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 300,
+  "KODE_KEGIATAN": "5.01.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 301,
+  "KODE_KEGIATAN": "5.01.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 302,
+  "KODE_KEGIATAN": "5.01.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 303,
+  "KODE_KEGIATAN": "5.01.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 304,
+  "KODE_KEGIATAN": "5.01.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 305,
+  "KODE_KEGIATAN": "5.01.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 306,
+  "KODE_KEGIATAN": "5.05.02.2.02",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 307,
+  "KODE_KEGIATAN": "5.05.02.2.03",
+  "NAMA_KEGIATAN": "Penelitian dan Pengembangan Bidang Sosial dan Kependudukan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 308,
+  "KODE_KEGIATAN": "5.05.02.2.04",
+  "NAMA_KEGIATAN": "Penelitian dan Pengembangan Bidang Ekonomi dan Pembangunan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 309,
+  "KODE_KEGIATAN": "5.02.02.2.01",
+  "NAMA_KEGIATAN": "Pengembangan Inovasi dan Teknologi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 310,
+  "KODE_KEGIATAN": "5.02.02.2.02",
+  "NAMA_KEGIATAN": "Koordinasi dan Penyusunan Rencana Anggaran Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 311,
+  "KODE_KEGIATAN": "5.02.04.2.01",
+  "NAMA_KEGIATAN": "Koordinasi dan Pengelolaan Perbendaharaan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 312,
+  "KODE_KEGIATAN": "5.02.01.2.01",
+  "NAMA_KEGIATAN": "Kegiatan Pengelolaan Pendapatan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 313,
+  "KODE_KEGIATAN": "5.02.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 314,
+  "KODE_KEGIATAN": "5.02.01.2.04",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 315,
+  "KODE_KEGIATAN": "5.02.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Pendapatan Daerah Kewenangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 316,
+  "KODE_KEGIATAN": "5.02.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 317,
+  "KODE_KEGIATAN": "5.02.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 318,
+  "KODE_KEGIATAN": "5.02.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 319,
+  "KODE_KEGIATAN": "5.02.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 320,
+  "KODE_KEGIATAN": "5.02.02.2.03",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.4.01.0.00.23.0000",
+  "NAMA_OPD": "Badan Pengelola Keuangan dan Aset Daerah"
+ },
+ {
+  "NO": 321,
+  "KODE_KEGIATAN": "5.02.02.2.04",
+  "NAMA_KEGIATAN": "Koordinasi dan Pelaksanaan Akuntansi dan Pelaporan Keuangan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.4.01.0.00.23.0000",
+  "NAMA_OPD": "Badan Pengelola Keuangan dan Aset Daerah"
+ },
+ {
+  "NO": 322,
+  "KODE_KEGIATAN": "5.02.02.2.05",
+  "NAMA_KEGIATAN": "Penunjang Urusan Kewenangan Pengelolaan Keuangan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.4.01.0.00.23.0000",
+  "NAMA_OPD": "Badan Pengelola Keuangan dan Aset Daerah"
+ },
+ {
+  "NO": 323,
+  "KODE_KEGIATAN": "5.02.03.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Data dan Implementasi Sistem Informasi Pemerintah Daerah Lingkup Keuangan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.02.4.01.0.00.23.0000",
+  "NAMA_OPD": "Badan Pengelola Keuangan dan Aset Daerah"
+ },
+ {
+  "NO": 324,
+  "KODE_KEGIATAN": "5.03.02.2.01",
+  "NAMA_KEGIATAN": "Pengelolaan Barang Milik Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 325,
+  "KODE_KEGIATAN": "5.03.02.2.02",
+  "NAMA_KEGIATAN": "Pengadaan, Pemberhentian dan Informasi Kepegawaian ASN",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 326,
+  "KODE_KEGIATAN": "5.03.02.2.03",
+  "NAMA_KEGIATAN": "Mutasi dan Promosi ASN",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 327,
+  "KODE_KEGIATAN": "5.03.02.2.04",
+  "NAMA_KEGIATAN": "Pengembangan Kompetensi ASN",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 328,
+  "KODE_KEGIATAN": "5.03.01.2.01",
+  "NAMA_KEGIATAN": "Penilaian dan Evaluasi Kinerja Aparatur",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 329,
+  "KODE_KEGIATAN": "5.03.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 330,
+  "KODE_KEGIATAN": "5.03.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 331,
+  "KODE_KEGIATAN": "5.03.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 332,
+  "KODE_KEGIATAN": "5.03.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 333,
+  "KODE_KEGIATAN": "5.03.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 334,
+  "KODE_KEGIATAN": "5.03.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 335,
+  "KODE_KEGIATAN": "5.04.02.2.02",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 336,
+  "KODE_KEGIATAN": "5.06.02.2.01",
+  "NAMA_KEGIATAN": "Sertifikasi, Kelembagaan, Pengembangan Kompetensi Manajerial dan Fungsional",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 337,
+  "KODE_KEGIATAN": "5.06.02.2.02",
+  "NAMA_KEGIATAN": "Perencanaan dan Fasilitasi Kerja Sama",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 338,
+  "KODE_KEGIATAN": "5.06.02.2.03",
+  "NAMA_KEGIATAN": "Pelaksanaan Kewilayahan Perbatasan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 339,
+  "KODE_KEGIATAN": "5.06.01.2.01",
+  "NAMA_KEGIATAN": "Monitoring dan Evaluasi Kewilayahan Perbatasan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 340,
+  "KODE_KEGIATAN": "5.06.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 341,
+  "KODE_KEGIATAN": "5.06.01.2.03",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 342,
+  "KODE_KEGIATAN": "5.06.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 343,
+  "KODE_KEGIATAN": "5.06.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 344,
+  "KODE_KEGIATAN": "5.06.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 345,
+  "KODE_KEGIATAN": "6.01.02.2.01",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 346,
+  "KODE_KEGIATAN": "6.01.02.2.02",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pengawasan Internal",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 347,
+  "KODE_KEGIATAN": "6.01.03.2.02",
+  "NAMA_KEGIATAN": "Penyelenggaraan Pengawasan dengan Tujuan Tertentu",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 348,
+  "KODE_KEGIATAN": "6.01.01.2.01",
+  "NAMA_KEGIATAN": "Pendampingan dan Asistensi",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 349,
+  "KODE_KEGIATAN": "6.01.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 350,
+  "KODE_KEGIATAN": "6.01.01.2.05",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 351,
+  "KODE_KEGIATAN": "6.01.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 352,
+  "KODE_KEGIATAN": "6.01.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 353,
+  "KODE_KEGIATAN": "6.01.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 354,
+  "KODE_KEGIATAN": "6.01.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 355,
+  "KODE_KEGIATAN": "7.01.02.2.02",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 356,
+  "KODE_KEGIATAN": "7.01.03.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Urusan Pemerintahan yang Tidak Dilaksanakan oleh Unit Kerja Perangkat Daerah yang Ada di Kecamatan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 357,
+  "KODE_KEGIATAN": "7.01.04.2.01",
+  "NAMA_KEGIATAN": "Koordinasi Kegiatan Pemberdayaan Desa",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 358,
+  "KODE_KEGIATAN": "7.01.05.2.01",
+  "NAMA_KEGIATAN": "Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 359,
+  "KODE_KEGIATAN": "7.01.06.2.01",
+  "NAMA_KEGIATAN": "Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 360,
+  "KODE_KEGIATAN": "7.01.01.2.01",
+  "NAMA_KEGIATAN": "Fasilitasi, Rekomendasi dan Koordinasi\n\nPembinaan dan Pengawasan Pemerintahan Desa",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 361,
+  "KODE_KEGIATAN": "7.01.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 362,
+  "KODE_KEGIATAN": "7.01.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 363,
+  "KODE_KEGIATAN": "7.01.01.2.08",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 364,
+  "KODE_KEGIATAN": "7.01.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 365,
+  "KODE_KEGIATAN": "7.01.03.2.06",
+  "NAMA_KEGIATAN": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.17.0000",
+  "NAMA_OPD": "Kecamatan Long Pahangai"
+ },
+ {
+  "NO": 366,
+  "KODE_KEGIATAN": "7.01.02.2.01",
+  "NAMA_KEGIATAN": "Pemberdayaan dan Kesejahteraan Keluarga Tingkat Kecamatan dan Kelurahan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.18.0000",
+  "NAMA_OPD": "Kecamatan Long Bagun"
+ },
+ {
+  "NO": 367,
+  "KODE_KEGIATAN": "7.01.01.2.05",
+  "NAMA_KEGIATAN": "Koordinasi Penyelenggaraan Kegiatan\n\nPemerintahan di Tingkat Kecamatan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.18.0000",
+  "NAMA_OPD": "Kecamatan Long Bagun"
+ },
+ {
+  "NO": 368,
+  "KODE_KEGIATAN": "7.01.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Kepegawaian Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "7.01.0.00.0.00.18.0000",
+  "NAMA_OPD": "Kecamatan Long Bagun"
+ },
+ {
+  "NO": 369,
+  "KODE_KEGIATAN": "8.01.02.2.01",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 370,
+  "KODE_KEGIATAN": "8.01.03.2.01",
+  "NAMA_KEGIATAN": "Perumusan Kebijakan Teknis dan Pemantapan Pelaksanaan Bidang Ideologi Pancasila dan Karakter Kebangsaan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 371,
+  "KODE_KEGIATAN": "8.01.04.2.01",
+  "NAMA_KEGIATAN": "Perumusan Kebijakan Teknis dan Pemantapan Pelaksanaan Bidang Pendidikan Politik, Etika Budaya Politik, Peningkatan Demokrasi, Fasilitasi Kelembagaan Pemerintahan, Perwakilan dan Partai Politik, Pemilihan Umum\/Pemilihan Umum Kepala Daerah, serta Pemantauan Situasi Politik",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 372,
+  "KODE_KEGIATAN": "8.01.05.2.01",
+  "NAMA_KEGIATAN": "Perumusan Kebijakan Teknis dan Pemantapan Pelaksanaan Bidang Pemberdayaan dan Pengawasan Organisasi Kemasyarakatan",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 373,
+  "KODE_KEGIATAN": "8.01.06.2.01",
+  "NAMA_KEGIATAN": "Perumusan Kebijakan Teknis dan Pemantapan Pelaksanaan Bidang Ketahanan Ekonomi, Sosial dan Budaya",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 374,
+  "KODE_KEGIATAN": "8.01.01.2.01",
+  "NAMA_KEGIATAN": "Perumusan Kebijakan Teknis dan Pelaksanaan Pemantapan Kewaspadaan Nasional dan Penanganan Konflik Sosial",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 375,
+  "KODE_KEGIATAN": "8.01.01.2.02",
+  "NAMA_KEGIATAN": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 376,
+  "KODE_KEGIATAN": "8.01.01.2.06",
+  "NAMA_KEGIATAN": "Administrasi Keuangan Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 377,
+  "KODE_KEGIATAN": "8.01.01.2.07",
+  "NAMA_KEGIATAN": "Administrasi Umum Perangkat Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 378,
+  "KODE_KEGIATAN": "8.01.01.2.08",
+  "NAMA_KEGIATAN": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 379,
+  "KODE_KEGIATAN": "8.01.01.2.09",
+  "NAMA_KEGIATAN": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+  "JENIS": "KEGIATAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ }
+]

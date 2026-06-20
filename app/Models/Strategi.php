@@ -10,7 +10,7 @@ class Strategi extends Model
 {
     protected $table = 'strategi';
 
-    protected $fillable = ['sasaran_id', 'kode', 'uraian'];
+    protected $fillable = ['sasaran_id', 'kode', 'uraian', 'deskripsi'];
 
     public function sasaran(): BelongsTo
     {

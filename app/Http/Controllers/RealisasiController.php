@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\KomponenAnggaranController;
 use App\Models\Kegiatan;
 use App\Models\Opd;
 use App\Models\Program;
@@ -15,7 +16,21 @@ class RealisasiController extends Controller
 {
     public function index(Request $request): Response
     {
-        $documentType = $request->get('document_type', 'rpjmd');
+        $user = $request->user();
+        $isSuperadmin = $user?->hasRole('superadmin') ?? false;
+        $allowedDocumentTypes = $isSuperadmin ? ['iku', 'ikk', 'dpa'] : ['ikk', 'dpa'];
+
+        $requestedDocumentType = $request->get('document_type');
+        $documentType = in_array($requestedDocumentType, $allowedDocumentTypes, true)
+            ? $requestedDocumentType
+            : ($isSuperadmin ? 'iku' : 'ikk');
+
+        // Render halaman DPA yang sama, tetapi tetap dari URL /realisasi
+        if ($documentType === 'dpa') {
+            $request->merge(['page_mode' => 'realisasi', 'document_type' => 'dpa']);
+            return app(KomponenAnggaranController::class)->index();
+        }
+
         $tahun = $request->get('tahun', now()->year);
         $triwulan = $request->get('triwulan', 1);
 

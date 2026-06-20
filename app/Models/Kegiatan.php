@@ -16,7 +16,7 @@ class Kegiatan extends Model
     protected $table = 'kegiatan';
 
     protected $fillable = [
-        'program_id', 'opd_id', 'kepmen_id', 'document_type', 'kode_rek', 'nama_rincian', 'pagu',
+        'program_id', 'opd_id', 'kepmen_id', 'document_type', 'kode_rek', 'nama_rincian', 'deskripsi', 'pagu',
         'tahun_awal', 'tahun_akhir', 'target_t1', 'target_t2', 'target_t3', 'target_t4', 'target_t5',
         'target_tahunan', 'tahun', 'catatan_evaluasi',
     ];

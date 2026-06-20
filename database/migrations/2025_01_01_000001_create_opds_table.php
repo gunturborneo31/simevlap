@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('opds', function (Blueprint $table) {
             $table->id();
-            $table->string('kode', 20)->unique();
+            $table->string('kode', 50)->unique();
             $table->string('nama', 255);
             $table->string('singkatan', 50)->nullable();
             $table->string('kepala_opd', 255)->nullable();

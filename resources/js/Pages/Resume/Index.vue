@@ -1,130 +1,172 @@
 <template>
   <AppLayout title="Resume Monitoring">
-    <div class="flex flex-wrap items-end gap-4 mb-6">
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Jenis Dokumen</label>
-        <select v-model="filters.document_type" @change="applyFilter" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="rpjmd">RPJMD</option>
-          <option value="renstra">Renstra</option>
-          <option value="renja">Renja</option>
-          <option value="dpa">DPA</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Tahun</label>
-        <input v-model="filters.tahun" type="number" @change="applyFilter" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-28" />
-      </div>
-    </div>
+    <section v-if="!hasTableView" class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <Link
+        v-for="item in resumeMenu"
+        :key="item.label"
+        :href="route('resume.index', item.query)"
+        class="group rounded-2xl border border-emerald-100 bg-white/90 p-4 text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      >
+        <div :class="item.iconBg + ' mx-auto mb-2 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg'">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-emerald-900 transition-colors group-hover:text-emerald-700">{{ item.label }}</h3>
+      </Link>
+    </section>
 
-    <div class="bg-white rounded-xl shadow overflow-hidden">
-      <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-        <h3 class="font-semibold text-gray-700">
-          Resume Program — {{ filters.document_type.toUpperCase() }} Tahun {{ filters.tahun }}
-        </h3>
-        <span class="text-sm text-gray-500">{{ data.length }} program</span>
+    <section v-else class="space-y-6">
+      <div class="rounded-2xl border border-emerald-100 bg-white/90 p-6 shadow-md">
+        <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">Resume</p>
+            <h2 class="text-2xl font-bold text-emerald-900">{{ currentViewTitle }}</h2>
+          </div>
+          <Link
+            :href="route('resume.index')"
+            class="inline-flex items-center justify-center rounded-lg bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-100"
+          >
+            Kembali ke Menu Resume
+          </Link>
+        </div>
+
+        <p class="text-sm text-slate-500">
+          Pilih salah satu tabel di bawah untuk membuka resume {{ currentViewTitle.toLowerCase() }}.
+        </p>
       </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead class="bg-gray-50 border-b border-gray-200">
-            <tr>
-              <th class="px-4 py-3 text-left font-semibold text-gray-600">Kode Rek.</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-600">Nama Program</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-600">OPD</th>
-              <th class="px-4 py-3 text-right font-semibold text-gray-600">Pagu (Rp)</th>
-              <th class="px-4 py-3 text-center font-semibold text-gray-600">Real. Fisik (%)</th>
-              <th class="px-4 py-3 text-right font-semibold text-gray-600">Real. Keuangan (Rp)</th>
-              <th class="px-4 py-3 text-center font-semibold text-gray-600">Penyerapan (%)</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-100">
-            <tr v-if="data.length === 0">
-              <td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada data program untuk filter ini.</td>
-            </tr>
-            <tr v-for="row in data" :key="row.id" class="hover:bg-gray-50">
-              <td class="px-4 py-3 font-mono text-gray-600 text-xs">{{ row.kode_rek }}</td>
-              <td class="px-4 py-3 text-gray-800 max-w-xs">{{ row.nama_rincian }}</td>
-              <td class="px-4 py-3 text-gray-600">{{ row.opd }}</td>
-              <td class="px-4 py-3 text-right text-gray-700">{{ formatCurrency(row.pagu) }}</td>
-              <td class="px-4 py-3 text-center">
-                <div class="flex items-center justify-center gap-2">
-                  <div class="w-20 bg-gray-200 rounded-full h-1.5">
-                    <div class="bg-blue-500 h-1.5 rounded-full" :style="{ width: Math.min(row.realisasi_fisik, 100) + '%' }"></div>
-                  </div>
-                  <span :class="getStatusColor(row.realisasi_fisik)" class="text-xs font-medium w-10 text-right">{{ row.realisasi_fisik }}%</span>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-right text-gray-700">{{ formatCurrency(row.realisasi_keuangan) }}</td>
-              <td class="px-4 py-3 text-center">
-                <span :class="getStatusColor(penyerapan(row))" class="text-xs font-medium">
-                  {{ penyerapan(row) }}%
-                </span>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot v-if="data.length > 0" class="bg-gray-50 border-t-2 border-gray-300">
-            <tr>
-              <td colspan="3" class="px-4 py-3 font-semibold text-gray-700 text-sm">Total</td>
-              <td class="px-4 py-3 text-right font-semibold text-gray-700">{{ formatCurrency(totalPagu) }}</td>
-              <td class="px-4 py-3 text-center font-semibold text-gray-700">{{ avgFisik }}%</td>
-              <td class="px-4 py-3 text-right font-semibold text-gray-700">{{ formatCurrency(totalKeuangan) }}</td>
-              <td class="px-4 py-3 text-center font-semibold text-gray-700">{{ avgPenyerapan }}%</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
+
+      <section :class="[
+        'grid gap-6',
+        tableMenu.length >= 10 
+          ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-5'
+          : tableMenu.length >= 6
+          ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3'
+          : tableMenu.length <= 2
+          ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-2'
+          : 'grid-cols-1 md:grid-cols-2 xl:grid-cols-4'
+      ]">
+        <Link
+          v-for="item in tableMenu"
+          :key="item.label"
+          :href="route('resume.index', { view: props.currentView, table: item.value })"
+          :class="[
+            'group rounded-2xl border bg-white/90 p-4 text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+            currentTable === item.value
+              ? 'border-emerald-500 ring-2 ring-emerald-200'
+              : 'border-emerald-100'
+          ]"
+        >
+          <div :class="item.iconBg + ' mx-auto mb-2 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg'">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.25 6.75h12m-12 5.25h12m-12 5.25h12M3.75 6.75h.008v.008H3.75V6.75Zm0 5.25h.008v.008H3.75V12Zm0 5.25h.008v.008H3.75v-.008Z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-emerald-900 transition-colors group-hover:text-emerald-700">{{ item.label }}</h3>
+        </Link>
+      </section>
+
+    </section>
   </AppLayout>
 </template>
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { router } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
+import { Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
 const props = defineProps({
-  data: Array,
-  documentType: String,
-  tahun: [Number, String],
-  opds: Array,
+  currentView: {
+    type: String,
+    default: '',
+  },
+  currentTable: {
+    type: String,
+    default: '',
+  },
 });
 
-const filters = ref({
-  document_type: props.documentType,
-  tahun: props.tahun,
-});
+const resumeMenu = [
+  { label: 'Konsistensi RPJMD - RKPD', query: { view: 'konsistensi-rpjmd-rkpd' }, iconBg: 'bg-blue-500' },
+  { label: 'Konsistensi RKPD - APBD', query: { view: 'konsistensi-rkpd-apbd' }, iconBg: 'bg-teal-500' },
+  { label: 'Hasil Pelaksanaan RKPD', query: { view: 'hasil-pelaksanaan-rkpd' }, iconBg: 'bg-emerald-600' },
+  { label: 'Rekap Permasalahan', query: { view: 'rekap-permasalahan' }, iconBg: 'bg-amber-500' },
+  { label: 'Realisasi', query: { view: 'realisasi' }, iconBg: 'bg-yellow-600' },
+  { label: 'Kertas Kerja', query: { view: 'kertas-kerja' }, iconBg: 'bg-lime-600' },
+];
 
-function applyFilter() {
-  router.get(route('resume.index'), filters.value, { preserveState: true, replace: true });
-}
+// View configuration dengan jumlah tabel dan warna yang berbeda
+const viewConfigs = {
+  'konsistensi-rpjmd-rkpd': {
+    title: 'Konsistensi RPJMD - RKPD',
+    tables: 4,
+    colors: ['bg-blue-500', 'bg-teal-500', 'bg-emerald-600', 'bg-amber-500'],
+  },
+  'konsistensi-rkpd-apbd': {
+    title: 'Konsistensi RKPD - APBD',
+    tables: 10,
+    colors: [
+      'bg-blue-500', 'bg-teal-500', 'bg-emerald-600', 'bg-amber-500', 'bg-yellow-600',
+      'bg-rose-500', 'bg-purple-500', 'bg-indigo-500', 'bg-cyan-500', 'bg-lime-500',
+    ],
+  },
+  'hasil-pelaksanaan-rkpd': {
+    title: 'Hasil Pelaksanaan RKPD',
+    tables: 6,
+    colors: ['bg-blue-500', 'bg-teal-500', 'bg-emerald-600', 'bg-amber-500', 'bg-rose-500', 'bg-purple-500'],
+  },
+  'rekap-permasalahan': {
+    title: 'Rekap Permasalahan',
+    items: [
+      { label: 'Berdasarkan Sasaran', value: 'berdasarkan-sasaran', iconBg: 'bg-blue-500' },
+      { label: 'Berdasarkan Bidang Urusan', value: 'berdasarkan-bidang-urusan', iconBg: 'bg-amber-500' },
+    ],
+  },
+  'realisasi': {
+    title: 'Realisasi',
+    items: [
+      { label: 'IKU', value: 'iku', iconBg: 'bg-blue-500' },
+      { label: 'IKK', value: 'ikk', iconBg: 'bg-teal-500' },
+      { label: 'RPJMD', value: 'rpjmd', iconBg: 'bg-emerald-600' },
+      { label: 'RKPD', value: 'rkpd', iconBg: 'bg-amber-500' },
+      { label: 'APBD', value: 'apbd', iconBg: 'bg-yellow-600' },
+      { label: 'RENSTRA', value: 'renstra', iconBg: 'bg-rose-500' },
+      { label: 'RENJA', value: 'renja', iconBg: 'bg-purple-500' },
+      { label: 'DPA', value: 'dpa', iconBg: 'bg-indigo-500' },
+    ],
+  },
+};
 
-function formatCurrency(val) {
-  if (!val) return 'Rp 0';
-  return 'Rp ' + Number(val).toLocaleString('id-ID');
-}
+// Generate table menu dinamis berdasarkan current view
+const generateTableMenu = (viewKey) => {
+  const config = viewConfigs[viewKey];
+  if (!config) return [];
+  
+  // Jika ada items custom, gunakan itu
+  if (config.items) {
+    return config.items;
+  }
+  
+  // Otherwise, generate numbered tables
+  const tables = [];
+  for (let i = 1; i <= config.tables; i++) {
+    tables.push({
+      label: `Tabel ${i}`,
+      value: `tabel-${i}`,
+      iconBg: config.colors[(i - 1) % config.colors.length],
+    });
+  }
+  return tables;
+};
 
-function roundOneDecimal(val) {
-  return Math.round(val * 10) / 10;
-}
+const tableMenu = computed(() => generateTableMenu(props.currentView));
 
-function penyerapan(row) {
-  if (!row.pagu || row.pagu === 0) return 0;
-  return roundOneDecimal((row.realisasi_keuangan / row.pagu) * 100);
-}
+// Deteksi apakah current view adalah salah satu yang punya custom table view
+const hasTableView = computed(() => Object.keys(viewConfigs).includes(props.currentView));
 
-function getStatusColor(val) {
-  if (val >= 90) return 'text-green-600';
-  if (val >= 60) return 'text-yellow-600';
-  return 'text-red-600';
-}
-
-const totalPagu = computed(() => props.data.reduce((s, r) => s + Number(r.pagu || 0), 0));
-const totalKeuangan = computed(() => props.data.reduce((s, r) => s + Number(r.realisasi_keuangan || 0), 0));
-const avgFisik = computed(() => {
-  if (!props.data.length) return 0;
-  return roundOneDecimal(props.data.reduce((s, r) => s + Number(r.realisasi_fisik || 0), 0) / props.data.length);
-});
-const avgPenyerapan = computed(() => {
-  if (!totalPagu.value) return 0;
-  return roundOneDecimal((totalKeuangan.value / totalPagu.value) * 100);
+// Get title untuk current view
+const currentViewTitle = computed(() => {
+  const config = viewConfigs[props.currentView];
+  return config?.title || '';
 });
 </script>

@@ -9,18 +9,44 @@ class OpdSeeder extends Seeder
 {
     public function run(): void
     {
-        $opds = [
-            ['kode' => '1.01', 'nama' => 'Dinas Pendidikan', 'singkatan' => 'Disdik'],
-            ['kode' => '1.02', 'nama' => 'Dinas Kesehatan', 'singkatan' => 'Dinkes'],
-            ['kode' => '2.01', 'nama' => 'Dinas Pekerjaan Umum dan Penataan Ruang', 'singkatan' => 'DPUPR'],
-            ['kode' => '2.02', 'nama' => 'Dinas Perumahan dan Kawasan Permukiman', 'singkatan' => 'Disperkim'],
-            ['kode' => '4.01', 'nama' => 'Badan Perencanaan Pembangunan Daerah', 'singkatan' => 'Bappeda'],
-            ['kode' => '4.02', 'nama' => 'Badan Pengelolaan Keuangan dan Aset Daerah', 'singkatan' => 'BPKAD'],
-            ['kode' => '5.01', 'nama' => 'Sekretariat Daerah', 'singkatan' => 'Setda'],
-            ['kode' => '5.02', 'nama' => 'Sekretariat DPRD', 'singkatan' => 'Setwan'],
-        ];
-        foreach ($opds as $opd) {
-            Opd::firstOrCreate(['kode' => $opd['kode']], $opd);
+        $skpdPath = base_path('referensi/apbd/skpd.json');
+        $subUnitPath = base_path('referensi/apbd/sub_unit.json');
+
+        if (!file_exists($skpdPath)) {
+            $this->command->error('File referensi/apbd/skpd.json not found.');
+            return;
+        }
+
+        $skpdRows = json_decode(file_get_contents($skpdPath), true) ?: [];
+
+        foreach ($skpdRows as $row) {
+            Opd::updateOrCreate(
+                ['kode' => $row['KODE_SKPD']],
+                ['nama' => $row['NAMA_SKPD']]
+            );
+        }
+
+        // Tambahkan juga semua sub unit agar data seperti Sekretariat Daerah
+        // bisa dipecah dan dipetakan per Bagian berdasarkan KODE_SUB_UNIT.
+        if (!file_exists($subUnitPath)) {
+            $this->command->warn('File referensi/apbd/sub_unit.json not found. Skip sub unit sync.');
+            return;
+        }
+
+        $subUnitRows = json_decode(file_get_contents($subUnitPath), true) ?: [];
+
+        foreach ($subUnitRows as $row) {
+            $kode = $row['KODE_SUB_UNIT'] ?? null;
+            $nama = $row['NAMA_SUB_UNIT'] ?? null;
+
+            if (!$kode || !$nama) {
+                continue;
+            }
+
+            Opd::updateOrCreate(
+                ['kode' => $kode],
+                ['nama' => $nama]
+            );
         }
     }
 }

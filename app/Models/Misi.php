@@ -10,7 +10,7 @@ class Misi extends Model
 {
     protected $table = 'misi';
 
-    protected $fillable = ['visi_id', 'kode', 'uraian'];
+    protected $fillable = ['visi_id', 'kode', 'uraian', 'deskripsi'];
 
     public function visi(): BelongsTo
     {

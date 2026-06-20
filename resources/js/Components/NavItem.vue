@@ -1,10 +1,9 @@
 <template>
   <Link
     :href="href"
-    class="flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors"
-    :class="isActive ? 'bg-blue-800 text-white' : 'text-blue-200 hover:bg-blue-800 hover:text-white'"
+    class="flex items-center rounded-md border px-3 py-2 text-sm font-medium transition-colors"
+    :class="isActive ? 'border-white/50 bg-white text-emerald-900 shadow-sm' : 'border-white/10 bg-emerald-950/20 text-white/95 hover:border-white/25 hover:bg-emerald-950/30 hover:text-white'"
   >
-    <span class="mr-3">{{ icon }}</span>
     <slot />
   </Link>
 </template>

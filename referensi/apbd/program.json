@@ -1,0 +1,1066 @@
+[
+ {
+  "NO": 1,
+  "KODE_PROGRAM": "1.01.02",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PENDIDIKAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 2,
+  "KODE_PROGRAM": "1.01.04",
+  "NAMA_PROGRAM": "PROGRAM PENDIDIK DAN TENAGA KEPENDIDIKAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 3,
+  "KODE_PROGRAM": "1.01.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 4,
+  "KODE_PROGRAM": "2.22.02",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN KEBUDAYAAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 5,
+  "KODE_PROGRAM": "2.22.03",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN KESENIAN TRADISIONAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 6,
+  "KODE_PROGRAM": "2.22.04",
+  "NAMA_PROGRAM": "PROGRAM PEMBINAAN SEJARAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 7,
+  "KODE_PROGRAM": "2.22.05",
+  "NAMA_PROGRAM": "PROGRAM PELESTARIAN DAN PENGELOLAAN CAGAR BUDAYA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 8,
+  "KODE_PROGRAM": "2.22.06",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PERMUSEUMAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 9,
+  "KODE_PROGRAM": "1.02.02",
+  "NAMA_PROGRAM": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 10,
+  "KODE_PROGRAM": "1.02.03",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN KAPASITAS SUMBER DAYA MANUSIA KESEHATAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 11,
+  "KODE_PROGRAM": "1.02.04",
+  "NAMA_PROGRAM": "PROGRAM SEDIAAN FARMASI, ALAT KESEHATAN DAN MAKANAN MINUMAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 12,
+  "KODE_PROGRAM": "1.02.05",
+  "NAMA_PROGRAM": "PROGRAM PEMBERDAYAAN MASYARAKAT BIDANG KESEHATAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 13,
+  "KODE_PROGRAM": "1.02.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 14,
+  "KODE_PROGRAM": "2.14.02",
+  "NAMA_PROGRAM": "PROGRAM PENGENDALIAN PENDUDUK",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 15,
+  "KODE_PROGRAM": "2.14.03",
+  "NAMA_PROGRAM": "PROGRAM PEMBINAAN KELUARGA BERENCANA (KB)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 16,
+  "KODE_PROGRAM": "2.14.04",
+  "NAMA_PROGRAM": "PROGRAM PEMBERDAYAAN DAN PENINGKATAN KELUARGA SEJAHTERA (KS)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 17,
+  "KODE_PROGRAM": "1.03.02",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN SUMBER DAYA AIR (SDA)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 18,
+  "KODE_PROGRAM": "1.03.03",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN DAN PENGEMBANGAN SISTEM PENYEDIAAN AIR MINUM",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 19,
+  "KODE_PROGRAM": "1.03.05",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN DAN PENGEMBANGAN SISTEM AIR LIMBAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 20,
+  "KODE_PROGRAM": "1.03.06",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN DAN PENGEMBANGAN SISTEM DRAINASE",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 21,
+  "KODE_PROGRAM": "1.03.08",
+  "NAMA_PROGRAM": "PROGRAM PENATAAN BANGUNAN GEDUNG",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 22,
+  "KODE_PROGRAM": "1.03.09",
+  "NAMA_PROGRAM": "PROGRAM PENATAAN BANGUNAN DAN LINGKUNGANNYA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 23,
+  "KODE_PROGRAM": "1.03.10",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN JALAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 24,
+  "KODE_PROGRAM": "1.03.11",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN JASA KONSTRUKSI",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 25,
+  "KODE_PROGRAM": "1.03.12",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN PENATAAN RUANG",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 26,
+  "KODE_PROGRAM": "1.03.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 27,
+  "KODE_PROGRAM": "1.04.02",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN PERUMAHAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 28,
+  "KODE_PROGRAM": "1.04.03",
+  "NAMA_PROGRAM": "PROGRAM KAWASAN PERMUKIMAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 29,
+  "KODE_PROGRAM": "1.04.05",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN PRASARANA, SARANA DAN UTILITAS UMUM (PSU)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 30,
+  "KODE_PROGRAM": "1.04.06",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN PELAYANAN SERTIFIKASI, KUALIFIKASI, KLASIFIKASI, DAN REGISTRASI BIDANG PERUMAHAN DAN KAWASAN PERMUKIMAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 31,
+  "KODE_PROGRAM": "1.05.02",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN KETENTERAMAN DAN KETERTIBAN UMUM",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 32,
+  "KODE_PROGRAM": "1.05.04",
+  "NAMA_PROGRAM": "PROGRAM PENCEGAHAN, PENANGGULANGAN, PENYELAMATAN KEBAKARAN DAN PENYELAMATAN NON KEBAKARAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 33,
+  "KODE_PROGRAM": "1.05.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 34,
+  "KODE_PROGRAM": "1.05.03",
+  "NAMA_PROGRAM": "PROGRAM PENANGGULANGAN BENCANA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.05.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Penanggulangan Bencana Daerah"
+ },
+ {
+  "NO": 35,
+  "KODE_PROGRAM": "1.06.02",
+  "NAMA_PROGRAM": "PROGRAM PEMBERDAYAAN SOSIAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 36,
+  "KODE_PROGRAM": "1.06.04",
+  "NAMA_PROGRAM": "PROGRAM REHABILITASI SOSIAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 37,
+  "KODE_PROGRAM": "1.06.05",
+  "NAMA_PROGRAM": "PROGRAM PERLINDUNGAN DAN JAMINAN SOSIAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 38,
+  "KODE_PROGRAM": "1.06.06",
+  "NAMA_PROGRAM": "PROGRAM PENANGANAN BENCANA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 39,
+  "KODE_PROGRAM": "1.06.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 40,
+  "KODE_PROGRAM": "2.08.02",
+  "NAMA_PROGRAM": "PROGRAM PENGARUSUTAMAAN GENDER DAN PEMBERDAYAAN PEREMPUAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 41,
+  "KODE_PROGRAM": "2.08.03",
+  "NAMA_PROGRAM": "PROGRAM PERLINDUNGAN PEREMPUAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 42,
+  "KODE_PROGRAM": "2.08.04",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN KUALITAS KELUARGA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 43,
+  "KODE_PROGRAM": "2.08.05",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN SISTEM DATA GENDER DAN ANAK",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 44,
+  "KODE_PROGRAM": "2.08.06",
+  "NAMA_PROGRAM": "PROGRAM PEMENUHAN HAK ANAK (PHA)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 45,
+  "KODE_PROGRAM": "2.08.07",
+  "NAMA_PROGRAM": "PROGRAM PERLINDUNGAN KHUSUS ANAK",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 46,
+  "KODE_PROGRAM": "2.11.02",
+  "NAMA_PROGRAM": "PROGRAM PERENCANAAN LINGKUNGAN HIDUP",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 47,
+  "KODE_PROGRAM": "2.11.03",
+  "NAMA_PROGRAM": "PROGRAM PENGENDALIAN PENCEMARAN DAN\/ATAU KERUSAKAN LINGKUNGAN HIDUP",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 48,
+  "KODE_PROGRAM": "2.11.04",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN KEANEKARAGAMAN HAYATI (KEHATI)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 49,
+  "KODE_PROGRAM": "2.11.05",
+  "NAMA_PROGRAM": "PROGRAM PENGENDALIAN BAHAN BERBAHAYA DAN BERACUN (B3) DAN LIMBAH BAHAN BERBAHAYA DAN BERACUN (LIMBAH B3)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 50,
+  "KODE_PROGRAM": "2.11.06",
+  "NAMA_PROGRAM": "PROGRAM PEMBINAAN DAN PENGAWASAN TERHADAP IZIN LINGKUNGAN DAN IZIN PERLINDUNGAN DAN PENGELOLAAN LINGKUNGAN HIDUP (PPLH)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 51,
+  "KODE_PROGRAM": "2.11.07",
+  "NAMA_PROGRAM": "PROGRAM PENGAKUAN KEBERADAAN MASYARAKAT HUKUM ADAT (MHA), KEARIFAN LOKAL DAN HAK MHA YANG TERKAIT DENGAN PPLH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 52,
+  "KODE_PROGRAM": "2.11.08",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN PENDIDIKAN, PELATIHAN DAN PENYULUHAN LINGKUNGAN HIDUP UNTUK MASYARAKAT",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 53,
+  "KODE_PROGRAM": "2.11.10",
+  "NAMA_PROGRAM": "PROGRAM PENANGANAN PENGADUAN LINGKUNGAN HIDUP",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 54,
+  "KODE_PROGRAM": "2.11.11",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PERSAMPAHAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 55,
+  "KODE_PROGRAM": "2.11.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 56,
+  "KODE_PROGRAM": "2.12.02",
+  "NAMA_PROGRAM": "PROGRAM PENDAFTARAN PENDUDUK",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 57,
+  "KODE_PROGRAM": "2.12.03",
+  "NAMA_PROGRAM": "PROGRAM PENCATATAN SIPIL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 58,
+  "KODE_PROGRAM": "2.12.04",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN INFORMASI ADMINISTRASI KEPENDUDUKAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 59,
+  "KODE_PROGRAM": "2.12.05",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PROFIL KEPENDUDUKAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 60,
+  "KODE_PROGRAM": "2.12.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 61,
+  "KODE_PROGRAM": "2.13.02",
+  "NAMA_PROGRAM": "PROGRAM PENATAAN DESA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 62,
+  "KODE_PROGRAM": "2.13.03",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN KERJA SAMA DESA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 63,
+  "KODE_PROGRAM": "2.13.04",
+  "NAMA_PROGRAM": "PROGRAM ADMINISTRASI PEMERINTAHAN DESA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 64,
+  "KODE_PROGRAM": "2.13.05",
+  "NAMA_PROGRAM": "PROGRAM PEMBERDAYAAN LEMBAGA KEMASYARAKATAN, LEMBAGA ADAT DAN MASYARAKAT HUKUM ADAT",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 65,
+  "KODE_PROGRAM": "2.13.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 66,
+  "KODE_PROGRAM": "2.15.02",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN LALU LINTAS DAN ANGKUTAN JALAN (LLAJ)",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 67,
+  "KODE_PROGRAM": "2.15.03",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PELAYARAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 68,
+  "KODE_PROGRAM": "2.15.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 69,
+  "KODE_PROGRAM": "2.16.02",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN INFORMASI DAN KOMUNIKASI PUBLIK",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 70,
+  "KODE_PROGRAM": "2.16.03",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN APLIKASI INFORMATIKA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 71,
+  "KODE_PROGRAM": "2.16.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 72,
+  "KODE_PROGRAM": "2.20.02",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN STATISTIK SEKTORAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 73,
+  "KODE_PROGRAM": "2.21.02",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN PERSANDIAN UNTUK PENGAMANAN INFORMASI",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 74,
+  "KODE_PROGRAM": "2.18.02",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN IKLIM PENANAMAN MODAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 75,
+  "KODE_PROGRAM": "2.18.03",
+  "NAMA_PROGRAM": "PROGRAM PROMOSI PENANAMAN MODAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 76,
+  "KODE_PROGRAM": "2.18.04",
+  "NAMA_PROGRAM": "PROGRAM PELAYANAN PENANAMAN MODAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 77,
+  "KODE_PROGRAM": "2.18.05",
+  "NAMA_PROGRAM": "PROGRAM PENGENDALIAN PELAKSANAAN PENANAMAN MODAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 78,
+  "KODE_PROGRAM": "2.18.06",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN DATA DAN SISTEM INFORMASI PENANAMAN MODAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 79,
+  "KODE_PROGRAM": "2.18.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 80,
+  "KODE_PROGRAM": "2.19.02",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN KAPASITAS DAYA SAING KEPEMUDAAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 81,
+  "KODE_PROGRAM": "2.19.03",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN KAPASITAS DAYA SAING KEOLAHRAGAAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 82,
+  "KODE_PROGRAM": "2.19.04",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN KAPASITAS KEPRAMUKAAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 83,
+  "KODE_PROGRAM": "3.26.02",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN DAYA TARIK DESTINASI PARIWISATA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 84,
+  "KODE_PROGRAM": "3.26.03",
+  "NAMA_PROGRAM": "PROGRAM PEMASARAN PARIWISATA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 85,
+  "KODE_PROGRAM": "3.26.04",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN EKONOMI KREATIF MELALUI PEMANFAATAN DAN PERLINDUNGAN HAK KEKAYAAN INTELEKTUAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 86,
+  "KODE_PROGRAM": "3.26.05",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN SUMBER DAYA PARIWISATA DAN EKONOMI KREATIF",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 87,
+  "KODE_PROGRAM": "3.26.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 88,
+  "KODE_PROGRAM": "2.09.03",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN DIVERSIFIKASI DAN KETAHANAN PANGAN MASYARAKAT",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 89,
+  "KODE_PROGRAM": "2.09.04",
+  "NAMA_PROGRAM": "PROGRAM PENANGANAN KERAWANAN PANGAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 90,
+  "KODE_PROGRAM": "2.09.05",
+  "NAMA_PROGRAM": "PROGRAM PENGAWASAN KEAMANAN PANGAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 91,
+  "KODE_PROGRAM": "3.25.03",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PERIKANAN TANGKAP",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 92,
+  "KODE_PROGRAM": "3.25.04",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PERIKANAN BUDIDAYA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 93,
+  "KODE_PROGRAM": "3.25.06",
+  "NAMA_PROGRAM": "PROGRAM PENGOLAHAN DAN PEMASARAN HASIL PERIKANAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 94,
+  "KODE_PROGRAM": "3.27.02",
+  "NAMA_PROGRAM": "PROGRAM PENYEDIAAN DAN PENGEMBANGAN SARANA PERTANIAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 95,
+  "KODE_PROGRAM": "3.27.03",
+  "NAMA_PROGRAM": "PROGRAM PENYEDIAAN DAN PENGEMBANGAN PRASARANA PERTANIAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 96,
+  "KODE_PROGRAM": "3.27.04",
+  "NAMA_PROGRAM": "PROGRAM PENGENDALIAN KESEHATAN HEWAN DAN KESEHATAN MASYARAKAT VETERINER",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 97,
+  "KODE_PROGRAM": "3.27.05",
+  "NAMA_PROGRAM": "PROGRAM PENGENDALIAN DAN PENANGGULANGAN BENCANA PERTANIAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 98,
+  "KODE_PROGRAM": "3.27.06",
+  "NAMA_PROGRAM": "PROGRAM PERIZINAN USAHA PERTANIAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 99,
+  "KODE_PROGRAM": "3.27.07",
+  "NAMA_PROGRAM": "PROGRAM PENYULUHAN PERTANIAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 100,
+  "KODE_PROGRAM": "3.27.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 101,
+  "KODE_PROGRAM": "4.01.02",
+  "NAMA_PROGRAM": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 102,
+  "KODE_PROGRAM": "4.01.03",
+  "NAMA_PROGRAM": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 103,
+  "KODE_PROGRAM": "4.01.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 104,
+  "KODE_PROGRAM": "4.02.02",
+  "NAMA_PROGRAM": "PROGRAM DUKUNGAN PELAKSANAAN TUGAS DAN FUNGSI DPRD",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 105,
+  "KODE_PROGRAM": "4.02.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 106,
+  "KODE_PROGRAM": "5.01.02",
+  "NAMA_PROGRAM": "PROGRAM PERENCANAAN, PENGENDALIAN DAN EVALUASI PEMBANGUNAN DAERAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 107,
+  "KODE_PROGRAM": "5.01.03",
+  "NAMA_PROGRAM": "PROGRAM KOORDINASI DAN SINKRONISASI PERENCANAAN PEMBANGUNAN DAERAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 108,
+  "KODE_PROGRAM": "5.01.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 109,
+  "KODE_PROGRAM": "5.05.02",
+  "NAMA_PROGRAM": "PROGRAM PENELITIAN DAN PENGEMBANGAN DAERAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 110,
+  "KODE_PROGRAM": "5.02.02",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN KEUANGAN DAERAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 111,
+  "KODE_PROGRAM": "5.02.04",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PENDAPATAN DAERAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 112,
+  "KODE_PROGRAM": "5.02.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 113,
+  "KODE_PROGRAM": "5.02.03",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN BARANG MILIK DAERAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.02.4.01.0.00.23.0000",
+  "NAMA_OPD": "Badan Pengelola Keuangan dan Aset Daerah"
+ },
+ {
+  "NO": 114,
+  "KODE_PROGRAM": "5.03.02",
+  "NAMA_PROGRAM": "PROGRAM KEPEGAWAIAN DAERAH",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 115,
+  "KODE_PROGRAM": "5.03.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 116,
+  "KODE_PROGRAM": "5.04.02",
+  "NAMA_PROGRAM": "PROGRAM PENGEMBANGAN SUMBER DAYA MANUSIA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 117,
+  "KODE_PROGRAM": "5.06.02",
+  "NAMA_PROGRAM": "PROGRAM PENGELOLAAN PERBATASAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 118,
+  "KODE_PROGRAM": "5.06.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 119,
+  "KODE_PROGRAM": "6.01.02",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN PENGAWASAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 120,
+  "KODE_PROGRAM": "6.01.03",
+  "NAMA_PROGRAM": "PROGRAM PERUMUSAN KEBIJAKAN, PENDAMPINGAN DAN ASISTENSI",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 121,
+  "KODE_PROGRAM": "6.01.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 122,
+  "KODE_PROGRAM": "7.01.02",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN PEMERINTAHAN DAN PELAYANAN PUBLIK",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 123,
+  "KODE_PROGRAM": "7.01.03",
+  "NAMA_PROGRAM": "PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN KELURAHAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 124,
+  "KODE_PROGRAM": "7.01.04",
+  "NAMA_PROGRAM": "PROGRAM KOORDINASI KETENTRAMAN DAN KETERTIBAN UMUM",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 125,
+  "KODE_PROGRAM": "7.01.05",
+  "NAMA_PROGRAM": "PROGRAM PENYELENGGARAAN URUSAN PEMERINTAHAN UMUM",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 126,
+  "KODE_PROGRAM": "7.01.06",
+  "NAMA_PROGRAM": "PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN DESA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 127,
+  "KODE_PROGRAM": "7.01.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 128,
+  "KODE_PROGRAM": "8.01.02",
+  "NAMA_PROGRAM": "PROGRAM PENGUATAN IDEOLOGI PANCASILA DAN KARAKTER KEBANGSAAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 129,
+  "KODE_PROGRAM": "8.01.03",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN PERAN PARTAI POLITIK DAN LEMBAGA PENDIDIKAN MELALUI PENDIDIKAN POLITIK DAN PENGEMBANGAN ETIKA SERTA BUDAYA POLITIK",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 130,
+  "KODE_PROGRAM": "8.01.04",
+  "NAMA_PROGRAM": "PROGRAM PEMBERDAYAAN DAN PENGAWASAN ORGANISASI KEMASYARAKATAN",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 131,
+  "KODE_PROGRAM": "8.01.05",
+  "NAMA_PROGRAM": "PROGRAM PEMBINAAN DAN PENGEMBANGAN KETAHANAN EKONOMI, SOSIAL, DAN BUDAYA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 132,
+  "KODE_PROGRAM": "8.01.06",
+  "NAMA_PROGRAM": "PROGRAM PENINGKATAN KEWASPADAAN NASIONAL DAN PENINGKATAN KUALITAS DAN FASILITASI PENANGANAN KONFLIK SOSIAL",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ },
+ {
+  "NO": 133,
+  "KODE_PROGRAM": "8.01.01",
+  "NAMA_PROGRAM": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+  "JENIS": "PROGRAM",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ }
+]

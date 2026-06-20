@@ -27,6 +27,9 @@ return new class extends Migration
             $table->integer('tahun')->nullable();
             $table->text('catatan_evaluasi')->nullable();
             $table->timestamps();
+
+            // Memastikan data program tidak tumpang tindih untuk kombinasi kode_rek dan opd_id
+            $table->unique(['kode_rek', 'opd_id']);
         });
     }
 

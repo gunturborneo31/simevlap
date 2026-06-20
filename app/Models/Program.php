@@ -16,9 +16,9 @@ class Program extends Model
     protected $table = 'program';
 
     protected $fillable = [
-        'opd_id', 'kepmen_id', 'document_type', 'kode_rek', 'nama_rincian', 'pagu',
+        'opd_id', 'kepmen_id', 'document_type', 'jenis_program', 'kode_rek', 'nama_rincian', 'deskripsi', 'pagu',
         'tahun_awal', 'tahun_akhir', 'target_t1', 'target_t2', 'target_t3', 'target_t4', 'target_t5',
-        'target_tahunan', 'tahun', 'catatan_evaluasi',
+        'target_tahunan', 'tahun', 'catatan_evaluasi', 'is_prioritas',
     ];
 
     public function opd(): BelongsTo

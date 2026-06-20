@@ -9,7 +9,7 @@ class ArahKebijakan extends Model
 {
     protected $table = 'arah_kebijakan';
 
-    protected $fillable = ['strategi_id', 'kode', 'uraian'];
+    protected $fillable = ['strategi_id', 'kode', 'uraian', 'deskripsi'];
 
     public function strategi(): BelongsTo
     {

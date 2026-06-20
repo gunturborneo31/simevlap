@@ -1,0 +1,10 @@
+[
+  { "kode": 1, "uraian": "Membangun Mahulu  Untuk Semua", "deskripsi": "Fokus pada pemenuhan kebutuhan dasar masyarakat, pendidikan, kesehatan, dan perumahan." },
+  { "kode": 2, "uraian": "Pengembangan SDM  Unggul dan  Berdaya Saing", "deskripsi": "Meningkatkan kualitas pendidikan, kesehatan, literasi digital, serta prestasi olahraga dan kreativitas anak muda." },
+  { "kode": 3, "uraian": "Transformasi Ekonomi  dan Pengentasan Pengangguran", "deskripsi": "Penguatan UMKM, koperasi, pariwisata, serta penciptaan lapangan kerja melalui industrialisasi dan inovasi." },
+  { "kode": 4, "uraian": "Mengurangi kemiskinan", "deskripsi": "Menurunkan kemiskinan dengan intervensi sosial, kesehatan, perumahan, dan jaring pengaman sosial." },
+  { "kode": 5, "uraian": "Peningkatan Kesejahteraan Petani  dan Sektor Unggulan", "deskripsi": "Penguatan sektor pertanian, ketahanan pangan, serta hilirisasi hasil bumi untuk meningkatkan kesejahteraan petani." },
+  { "kode": 6, "uraian": "Pembangunan Kewilayahan, Konektivitas dan  Utilitas dasar", "deskripsi": "Pembangunan infrastruktur transportasi, energi, air bersih, serta akses ekonomi antar wilayah." },
+  { "kode": 7, "uraian": "Mahulu Harmoni  dan Ramah Lingkungan", "deskripsi": "Membangun harmoni sosial, pelestarian lingkungan, kesetaraan gender, serta kerukunan antar umat beragama." },
+  { "kode": 8, "uraian": "Transformasi Tata  Kelola dan  Pelayanan Publik", "deskripsi": "Memperkuat reformasi  birokrasi, tata kelola berbasis digital (SPBE), dan peningkatan integritas aparatur." }
+]

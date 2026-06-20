@@ -12,7 +12,7 @@
         <thead class="bg-gray-50 border-b border-gray-200">
           <tr>
             <th class="px-4 py-3 text-left font-semibold text-gray-600">Kode</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-600">Nama OPD</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-600">NAMA_OPD</th>
             <th class="px-4 py-3 text-left font-semibold text-gray-600">Singkatan</th>
             <th class="px-4 py-3 text-left font-semibold text-gray-600">Kepala OPD</th>
             <th class="px-4 py-3 text-center font-semibold text-gray-600">Status</th>
@@ -56,7 +56,7 @@
         <InputField label="Kode OPD" :error="form.errors.kode" required>
           <input v-model="form.kode" type="text" class="input-base" placeholder="Contoh: 1.01" />
         </InputField>
-        <InputField label="Nama OPD" :error="form.errors.nama" required>
+        <InputField label="NAMA_OPD" :error="form.errors.nama" required>
           <input v-model="form.nama" type="text" class="input-base" />
         </InputField>
         <InputField label="Singkatan" :error="form.errors.singkatan">
@@ -166,6 +166,8 @@ function deleteOpd() {
 </script>
 
 <style scoped>
+@reference "../../../../css/app.css";
+
 .input-base {
   @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500;
 }

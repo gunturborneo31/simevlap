@@ -1,131 +1,37 @@
 <template>
-  <AppLayout title="Realisasi">
-    <!-- Filter Bar -->
-    <div class="flex flex-wrap items-end gap-4 mb-6">
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Jenis Dokumen</label>
-        <select v-model="filters.document_type" @change="applyFilter" class="input-filter">
-          <option value="rpjmd">RPJMD</option>
-          <option value="renstra">Renstra</option>
-          <option value="renja">Renja</option>
-          <option value="dpa">DPA</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Tahun</label>
-        <input v-model="filters.tahun" type="number" @change="applyFilter" class="input-filter w-28" />
-      </div>
-      <div>
-        <label class="block text-xs font-medium text-gray-600 mb-1">Triwulan</label>
-        <select v-model="filters.triwulan" @change="applyFilter" class="input-filter">
-          <option value="1">Triwulan I</option>
-          <option value="2">Triwulan II</option>
-          <option value="3">Triwulan III</option>
-          <option value="4">Triwulan IV</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Program List -->
-    <div class="space-y-4">
-      <div v-if="program.length === 0" class="bg-white rounded-xl shadow p-8 text-center text-gray-400">
-        Belum ada data program untuk filter ini.
-      </div>
-
-      <div v-for="prog in program" :key="prog.id" class="bg-white rounded-xl shadow">
-        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <div>
-            <p class="text-xs font-mono text-gray-500">{{ prog.kode_rek }}</p>
-            <p class="font-semibold text-gray-800">{{ prog.nama_rincian }}</p>
-            <p class="text-xs text-gray-500 mt-0.5">Kepmen: {{ prog.kepmen?.kode ?? '-' }}</p>
-          </div>
-          <div class="text-right">
-            <p class="text-xs text-gray-500">Pagu</p>
-            <p class="font-semibold text-gray-700">{{ formatCurrency(prog.pagu) }}</p>
-          </div>
+  <AppLayout
+    title="Realisasi"
+    :breadcrumbs="[
+      { label: 'Realisasi', href: route('realisasi.index') }
+    ]"
+  >
+    <section class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
+      <Link
+        v-for="item in visibleRealisasiMenu"
+        :key="item.label"
+        :href="item.value === 'dpa'
+          ? route('realisasi.index', readonlyDpaQuery)
+          : route('realisasi.index', { document_type: item.value, tahun: filters.tahun, triwulan: filters.triwulan })"
+        class="group rounded-2xl border bg-white/90 p-4 text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        :class="filters.document_type === item.value ? 'border-emerald-400 ring-2 ring-emerald-200' : 'border-emerald-100'"
+      >
+        <div :class="item.iconBg + ' mx-auto mb-2 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg'">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+          </svg>
         </div>
-
-        <div class="px-5 py-4">
-          <div v-if="prog.realisasi && prog.realisasi.length > 0">
-            <div v-for="real in prog.realisasi" :key="real.id" class="flex items-center justify-between text-sm mb-2">
-              <div class="flex items-center gap-6">
-                <div>
-                  <span class="text-xs text-gray-500">Realisasi Fisik</span>
-                  <div class="flex items-center gap-2 mt-0.5">
-                    <div class="w-24 bg-gray-200 rounded-full h-2">
-                      <div class="bg-blue-500 h-2 rounded-full" :style="{ width: Math.min(real.realisasi_fisik, 100) + '%' }"></div>
-                    </div>
-                    <span class="text-xs font-medium text-blue-600">{{ real.realisasi_fisik }}%</span>
-                  </div>
-                </div>
-                <div>
-                  <span class="text-xs text-gray-500">Realisasi Keuangan</span>
-                  <p class="font-medium text-gray-700 text-xs mt-0.5">{{ formatCurrency(real.realisasi_keuangan) }}</p>
-                </div>
-                <div v-if="real.catatan">
-                  <span class="text-xs text-gray-500">Catatan</span>
-                  <p class="text-xs text-gray-600 mt-0.5">{{ real.catatan }}</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <button @click="openEdit(prog, real)" class="text-blue-600 hover:text-blue-800 text-xs font-medium">Edit</button>
-                <button @click="confirmDelete(real)" class="text-red-600 hover:text-red-800 text-xs font-medium">Hapus</button>
-              </div>
-            </div>
-          </div>
-          <div v-else class="text-sm text-gray-400 mb-2">Belum ada realisasi untuk triwulan ini.</div>
-          <button @click="openAdd(prog)" class="mt-2 text-xs text-blue-600 hover:text-blue-800 font-medium border border-blue-300 rounded px-3 py-1 hover:bg-blue-50">
-            + Input Realisasi
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal Input/Edit Realisasi -->
-    <Modal :show="showModal" :title="editing ? 'Edit Realisasi' : 'Input Realisasi'" @close="closeModal">
-      <div v-if="selectedProgram" class="mb-4 p-3 bg-blue-50 rounded-lg text-sm">
-        <p class="font-medium text-blue-800">{{ selectedProgram.nama_rincian }}</p>
-        <p class="text-blue-600 text-xs mt-0.5">{{ filters.document_type.toUpperCase() }} — Triwulan {{ filters.triwulan }} Tahun {{ filters.tahun }}</p>
-      </div>
-      <form @submit.prevent="submit">
-        <InputField label="Realisasi Fisik (%)" :error="form.errors.realisasi_fisik" required>
-          <input v-model="form.realisasi_fisik" type="number" step="0.01" min="0" max="100" class="input-base" />
-        </InputField>
-        <InputField label="Realisasi Keuangan (Rp)" :error="form.errors.realisasi_keuangan">
-          <input v-model="form.realisasi_keuangan" type="number" min="0" class="input-base" />
-        </InputField>
-        <InputField label="Sisa Anggaran (Rp)" :error="form.errors.sisa_anggaran">
-          <input v-model="form.sisa_anggaran" type="number" min="0" class="input-base" />
-        </InputField>
-        <InputField label="Catatan" :error="form.errors.catatan">
-          <textarea v-model="form.catatan" rows="2" class="input-base" />
-        </InputField>
-        <div class="flex justify-end gap-2 mt-4">
-          <button type="button" @click="closeModal" class="px-4 py-2 text-sm text-gray-600 border rounded-lg hover:bg-gray-50">Batal</button>
-          <button type="submit" :disabled="form.processing" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">
-            {{ form.processing ? 'Menyimpan...' : 'Simpan' }}
-          </button>
-        </div>
-      </form>
-    </Modal>
-
-    <!-- Modal Konfirmasi Hapus -->
-    <Modal :show="showDeleteModal" title="Konfirmasi Hapus" @close="showDeleteModal = false">
-      <p class="text-sm text-gray-600 mb-4">Apakah Anda yakin ingin menghapus data realisasi ini?</p>
-      <div class="flex justify-end gap-2">
-        <button @click="showDeleteModal = false" class="px-4 py-2 text-sm text-gray-600 border rounded-lg hover:bg-gray-50">Batal</button>
-        <button @click="deleteReal" class="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">Hapus</button>
-      </div>
-    </Modal>
+        <h3 class="text-lg font-bold text-emerald-900 transition-colors group-hover:text-emerald-700">{{ item.label }}</h3>
+      </Link>
+    </section>
   </AppLayout>
 </template>
 
 <script setup>
+import { computed, ref } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import InputField from '@/Components/InputField.vue';
-import { router, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Link, router, useForm, usePage } from '@inertiajs/vue3';
 
 const props = defineProps({
   program: Array,
@@ -138,6 +44,31 @@ const filters = ref({
   document_type: props.documentType,
   tahun: props.tahun,
   triwulan: props.triwulan,
+});
+
+const page = usePage();
+const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
+const isSuperadmin = computed(() => userRoles.value.includes('superadmin'));
+const readonlyDpaQuery = computed(() => ({
+  document_type: 'dpa',
+  readonly: 1,
+  triwulan: 'all',
+  tahun: filters.value.tahun || new Date().getFullYear(),
+  opd_id: page.props.auth?.user?.opd_id || undefined,
+}));
+
+const realisasiMenu = [
+  { label: 'IKU', value: 'iku', iconBg: 'bg-blue-500' },
+  { label: 'IKK', value: 'ikk', iconBg: 'bg-blue-400' },
+  { label: 'REALISASI', value: 'dpa', iconBg: 'bg-yellow-600' },
+];
+
+const visibleRealisasiMenu = computed(() => {
+  if (isSuperadmin.value) {
+    return realisasiMenu;
+  }
+
+  return realisasiMenu.filter((item) => item.value !== 'iku');
 });
 
 function applyFilter() {
@@ -223,10 +154,12 @@ function formatCurrency(val) {
 </script>
 
 <style scoped>
+@reference "../../../css/app.css";
+
 .input-base {
-  @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500;
+  @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500;
 }
 .input-filter {
-  @apply border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500;
+  @apply border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500;
 }
 </style>

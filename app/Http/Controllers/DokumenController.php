@@ -13,9 +13,8 @@ class DokumenController extends Controller
 {
     public function index(): Response
     {
-        $dokumen = Dokumen::with(['opd', 'uploadedBy'])->latest()->paginate(20);
-        $opds = Opd::where('is_active', true)->get(['id', 'nama', 'singkatan']);
-        return Inertia::render('BankData/Dokumen', compact('dokumen', 'opds'));
+        // Hanya render halaman tombol, tidak perlu data dokumen
+        return Inertia::render('DataDasar/Dokumen'); // Pastikan kapitalisasi sesuai folder & file
     }
 
     public function store(Request $request)

@@ -9,10 +9,19 @@ use Inertia\Response;
 
 class KepmenController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $kepmen = Kepmen::latest()->paginate(20);
-        return Inertia::render('Pengaturan/Kepmen/Index', ['kepmen' => $kepmen]);
+        return Inertia::render('Pengaturan/Kepmen/Index', [
+            'kepmen' => $kepmen,
+            'activeKepmenId' => $request->session()->get('active_kepmen_id'),
+        ]);
+    }
+
+    public function activate(Request $request, Kepmen $kepmen)
+    {
+        $request->session()->put('active_kepmen_id', $kepmen->id);
+        return redirect()->back()->with('success', "Peraturan aktif diatur ke {$kepmen->kode}.");
     }
 
     public function store(Request $request)

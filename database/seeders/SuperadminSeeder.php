@@ -10,7 +10,7 @@ class SuperadminSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = User::firstOrCreate(
+        $user = User::updateOrCreate(
             ['email' => 'superadmin@simevlap.go.id'],
             [
                 'name' => 'Super Administrator',
@@ -19,6 +19,6 @@ class SuperadminSeeder extends Seeder
                 'is_active' => true,
             ]
         );
-        $user->assignRole('superadmin');
+        $user->syncRoles(['superadmin']);
     }
 }

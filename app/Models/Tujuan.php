@@ -10,7 +10,7 @@ class Tujuan extends Model
 {
     protected $table = 'tujuan';
 
-    protected $fillable = ['misi_id', 'kode', 'uraian'];
+    protected $fillable = ['misi_id', 'kode', 'uraian', 'deskripsi'];
 
     public function misi(): BelongsTo
     {

@@ -1,0 +1,354 @@
+[
+ {
+  "NO": 1,
+  "KODE_SUB_UNIT": "1.01.2.22.5.04.01.0000",
+  "NAMA_SUB_UNIT": "Dinas Pendidikan dan Kebudayaan",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 2,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0000",
+  "NAMA_SUB_UNIT": "Dinas Kesehatan, Pengendalian Penduduk dan KB",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 3,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0004",
+  "NAMA_SUB_UNIT": "Puskesmas Laham",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 4,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0006",
+  "NAMA_SUB_UNIT": "Puskesmas Memahak Besar",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 5,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0008",
+  "NAMA_SUB_UNIT": "Rumah Sakit Pratama Nawacita Datah Dave",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 6,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0007",
+  "NAMA_SUB_UNIT": "Rumah Sakit Pratama Gerbang Sehat Mahakam Ulu",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 7,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0001",
+  "NAMA_SUB_UNIT": "Puskesmas Long Apari",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 8,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0002",
+  "NAMA_SUB_UNIT": "Puskesmas Long Pahangai",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 9,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0003",
+  "NAMA_SUB_UNIT": "Puskesmas Long Bagun",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 10,
+  "KODE_SUB_UNIT": "1.02.2.14.0.00.02.0005",
+  "NAMA_SUB_UNIT": "Puskesmas Long Hubung",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 11,
+  "KODE_SUB_UNIT": "1.03.1.04.0.00.03.0000",
+  "NAMA_SUB_UNIT": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 12,
+  "KODE_SUB_UNIT": "1.05.0.00.0.00.04.0000",
+  "NAMA_SUB_UNIT": "Satuan Polisi Pamong Praja",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 13,
+  "KODE_SUB_UNIT": "1.05.0.00.0.00.26.0000",
+  "NAMA_SUB_UNIT": "Badan Penanggulangan Bencana Daerah",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.05.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Penanggulangan Bencana Daerah"
+ },
+ {
+  "NO": 14,
+  "KODE_SUB_UNIT": "1.06.2.08.0.00.05.0000",
+  "NAMA_SUB_UNIT": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 15,
+  "KODE_SUB_UNIT": "2.11.0.00.0.00.06.0000",
+  "NAMA_SUB_UNIT": "Dinas Lingkungan Hidup",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 16,
+  "KODE_SUB_UNIT": "2.12.0.00.0.00.07.0000",
+  "NAMA_SUB_UNIT": "Dinas Kependudukan dan Pencatatan Sipil",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 17,
+  "KODE_SUB_UNIT": "2.13.0.00.0.00.08.0000",
+  "NAMA_SUB_UNIT": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 18,
+  "KODE_SUB_UNIT": "2.15.0.00.0.00.09.0000",
+  "NAMA_SUB_UNIT": "Dinas Perhubungan",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 19,
+  "KODE_SUB_UNIT": "2.16.2.21.2.20.10.0000",
+  "NAMA_SUB_UNIT": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 20,
+  "KODE_SUB_UNIT": "2.18.0.00.0.00.11.0000",
+  "NAMA_SUB_UNIT": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 21,
+  "KODE_SUB_UNIT": "3.26.2.19.0.00.12.0000",
+  "NAMA_SUB_UNIT": "Dinas Pariwisata, Pemuda dan Olahraga",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 22,
+  "KODE_SUB_UNIT": "3.27.2.09.3.25.13.0000",
+  "NAMA_SUB_UNIT": "Dinas Ketahanan Pangan dan Pertanian",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 23,
+  "KODE_SUB_UNIT": "4.01.2.16.2.10.14.0001",
+  "NAMA_SUB_UNIT": "Bagian Pemerintahan",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 24,
+  "KODE_SUB_UNIT": "4.01.0.00.0.00.14.0003",
+  "NAMA_SUB_UNIT": "Bagian Kesejahteraan Rakyat",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 25,
+  "KODE_SUB_UNIT": "4.01.0.00.0.00.14.0002",
+  "NAMA_SUB_UNIT": "Bagian Hukum",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 26,
+  "KODE_SUB_UNIT": "4.01.2.16.0.00.14.0006",
+  "NAMA_SUB_UNIT": "Bagian Perekonomian dan Sumber Daya Alam",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 27,
+  "KODE_SUB_UNIT": "4.01.0.00.0.00.14.0010",
+  "NAMA_SUB_UNIT": "Bagian Administrasi Pembangunan",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 28,
+  "KODE_SUB_UNIT": "4.01.0.00.0.00.14.0008",
+  "NAMA_SUB_UNIT": "Bagian Pengadaan Barang Dan Jasa",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 29,
+  "KODE_SUB_UNIT": "4.01.0.00.0.00.14.0004",
+  "NAMA_SUB_UNIT": "Bagian Umum",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 30,
+  "KODE_SUB_UNIT": "4.01.2.16.0.00.14.0007",
+  "NAMA_SUB_UNIT": "Bagian Organisasi",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 31,
+  "KODE_SUB_UNIT": "4.01.0.00.0.00.14.0005",
+  "NAMA_SUB_UNIT": "Bagian Protokol dan Komunikasi Pimpinan",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 32,
+  "KODE_SUB_UNIT": "4.02.0.00.0.00.15.0000",
+  "NAMA_SUB_UNIT": "Sekretariat DPRD",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 33,
+  "KODE_SUB_UNIT": "5.01.5.02.5.05.21.0000",
+  "NAMA_SUB_UNIT": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 34,
+  "KODE_SUB_UNIT": "5.02.0.00.0.00.22.0000",
+  "NAMA_SUB_UNIT": "Badan Pendapatan Daerah",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 35,
+  "KODE_SUB_UNIT": "5.02.4.01.0.00.23.0000",
+  "NAMA_SUB_UNIT": "Badan Pengelola Keuangan dan Aset Daerah",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "5.02.4.01.0.00.23.0000",
+  "NAMA_OPD": "Badan Pengelola Keuangan dan Aset Daerah"
+ },
+ {
+  "NO": 36,
+  "KODE_SUB_UNIT": "5.03.5.04.0.00.24.0000",
+  "NAMA_SUB_UNIT": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 37,
+  "KODE_SUB_UNIT": "5.06.0.00.0.00.26.0000",
+  "NAMA_SUB_UNIT": "Badan Pengelola Perbatasan Daerah",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 38,
+  "KODE_SUB_UNIT": "6.01.0.00.0.00.21.0000",
+  "NAMA_SUB_UNIT": "Inspektorat",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 39,
+  "KODE_SUB_UNIT": "7.01.0.00.0.00.16.0000",
+  "NAMA_SUB_UNIT": "Kecamatan Long Apari",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 40,
+  "KODE_SUB_UNIT": "7.01.0.00.0.00.17.0000",
+  "NAMA_SUB_UNIT": "Kecamatan Long Pahangai",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "7.01.0.00.0.00.17.0000",
+  "NAMA_OPD": "Kecamatan Long Pahangai"
+ },
+ {
+  "NO": 41,
+  "KODE_SUB_UNIT": "7.01.0.00.0.00.18.0000",
+  "NAMA_SUB_UNIT": "Kecamatan Long Bagun",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "7.01.0.00.0.00.18.0000",
+  "NAMA_OPD": "Kecamatan Long Bagun"
+ },
+ {
+  "NO": 42,
+  "KODE_SUB_UNIT": "7.01.0.00.0.00.19.0000",
+  "NAMA_SUB_UNIT": "Kecamatan Laham",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "7.01.0.00.0.00.19.0000",
+  "NAMA_OPD": "Kecamatan Laham"
+ },
+ {
+  "NO": 43,
+  "KODE_SUB_UNIT": "7.01.0.00.0.00.20.0000",
+  "NAMA_SUB_UNIT": "Kecamatan Long Hubung",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "7.01.0.00.0.00.20.0000",
+  "NAMA_OPD": "Kecamatan Long Hubung"
+ },
+ {
+  "NO": 44,
+  "KODE_SUB_UNIT": "8.01.0.00.0.00.25.0000",
+  "NAMA_SUB_UNIT": "Badan Kesatuan Bangsa dan Politik",
+  "JENIS": "SUB UNIT",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ }
+]

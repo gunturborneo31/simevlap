@@ -1,0 +1,266 @@
+[
+ {
+  "NO": 1,
+  "KODE_BIDANG_URUSAN": "1.01",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PENDIDIKAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 2,
+  "KODE_BIDANG_URUSAN": "2.22",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG KEBUDAYAAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.01.2.22.5.04.01.0000",
+  "NAMA_OPD": "Dinas Pendidikan dan Kebudayaan"
+ },
+ {
+  "NO": 3,
+  "KODE_BIDANG_URUSAN": "1.02",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG KESEHATAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 4,
+  "KODE_BIDANG_URUSAN": "2.14",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PENGENDALIAN PENDUDUK DAN KELUARGA BERENCANA",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.02.2.14.0.00.02.0000",
+  "NAMA_OPD": "Dinas Kesehatan, Pengendalian Penduduk dan KB"
+ },
+ {
+  "NO": 5,
+  "KODE_BIDANG_URUSAN": "1.03",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PEKERJAAN UMUM DAN PENATAAN RUANG",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 6,
+  "KODE_BIDANG_URUSAN": "1.04",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PERUMAHAN DAN KAWASAN PERMUKIMAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.03.1.04.0.00.03.0000",
+  "NAMA_OPD": "Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman"
+ },
+ {
+  "NO": 7,
+  "KODE_BIDANG_URUSAN": "1.05",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG KETENTERAMAN DAN KETERTIBAN UMUM SERTA PERLINDUNGAN MASYARAKAT",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.05.0.00.0.00.04.0000",
+  "NAMA_OPD": "Satuan Polisi Pamong Praja"
+ },
+ {
+  "NO": 8,
+  "KODE_BIDANG_URUSAN": "1.06",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG SOSIAL",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 9,
+  "KODE_BIDANG_URUSAN": "2.08",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "1.06.2.08.0.00.05.0000",
+  "NAMA_OPD": "Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak"
+ },
+ {
+  "NO": 10,
+  "KODE_BIDANG_URUSAN": "2.11",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG LINGKUNGAN HIDUP",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.11.0.00.0.00.06.0000",
+  "NAMA_OPD": "Dinas Lingkungan Hidup"
+ },
+ {
+  "NO": 11,
+  "KODE_BIDANG_URUSAN": "2.12",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG ADMINISTRASI KEPENDUDUKAN DAN PENCATATAN SIPIL",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.12.0.00.0.00.07.0000",
+  "NAMA_OPD": "Dinas Kependudukan dan Pencatatan Sipil"
+ },
+ {
+  "NO": 12,
+  "KODE_BIDANG_URUSAN": "2.13",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PEMBERDAYAAN MASYARAKAT DAN DESA",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.13.0.00.0.00.08.0000",
+  "NAMA_OPD": "Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung"
+ },
+ {
+  "NO": 13,
+  "KODE_BIDANG_URUSAN": "2.15",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PERHUBUNGAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.15.0.00.0.00.09.0000",
+  "NAMA_OPD": "Dinas Perhubungan"
+ },
+ {
+  "NO": 14,
+  "KODE_BIDANG_URUSAN": "2.16",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG KOMUNIKASI DAN INFORMATIKA",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 15,
+  "KODE_BIDANG_URUSAN": "2.20",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG STATISTIK",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 16,
+  "KODE_BIDANG_URUSAN": "2.21",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PERSANDIAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.16.2.21.2.20.10.0000",
+  "NAMA_OPD": "Dinas Komunikasi dan Informatika, Statistik, dan Persandian"
+ },
+ {
+  "NO": 17,
+  "KODE_BIDANG_URUSAN": "2.18",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PENANAMAN MODAL",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "2.18.0.00.0.00.11.0000",
+  "NAMA_OPD": "Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu"
+ },
+ {
+  "NO": 18,
+  "KODE_BIDANG_URUSAN": "2.19",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG KEPEMUDAAN DAN OLAHRAGA",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 19,
+  "KODE_BIDANG_URUSAN": "3.26",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PARIWISATA",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "3.26.2.19.0.00.12.0000",
+  "NAMA_OPD": "Dinas Pariwisata, Pemuda dan Olahraga"
+ },
+ {
+  "NO": 20,
+  "KODE_BIDANG_URUSAN": "2.09",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PANGAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 21,
+  "KODE_BIDANG_URUSAN": "3.25",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG KELAUTAN  DAN PERIKANAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 22,
+  "KODE_BIDANG_URUSAN": "3.27",
+  "NAMA_BIDANG_URUSAN": "URUSAN PEMERINTAHAN BIDANG PERTANIAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "3.27.2.09.3.25.13.0000",
+  "NAMA_OPD": "Dinas Ketahanan Pangan dan Pertanian"
+ },
+ {
+  "NO": 23,
+  "KODE_BIDANG_URUSAN": "4.01",
+  "NAMA_BIDANG_URUSAN": "SEKRETARIAT DAERAH",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "4.01.0.00.0.00.14.0000",
+  "NAMA_OPD": "Sekretariat Daerah"
+ },
+ {
+  "NO": 24,
+  "KODE_BIDANG_URUSAN": "4.02",
+  "NAMA_BIDANG_URUSAN": "SEKRETARIAT DPRD",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "4.02.0.00.0.00.15.0000",
+  "NAMA_OPD": "Sekretariat DPRD"
+ },
+ {
+  "NO": 25,
+  "KODE_BIDANG_URUSAN": "5.01",
+  "NAMA_BIDANG_URUSAN": "PERENCANAAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 26,
+  "KODE_BIDANG_URUSAN": "5.05",
+  "NAMA_BIDANG_URUSAN": "PENELITIAN DAN PENGEMBANGAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "5.01.5.02.5.05.21.0000",
+  "NAMA_OPD": "Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah"
+ },
+ {
+  "NO": 27,
+  "KODE_BIDANG_URUSAN": "5.02",
+  "NAMA_BIDANG_URUSAN": "KEUANGAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "5.02.0.00.0.00.22.0000",
+  "NAMA_OPD": "Badan Pendapatan Daerah"
+ },
+ {
+  "NO": 28,
+  "KODE_BIDANG_URUSAN": "5.03",
+  "NAMA_BIDANG_URUSAN": "KEPEGAWAIAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 29,
+  "KODE_BIDANG_URUSAN": "5.04",
+  "NAMA_BIDANG_URUSAN": "PENDIDIKAN DAN PELATIHAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "5.03.5.04.0.00.24.0000",
+  "NAMA_OPD": "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia"
+ },
+ {
+  "NO": 30,
+  "KODE_BIDANG_URUSAN": "5.06",
+  "NAMA_BIDANG_URUSAN": "PENGELOLAAN PERBATASAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "5.06.0.00.0.00.26.0000",
+  "NAMA_OPD": "Badan Pengelola Perbatasan Daerah"
+ },
+ {
+  "NO": 31,
+  "KODE_BIDANG_URUSAN": "6.01",
+  "NAMA_BIDANG_URUSAN": "INSPEKTORAT DAERAH",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "6.01.0.00.0.00.21.0000",
+  "NAMA_OPD": "Inspektorat"
+ },
+ {
+  "NO": 32,
+  "KODE_BIDANG_URUSAN": "7.01",
+  "NAMA_BIDANG_URUSAN": "KECAMATAN",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "7.01.0.00.0.00.16.0000",
+  "NAMA_OPD": "Kecamatan Long Apari"
+ },
+ {
+  "NO": 33,
+  "KODE_BIDANG_URUSAN": "8.01",
+  "NAMA_BIDANG_URUSAN": "KESATUAN BANGSA DAN POLITIK",
+  "JENIS": "BIDANG URUSAN",
+  "KODE_SKPD": "8.01.0.00.0.00.25.0000",
+  "NAMA_OPD": "Badan Kesatuan Bangsa dan Politik"
+ }
+]

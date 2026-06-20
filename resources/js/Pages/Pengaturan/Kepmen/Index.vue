@@ -1,5 +1,12 @@
 <template>
   <AppLayout title="Pengaturan Kepmen">
+    <div class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+      Sedang mengakses peraturan:
+      <strong>
+        {{ activeKepmen?.kode ? `${activeKepmen.kode} - ${activeKepmen.nama}` : 'Belum dipilih' }}
+      </strong>
+    </div>
+
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-lg font-semibold text-gray-700">Daftar Keputusan Menteri</h2>
       <button @click="openAdd" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors">
@@ -28,6 +35,12 @@
             <td class="px-4 py-3 text-gray-600">{{ item.tahun }}</td>
             <td class="px-4 py-3 text-gray-500 max-w-xs truncate">{{ item.keterangan ?? '-' }}</td>
             <td class="px-4 py-3 text-center space-x-2">
+              <button
+                @click="setActive(item)"
+                class="text-emerald-700 hover:text-emerald-900 text-xs font-medium"
+              >
+                {{ activeKepmenId === item.id ? 'Aktif' : 'Set Aktif' }}
+              </button>
               <button @click="openEdit(item)" class="text-blue-600 hover:text-blue-800 text-xs font-medium">Edit</button>
               <button @click="confirmDelete(item)" class="text-red-600 hover:text-red-800 text-xs font-medium">Hapus</button>
             </td>
@@ -86,7 +99,9 @@ import InputField from '@/Components/InputField.vue';
 import { Link, useForm, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
-const props = defineProps({ kepmen: Object });
+const props = defineProps({ kepmen: Object, activeKepmenId: Number });
+
+const activeKepmen = props.kepmen.data.find(item => item.id === props.activeKepmenId);
 
 const showModal = ref(false);
 const showDeleteModal = ref(false);
@@ -143,9 +158,15 @@ function deleteItem() {
     onSuccess: () => { showDeleteModal.value = false; },
   });
 }
+
+function setActive(item) {
+  router.post(route('pengaturan.kepmen.activate', item.id));
+}
 </script>
 
 <style scoped>
+@reference "../../../../css/app.css";
+
 .input-base {
   @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500;
 }

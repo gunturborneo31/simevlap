@@ -1,0 +1,650 @@
+{
+"program unggulan":[
+ {
+  "kode": 1,
+  "uraian": "Membangun Mahulu  Untuk Semua",
+  "deskripsi": "Melanjutkan dan menambah Program Alokasi Dana Kampung Rp. 4 – 8 Miliar per Kampung per Tahun",
+  "Program prioritas": "PROGRAM PEMBERDAYAAN LEMBAGA KEMASYARAKATAN, LEMBAGA ADAT DAN MASYARAKAT HUKUM ADAT",
+  "opd terkait": "DINAS PEMBERDAYAAN MASYARAKAT KAMPUNG"
+ },
+ {
+  "deskripsi": "Melanjutkan dan menambah Program Dana RT Rp.200- 300 juta per RT per Tahun",
+  "Program prioritas": "PROGRAM PEMBERDAYAAN LEMBAGA KEMASYARAKATAN, LEMBAGA ADAT DAN MASYARAKAT HUKUM ADAT",
+  "opd terkait": "DINAS PEMBERDAYAAN MASYARAKAT KAMPUNG"
+ },
+ {
+  "kode": 2,
+  "uraian": "Pengembangan SDM  Unggul dan  Berdaya Saing",
+  "deskripsi": "Melanjutkan penataan dan peningkatan pelayanan pendidikan yang bermutu, merata dan berkeadilan serta peningkatan kesejahteraan tenaga pendidik",
+  "Program prioritas": "PROGRAM PENGELOLAAN PENDIDIKAN",
+  "opd terkait": "DINAS PENDIDIKAN DAN KEBUDAYAAN"
+ },
+ {
+  "Program prioritas": "PROGRAM PENDIDIK DAN TENAGA KEPENDIDIKAN",
+  "opd terkait": "DINAS PENDIDIKAN DAN KEBUDAYAAN"
+ },
+ {
+  "deskripsi": "Melanjutkan dan menambah alokasi beasiswa Gerbang Cerdas Mahulu",
+  "Program prioritas": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+  "opd terkait": "BAG KESRA"
+ },
+ {
+  "deskripsi": "Melanjutkan penataan dan peningkatan pelayanan kesehatan gratis yang berkualitas dan manusiawi yang dibarengi dengan peningkatan kesejahteraan tenaga medis, baik dokter maupun perawat (UHC)",
+  "Program prioritas": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+  "opd terkait": "DINKES"
+ },
+ {
+  "deskripsi": "Program pembangunan RSUD Mahulu dan dokter spoesialis",
+  "Program prioritas": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+  "opd terkait": "DINKES"
+ },
+ {
+  "Program prioritas": "PROGRAM PENINGKATAN KAPASITAS SUMBER DAYA MANUSIA KESEHATAN",
+  "opd terkait": "DINKES"
+ },
+ {
+  "deskripsi": "Program Homecare Service (Ambulance\/Speed Kesehatan)",
+  "Program prioritas": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+  "opd terkait": "DINKES"
+ },
+ {
+  "deskripsi": "Pengembangan Badan Gizi Daerah",
+  "Program prioritas": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+  "opd terkait": "DINKES"
+ },
+ {
+  "deskripsi": "Program makan bergizi dan revolusi putih",
+  "Program prioritas": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+  "opd terkait": "DINKES"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMBERDAYAAN DAN PENINGKATAN KELUARGA SEJAHTERA (KS)",
+  "opd terkait": "DINSOS"
+ },
+ {
+  "kode": 3,
+  "uraian": "Transformasi Ekonomi  dan Pengentasan Pengangguran",
+  "deskripsi": "Pelatihan kewirausahaan untuk penerima bantuan sosial agar bisa mandiri secara ekonomi.",
+  "Program prioritas": "PROGRAM PEMBERDAYAAN USAHA MENENGAH, USAHA KECIL, DAN USAHA MIKRO (UMKM)",
+  "opd terkait": "OPD URUSAN KOPERASI DAN UKM"
+ },
+ {
+  "Program prioritas": "PROGRAM REHABILITASI SOSIAL",
+  "opd terkait": "DINSOS"
+ },
+ {
+  "Program prioritas": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+  "opd terkait": "BAGIAN EKONOMI DAN SDA"
+ },
+ {
+  "deskripsi": "Mendorong tumbuhnya start up dan bisnis online",
+  "Program prioritas": "PROGRAM PENGELOLAAN APLIKASI INFORMATIKA",
+  "opd terkait": "DISKOMINFO"
+ },
+ {
+  "Program prioritas": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+  "opd terkait": "BAGIAN EKONOMI DAN SDA"
+ },
+ {
+  "deskripsi": "Pengembangan koperasi berbasis segmen (koperasi wanita, petani dll)",
+  "Program prioritas": "PROGRAM PEMBERDAYAAN DAN PERLINDUNGAN KOPERASI",
+  "opd terkait": "OPD URUSAN KOPERASI DAN UKM"
+ },
+ {
+  "Program prioritas": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+  "opd terkait": "BAGIAN EKONOMI DAN SDA"
+ },
+ {
+  "deskripsi": "Peningkatan kualitas dan kompetensi angkatan kerja melalui pelatihan, workshop dan balai latihan terkoneksi dengan Perusahaan",
+  "Program prioritas": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+  "opd terkait": "BAG KESRA"
+ },
+ {
+  "deskripsi": "Program “Jemput Kerja” bagi keluarga tidak mampu usia produktif untuk disalurkan ke lapangan pekerjaan",
+  "Program prioritas": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+  "opd terkait": "BAG KESRA"
+ },
+ {
+  "kode": 4,
+  "uraian": "Mengurangi kemiskinan",
+  "deskripsi": "Menuntaskan Program Ketahanan Keluarga Rp.5-10 juta per Dasawisma per Tahun",
+  "Program prioritas": "PROGRAM PERLINDUNGAN DAN JAMINAN SOSIAL",
+  "opd terkait": "DINSOS"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMBERDAYAAN LEMBAGA KEMASYARAKATAN, LEMBAGA ADAT DAN MASYARAKAT HUKUM ADAT",
+  "opd terkait": "DPMK"
+ },
+ {
+  "deskripsi": "Program pemenuhan kebutuhan dasar yatim piatu, lansia dan keluarga rentan",
+  "Program prioritas": "PROGRAM REHABILITASI SOSIAL",
+  "opd terkait": "DINSOS"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+  "opd terkait": "DINKES"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMBERDAYAAN DAN PENINGKATAN KELUARGA SEJAHTERA (KS)"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGENDALIAN PENDUDUK"
+ },
+ {
+  "deskripsi": "Program pelayanan dan rehabilitasi Penyandang Masalah Kesejahteraan Sosial",
+  "Program prioritas": "PROGRAM REHABILITASI SOSIAL",
+  "opd terkait": "DINSOS"
+ },
+ {
+  "deskripsi": "Pembangunan Rumah Tidak Layak Huni",
+  "Program prioritas": "PROGRAM KAWASAN PERMUKIMAN",
+  "opd terkait": "DPUPR"
+ },
+ {
+  "kode": 5,
+  "uraian": "Peningkatan Kesejahteraan Petani  dan Sektor Unggulan",
+  "deskripsi": "Peningkatan kesejahteraan petani dengan mengembangkan bantuan permodalan, penerapan manajemen teknologi pertanian berbasis kerakyatan dan berwawasan lingkungan",
+  "Program prioritas": "PROGRAM PENYEDIAAN DAN PENGEMBANGAN SARANA PERTANIAN",
+  "opd terkait": "DKPP"
+ },
+ {
+  "Program prioritas": "PROGRAM PENINGKATAN DIVERSIFIKASI DAN KETAHANAN PANGAN MASYARAKAT"
+ },
+ {
+  "deskripsi": "Program optimalisasi pupuk subsidi",
+  "Program prioritas": "PROGRAM STABILISASI HARGA BARANG KEBUTUHAN POKOK DAN BARANG PENTING",
+  "opd terkait": "OPD URUSAN PERDAGANGAN"
+ },
+ {
+  "Program prioritas": "PROGRAM PENYEDIAAN DAN PENGEMBANGAN SARANA PERTANIAN",
+  "opd terkait": "DKPP"
+ },
+ {
+  "Program prioritas": "PROGRAM PENYULUHAN PERTANIAN"
+ },
+ {
+  "deskripsi": "Program pengembangan dan pemasyarakatan pupuk organic",
+  "Program prioritas": "PROGRAM PENYEDIAAN DAN PENGEMBANGAN SARANA PERTANIAN",
+  "opd terkait": "DKPP"
+ },
+ {
+  "Program prioritas": "PROGRAM PENYULUHAN PERTANIAN"
+ },
+ {
+  "deskripsi": "Hilirisasi berbagai produk unggulan daerah",
+  "Program prioritas": "PROGRAM PENGEMBANGAN IKLIM PENANAMAN MODAL",
+  "opd terkait": "DPMPTSP"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN EKONOMI KREATIF MELALUI PEMANFAATAN DAN PERLINDUNGAN HAK KEKAYAAN INTELEKTUAL",
+  "opd terkait": "DISPARPORA"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN UMKM",
+  "opd terkait": "OPD URUSAN KOPERASI DAN UKM"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGOLAHAN DAN PEMASARAN HASIL PERIKANAN",
+  "opd terkait": "DKPP"
+ },
+ {
+  "Program prioritas": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+  "opd terkait": "BAGIAN EKONOMI DAN SDA"
+ },
+ {
+  "Program prioritas": "PROGRAM PENINGKATAN DIVERSIFIKASI DAN KETAHANAN PANGAN MASYARAKAT",
+  "opd terkait": "DKPP"
+ },
+ {
+  "Program prioritas": "PROGRAM ADMINISTRASI PEMERINTAHAN DESA",
+  "opd terkait": "DPMK"
+ },
+ {
+  "deskripsi": "Pengembangan sektor pariwisata dan industri kreatif",
+  "Program prioritas": "PROGRAM PENINGKATAN DAYA TARIK DESTINASI PARIWISATA",
+  "opd terkait": "DISPARPORA"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMASARAN PARIWISATA"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN EKONOMI KREATIF MELALUI PEMANFAATAN DAN PERLINDUNGAN HAK KEKAYAAN INTELEKTUAL"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN SUMBER DAYA PARIWISATA DAN EKONOMI KREATIF"
+ },
+ {
+  "kode": 6,
+  "uraian": "Pembangunan Kewilayahan, Konektivitas dan  Utilitas dasar",
+  "deskripsi": "Melanjutkan dan Menuntaskan Program Pembangunan Infrastruktur Jalan, Jembatan, Bandar Udara, Kawasan Wisata Baru dan Christian Center Mahulu",
+  "Program prioritas": "PROGRAM PENYELENGGARAAN JALAN",
+  "opd terkait": "PUPR"
+ },
+ {
+  "Program prioritas": "PROGRAM PENATAAN BANGUNAN\/GEDUNG",
+  "opd terkait": "PUPR"
+ },
+ {
+  "deskripsi": "Pembangunan Jembatan Long Bagun Batu Majang",
+  "Program prioritas": "PROGRAM PENYELENGGARAAN JALAN",
+  "opd terkait": "PUPR"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMBINAAN DAN PENGAWASAN TERHADAP IZIN LINGKUNGAN DAN IZIN PERLINDUNGAN PENGOLAHAN LINGKUNGAN HIDUP (PPLH)",
+  "opd terkait": "DLH"
+ },
+ {
+  "deskripsi": "Program peningkatan layanan listrik, jaringan seluler dan internet",
+  "Program prioritas": "PROGRAM PENINGKATAN PRASARANA, SARANA DAN UTILITAS UMUM (PSU)",
+  "opd terkait": "PUPR"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGELOLAAN APLIKASI INFORMATIKA",
+  "opd terkait": "DISKOMINFO"
+ },
+ {
+  "deskripsi": "Pengembangan Desa Mandiri Energi dan Ramah Lingkungan",
+  "Program prioritas": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+  "opd terkait": "BAGIAN EKONOMI DAN SDA"
+ },
+ {
+  "Program prioritas": "PROGRAM PENATAAN BANGUNAN\/GEDUNG",
+  "opd terkait": "PUPR"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN SISTEM DAN PENGELOLAAN PERSAMPAHAN REGIONAL",
+  "opd terkait": "DLH"
+ },
+ {
+  "kode": 7,
+  "uraian": "Mahulu Harmoni  dan Ramah Lingkungan",
+  "deskripsi": "Menuntaskan pembangunan dan peningkatan sarana air bersih yang murah, berkualitas dan terjamin (Ujoh Bilang dan Long Melaham)",
+  "Program prioritas": "PROGRAM PENGELOLAAN DAN PENGEMBANGAN SISTEM PENYEDIAAN AIR MINUM",
+  "opd terkait": "PUPRPKP"
+ },
+ {
+  "deskripsi": "Program bedah RTLH (Rumah Tidak Layak Huni)",
+  "Program prioritas": "PROGRAM KAWASAN PERMUKIMAN"
+ },
+ {
+  "Program prioritas": "PROGRAM PERUMAHAN DAN KAWASAN PERMUKIMAN KUMUH"
+ },
+ {
+  "deskripsi": "Program pemberdayaan masyarakat sipil dengan perluasan partisipasi dan musrenbang tematik dan segmented",
+  "Program prioritas": "PROGRAM PERENCANAAN, PENGENDALIAN DAN EVALUASI PEMBANGUNAN DAERAH",
+  "opd terkait": "BP4D"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN KELURAHAN",
+  "opd terkait": "Kecamatan"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGELOLAAN PERBATASAN",
+  "opd terkait": "BPPD"
+ },
+ {
+  "deskripsi": "Program tunjangan kehormatan untuk guru agama, pegiat keagamaan dan tokoh adat",
+  "Program prioritas": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+  "opd terkait": "KESRA"
+ },
+ {
+  "Program prioritas": "PROGRAM PENDIDIK DAN TENAGA KEPENDIDIKAN",
+  "opd terkait": "DISDIK"
+ },
+ {
+  "Program prioritas": "PROGRAM PEMBINAAN DAN PENGEMBANGAN KETAHANAN EKONOMI SOSIAL DAN BUDAYA",
+  "opd terkait": "KESBANGPOL"
+ },
+ {
+  "deskripsi": "Program tunjangan kehormatan untuk pegiat seni dan budaya",
+  "Program prioritas": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+  "opd terkait": "KESRA"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN KEBUDAYAAN",
+  "opd terkait": "DISDIKBUD"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN KESENIAN TRADISIONAL",
+  "opd terkait": "DISDIKBUD"
+ },
+ {
+  "deskripsi": "Program peningkatan tunjangan\/siltap untuk Petinggi dan perangkat kampung serta ketua RT",
+  "Program prioritas": "PROGRAM ADMINISTRASI PEMERINTAHAAN KAMPUNG"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGAKUAN KEBERLAKUAN MASYARAKAT HUKUM ADAT (MHA) KEARIFAN LOKAL DAN PPLH",
+  "opd terkait": "DLH"
+ },
+ {
+  "deskripsi": "Program bantuan kelembagaan untuk sekolah agama dan tempat ibadah",
+  "Program prioritas": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+  "opd terkait": "BAG KESRA"
+ },
+ {
+  "kode": 8,
+  "uraian": "Transformasi Tata  Kelola dan  Pelayanan Publik",
+  "deskripsi": "Penerapan Zona Bebas KKN (Korupsi, Kolusi dan Nepotisme)",
+  "Program prioritas": "PROGRAM PERUMUSAN KEBIJAKAN, PENDAMPINGAN DAN ASISTENSI",
+  "opd terkait": "INSPEKTORAT"
+ },
+ {
+  "deskripsi": "Reformasi birokrasi dengan menerapkan merit system dan sistem remunerasi yang layak dan proporsional",
+  "Program prioritas": "PROGRAM PERUMUSAN KEBIJAKAN, PENDAMPINGAN DAN ASISTENSI",
+  "opd terkait": "INSPEKTORAT"
+ },
+ {
+  "Program prioritas": "PROGRAM KEPEGAWAIAN DAERAH",
+  "opd terkait": "BKPSDM"
+ },
+ {
+  "Program prioritas": "PROGRAM PENGEMBANGAN SUMBER DAYA MANUSIA"
+ },
+ {
+  "deskripsi": "Penerapan Sistem Pemerintahan Berbasis Elektronik (SPBE) untuk mempercepat pelayanan",
+  "Program prioritas": "PROGRAM PENGELOLAAN APLIKASI INFORMATIKA",
+  "opd terkait": "DISKOMINFO"
+ },
+ {
+  "Program prioritas": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+  "opd terkait": "BAG. PENGADANAN BARANG DAN JASA"
+ }
+],
+"visi":[
+ {
+  "kode visi": "visi 1",
+  "uraian visi": "MAHULU MELAJU",
+  "deskripsi visi": "Merupakan      kondisi      yang      menggambarkan      upaya percepatan     dan     peningkatan     kesejahteraan,     sebagai bentuk   kesinambungan   dan   penyempurnaan   tahapan pembangunan setelah 1 dekade pemekaran. Dengan spirit “MENJAGA            KESINAMBUNGAN,            MENUNTASKAN\nPEMBANGUNAN”.   Dengan   demikian,   “Mahulu   Melaju” merupakan  cerminan  tekad  bersama  Pemerintah  Daerah dan     masyarakat     untuk     mempercepat     transformasi pembangunan  Mahakam  Ulu  menuju  daerah  yang  lebih\nprogresif, inklusif, dan berketahanan jangka panjang."
+ },
+ null,
+ null,
+ {
+  "kode visi": "visi 2",
+  "uraian visi": "Maju",
+  "deskripsi visi": "Merupakan    kondisi    terwujudnya    SDM    Mahulu    yang berkualitas       dan       berdaya       saing       global       dengan pembangunan   sumber   daya   manusia   dan   penguatan\nekonomi lokal berbasis potensi unggulan."
+ },
+ {
+  "kode visi": "visi 3",
+  "uraian visi": "Merata",
+  "deskripsi visi": "Merupakan    kondisi    terwujudnya    pembangunan    dan kesejahteraan       yang       berkeadilan,       berimbang       dan proporsional   bagi   seluruh   warga   dan   wilayah   Mahulu. Pembangunan    dapat    dirasakan    secara    inklusif    oleh seluruh lapisan masyarakat hingga ke wilayah pedalaman dan    perbatasan.    Prinsip    pemerataan    ini    diwujudkan melalui distribusi layanan dasar yang setara, peningkatan aksesibilitas          antarwilayah,          serta          pengurangan kesenjangan     sosial     dan     ekonomi     antar     kelompok\nmasyarakat"
+ },
+ {
+  "kode visi": "visi 4",
+  "uraian visi": "Berkelanjutan",
+  "deskripsi visi": "Komitmen  Kabupaten  Mahakam  Ulu  untuk  melanjutkan tahapan  pembangunan  yang  sudah  dirintis  sebelumnya dan  sekaligus  menjamin  pemanfaatan  sumber  daya  alam dan    ruang    hidup    akan    dikelola    secara    bijak    untuk meningkatkan  kesejahteraan  masyarakat  saat  ini,  tanpa mengurangi    kapasitas    lingkungan   hidup   dan   potensi\nekonomi bagi generasi yang akan datang"
+ }
+],
+"misi":[
+ {
+  "kode misi": "misi 1",
+  "uraian misi": "Mewujudkan Sumber Daya Manusia berkualitas, sehat jasmani dan rohani, dan berdaya saing global, sehingga dapat menunjang transformasi sosial yang inklusif, responsif dan kreatif dalam kehidupan bermasyarakat dan bernegara",
+  "deskripsi misi": "Mencerminkan orientasi pembangunan daerah yang menempatkan manusia sebagai pusat pembangunan (peoplecentered development). Misi ini menggarisbawahi bahwa pembangunan Kabupaten Mahakam Ulu tidak hanya berorientasi pada pertumbuhan ekonomi, tetapi juga pada penciptaan manusia-manusia yang sehat, berpendidikan, kreatif, dan berdaya saing global. Fokus pembangunan diarahkan pada peningkatan kualitas pendidikan dan literasi, peningkatan derajat kesehatan masyarakat, penguatan daya saing pemuda dan keterampilan tenaga kerja hijau (green jobs), khususnya pada sektor-sektor strategis seperti pengelolaan sumber daya alam berkelanjutan, energi terbarukan, ekonomi hijau, dan jasa lingkungan, penguatan identitas, budaya, dan kreativitas lokal serta transformasi sosial yang inklusif dan responsif. Hal ini sejalan dengan agenda pembangunan nasional menuju Indonesia Emas 2045 serta cita-cita jangka panjang daerah “Mahulu Setara 2045”"
+ },
+ {
+  "kode misi": "misi 2",
+  "uraian misi": "Mewujudkan pemberdayaan ekonomi masyarakat secara berkesinambungan melalui diversifikasi dan hilirisasi sumber daya unggulan berbasis IPTEK, meningkatnya kontribusi sektor-sektor unggulan dan industri kreatif",
+  "deskripsi misi": "Misi ini berpijak pada teori endogenous growth dan resourcebased development, yang menegaskan bahwa pertumbuhan ekonomi daerah akan lebih berkelanjutan apabila bertumpu pada optimalisasi potensi lokal melalui inovasi, teknologi, dan penguatan kapasitas masyarakat. Dengan memanfaatkan diversifikasi usaha, hilirisasi komoditas, serta pengembangan sektor kreatif, Mahakam Ulu dapat menghindari jebakan ekonomi ekstraktif yang hanya menjual bahan mentah tanpa nilai tambah. Misi ini akan fokus pada diversifikasi ekonomi daerah, hilirisasi dan nilai tambah produk unggulan, pemanfaatan ilmu pengetahuan dan teknologi (IPTEK), penguatan industri kreatif dan ekonomi digital serta pemberdayaan ekonomi masyarakat dan UMKM. Dengan pendekatan ini, ekonomi masyarakat diharapkan dapat tumbuh lebih inklusif berkelanjutan, dan mampu meningkatkan daya saing daerah di tingkat regional maupun global"
+ },
+ {
+  "kode misi": "misi 3",
+  "uraian misi": "Mewujudkan pembangunan kewilayahan yang merata dan berkeadilan, pengembangan kawasan dan pusat-pusat pertumbuhan ekonomi baru, peningkatan aksesabilitas dan konektifitas, kemandirian energi dan pangan yang berwawasan lingkungan",
+  "deskripsi misi": "Misi ini merupakan kerangka untuk memastikan bahwa pembangunan Mahakam Ulu tidak terpusat hanya pada wilayah tertentu, melainkan merata ke seluruh kecamatan dan desa, dengan memperhatikan karakteristik kewilayahan. Pendekatan ini bertujuan mengurangi kesenjangan, memperkuat konektivitas antarwilayah, serta mewujudkan kemandirian energi dan pangan berbasis lingkungan. Misi ini memberikan fokus pembangunan pada pemerataan dan keadilan pembangunan wilayah, pengembangan kawasan dan pusat pertumbuhan ekonomi baru, peningkatan aksesibilitas dan konektivitas, ketahanan dan kemandirian pangan serta pembangunan berwawasan lingkungan. Dengan implementasi yang konsisten, Mahulu dapat berkembang sebagai daerah perbatasan yang tangguh, inklusif, dan berdaya saing"
+ },
+ {
+  "kode misi": "misi 4",
+  "uraian misi": "Mewujudkan ketahanan sosial masyarakat dan budaya berbasis kearifan lokal dalam tatanan masyarakat yang aman, nyaman dan inklusif, serta berkolaborasi dalam menunjang Ibu Kota Negara",
+  "deskripsi misi": "Misi ini menegaskan bahwa pembangunan Mahulu tidak hanya bersifat material dan ekonomi, tetapi juga menekankan pada dimensi sosial, budaya, dan identitas lokal yang menjadi fondasi ketahanan masyarakat dalam jangka panjang. Misi keempat ini memandang ketahanan sosial dan budaya sebagai prasyarat penting bagi pembangunan yang inklusif dan berkelanjutan. Misi ini akan fokus pada penguatan ketahanan sosial, pelestarian budaya dan kearifan lokal, masyarakat aman, nyaman, dan inklusif serta penguatan identitas daerah dan daya saing global. Dengan menjadikan kearifan lokal sebagai basis identitas, Mahulu tidak hanya menjaga harmoni internal, tetapi juga mampu menjadi mitra strategis dalam mendukung keberhasilan IKN. Pembangunan sosial budaya yang berbasis nilai lokal sekaligus menjadikan Mahulu lebih adaptif, berdaya saing, dan tetap berakar pada jati diri masyarakatnya"
+ },
+ {
+  "kode misi": "misi 5",
+  "uraian misi": "Menghadirkan tata kelola pemerintahan yang terbuka, responsive, kolaboratif dan berintegritas, melalui transformasi digital dan perluasan partisipasi publik",
+  "deskripsi misi": "Misi ini mengacu pada teori new public governance yang menempatkan pemerintah tidak hanya sebagai penyedia layanan, tetapi juga sebagai fasilitator dan mitra masyarakat serta sektor swasta dalam proses pembangunan. Transformasi digital dipandang sebagai instrumen strategis untuk memperbaiki kualitas layanan publik, meningkatkan efisiensi birokrasi, memperluas akses informasi, serta memperkuat interaksi dua arah antara pemerintah dan masyarakat. Misi ini menekankan pada transformasi digital dalam tata kelola, partisipasi publik dan kolaborasi, integritas dan reformasi birokrasi serta penguatan sistem monitoring dan evaluasi. Dengan transformasi digital, prinsip keterbukaan, integritas birokrasi, serta partisipasi publik yang luas, Mahulu diarahkan menuju tata kelola modern yang mampu menjawab tantangan era digital, memperkuat kepercayaan masyarakat, dan meningkatkan daya saing daerah dalam konteks regional maupun nasional"
+ }
+],
+"tujuan":[
+ {
+  "kode tujuan": "tujuan 1",
+  "uraian tujuan": "Terwujudnya Mahulu yang Maju"
+ },
+ {
+  "kode tujuan": "tujuan 2",
+  "uraian tujuan": "Terwujudnya Mahulu  Yang Merata"
+ },
+ {
+  "kode tujuan": "tujuan 3",
+  "uraian tujuan": "Terwujudnya Mahulu  yang Berkelanjutan"
+ },
+ {
+  "kode tujuan": "tujuan 4",
+  "uraian tujuan": "Terwujudnya tata  kelola pemerintahan yang  Prima"
+ }
+],
+"indikator tujuan":[
+ {
+  "kode tujuan": "tujuan 1",
+  "indikator": "Indeks  Pembangunan  Manusia"
+ },
+ {
+  "kode tujuan": "tujuan 1",
+  "indikator": "Laju  Pertumbuhan  Ekonomi"
+ },
+ {
+  "kode tujuan": "tujuan 2",
+  "indikator": "Rasio  gini  (Indeks)"
+ },
+ {
+  "kode tujuan": "tujuan 3",
+  "indikator": "Indeks  kualitas  lingkungan hidup"
+ },
+ {
+  "kode tujuan": "tujuan 4",
+  "indikator": "Indeks  Reformasi  Birokrasi"
+ }
+],
+"sasaran":[
+ {
+  "kode sasaran": "Sasaran 1",
+  "uraian sasaran": "Meningkatnya akses dan kualitas layanan kesehatan"
+ },
+ {
+  "kode sasaran": "Sasaran 2",
+  "uraian sasaran": "Meningkatnya kualitas pendidikan dan keterampilan kerja"
+ },
+ {
+  "kode sasaran": "Sasaran 3",
+  "uraian sasaran": "Berkurangnya kemiskinan, pengangguaran dan berketahanan Pangan"
+ },
+ {
+  "kode sasaran": "Sasaran 4",
+  "uraian sasaran": "Meningkatnya\nkualitas keluarga dan kesetaraan gender"
+ },
+ {
+  "kode sasaran": "Sasaran 5",
+  "uraian sasaran": "Meningkatnya produktivitas dan nilai tambah sektor unggulan daerah"
+ },
+ {
+  "kode sasaran": "Sasaran 6",
+  "uraian sasaran": "Menguatnya daya tarik investasi"
+ },
+ {
+  "kode sasaran": "Sasaran 7",
+  "uraian sasaran": "Terbangunnya infrastruktur berkualitas"
+ },
+ {
+  "kode sasaran": "Sasaran 8",
+  "uraian sasaran": "Terwujudnya Pembangunan Kewilayahan yang Merata dan Berkeadilan"
+ },
+ {
+  "kode sasaran": "Sasaran 9",
+  "uraian sasaran": "Terwujudnya lingkungan hidup yang lestari dan masyarakat yang resilien terhadap bencana"
+ },
+ {
+  "kode sasaran": "Sasaran 10",
+  "uraian sasaran": "Terwujudnya kehidupan sosial yang harmonis dan budaya yang mengakar"
+ },
+ {
+  "kode sasaran": "Sasaran 11",
+  "uraian sasaran": "Meningkatnya kualitas tata pemerintahan yang transparan, akuntabel, dan berorientasi kinerja"
+ },
+ {
+  "kode sasaran": "Sasaran 12",
+  "uraian sasaran": "Terwujudnya layanan publik  yang cepat, responsif, dan memenuhi standar pelayanan"
+ }
+],
+"indikator sasaran":[
+ {
+  "kode sasaran": "sasaran 1",
+  "indikator": "Umur Harapan Hidup (UHH)"
+ },
+ {
+  "kode sasaran": "sasaran 2",
+  "indikator": "Rata-Rata lama sekolah   (Tahun)"
+ },
+ {
+  "kode sasaran": "sasaran 2",
+  "indikator": "Harapan Lama Sekolah (Tahun)"
+ },
+ {
+  "kode sasaran": "sasaran 3",
+  "indikator": "Tingkat Kemiskinan (%)"
+ },
+ {
+  "kode sasaran": "sasaran 3",
+  "indikator": "Indeks Ketahanan Pangan"
+ },
+ {
+  "kode sasaran": "sasaran 3",
+  "indikator": "Tingkat Pengangguran Terbuka (%)"
+ },
+ {
+  "kode sasaran": "sasaran 4",
+  "indikator": "Indeks Pembangunan Keluarga (ibangga)"
+ },
+ {
+  "kode sasaran": "sasaran 4",
+  "indikator": "Indeks Pembangunan Gender"
+ },
+ {
+  "kode sasaran": "sasaran 5",
+  "indikator": "Kontribusi Industri Pengolahan terhadap PDRB (%)"
+ },
+ {
+  "kode sasaran": "sasaran 5",
+  "indikator": "Laju Pertumbuhan Sektor Pertanian, Kehutanan, dan Perikanan"
+ },
+ {
+  "kode sasaran": "sasaran 6",
+  "indikator": "Persentase Peningkatan Investasi"
+ },
+ {
+  "kode sasaran": "sasaran 7",
+  "indikator": "Indeks Kualitas Layanan Infrastruktur (IKLI)"
+ },
+ {
+  "kode sasaran": "sasaran 7",
+  "indikator": "Rasio Konetivitas"
+ },
+ {
+  "kode sasaran": "sasaran 8",
+  "indikator": "Indeks Desa"
+ },
+ {
+  "kode sasaran": "sasaran 8",
+  "indikator": "Indeks Pengelolaan Kawasan Perbatasan Prioritas"
+ },
+ {
+  "kode sasaran": "sasaran 9",
+  "indikator": "Penurunan Intensitas Emisi GRK (%)"
+ },
+ {
+  "kode sasaran": "sasaran 9",
+  "indikator": "Indeks Resiko Bencana"
+ },
+ {
+  "kode sasaran": "sasaran 10",
+  "indikator": "Indeks Harmony Indonesia"
+ },
+ {
+  "kode sasaran": "sasaran 10",
+  "indikator": "Indeks Pembangunan Kebudayaan"
+ },
+ {
+  "kode sasaran": "sasaran 11",
+  "indikator": "Indeks Pemerintah Digital"
+ },
+ {
+  "kode sasaran": "sasaran 11",
+  "indikator": "Indeks Profesionalitas ASN"
+ },
+ {
+  "kode sasaran": "sasaran 11",
+  "indikator": "Nilai AKIP"
+ },
+ {
+  "kode sasaran": "sasaran 11",
+  "indikator": "Maturitas Penyelenggaraan Sistem Pengendalian Internal Pemerintah (SPIP) Terintegrasi"
+ },
+ {
+  "kode sasaran": "sasaran 11",
+  "indikator": "Indeks Inovasi Daerah"
+ },
+ {
+  "kode sasaran": "sasaran 11",
+  "indikator": "Opini BPK Atas Laporan Keuangan"
+ },
+ {
+  "kode sasaran": "sasaran 12",
+  "indikator": "Indeks Pelayanan Publik"
+ }
+],
+"konekting":[
+ {
+  "kode tujuan": "tujuan 1",
+  "kode sasaran": "sasaran 1"
+ },
+ {
+  "kode tujuan": "tujuan 1",
+  "kode sasaran": "sasaran 2"
+ },
+ {
+  "kode tujuan": "tujuan 1",
+  "kode sasaran": "sasaran 3"
+ },
+ {
+  "kode tujuan": "tujuan 1",
+  "kode sasaran": "sasaran 4"
+ },
+ {
+  "kode tujuan": "tujuan 1",
+  "kode sasaran": "sasaran 5"
+ },
+ {
+  "kode tujuan": "tujuan 1",
+  "kode sasaran": "sasaran 6"
+ },
+ {
+  "kode tujuan": "tujuan 2",
+  "kode sasaran": "sasaran 7"
+ },
+ {
+  "kode tujuan": "tujuan 2",
+  "kode sasaran": "sasaran 8"
+ },
+ {
+  "kode tujuan": "tujuan 3",
+  "kode sasaran": "sasaran 9"
+ },
+ {
+  "kode tujuan": "tujuan 3",
+  "kode sasaran": "sasaran 10"
+ },
+ {
+  "kode tujuan": "tujuan 4",
+  "kode sasaran": "sasaran 11"
+ },
+ {
+  "kode tujuan": "tujuan 4",
+  "kode sasaran": "sasaran 12"
+ }
+]
+}

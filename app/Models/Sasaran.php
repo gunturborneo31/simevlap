@@ -11,7 +11,7 @@ class Sasaran extends Model
 {
     protected $table = 'sasaran';
 
-    protected $fillable = ['tujuan_id', 'kode', 'uraian'];
+    protected $fillable = ['tujuan_id', 'kode', 'uraian', 'deskripsi'];
 
     public function tujuan(): BelongsTo
     {
