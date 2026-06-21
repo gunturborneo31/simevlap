@@ -59,7 +59,7 @@
           <input v-model="form.name" type="text" class="input-base" />
         </InputField>
         <InputField label="Email" :error="form.errors.email" required>
-          <input v-model="form.email" type="email" class="input-base" />
+          <input v-model="form.email" type="text" class="input-base" />
         </InputField>
         <InputField :label="editing ? 'Password (kosongkan jika tidak diubah)' : 'Password'" :error="form.errors.password" :required="!editing">
           <input v-model="form.password" type="password" class="input-base" placeholder="Min. 8 karakter" />

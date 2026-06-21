@@ -5,14 +5,15 @@
         <span class="shrink-0 text-lg font-bold tracking-tight text-white">SIMEVLAP 2.0</span>
 
         <nav class="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto whitespace-nowrap pr-2">
-          <NavItem :href="route('dashboard')">Dashboard</NavItem>
-          <NavItem :href="route('data-dasar.index')">Data Dasar</NavItem>
-          <NavItem :href="route('dokumen.index')">Dokumen</NavItem>
-          <NavItem :href="route('realisasi.index')">Realisasi</NavItem>
+          <NavItem v-if="canAccessDashboard" :href="route('dashboard')">Dashboard</NavItem>
+          <NavItem v-if="canAccessDataDasar" :href="route('data-dasar.index')">Data Dasar</NavItem>
+          <NavItem v-if="canAccessDokumen" :href="route('dokumen.index')">Dokumen</NavItem>
+          <NavItem v-if="canAccessRealisasi" :href="route('realisasi.index')">Realisasi</NavItem>
+          <NavItem v-if="isVerifikator" :href="route('verifikator.index')">Verifikator</NavItem>
           <NavItem :href="route('resume.index')">Resume</NavItem>
         </nav>
 
-        <template v-if="isSuperadmin">
+        <template v-if="canAccessSettings">
           <div class="relative shrink-0 group" ref="settingsDropdownRef">
             <button
               class="inline-flex items-center gap-1 rounded-md border border-[#C7EA46]/80 bg-emerald-950/20 px-3 py-2 text-sm font-medium text-emerald-50 transition-colors hover:border-[#C7EA46] hover:bg-emerald-900/50"
@@ -30,7 +31,7 @@
 
         <div class="shrink-0 text-right">
           <p class="text-sm font-semibold text-emerald-50">{{ $page.props.auth?.user?.name }}</p>
-          <p class="text-xs text-emerald-100/80">{{ $page.props.auth?.user?.opd?.singkatan ?? 'Superadmin' }}</p>
+          <p class="text-xs text-emerald-100/80">{{ $page.props.auth?.user?.opd?.singkatan ?? 'Pemda' }}</p>
         </div>
         <button @click="logout" class="shrink-0 rounded-md border border-[#C7EA46] bg-[#C7EA46] px-3 py-1.5 text-xs font-semibold text-[#234123] transition-colors hover:bg-[#D4F06A]">
           Logout
@@ -90,7 +91,17 @@ defineProps({
 });
 
 const page = usePage();
-const isSuperadmin = computed(() => page.props.auth?.user?.roles?.includes('superadmin'));
+const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
+const isPimpinan = computed(() => userRoles.value.includes('pimpinan'));
+const isVerifikator = computed(() => userRoles.value.includes('verifikator'));
+const isOpd = computed(() => userRoles.value.includes('opd'));
+const canAccessDashboard = computed(() => !isPimpinan.value);
+const canAccessDataDasar = computed(() => !isPimpinan.value && !isOpd.value);
+const canAccessDokumen = computed(() => !isPimpinan.value);
+const canAccessRealisasi = computed(() => !isPimpinan.value);
+const canAccessSettings = computed(() => {
+  return userRoles.value.includes('superadmin') || userRoles.value.includes('admin');
+});
 
 function logout() {
   router.post('/logout');

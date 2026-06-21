@@ -8,6 +8,20 @@
     ]"
   >
     <div ref="fullscreenContainerRef" class="bg-white rounded-2xl shadow-md p-6" :class="isFullscreen ? 'fixed inset-0 z-[9999] overflow-auto rounded-none' : ''">
+      <section v-if="isVerifikatorMode" class="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+        <Link
+          v-for="item in verifikatorDocumentTypes"
+          :key="item.value"
+          :href="route('verifikator.index', verifikatorTabQuery(item.value))"
+          class="rounded-xl border px-4 py-3 text-center font-semibold transition"
+          :class="documentType === item.value
+            ? 'border-emerald-400 bg-emerald-50 text-emerald-800'
+            : 'border-slate-200 bg-white text-slate-700 hover:border-emerald-300'"
+        >
+          {{ item.label }}
+        </Link>
+      </section>
+
       <!-- Header & Filter -->
       <div class="flex flex-col md:justify-between gap-4 mb-4">
         <div class="w-fit">
@@ -212,6 +226,9 @@
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Faktor Pendorong</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Faktor Tindak Lanjut</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Evidence</th>
+              <th v-if="showRealisasiMode && isVerifikatorMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Status Verifikasi</th>
+              <th v-if="showRealisasiMode && isVerifikatorMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Aksi Verifikasi</th>
+              <th v-if="showRealisasiMode && isVerifikatorMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Catatan Verifikator</th>
               <th v-if="showDpaActions" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Aksi Data Indikator</th>
             </tr>
           </thead>
@@ -314,7 +331,7 @@
                       {{ formatRupiah(getEffectivePagu(col.komponen)) }}
                     </span>
                     <input
-                      v-else-if="col.type === 'realisasi_keuangan_input'"
+                      v-else-if="col.type === 'realisasi_keuangan_input' && !isVerifikatorMode"
                       type="number"
                       step="0.01"
                       min="0"
@@ -323,6 +340,12 @@
                       @blur="saveRealisasiTw(col.komponen, col.tw)"
                       class="w-full text-right bg-white border border-sky-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                     />
+                    <span
+                      v-else-if="col.type === 'realisasi_keuangan_input' && isVerifikatorMode"
+                      class="font-semibold tabular-nums"
+                    >
+                      {{ formatRupiah(getRealisasiTwValue(col.komponen, col.tw, 'keuangan')) }}
+                    </span>
                     <input
                       v-else-if="col.type === 'indikator_target_input'"
                       type="text"
@@ -333,7 +356,7 @@
                       placeholder="Target"
                     />
                     <input
-                      v-else-if="col.type === 'realisasi_fisik_input'"
+                      v-else-if="col.type === 'realisasi_fisik_input' && !isVerifikatorMode"
                       type="number"
                       step="0.01"
                       min="0"
@@ -342,12 +365,18 @@
                       @blur="saveRealisasiTw(col.komponen, col.tw)"
                       class="w-full text-right bg-white border border-indigo-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
+                    <span
+                      v-else-if="col.type === 'realisasi_fisik_input' && isVerifikatorMode"
+                      class="font-semibold"
+                    >
+                      {{ getRealisasiTwValue(col.komponen, col.tw, 'fisik') }}
+                    </span>
                     <div v-else-if="col.type === 'program_factor'" class="space-y-2">
                       <div class="rounded-md border border-emerald-200 bg-white px-2 py-1 min-h-[42px] break-words whitespace-normal text-xs">
                         {{ getRealisasiFactorValue(col.programContext, col.factorField) || '-' }}
                       </div>
                       <button
-                        v-if="col.programContext"
+                        v-if="col.programContext && !isVerifikatorMode"
                         type="button"
                         class="rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
                         @click="editRealisasiFactor(col.programContext, col.factorField)"
@@ -357,7 +386,7 @@
                     </div>
                     <div v-else-if="col.type === 'indikator_evidence'" class="space-y-2 text-xs">
                       <button
-                        v-if="col.programContext && col.indicatorMeta"
+                        v-if="col.programContext && col.indicatorMeta && !isVerifikatorMode"
                         type="button"
                         class="rounded-md bg-emerald-600 px-2 py-1 text-xs font-semibold text-white hover:bg-emerald-700"
                         @click="openUploadRealisasiEvidence(col.programContext, col.indicatorMeta)"
@@ -374,6 +403,27 @@
                         </li>
                       </ul>
                     </div>
+                    <div v-else-if="col.type === 'verifikator_note'" class="space-y-2">
+                      <textarea
+                        :value="getVerifierNote(col.komponen)"
+                        @input="(e) => setVerifierNote(col.komponen, e.target.value)"
+                        class="w-full rounded-lg border border-slate-300 px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        placeholder="Isi catatan verifikator"
+                      />
+                    </div>
+                    <span v-else-if="col.type === 'verifikator_status'" class="inline-block rounded-full px-2 py-1 text-xs font-semibold"
+                      :class="getVerifierStatus(col.komponen).verified ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'"
+                    >
+                      {{ getVerifierStatus(col.komponen).label }}
+                    </span>
+                    <button
+                      v-else-if="col.type === 'verifikator_action'"
+                      type="button"
+                      class="rounded-md bg-emerald-600 px-2 py-1 text-xs font-semibold text-white hover:bg-emerald-700"
+                      @click="verifyByKomponen(col.komponen)"
+                    >
+                      Verifikasi
+                    </button>
                     <span v-else v-html="highlightText(col.value)"></span>
                   </td>
                 </template>
@@ -588,7 +638,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { ref, computed, reactive, onMounted, onUnmounted, watch, nextTick } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import Multiselect from 'vue-multiselect';
 import 'vue-multiselect/dist/vue-multiselect.css';
 
@@ -623,9 +673,14 @@ const props = defineProps({
 });
 
 const pageMode = computed(() => props.pageMode || 'dokumen');
-const showRealisasiMode = computed(() => pageMode.value === 'realisasi');
+const showRealisasiMode = computed(() => pageMode.value === 'realisasi' || pageMode.value === 'verifikator');
+const isVerifikatorMode = computed(() => pageMode.value === 'verifikator');
 const isReadonly = computed(() => pageMode.value === 'dokumen' && props.readonly);
 const showDpaActions = computed(() => pageMode.value === 'dokumen' && !props.readonly);
+const verifikatorDocumentTypes = [
+  { label: 'IKK', value: 'ikk' },
+  { label: 'REALISASI', value: 'dpa' },
+];
 
 const showModal = ref(false);
 const editing = ref(false);
@@ -664,14 +719,78 @@ const selectedTriwulan = ref([{ value: 'all', label: 'Semua' }]);
 const tableFontSize = ref(12);
 const editedRealisasiKeuangan = reactive({});
 const editedRealisasiFisik = reactive({});
+const verifierNotes = reactive({});
 const evidenceFileInput = ref(null);
 const pendingEvidencePayload = ref(null);
 
 const tableColspan = computed(() => {
   const twCount = showRealisasiMode.value ? selectedTriwulanNumbers.value.length : 0;
-  const base = (showRealisasiMode.value ? 18 : 10) + (showDpaActions.value ? 3 : 0) + (twCount * 2);
+  const verifierCols = showRealisasiMode.value && isVerifikatorMode.value ? 3 : 0;
+  const base = (showRealisasiMode.value ? 18 : 10) + verifierCols + (showDpaActions.value ? 3 : 0) + (twCount * 2);
   return base;
 });
+
+function selectedTriwulanForVerification() {
+  return selectedTriwulanNumbers.value.length === 1 ? selectedTriwulanNumbers.value[0] : null;
+}
+
+function getVerifierNote(komponen) {
+  const key = `k-${komponen?.id ?? 0}`;
+  if (verifierNotes[key] !== undefined) {
+    return verifierNotes[key];
+  }
+
+  const twMap = komponen?.realisasi_tw ?? {};
+  for (const tw of selectedTriwulanNumbers.value) {
+    if (twMap[tw]?.catatan_verifikator) {
+      verifierNotes[key] = twMap[tw].catatan_verifikator;
+      return verifierNotes[key];
+    }
+  }
+
+  verifierNotes[key] = '';
+  return verifierNotes[key];
+}
+
+function setVerifierNote(komponen, value) {
+  const key = `k-${komponen?.id ?? 0}`;
+  verifierNotes[key] = value;
+}
+
+function getVerifierStatus(komponen) {
+  const twMap = komponen?.realisasi_tw ?? {};
+  const relevant = selectedTriwulanNumbers.value
+    .map((tw) => twMap[tw])
+    .filter(Boolean);
+
+  if (relevant.length === 0) {
+    return { verified: false, label: 'Belum ada data' };
+  }
+
+  const allVerified = relevant.every((item) => Boolean(item?.is_verified));
+  return {
+    verified: allVerified,
+    label: allVerified ? 'Terverifikasi' : 'Belum',
+  };
+}
+
+function verifyByKomponen(komponen) {
+  const meta = komponen?.realisasi_ref;
+  if (!meta?.realisaseable_id || !meta?.realisaseable_type) {
+    window.alert('Referensi realisasi tidak ditemukan untuk baris ini.');
+    return;
+  }
+
+  router.post(route('verifikator.verify-by-reference'), {
+    realisaseable_id: meta.realisaseable_id,
+    realisaseable_type: meta.realisaseable_type,
+    tahun: Number(selectedTahun.value || new Date().getFullYear()),
+    triwulan: selectedTriwulanForVerification(),
+    catatan_verifikator: getVerifierNote(komponen),
+  }, {
+    preserveScroll: true,
+  });
+}
 
 const showSelectMaster = ref(false);
 const selectMasterForm = reactive({
@@ -1263,6 +1382,15 @@ function getTriwulanQueryValue() {
     .join(',');
 }
 
+function verifikatorTabQuery(documentType) {
+  return {
+    document_type: documentType,
+    tahun: selectedTahun.value || undefined,
+    triwulan: getTriwulanQueryValue(),
+    opd_id: selectedOpd.value?.id || undefined,
+  };
+}
+
 function realisasiEditKey(komponenId, tw) {
   return `${komponenId}_${tw}`;
 }
@@ -1846,6 +1974,14 @@ function buildNoticeRow({ key, jenis, message }) {
       { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
       { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' }
     );
+
+    if (isVerifikatorMode.value) {
+      cols.push(
+        { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
+        { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
+        { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' }
+      );
+    }
   }
 
   if (showDpaActions.value) {
@@ -1984,6 +2120,31 @@ function renderRows(data, parentKey = '', parentProgram = null) {
                   indicatorMeta: buildIndicatorEvidenceMeta(ind),
                   class: 'px-2 py-2 align-top border-b border-r border-gray-300 min-w-[220px]'
                 },
+                ...(isVerifikatorMode.value
+                  ? [
+                      {
+                        type: 'verifikator_status',
+                        komponen,
+                        rowspan: indikator.length,
+                        skip: i !== 0,
+                        class: 'px-2 py-2 align-top text-center border-b border-r border-gray-300 min-w-[130px]'
+                      },
+                      {
+                        type: 'verifikator_action',
+                        komponen,
+                        rowspan: indikator.length,
+                        skip: i !== 0,
+                        class: 'px-2 py-2 align-top text-center border-b border-r border-gray-300 min-w-[130px]'
+                      },
+                      {
+                        type: 'verifikator_note',
+                        komponen,
+                        rowspan: indikator.length,
+                        skip: i !== 0,
+                        class: 'px-2 py-2 align-top border-b border-r border-gray-300 min-w-[220px]'
+                      },
+                    ]
+                  : []),
               ]
             : []),
           ...(showDpaActions.value

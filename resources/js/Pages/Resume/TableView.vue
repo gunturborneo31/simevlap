@@ -15,7 +15,7 @@
             >
               Kembali ke Daftar Tabel
             </Link>
-            <div class="flex flex-col gap-3 md:flex-row md:items-center">
+            <div v-if="!isDokumenView" class="flex flex-col gap-3 md:flex-row md:items-center">
               <select
                 v-model="basisValue"
                 @change="applyFilters"
@@ -32,6 +32,22 @@
               >
                 <option v-for="year in availableYears" :key="year" :value="year">Tahun {{ year }}</option>
               </select>
+
+              <a
+                v-if="shouldShowExportButtons"
+                :href="buildExportUrl('pdf')"
+                class="inline-flex items-center justify-center rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 transition-colors hover:bg-red-100"
+              >
+                Download PDF
+              </a>
+
+              <a
+                v-if="shouldShowExportButtons"
+                :href="buildExportUrl('excel')"
+                class="inline-flex items-center justify-center rounded-lg bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-100"
+              >
+                Download Excel
+              </a>
             </div>
 
             
@@ -40,7 +56,48 @@
       </div>
 
       <div
-        v-if="currentView === 'konsistensi-rpjmd-rkpd' && ['tabel-1', 'tabel-2'].includes(currentTable) && tableData"
+        v-if="isDokumenView && tableData"
+        class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md"
+      >
+        <table class="min-w-[1400px] w-full border-collapse text-sm">
+          <thead>
+            <tr class="bg-emerald-50">
+              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">No</th>
+              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-left font-bold text-emerald-900">OPD</th>
+              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">Renstra</th>
+              <th colspan="2" v-for="year in dokumenYears" :key="`head-${year}`" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">
+                {{ year }}
+              </th>
+            </tr>
+            <tr class="bg-emerald-50">
+              <template v-for="year in dokumenYears" :key="`sub-${year}`">
+                <th class="border border-emerald-200 bg-emerald-50 px-3 py-2 text-center font-bold text-emerald-900">Renja</th>
+                <th class="border border-emerald-200 bg-emerald-50 px-3 py-2 text-center font-bold text-emerald-900">DPA</th>
+              </template>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, idx) in tableData" :key="`dokumen-${idx}`" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
+              <td class="border border-emerald-200 px-3 py-3 text-center font-semibold text-slate-700">{{ row.no }}</td>
+              <td class="border border-emerald-200 px-3 py-3 font-medium text-slate-900">{{ row.opd }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">
+                <DokumenCell :cell="row.renstra" />
+              </td>
+              <template v-for="year in dokumenYears" :key="`cell-${row.no}-${year}`">
+                <td class="border border-emerald-200 px-3 py-3 text-center">
+                  <DokumenCell :cell="row.years?.[year]?.renja" />
+                </td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">
+                  <DokumenCell :cell="row.years?.[year]?.dpa" />
+                </td>
+              </template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        v-else-if="currentView === 'konsistensi-rpjmd-rkpd' && ['tabel-1', 'tabel-2'].includes(currentTable) && tableData"
         class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md"
       >
         <table class="w-full table-fixed border-collapse text-sm">
@@ -467,7 +524,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link, router } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, h, ref } from 'vue';
 
 const props = defineProps({
   currentView: {
@@ -516,10 +573,39 @@ const selectedLeftOnlyPrograms = ref([]);
 const selectedRightOnlyPrograms = ref([]);
 const selectedLeftLabel = ref('');
 const selectedRightLabel = ref('');
+const dokumenYears = [2026, 2027, 2028, 2029, 2030];
+
+const DokumenCell = {
+  props: {
+    cell: {
+      type: Object,
+      default: () => ({ has_file: false, view_url: null, judul: null }),
+    },
+  },
+  setup(localProps) {
+    return () => {
+      if (localProps.cell?.has_file && localProps.cell?.view_url) {
+        return h('a', {
+          href: localProps.cell.view_url,
+          target: '_blank',
+          title: localProps.cell.judul || 'Lihat file',
+          class: 'inline-flex items-center justify-center rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-2 text-emerald-700 transition-colors hover:bg-emerald-100',
+        }, '↗');
+      }
+
+      return h('span', {
+        title: 'File belum tersedia',
+        class: 'inline-flex items-center justify-center rounded-lg border border-red-200 bg-red-50 px-3 py-2 font-bold text-red-600',
+      }, 'X');
+    };
+  },
+};
 
 const entityHeaderLabel = computed(() => {
   return basisValue.value === 'perangkat-daerah' ? 'Perangkat Daerah' : 'Bidang Urusan';
 });
+
+const isDokumenView = computed(() => props.currentView === 'dokumen' && props.currentTable === 'monitoring');
 
 const isIndikatorMode = computed(() => {
   return props.tableMetricType === 'indikator' || props.currentTable === 'tabel-2';
@@ -532,6 +618,22 @@ const metricLabel = computed(() => {
 const metricLabelLower = computed(() => {
   return isIndikatorMode.value ? 'indikator program' : 'program';
 });
+
+const shouldShowExportButtons = computed(() => {
+  return props.currentView === 'konsistensi-rpjmd-rkpd'
+    && ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4'].includes(props.currentTable)
+    && Array.isArray(props.tableData);
+});
+
+const buildExportUrl = (format) => {
+  return route('resume.export', {
+    view: props.currentView,
+    table: props.currentTable,
+    basis: basisValue.value,
+    year: yearValue.value,
+    format,
+  });
+};
 
 const applyFilters = () => {
   router.get(
@@ -910,6 +1012,10 @@ const formatEntityLabel = (value) => {
 const currentTableLabel = computed(() => {
   if (!props.currentTable) {
     return 'Detail Tabel';
+  }
+
+  if (isDokumenView.value) {
+    return 'Monitoring Dokumen OPD';
   }
 
   if (props.currentTable.startsWith('tabel-')) {

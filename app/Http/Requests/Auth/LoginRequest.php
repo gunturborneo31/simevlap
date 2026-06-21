@@ -20,7 +20,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            // Legacy accounts use username-style values in email column.
+            'email' => ['required', 'string'],
             'password' => ['required', 'string'],
             'remember' => ['nullable', 'boolean'],
         ];
@@ -35,8 +36,10 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
+        $login = $this->normalizedLogin();
+
         $user = User::query()
-            ->where('email', $this->string('email')->toString())
+            ->where('email', $login)
             ->first();
 
         if ($user && ! $user->is_active) {
@@ -47,7 +50,10 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-        $credentials = $this->only('email', 'password');
+        $credentials = [
+            'email' => $login,
+            'password' => $this->string('password')->toString(),
+        ];
 
         $authenticated = Auth::attemptWhen(
             $credentials,
@@ -94,6 +100,18 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->normalizedLogin()).'|'.$this->ip());
+    }
+
+    private function normalizedLogin(): string
+    {
+        $login = Str::lower(trim($this->string('email')->toString()));
+
+        // Support legacy alias so old users can still login using "tamu".
+        if ($login === 'tamu') {
+            return 'pimpinan';
+        }
+
+        return $login;
     }
 }

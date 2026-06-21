@@ -23,6 +23,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ($request->user()?->hasRole('pimpinan')) {
+            return redirect()->intended(route('resume.index'));
+        }
+
+        if ($request->user()?->hasRole('opd')) {
+            return redirect()->intended(route('dashboard'));
+        }
+
         return redirect()->intended(route('dashboard'));
     }
 

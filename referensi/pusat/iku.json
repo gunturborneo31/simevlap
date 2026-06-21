@@ -1,0 +1,86 @@
+[    
+ {
+  "No": 1,
+  "Indikator": "Indeks Pembangunan Manusia",
+  "Satuan": "Indeks",
+  "Capaian_Tahun_2024": 70.35,
+  "target_2025": 71.07,
+  "target_2026": 71.33,
+  "target_2027": 71.58,
+  "target_2028": 71.84,
+  "target_2029": 72.09,
+  "target_2030": 72.35
+ },
+ {
+  "No": 2,
+  "Indikator": "Tingkat Kemiskinan",
+  "Satuan": "%",
+  "Capaian_Tahun_2024": 10.75,
+  "target_2025": "9,70 – 10,30",
+  "target_2026": "9,06 - 9,62",
+  "target_2027": "8,42 - 8,94",
+  "target_2028": "7,78 - 8,26",
+  "target_2029": "7,14 - 7,58",
+  "target_2030": "6,50 – 6,90"
+ },
+ {
+  "No": 3,
+  "Indikator": "Tingkat Pengangguran Terbuka",
+  "Satuan": "%",
+  "Capaian_Tahun_2024": 2.51,
+  "target_2025": "2,18- 2,25",
+  "target_2026": "2,02 - 2,10",
+  "target_2027": "1,87 - 1,95",
+  "target_2028": "1,71 - 1,80",
+  "target_2029": "1,56 - 1,65",
+  "target_2030": "1,40– 1,50"
+ },
+ {
+  "No": 4,
+  "Indikator": "Laju Pertumbuhan Ekonomi",
+  "Satuan": "%",
+  "Capaian_Tahun_2024": 3.6,
+  "target_2025": 3.65,
+  "target_2026": 3.88,
+  "target_2027": 4.11,
+  "target_2028": 4.34,
+  "target_2029": 4.57,
+  "target_2030": 4.8
+ },
+ {
+  "No": 5,
+  "Indikator": "Indeks Reformasi Birokrasi",
+  "Satuan": "Angka",
+  "Capaian_Tahun_2024": "54,19 (CC)",
+  "target_2025": "57,92 (CC)",
+  "target_2026": "61,92 (B)",
+  "target_2027": "66,18 (B)",
+  "target_2028": "70,74 (BB)",
+  "target_2029": "75,62 (BB)",
+  "target_2030": "80,83 (A)"
+ },
+ {
+  "No": 6,
+  "Indikator": "Rasio gini",
+  "Satuan": "Indeks",
+  "Capaian_Tahun_2024": 0.285,
+  "target_2025": "0,280– 0,285",
+  "target_2026": "0,269 - 0,281",
+  "target_2027": "0,258 - 0,276",
+  "target_2028": "0,247 - 0,272",
+  "target_2029": "0,236 - 0,267",
+  "target_2030": "0,225– 0,263"
+ },
+ {
+  "No": 7,
+  "Indikator": "Indeks kualitas lingkungan hidup",
+  "Satuan": "angka",
+  "Capaian_Tahun_2024": 85.44,
+  "target_2025": 86.81,
+  "target_2026": 86.76,
+  "target_2027": 86.92,
+  "target_2028": 87.07,
+  "target_2029": 87.23,
+  "target_2030": 87.34
+ }
+]

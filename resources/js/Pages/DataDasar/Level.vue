@@ -13,22 +13,47 @@
         <div class="flex w-full max-w-xl items-center gap-2">
           <input
             v-model="search"
+            @keyup.enter="applySearch"
             type="text"
             placeholder="Cari kode, uraian, deskripsi, relasi..."
             class="input-base"
           />
+          <button
+            v-if="isIndikatorLevel"
+            @click="applySearch"
+            class="shrink-0 rounded-lg border border-emerald-200 px-4 py-2 text-sm text-emerald-700 hover:bg-emerald-50"
+          >
+            Cari
+          </button>
+          <Link
+            v-if="isIkkLevel"
+            :href="route('data-dasar.ikk-unmapped.index')"
+            class="shrink-0 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-700 hover:bg-amber-100"
+          >
+            Validasi IKK Belum Terhubung
+          </Link>
           <button @click="openAdd" class="shrink-0 rounded-lg bg-emerald-700 px-4 py-2 text-sm text-white hover:bg-emerald-800">+ Tambah</button>
         </div>
       </div>
 
-      <div class="overflow-hidden rounded-lg border border-gray-200">
+      <div class="overflow-x-auto rounded-lg border border-gray-200">
         <table class="w-full text-sm">
           <thead class="bg-gray-50 border-b border-gray-200">
-            <tr v-if="isIndikatorLevel">
+            <tr v-if="isIkkLevel">
+              <th class="px-4 py-3 text-center font-semibold text-gray-600 w-12">No</th>
+              <th class="px-4 py-3 text-left font-semibold text-gray-600">Uraian</th>
+              <th class="px-4 py-3 text-left font-semibold text-gray-600">Satuan</th>
+              <th class="px-4 py-3 text-left font-semibold text-gray-600">Kode Indikator</th>
+              <th class="px-4 py-3 text-left font-semibold text-gray-600">Nama OPD</th>
+              <th v-for="year in ikkTargetYears" :key="`head-${year}`" class="px-4 py-3 text-center font-semibold text-gray-600">{{ year }}</th>
+              <th class="px-4 py-3 text-center font-semibold text-gray-600">Aksi</th>
+            </tr>
+            <tr v-else-if="isIndikatorLevel">
               <th class="px-4 py-3 text-center font-semibold text-gray-600 w-12">No</th>
               <th class="px-4 py-3 text-left font-semibold text-gray-600">Uraian</th>
               <th class="px-4 py-3 text-left font-semibold text-gray-600">Satuan</th>
               <th class="px-4 py-3 text-left font-semibold text-gray-600">Keterangan</th>
+              <th class="px-4 py-3 text-left font-semibold text-gray-600">Nama OPD</th>
               <th class="px-4 py-3 text-center font-semibold text-gray-600">Aksi</th>
             </tr>
             <tr v-else>
@@ -40,15 +65,44 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
-            <tr v-if="filteredRows.length === 0">
+            <tr v-if="displayRows.length === 0">
               <td :colspan="emptyColspan" class="px-4 py-8 text-center text-gray-400">Data tidak ditemukan.</td>
             </tr>
-            <tr v-for="(item, index) in filteredRows" :key="item.id" class="hover:bg-gray-50">
+            <template v-else-if="isIkkLevel">
+              <tr v-for="row in groupedIkkRows" :key="row.key" :class="row.type === 'item' ? 'hover:bg-gray-50' : ''">
+                <template v-if="row.type === 'urusan_1'">
+                  <td :colspan="emptyColspan" class="px-4 py-2 bg-emerald-50 text-emerald-800 font-semibold uppercase tracking-wide text-xs">
+                    {{ row.label }}
+                  </td>
+                </template>
+                <template v-else-if="row.type === 'urusan_2'">
+                  <td :colspan="emptyColspan" class="px-4 py-2 bg-emerald-100/60 text-emerald-900 font-semibold text-xs">
+                    {{ row.label }}
+                  </td>
+                </template>
+                <template v-else>
+                  <td class="px-4 py-3 text-center text-gray-500">{{ rowNumber(row.itemIndex) }}</td>
+                  <td class="px-4 py-3 text-gray-800">{{ row.item.uraian }}</td>
+                  <td class="px-4 py-3 text-gray-700">{{ row.item.satuan }}</td>
+                  <td class="px-4 py-3 text-gray-700">{{ row.item.kode_indikator ?? '-' }}</td>
+                  <td class="px-4 py-3 text-gray-700">{{ row.item.opd_nama ?? '-' }}</td>
+                  <td v-for="year in ikkTargetYears" :key="`${row.item.id}-${year}`" class="px-4 py-3 text-center text-gray-700">
+                    {{ formatTargetValue(row.item.target_tahunan?.[year]) }}
+                  </td>
+                  <td class="px-4 py-3 text-center space-x-2">
+                    <button @click="openEdit(row.item)" class="text-blue-600 hover:text-blue-800 text-xs font-medium">Edit</button>
+                    <button @click="confirmDelete(row.item)" class="text-red-600 hover:text-red-800 text-xs font-medium">Hapus</button>
+                  </td>
+                </template>
+              </tr>
+            </template>
+            <tr v-else v-for="(item, index) in displayRows" :key="item.id" class="hover:bg-gray-50">
               <template v-if="isIndikatorLevel">
-                <td class="px-4 py-3 text-center text-gray-500">{{ index + 1 }}</td>
+                <td class="px-4 py-3 text-center text-gray-500">{{ rowNumber(index) }}</td>
                 <td class="px-4 py-3 text-gray-800">{{ item.uraian }}</td>
                 <td class="px-4 py-3 text-gray-700">{{ item.satuan }}</td>
                 <td class="px-4 py-3 text-gray-600">{{ item.keterangan ?? '-' }}</td>
+                <td class="px-4 py-3 text-gray-700">{{ item.opd_nama ?? '-' }}</td>
               </template>
               <template v-else>
                 <td class="px-4 py-3 text-gray-700 font-mono">{{ item.kode }}</td>
@@ -69,6 +123,12 @@
           </tbody>
         </table>
       </div>
+
+      <Pagination
+        v-if="isIndikatorLevel"
+        :links="paginationLinks"
+        @navigate="navigatePage"
+      />
     </section>
 
     <Modal :show="showModal" :title="editing ? `Edit ${pageTitle}` : `Tambah ${pageTitle}`" @close="closeModal">
@@ -148,13 +208,16 @@ function togglePrioritas(item) {
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import InputField from '@/Components/InputField.vue';
+import Pagination from '@/Components/Pagination.vue';
+import { Link } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
   level: String,
-  rows: Array,
+  rows: [Array, Object],
   parents: Array,
+  filters: Object,
   activePeraturan: Object,
 });
 
@@ -175,7 +238,9 @@ const labels = {
 };
 
 const pageTitle = computed(() => labels[props.level] ?? 'Data');
+const isIkkLevel = computed(() => props.level === 'ikk');
 const isIndikatorLevel = computed(() => ['iku', 'ikk'].includes(props.level));
+const ikkTargetYears = ['2025', '2026', '2027', '2028', '2029', '2030'];
 const usesActivePeraturan = computed(() => ['program', 'program-aksi', 'program-prioritas', 'kegiatan', 'sub-kegiatan'].includes(props.level));
 const peraturanLabel = computed(() => {
   if (!usesActivePeraturan.value) return '';
@@ -189,7 +254,8 @@ const peraturanLabel = computed(() => {
 const requiresPagu = computed(() => ['kegiatan', 'sub-kegiatan'].includes(props.level));
 const showPaguColumn = computed(() => requiresPagu.value);
 const emptyColspan = computed(() => {
-  if (isIndikatorLevel.value) return 4;
+  if (isIkkLevel.value) return 12;
+  if (isIndikatorLevel.value) return 6;
   return showPaguColumn.value ? 5 : 4;
 });
 
@@ -197,7 +263,7 @@ const showModal = ref(false);
 const showDelete = ref(false);
 const editing = ref(false);
 const selected = ref(null);
-const search = ref('');
+const search = ref(props.filters?.search ?? '');
 const codeCollator = new Intl.Collator('id-ID', { numeric: true, sensitivity: 'base' });
 
 const form = useForm({
@@ -211,7 +277,27 @@ const form = useForm({
   tahun_akhir: new Date().getFullYear() + 5,
 });
 
+const indikatorRows = computed(() => {
+  if (!isIndikatorLevel.value) return [];
+  if (Array.isArray(props.rows?.data)) return props.rows.data;
+  return [];
+});
+
+const paginationLinks = computed(() => {
+  if (!isIndikatorLevel.value) return [];
+  return Array.isArray(props.rows?.links) ? props.rows.links : [];
+});
+
+const rowsFrom = computed(() => {
+  if (!isIndikatorLevel.value) return 1;
+  return Number(props.rows?.from ?? 1);
+});
+
 const filteredRows = computed(() => {
+  if (isIndikatorLevel.value) {
+    return indikatorRows.value;
+  }
+
   const keyword = search.value.trim().toLowerCase();
   const rows = !keyword
     ? [...props.rows]
@@ -223,6 +309,7 @@ const filteredRows = computed(() => {
       // item.pagu,
       item.satuan,
       item.keterangan,
+      item.opd_nama,
     ]
       .filter(Boolean)
       .join(' ')
@@ -244,6 +331,71 @@ const filteredRows = computed(() => {
   });
 });
 
+const displayRows = computed(() => filteredRows.value);
+
+const groupedIkkRows = computed(() => {
+  if (!isIkkLevel.value) return [];
+
+  const output = [];
+  let currentUrusan1 = null;
+  let currentUrusan2 = null;
+
+  displayRows.value.forEach((item, itemIndex) => {
+    const urusan1 = (item.urusan_1 || '-').toString();
+    const urusan2 = (item.urusan_2 || '-').toString();
+
+    if (urusan1 !== currentUrusan1) {
+      currentUrusan1 = urusan1;
+      currentUrusan2 = null;
+      output.push({
+        type: 'urusan_1',
+        label: urusan1,
+        key: `u1-${urusan1}-${item.id}`,
+      });
+    }
+
+    if (urusan2 !== currentUrusan2) {
+      currentUrusan2 = urusan2;
+      output.push({
+        type: 'urusan_2',
+        label: urusan2,
+        key: `u2-${urusan2}-${item.id}`,
+      });
+    }
+
+    output.push({
+      type: 'item',
+      item,
+      itemIndex,
+      key: `item-${item.id}`,
+    });
+  });
+
+  return output;
+});
+
+function rowNumber(index) {
+  return rowsFrom.value + index;
+}
+
+function applySearch() {
+  if (!isIndikatorLevel.value) return;
+
+  router.get(
+    route('data-dasar.bank-data.level', { level: props.level }),
+    { search: search.value },
+    { preserveState: true, replace: true, preserveScroll: true }
+  );
+}
+
+function navigatePage(url) {
+  router.visit(url, {
+    preserveState: true,
+    preserveScroll: true,
+    replace: true,
+  });
+}
+
 function openAdd() {
   editing.value = false;
   selected.value = null;
@@ -259,7 +411,7 @@ function openEdit(item) {
   form.deskripsi = item.deskripsi ?? '';
   // form.pagu = item.pagu ?? '';
   form.satuan = item.satuan ?? '';
-  form.keterangan = item.keterangan ?? '';
+  form.keterangan = item.keterangan_raw ?? item.keterangan ?? '';
   form.tahun_awal = item.tahun_awal ?? new Date().getFullYear();
   form.tahun_akhir = item.tahun_akhir ?? new Date().getFullYear() + 5;
   showModal.value = true;
@@ -354,6 +506,11 @@ function destroy() {
 
 function formatCurrency(value) {
   return 'Rp ' + Number(value).toLocaleString('id-ID');
+}
+
+function formatTargetValue(value) {
+  if (value === null || value === undefined || value === '') return '-';
+  return value;
 }
 </script>
 

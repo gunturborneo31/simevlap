@@ -19,13 +19,14 @@ class RealisasiPolicy
 
     public function create(User $user): bool
     {
-        return $user->hasAnyRole(['superadmin', 'user']);
+        return $user->hasAnyRole(['superadmin', 'admin', 'opd']);
     }
 
     public function update(User $user, Realisasi $realisasi): bool
     {
         if ($user->hasRole('superadmin')) return true;
-        if ($user->hasRole('user') && $realisasi->opd_id == $user->opd_id) return true;
+        if ($user->hasRole('admin')) return ($realisasi->document_type ?? null) === 'iku';
+        if ($user->hasRole('opd')) return false;
         return false;
     }
 
@@ -36,6 +37,6 @@ class RealisasiPolicy
 
     public function addCatatan(User $user, Realisasi $realisasi): bool
     {
-        return $user->hasAnyRole(['superadmin', 'user', 'evaluator']);
+        return $user->hasAnyRole(['superadmin', 'admin', 'opd', 'verifikator']);
     }
 }

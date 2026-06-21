@@ -12,11 +12,13 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    private const MANAGED_ROLES = ['admin', 'pimpinan', 'verifikator', 'opd'];
+
     public function index(): Response
     {
         $users = User::with(['opd', 'roles'])->latest()->paginate(20);
         $opds = Opd::where('is_active', true)->get(['id', 'nama', 'singkatan']);
-        $roles = Role::all(['id', 'name']);
+        $roles = Role::query()->whereIn('name', self::MANAGED_ROLES)->get(['id', 'name']);
         return Inertia::render('Pengaturan/User/Index', compact('users', 'opds', 'roles'));
     }
 
@@ -24,10 +26,10 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|string|max:255',
             'password' => 'required|string|min:8',
             'opd_id' => 'nullable|exists:opds,id',
-            'role' => 'required|string|exists:roles,name',
+            'role' => 'required|string|in:' . implode(',', self::MANAGED_ROLES),
             'is_active' => 'boolean',
         ]);
         $user = User::create([
@@ -45,10 +47,10 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|string|max:255,' . $user->id,
             'password' => 'nullable|string|min:8',
             'opd_id' => 'nullable|exists:opds,id',
-            'role' => 'required|string|exists:roles,name',
+            'role' => 'required|string|in:' . implode(',', self::MANAGED_ROLES),
             'is_active' => 'boolean',
         ]);
         $user->update([

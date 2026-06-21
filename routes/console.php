@@ -1242,3 +1242,361 @@ Artisan::command('import:renstra-pagu-program', function () {
         $this->line("- {$k}: {$v}");
     }
 })->purpose('Import pagu RENSTRA program dari referensi dan isi fallback pagu 2026 non-prioritas dari RENJA');
+
+Artisan::command('import:pusat-ikk', function () {
+    $jsonPath = base_path('referensi/pusat/ikk.json');
+    if (!is_file($jsonPath)) {
+        $this->error('File IKK tidak ditemukan: referensi/pusat/ikk.json');
+        return;
+    }
+
+    $rows = json_decode(file_get_contents($jsonPath), true) ?? [];
+    if (!is_array($rows)) {
+        $this->error('Format JSON IKK tidak valid. Pastikan isi file berupa array objek.');
+        return;
+    }
+
+    $normalize = static function (?string $value): string {
+        $text = strtoupper(trim((string) $value));
+        $text = preg_replace('/[^A-Z0-9\s]/', ' ', $text);
+        $text = preg_replace('/\s+/', ' ', (string) $text);
+        return trim((string) $text);
+    };
+
+    $opdByName = Opd::withoutGlobalScopes()
+        ->where('is_active', true)
+        ->get(['id', 'nama'])
+        ->keyBy(fn ($opd) => $normalize((string) $opd->nama));
+
+    $resolveOpdName = static function (string $urusan2, string $indikator) use ($normalize): ?string {
+        $u = $normalize($urusan2);
+        $i = $normalize($indikator);
+
+        if (str_contains($u, 'KECAMATAN LONG APARAI')) return 'Kecamatan Long Apari';
+        if (str_contains($u, 'KECAMATAN LONG PAHANGAI')) return 'Kecamatan Long Pahangai';
+        if (str_contains($u, 'KECAMATAN LONG BAGUN')) return 'Kecamatan Long Bagun';
+        if (str_contains($u, 'KECAMATAN LONG HUBUNG')) return 'Kecamatan Long Hubung';
+        if (str_contains($u, 'KECAMATAN LONG LAHAM') || str_contains($u, 'KECAMATAN LAHAM')) return 'Kecamatan Laham';
+
+        if (str_contains($u, 'SEKRETARIAT DPRD')) return 'Sekretariat DPRD';
+        if (str_contains($u, 'SEKRETARIAT DAERAH')) return 'Sekretariat Daerah';
+        if (str_contains($u, 'PERENCANAAN') || str_contains($u, 'PENELITIAN') || str_contains($u, 'PENGEMBANGAN')) {
+            return 'Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah';
+        }
+        if (str_contains($u, 'KEUANGAN')) return 'Badan Pengelola Keuangan dan Aset Daerah';
+        if (str_contains($u, 'KEPEGAWAIAN') || str_contains($u, 'PENDIDIKAN DAN PELATIHAN')) {
+            return 'Badan Kepegawaian dan Pengembangan Sumber Daya Manusia';
+        }
+        if (str_contains($u, 'PERBATASAN')) return 'Badan Pengelola Perbatasan Daerah';
+        if (str_contains($u, 'INSPEKTORA') || str_contains($u, 'INSPEKTORAT')) return 'Inspektorat';
+        if (str_contains($u, 'KESATUAN BANGSA') || str_contains($u, 'POLITIK')) return 'Badan Kesatuan Bangsa dan Politik';
+
+        if (str_contains($u, 'PENDIDIKAN') || str_contains($u, 'KEBUDAYAAN') || str_contains($u, 'PERPUSTAKAAN') || str_contains($u, 'KEARSIPAN')) {
+            return 'Dinas Pendidikan dan Kebudayaan';
+        }
+        if (str_contains($u, 'KESEHATAN') || str_contains($u, 'KELUARGA BERENCANA') || str_contains($u, 'PENGENDALIAN PENDUDUK')) {
+            return 'Dinas Kesehatan, Pengendalian Penduduk dan KB';
+        }
+        if (str_contains($u, 'PEKERJAAN UMUM') || str_contains($u, 'PENATAAN RUANG') || str_contains($u, 'PERUMAHAN') || str_contains($u, 'KAWASAN PEMUKIMAN')) {
+            return 'Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman';
+        }
+        if (str_contains($u, 'KETENTERAMAN') || str_contains($u, 'KETERTIBAN')) return 'Satuan Polisi Pamong Praja';
+        if (str_contains($u, 'BENCANA')) return 'Badan Penanggulangan Bencana Daerah';
+        if (str_contains($u, 'SOSIAL') || str_contains($u, 'PEREMPUAN') || str_contains($u, 'ANAK')) {
+            return 'Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak';
+        }
+        if (str_contains($u, 'PANGAN') || str_contains($u, 'PERTANIAN') || str_contains($u, 'KELAUTAN') || str_contains($u, 'PERIKANAN')) {
+            return 'Dinas Ketahanan Pangan dan Pertanian';
+        }
+        if (str_contains($u, 'LINGKUNGAN HIDUP')) return 'Dinas Lingkungan Hidup';
+        if (str_contains($u, 'KEPENDUDUKAN') || str_contains($u, 'PENCATATAN SIPIL')) return 'Dinas Kependudukan dan Pencatatan Sipil';
+        if (str_contains($u, 'PEMBERDAYAAN MASYARAKAT') || str_contains($u, 'DESA') || str_contains($u, 'KAMPUNG')) {
+            return 'Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung';
+        }
+        if (str_contains($u, 'PERHUBUNGAN')) return 'Dinas Perhubungan';
+        if (str_contains($u, 'KOMUNIKASI') || str_contains($u, 'INFORMATIKA') || str_contains($u, 'STATISTIK') || str_contains($u, 'PERSANDIAN')) {
+            return 'Dinas Komunikasi dan Informatika, Statistik, dan Persandian';
+        }
+        if (str_contains($u, 'PENANAMAN MODAL')) return 'Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu';
+        if (str_contains($u, 'PARIWISATA') || str_contains($u, 'KEPEMUDAAN') || str_contains($u, 'OLAHRAGA')) {
+            return 'Dinas Pariwisata, Pemuda dan Olahraga';
+        }
+        if (str_contains($u, 'KOPERASI') || str_contains($u, 'USAHA KECIL') || str_contains($u, 'MENENGAH') || str_contains($u, 'PERDAGANGAN') || str_contains($u, 'PERINDUSTRIAN')) {
+            return 'Bagian Perekonomian dan Sumber Daya Alam';
+        }
+
+        if (str_contains($i, 'KESEHATAN') || str_contains($i, 'HIDUP SEHAT') || str_contains($i, 'POSYANDU') || str_contains($i, 'BALITA') || str_contains($i, 'IMUNISASI')) {
+            return 'Dinas Kesehatan, Pengendalian Penduduk dan KB';
+        }
+        if (str_contains($i, 'FAKIR MISKIN') || str_contains($i, 'LANSIA') || str_contains($i, 'PENYANDANG DISABILITAS') || str_contains($i, 'GELANDANG')) {
+            return 'Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak';
+        }
+
+        return null;
+    };
+
+    $stats = [
+        'rows_total' => count($rows),
+        'rows_mapped_opd' => 0,
+        'rows_unmapped_opd' => 0,
+        'inserted' => 0,
+        'updated' => 0,
+    ];
+
+    $unmapped = [];
+
+    DB::transaction(function () use ($rows, $opdByName, $normalize, $resolveOpdName, &$stats, &$unmapped) {
+        foreach ($rows as $index => $row) {
+            $uraian = trim((string) ($row['indikator'] ?? ''));
+            if ($uraian === '') {
+                continue;
+            }
+
+            $urusan1 = trim((string) ($row['urusan_1'] ?? ''));
+            $urusan2 = trim((string) ($row['urusan_2'] ?? ''));
+            $satuan = trim((string) ($row['satuan'] ?? ''));
+
+            $namaOpd = $resolveOpdName($urusan2, $uraian);
+            $opd = $namaOpd ? ($opdByName->get($normalize($namaOpd)) ?? null) : null;
+
+            if ($opd) {
+                $stats['rows_mapped_opd']++;
+            } else {
+                $stats['rows_unmapped_opd']++;
+                $unmapped[] = [
+                    'row' => $index + 1,
+                    'urusan_2' => $urusan2,
+                    'indikator' => $uraian,
+                ];
+            }
+
+            $targetTahunan = [];
+            foreach (['2025', '2026', '2027', '2028', '2029', '2030'] as $tahun) {
+                $targetTahunan[$tahun] = $row['target_' . $tahun] ?? null;
+            }
+
+            $payload = [
+                'opd_id' => $opd?->id,
+                'document_type' => 'rpjmd',
+                'jenis_indikator' => 'IKK',
+                'uraian' => $uraian,
+                'satuan' => $satuan !== '' ? $satuan : '-',
+                'jenis' => 'outcome',
+                'sifat' => 'maximize',
+                'keterangan' => json_encode([
+                    'sumber' => 'referensi/pusat/ikk.json',
+                    'urusan_1' => $urusan1,
+                    'urusan_2' => $urusan2,
+                    'target_tahunan' => $targetTahunan,
+                ], JSON_UNESCAPED_UNICODE),
+            ];
+
+            $existing = Indikator::withoutGlobalScopes()
+                ->where('jenis_indikator', 'IKK')
+                ->where('uraian', $uraian)
+                ->first();
+
+            if ($existing) {
+                $existing->update($payload);
+                $stats['updated']++;
+            } else {
+                Indikator::withoutGlobalScopes()->create($payload);
+                $stats['inserted']++;
+            }
+        }
+    });
+
+    $this->info('Import IKK selesai.');
+    foreach ($stats as $k => $v) {
+        $this->line("- {$k}: {$v}");
+    }
+
+    if (!empty($unmapped)) {
+        $this->warn('Contoh IKK yang belum terhubung OPD (maks 20 baris):');
+        foreach (array_slice($unmapped, 0, 20) as $item) {
+            $this->line('#' . $item['row'] . ' | ' . $item['urusan_2'] . ' | ' . $item['indikator']);
+        }
+    }
+})->purpose('Import data IKK referensi pusat ke indikator + mapping OPD + statistik keterhubungan');
+
+Artisan::command('sync:ikk-opd', function () {
+    $normalize = static function (?string $value): string {
+        $text = strtoupper(trim((string) $value));
+        $text = preg_replace('/[^A-Z0-9\s]/', ' ', $text);
+        $text = preg_replace('/\s+/', ' ', (string) $text);
+        return trim((string) $text);
+    };
+
+    $opdByName = Opd::withoutGlobalScopes()
+        ->where('is_active', true)
+        ->get(['id', 'nama'])
+        ->keyBy(fn ($opd) => $normalize((string) $opd->nama));
+
+    $resolveOpdName = static function (?string $urusan2) use ($normalize): ?string {
+        $u = $normalize((string) $urusan2);
+        if ($u === '') return null;
+
+        if (str_contains($u, 'KECAMATAN LONG APARAI')) return 'Kecamatan Long Apari';
+        if (str_contains($u, 'KECAMATAN LONG PAHANGAI')) return 'Kecamatan Long Pahangai';
+        if (str_contains($u, 'KECAMATAN LONG BAGUN')) return 'Kecamatan Long Bagun';
+        if (str_contains($u, 'KECAMATAN LONG HUBUNG')) return 'Kecamatan Long Hubung';
+        if (str_contains($u, 'KECAMATAN LONG LAHAM') || str_contains($u, 'KECAMATAN LAHAM')) return 'Kecamatan Laham';
+
+        if (str_contains($u, 'SEKRETARIAT DPRD')) return 'Sekretariat DPRD';
+        if (str_contains($u, 'SEKRETARIAT DAERAH')) return 'Sekretariat Daerah';
+        if (str_contains($u, 'PERENCANAAN') || str_contains($u, 'PENELITIAN') || str_contains($u, 'PENGEMBANGAN')) return 'Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah';
+        if (str_contains($u, 'KEUANGAN')) return 'Badan Pengelola Keuangan dan Aset Daerah';
+        if (str_contains($u, 'KEPEGAWAIAN') || str_contains($u, 'PENDIDIKAN DAN PELATIHAN')) return 'Badan Kepegawaian dan Pengembangan Sumber Daya Manusia';
+        if (str_contains($u, 'PERBATASAN')) return 'Badan Pengelola Perbatasan Daerah';
+        if (str_contains($u, 'INSPEKTORA') || str_contains($u, 'INSPEKTORAT')) return 'Inspektorat';
+        if (str_contains($u, 'KESATUAN BANGSA') || str_contains($u, 'POLITIK')) return 'Badan Kesatuan Bangsa dan Politik';
+
+        if (str_contains($u, 'PENDIDIKAN') || str_contains($u, 'KEBUDAYAAN') || str_contains($u, 'PERPUSTAKAAN') || str_contains($u, 'KEARSIPAN')) return 'Dinas Pendidikan dan Kebudayaan';
+        if (str_contains($u, 'KESEHATAN') || str_contains($u, 'KELUARGA BERENCANA') || str_contains($u, 'PENGENDALIAN PENDUDUK') || str_contains($u, 'WAJIB PELAYANAN DASAR')) return 'Dinas Kesehatan, Pengendalian Penduduk dan KB';
+        if (str_contains($u, 'PEKERJAAN UMUM') || str_contains($u, 'PENATAAN RUANG') || str_contains($u, 'PERUMAHAN') || str_contains($u, 'KAWASAN PEMUKIMAN')) return 'Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman';
+        if (str_contains($u, 'KETENTERAMAN') || str_contains($u, 'KETERTIBAN')) return 'Satuan Polisi Pamong Praja';
+        if (str_contains($u, 'BENCANA')) return 'Badan Penanggulangan Bencana Daerah';
+        if (str_contains($u, 'SOSIAL') || str_contains($u, 'PEREMPUAN') || str_contains($u, 'ANAK')) return 'Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak';
+        if (str_contains($u, 'PANGAN') || str_contains($u, 'PERTANIAN') || str_contains($u, 'KELAUTAN') || str_contains($u, 'PERIKANAN')) return 'Dinas Ketahanan Pangan dan Pertanian';
+        if (str_contains($u, 'LINGKUNGAN HIDUP')) return 'Dinas Lingkungan Hidup';
+        if (str_contains($u, 'KEPENDUDUKAN') || str_contains($u, 'PENCATATAN SIPIL')) return 'Dinas Kependudukan dan Pencatatan Sipil';
+        if (str_contains($u, 'PEMBERDAYAAN MASYARAKAT') || str_contains($u, 'DESA') || str_contains($u, 'KAMPUNG')) return 'Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung';
+        if (str_contains($u, 'PERHUBUNGAN')) return 'Dinas Perhubungan';
+        if (str_contains($u, 'KOMUNIKASI') || str_contains($u, 'INFORMATIKA') || str_contains($u, 'STATISTIK') || str_contains($u, 'PERSANDIAN')) return 'Dinas Komunikasi dan Informatika, Statistik, dan Persandian';
+        if (str_contains($u, 'PENANAMAN MODAL')) return 'Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu';
+        if (str_contains($u, 'PARIWISATA') || str_contains($u, 'KEPEMUDAAN') || str_contains($u, 'OLAHRAGA')) return 'Dinas Pariwisata, Pemuda dan Olahraga';
+        if (str_contains($u, 'KOPERASI') || str_contains($u, 'USAHA KECIL') || str_contains($u, 'MENENGAH') || str_contains($u, 'PERDAGANGAN') || str_contains($u, 'PERINDUSTRIAN')) return 'Bagian Perekonomian dan Sumber Daya Alam';
+
+        return null;
+    };
+
+    $stats = [
+        'total_ikk' => 0,
+        'mapped_by_urusan2' => 0,
+        'unmapped_by_urusan2' => 0,
+        'updated_opd_id' => 0,
+        'urusan2_kosong' => 0,
+    ];
+
+    DB::transaction(function () use ($opdByName, $normalize, $resolveOpdName, &$stats) {
+        $rows = Indikator::withoutGlobalScopes()
+            ->where('jenis_indikator', 'IKK')
+            ->get(['id', 'opd_id', 'keterangan']);
+
+        foreach ($rows as $row) {
+            $stats['total_ikk']++;
+            $meta = json_decode((string) ($row->keterangan ?? ''), true);
+            $urusan2 = is_array($meta) ? trim((string) ($meta['urusan_2'] ?? '')) : '';
+
+            if ($urusan2 === '') {
+                $stats['urusan2_kosong']++;
+                $stats['unmapped_by_urusan2']++;
+                continue;
+            }
+
+            $opdName = $resolveOpdName($urusan2);
+            $opd = $opdName ? ($opdByName->get($normalize($opdName)) ?? null) : null;
+
+            if (!$opd) {
+                $stats['unmapped_by_urusan2']++;
+                continue;
+            }
+
+            $stats['mapped_by_urusan2']++;
+
+            if ((int) ($row->opd_id ?? 0) !== (int) $opd->id) {
+                $row->opd_id = $opd->id;
+                $row->save();
+                $stats['updated_opd_id']++;
+            }
+        }
+    });
+
+    $this->info('Sinkronisasi OPD untuk IKK selesai.');
+    foreach ($stats as $k => $v) {
+        $this->line("- {$k}: {$v}");
+    }
+})->purpose('Sinkronkan opd_id indikator IKK berdasarkan kecocokan urusan_2');
+
+Artisan::command('backfill:ikk-urusan', function () {
+    $jsonPath = base_path('referensi/pusat/ikk.json');
+    if (!is_file($jsonPath)) {
+        $this->error('File tidak ditemukan: referensi/pusat/ikk.json');
+        return;
+    }
+
+    $items = json_decode(file_get_contents($jsonPath), true) ?? [];
+    if (!is_array($items)) {
+        $this->error('Format JSON ikk.json tidak valid.');
+        return;
+    }
+
+    $normalize = static function (?string $value): string {
+        $text = strtoupper(trim((string) $value));
+        $text = preg_replace('/[^A-Z0-9\s]/', ' ', $text);
+        $text = preg_replace('/\s+/', ' ', (string) $text);
+        return trim((string) $text);
+    };
+
+    $map = [];
+    foreach ($items as $row) {
+        $indikator = $normalize((string) ($row['indikator'] ?? ''));
+        if ($indikator === '') continue;
+
+        if (!isset($map[$indikator])) {
+            $map[$indikator] = [
+                'urusan_1' => (string) ($row['urusan_1'] ?? ''),
+                'urusan_2' => (string) ($row['urusan_2'] ?? ''),
+                'sumber' => 'referensi/pusat/ikk.json',
+            ];
+        }
+    }
+
+    $stats = [
+        'total_ikk' => 0,
+        'with_empty_urusan2' => 0,
+        'backfilled' => 0,
+        'not_found_in_reference' => 0,
+    ];
+
+    DB::transaction(function () use (&$stats, $map, $normalize) {
+        $rows = Indikator::withoutGlobalScopes()
+            ->where('jenis_indikator', 'IKK')
+            ->get(['id', 'uraian', 'keterangan']);
+
+        foreach ($rows as $row) {
+            $stats['total_ikk']++;
+            $meta = json_decode((string) ($row->keterangan ?? ''), true);
+            $urusan2 = is_array($meta) ? trim((string) ($meta['urusan_2'] ?? '')) : '';
+
+            if ($urusan2 !== '') {
+                continue;
+            }
+
+            $stats['with_empty_urusan2']++;
+            $key = $normalize((string) ($row->uraian ?? ''));
+            $fromRef = $map[$key] ?? null;
+
+            if (!$fromRef) {
+                $stats['not_found_in_reference']++;
+                continue;
+            }
+
+            $existingMeta = is_array($meta) ? $meta : [];
+            $newMeta = array_merge($existingMeta, [
+                'urusan_1' => $fromRef['urusan_1'],
+                'urusan_2' => $fromRef['urusan_2'],
+                'sumber' => $fromRef['sumber'],
+            ]);
+
+            $row->keterangan = json_encode($newMeta, JSON_UNESCAPED_UNICODE);
+            $row->save();
+            $stats['backfilled']++;
+        }
+    });
+
+    $this->info('Backfill metadata urusan IKK selesai.');
+    foreach ($stats as $k => $v) {
+        $this->line("- {$k}: {$v}");
+    }
+})->purpose('Isi urusan_1 dan urusan_2 yang kosong pada IKK dari referensi pusat berdasarkan nama indikator');

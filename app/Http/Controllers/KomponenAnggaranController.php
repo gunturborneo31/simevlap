@@ -25,6 +25,12 @@ class KomponenAnggaranController extends Controller
         $tahun = request('tahun');
         $pageMode = request('page_mode', 'dokumen');
         $documentType = request('document_type', 'dpa');
+        $user = request()->user();
+
+        if ($user?->hasRole('opd')) {
+            $opdId = (int) $user->opd_id;
+        }
+
         $opdFilterIds = $this->resolveOpdFilterIds($opdId);
 
         $query = KomponenAnggaran::with([
@@ -53,7 +59,7 @@ class KomponenAnggaranController extends Controller
         $realisasiLookup = $this->buildRealisasiLookup($opdFilterIds, $tahun, $realisasiRefLookup);
         $data = $this->mapKomponenWithReferenceNames($data, $realisasiLookup, $realisasiRefLookup);
 
-        if ($pageMode === 'realisasi' && $documentType === 'dpa') {
+        if (in_array($pageMode, ['realisasi', 'verifikator'], true) && $documentType === 'dpa') {
             $renjaQuery = KomponenAnggaran::with([
                 'indikator',
                 'urusanRef:id,kode,nama',
@@ -99,7 +105,11 @@ class KomponenAnggaranController extends Controller
             $data = $this->mergeKomponenTreesForRealisasi($data, $renjaData, $renstraData);
         }
 
-        $opds  = \App\Models\Opd::where('is_active', true)->orderBy('nama')->get(['id', 'nama', 'kode']);
+        $opdsQuery = \App\Models\Opd::where('is_active', true);
+        if ($user?->hasRole('opd')) {
+            $opdsQuery->where('id', (int) $user->opd_id);
+        }
+        $opds  = $opdsQuery->orderBy('nama')->get(['id', 'nama', 'kode']);
         $tahunList = range(date('Y') - 2, date('Y') + 2);
 
         // Ambil daftar program DPA yang terhubung dengan OPD yang dipilih
@@ -853,7 +863,16 @@ class KomponenAnggaranController extends Controller
             $masterIds = $masters->pluck('id')->values();
 
             $realisasiQuery = Realisasi::query()
-                ->select(['id', 'realisaseable_id', 'triwulan', 'realisasi_keuangan', 'realisasi_fisik', 'tahun'])
+                ->select([
+                    'id',
+                    'realisaseable_id',
+                    'triwulan',
+                    'realisasi_keuangan',
+                    'realisasi_fisik',
+                    'tahun',
+                    'is_verified',
+                    'catatan_verifikator',
+                ])
                 ->where('realisaseable_type', $modelClass)
                 ->whereIn('realisaseable_id', $masterIds);
 
@@ -884,6 +903,8 @@ class KomponenAnggaranController extends Controller
                     'id' => (int) $row->id,
                     'keuangan' => (float) ($row->realisasi_keuangan ?? 0),
                     'fisik' => (float) ($row->realisasi_fisik ?? 0),
+                    'is_verified' => (bool) ($row->is_verified ?? false),
+                    'catatan_verifikator' => $row->catatan_verifikator,
                 ];
             }
         }
@@ -898,7 +919,7 @@ class KomponenAnggaranController extends Controller
 
     private function getRealisasiAnnotationsPayload(string $pageMode, string $documentType, ?int $opdId, ?int $tahun): array
     {
-        if ($pageMode !== 'realisasi' || $documentType !== 'dpa' || !$opdId) {
+        if (!in_array($pageMode, ['realisasi', 'verifikator'], true) || $documentType !== 'dpa' || !$opdId) {
             return [];
         }
 

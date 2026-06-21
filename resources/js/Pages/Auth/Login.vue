@@ -20,8 +20,8 @@
         <form @submit.prevent="submit" class="space-y-5">
           <p v-if="form.errors.email" class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 border border-red-200">{{ form.errors.email }}</p>
           <div>
-            <label class="block text-sm font-semibold text-[#00694f] mb-1">Email</label>
-            <input v-model="form.email" type="email" class="w-full border border-[#38b449] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#38b449] bg-white placeholder:text-[#38b449]" placeholder="you@email.com" required />
+            <label class="block text-sm font-semibold text-[#00694f] mb-1">Username / Email</label>
+            <input v-model="form.email" type="text" class="w-full border border-[#38b449] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#38b449] bg-white placeholder:text-[#38b449]" placeholder="Masukkan username atau email" required />
           </div>
           <div>
             <label class="block text-sm font-semibold text-[#00694f] mb-1">Password</label>

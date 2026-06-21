@@ -95,19 +95,99 @@ class DataDasarController extends Controller
         ]);
     }
 
+    public function ikkUnmapped(Request $request): Response
+    {
+        $search = trim((string) $request->get('search', ''));
+
+        $query = Indikator::withoutGlobalScopes()
+            ->where('jenis_indikator', 'IKK')
+            ->whereNull('opd_id');
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('uraian', 'like', "%{$search}%")
+                    ->orWhere('satuan', 'like', "%{$search}%")
+                    ->orWhere('keterangan', 'like', "%{$search}%");
+            });
+        }
+
+        $rows = $query
+            ->latest()
+            ->paginate(15)
+            ->withQueryString()
+            ->through(function ($r) {
+                $meta = json_decode((string) ($r->keterangan ?? ''), true);
+                $urusan1 = is_array($meta) ? ($meta['urusan_1'] ?? '-') : '-';
+                $urusan2 = is_array($meta) ? ($meta['urusan_2'] ?? '-') : '-';
+                $suggestedOpdName = is_string($urusan2) ? $this->resolveIkkOpdNameFromUrusan2($urusan2) : null;
+
+                $suggestedOpdId = null;
+                if ($suggestedOpdName) {
+                    $candidate = Opd::withoutGlobalScopes()
+                        ->where('is_active', true)
+                        ->where('nama', $suggestedOpdName)
+                        ->first(['id']);
+                    $suggestedOpdId = $candidate?->id;
+                }
+
+                return [
+                    'id' => $r->id,
+                    'uraian' => $r->uraian,
+                    'satuan' => $r->satuan,
+                    'urusan_1' => $urusan1,
+                    'urusan_2' => $urusan2,
+                    'suggested_opd_name' => $suggestedOpdName,
+                    'suggested_opd_id' => $suggestedOpdId,
+                ];
+            });
+
+        $opds = Opd::withoutGlobalScopes()
+            ->where('is_active', true)
+            ->orderBy('nama')
+            ->get(['id', 'nama', 'singkatan']);
+
+        return Inertia::render('DataDasar/IkkUnmapped', [
+            'rows' => $rows,
+            'opds' => $opds,
+            'filters' => [
+                'search' => $search,
+            ],
+        ]);
+    }
+
+    public function assignIkkOpd(Request $request, Indikator $indikator)
+    {
+        abort_if($indikator->jenis_indikator !== 'IKK', 404);
+
+        $data = $request->validate([
+            'opd_id' => 'required|exists:opds,id',
+        ]);
+
+        $indikator->update([
+            'opd_id' => (int) $data['opd_id'],
+        ]);
+
+        return redirect()->back()->with('success', 'OPD untuk IKK berhasil diperbarui.');
+    }
+
     public function level(Request $request, string $level): Response
     {
         $level = $this->normalizeLevel($level);
         abort_if($level === null, 404);
 
+        $search = trim((string) $request->get('search', ''));
+
         $activeKepmen = Kepmen::find($request->session()->get('active_kepmen_id'));
 
-        [$rows, $parents] = $this->buildLevelData($level, $activeKepmen?->id);
+        [$rows, $parents] = $this->buildLevelData($level, $activeKepmen?->id, $search);
 
         return Inertia::render('DataDasar/Level', [
             'level' => $level,
             'rows' => $rows,
             'parents' => $parents,
+            'filters' => [
+                'search' => $search,
+            ],
             'activePeraturan' => $activeKepmen ? [
                 'id' => $activeKepmen->id,
                 'kode' => $activeKepmen->kode,
@@ -340,21 +420,70 @@ class DataDasarController extends Controller
             ->findOrFail($id);
     }
 
-    private function buildLevelData(string $level, ?int $activeKepmenId): array
+    private function buildLevelData(string $level, ?int $activeKepmenId, ?string $search = null): array
     {
         if (in_array($level, ['iku', 'ikk'], true)) {
-            $rows = Indikator::query()
+            $query = Indikator::query()
                 ->where('jenis_indikator', strtoupper($level))
-                ->latest()
-                ->get()
-                ->map(fn ($r) => [
-                    'id' => $r->id,
-                    'uraian' => $r->uraian,
-                    'satuan' => $r->satuan,
-                    'jenis' => $r->jenis,
-                    'sifat' => $r->sifat,
-                    'keterangan' => $r->keterangan,
-                ]);
+                ->with('opd:id,nama,singkatan');
+
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('uraian', 'like', "%{$search}%")
+                        ->orWhere('satuan', 'like', "%{$search}%")
+                        ->orWhere('keterangan', 'like', "%{$search}%");
+                });
+            }
+
+            if ($level === 'ikk') {
+                $query->orderBy('keterangan')->orderBy('uraian');
+            }
+
+            $rows = $query
+                ->when($level !== 'ikk', fn ($q) => $q->latest())
+                ->paginate(10)
+                ->withQueryString()
+                ->through(function ($r) {
+                    $meta = json_decode((string) ($r->keterangan ?? ''), true);
+                    $urusan1 = is_array($meta) ? ($meta['urusan_1'] ?? '-') : '-';
+                    $urusan2 = is_array($meta) ? ($meta['urusan_2'] ?? '-') : '-';
+                    $kodeIndikator = is_array($meta) ? ($meta['kode_indikator'] ?? '-') : '-';
+                    $targetTahunan = is_array($meta) && is_array($meta['target_tahunan'] ?? null)
+                        ? $meta['target_tahunan']
+                        : [];
+                    $opdNama = $r->opd?->nama;
+
+                    if (!$opdNama && is_string($urusan2) && $urusan2 !== '-') {
+                        $opdNama = $this->resolveIkkOpdNameFromUrusan2($urusan2);
+                    }
+
+                    $displayKeterangan = is_array($meta)
+                        ? ($meta['catatan'] ?? null)
+                        : $r->keterangan;
+
+                    return [
+                        'id' => $r->id,
+                        'uraian' => $r->uraian,
+                        'satuan' => $r->satuan,
+                        'opd_nama' => $opdNama ?? '-',
+                        'kode_indikator' => $kodeIndikator,
+                        'target_tahunan' => [
+                            '2025' => $targetTahunan['2025'] ?? null,
+                            '2026' => $targetTahunan['2026'] ?? null,
+                            '2027' => $targetTahunan['2027'] ?? null,
+                            '2028' => $targetTahunan['2028'] ?? null,
+                            '2029' => $targetTahunan['2029'] ?? null,
+                            '2030' => $targetTahunan['2030'] ?? null,
+                        ],
+                        'jenis' => $r->jenis,
+                        'sifat' => $r->sifat,
+                        'keterangan' => $displayKeterangan,
+                        'keterangan_raw' => $r->keterangan,
+                        'urusan_1' => $urusan1,
+                        'urusan_2' => $urusan2,
+                    ];
+                });
+
             return [$rows, collect()];
         }
 
@@ -979,6 +1108,47 @@ class DataDasarController extends Controller
         $query = Kegiatan::latest();
         if ($activeKepmenId) $query->where('kepmen_id', $activeKepmenId);
         return $query->get()->map(fn ($p) => ['id' => $p->id, 'label' => ($p->kode_rek ? $p->kode_rek . ' - ' : '') . $p->nama_rincian]);
+    }
+
+    private function resolveIkkOpdNameFromUrusan2(string $urusan2): ?string
+    {
+        $u = strtoupper(trim($urusan2));
+        $u = preg_replace('/[^A-Z0-9\s]/', ' ', $u);
+        $u = preg_replace('/\s+/', ' ', (string) $u);
+        $u = trim((string) $u);
+
+        if (str_contains($u, 'KECAMATAN LONG APARAI')) return 'Kecamatan Long Apari';
+        if (str_contains($u, 'KECAMATAN LONG PAHANGAI')) return 'Kecamatan Long Pahangai';
+        if (str_contains($u, 'KECAMATAN LONG BAGUN')) return 'Kecamatan Long Bagun';
+        if (str_contains($u, 'KECAMATAN LONG HUBUNG')) return 'Kecamatan Long Hubung';
+        if (str_contains($u, 'KECAMATAN LONG LAHAM') || str_contains($u, 'KECAMATAN LAHAM')) return 'Kecamatan Laham';
+
+        if (str_contains($u, 'SEKRETARIAT DPRD')) return 'Sekretariat DPRD';
+        if (str_contains($u, 'SEKRETARIAT DAERAH')) return 'Sekretariat Daerah';
+        if (str_contains($u, 'PERENCANAAN') || str_contains($u, 'PENELITIAN') || str_contains($u, 'PENGEMBANGAN')) return 'Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah';
+        if (str_contains($u, 'KEUANGAN')) return 'Badan Pengelola Keuangan dan Aset Daerah';
+        if (str_contains($u, 'KEPEGAWAIAN') || str_contains($u, 'PENDIDIKAN DAN PELATIHAN')) return 'Badan Kepegawaian dan Pengembangan Sumber Daya Manusia';
+        if (str_contains($u, 'PERBATASAN')) return 'Badan Pengelola Perbatasan Daerah';
+        if (str_contains($u, 'INSPEKTORA') || str_contains($u, 'INSPEKTORAT')) return 'Inspektorat';
+        if (str_contains($u, 'KESATUAN BANGSA') || str_contains($u, 'POLITIK')) return 'Badan Kesatuan Bangsa dan Politik';
+
+        if (str_contains($u, 'PENDIDIKAN') || str_contains($u, 'KEBUDAYAAN') || str_contains($u, 'PERPUSTAKAAN') || str_contains($u, 'KEARSIPAN')) return 'Dinas Pendidikan dan Kebudayaan';
+        if (str_contains($u, 'KESEHATAN') || str_contains($u, 'KELUARGA BERENCANA') || str_contains($u, 'PENGENDALIAN PENDUDUK')) return 'Dinas Kesehatan, Pengendalian Penduduk dan KB';
+        if (str_contains($u, 'PEKERJAAN UMUM') || str_contains($u, 'PENATAAN RUANG') || str_contains($u, 'PERUMAHAN') || str_contains($u, 'KAWASAN PEMUKIMAN')) return 'Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman';
+        if (str_contains($u, 'KETENTERAMAN') || str_contains($u, 'KETERTIBAN')) return 'Satuan Polisi Pamong Praja';
+        if (str_contains($u, 'BENCANA')) return 'Badan Penanggulangan Bencana Daerah';
+        if (str_contains($u, 'SOSIAL') || str_contains($u, 'PEREMPUAN') || str_contains($u, 'ANAK')) return 'Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak';
+        if (str_contains($u, 'PANGAN') || str_contains($u, 'PERTANIAN') || str_contains($u, 'KELAUTAN') || str_contains($u, 'PERIKANAN')) return 'Dinas Ketahanan Pangan dan Pertanian';
+        if (str_contains($u, 'LINGKUNGAN HIDUP')) return 'Dinas Lingkungan Hidup';
+        if (str_contains($u, 'KEPENDUDUKAN') || str_contains($u, 'PENCATATAN SIPIL')) return 'Dinas Kependudukan dan Pencatatan Sipil';
+        if (str_contains($u, 'PEMBERDAYAAN MASYARAKAT') || str_contains($u, 'DESA') || str_contains($u, 'KAMPUNG')) return 'Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung';
+        if (str_contains($u, 'PERHUBUNGAN')) return 'Dinas Perhubungan';
+        if (str_contains($u, 'KOMUNIKASI') || str_contains($u, 'INFORMATIKA') || str_contains($u, 'STATISTIK') || str_contains($u, 'PERSANDIAN')) return 'Dinas Komunikasi dan Informatika, Statistik, dan Persandian';
+        if (str_contains($u, 'PENANAMAN MODAL')) return 'Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu';
+        if (str_contains($u, 'PARIWISATA') || str_contains($u, 'KEPEMUDAAN') || str_contains($u, 'OLAHRAGA')) return 'Dinas Pariwisata, Pemuda dan Olahraga';
+        if (str_contains($u, 'KOPERASI') || str_contains($u, 'USAHA KECIL') || str_contains($u, 'MENENGAH') || str_contains($u, 'PERDAGANGAN') || str_contains($u, 'PERINDUSTRIAN')) return 'Bagian Perekonomian dan Sumber Daya Alam';
+
+        return null;
     }
 
     private function attachRelasiAssignments(string $level, string $parentType, $rows, $parents): array

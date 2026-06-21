@@ -49,6 +49,7 @@ const filters = ref({
 const page = usePage();
 const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
 const isSuperadmin = computed(() => userRoles.value.includes('superadmin'));
+const isAdmin = computed(() => userRoles.value.includes('admin'));
 const readonlyDpaQuery = computed(() => ({
   document_type: 'dpa',
   readonly: 1,
@@ -66,6 +67,10 @@ const realisasiMenu = [
 const visibleRealisasiMenu = computed(() => {
   if (isSuperadmin.value) {
     return realisasiMenu;
+  }
+
+  if (isAdmin.value) {
+    return realisasiMenu.filter((item) => item.value === 'iku');
   }
 
   return realisasiMenu.filter((item) => item.value !== 'iku');

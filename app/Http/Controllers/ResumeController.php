@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\BidangUrusan;
+use App\Models\Dokumen;
 use App\Models\Opd;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -23,11 +26,14 @@ class ResumeController extends Controller
 
         if ($currentView !== '' && $currentTable !== '') {
             $tableData = null;
-            $tableMetricType = 'program';
+            $tableMetricType = $this->resolveTableMetricType($currentView, $currentTable);
 
-                if (in_array($currentTable, ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4'], true) && $currentView === 'konsistensi-rpjmd-rkpd') {
-                    $tableMetricType = in_array($currentTable, ['tabel-2', 'tabel-3'], true) ? 'indikator' : 'program';
+            if (in_array($currentTable, ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4'], true) && $currentView === 'konsistensi-rpjmd-rkpd') {
                 $tableData = $this->getKonsistensiRpjmdRkpd($filterBasis, $selectedYear, $tableMetricType);
+            }
+
+            if ($currentView === 'dokumen' && $currentTable === 'monitoring') {
+                $tableData = $this->getDokumenMonitoring();
             }
 
             return Inertia::render('Resume/TableView', [
@@ -48,6 +54,81 @@ class ResumeController extends Controller
         ]);
     }
 
+    public function export(Request $request)
+    {
+        $currentView = $request->string('view')->toString();
+        $currentTable = $request->string('table')->toString();
+
+        if (!($currentView === 'konsistensi-rpjmd-rkpd' && in_array($currentTable, ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4'], true))) {
+            abort(404);
+        }
+
+        $filterBasis = $this->sanitizeFilterBasis($request->string('basis')->toString());
+        $availableYears = $this->getAvailableYears();
+        $selectedYear = $this->resolveSelectedYear($request->query('year'), $availableYears);
+        $tableMetricType = $this->resolveTableMetricType($currentView, $currentTable);
+        $tableData = $this->getKonsistensiRpjmdRkpd($filterBasis, $selectedYear, $tableMetricType);
+
+        $basePayload = [
+            'viewTitle' => $this->getViewTitle($currentView),
+            'tableLabel' => $this->formatCurrentTableLabel($currentTable),
+            'entityHeaderLabel' => $filterBasis === 'perangkat-daerah' ? 'Perangkat Daerah' : 'Bidang Urusan',
+            'metricLabel' => $tableMetricType === 'indikator' ? 'Indikator Program' : 'Program',
+            'selectedYear' => $selectedYear,
+        ];
+
+        $template = 'exports.resume_tabel_1';
+        $payload = $basePayload + [
+            'rows' => $this->buildTabel1ExportRows($tableData, $tableMetricType),
+        ];
+
+        if ($currentTable === 'tabel-3') {
+            $template = 'exports.resume_tabel_3';
+            $payload = $basePayload + [
+                'groups' => $this->buildTabel3ExportGroups($tableData),
+            ];
+        }
+
+        if ($currentTable === 'tabel-4') {
+            $template = 'exports.resume_tabel_4';
+            $payload = $basePayload + [
+                'groups' => $this->buildTabel4ExportGroups($tableData),
+            ];
+        }
+
+        $format = strtolower((string) $request->query('format', 'pdf'));
+        $timestamp = now()->format('Ymd_His');
+        $safeTable = str_replace(' ', '_', strtolower($this->formatCurrentTableLabel($currentTable)));
+
+        if ($format === 'excel') {
+            $html = view($template, $payload + ['exportFormat' => 'excel'])->render();
+
+            return response($html, 200, [
+                'Content-Type' => 'application/vnd.ms-excel; charset=UTF-8',
+                'Content-Disposition' => 'attachment; filename="resume_'.$safeTable.'_'.$timestamp.'.xls"',
+            ]);
+        }
+
+        // Tabel 3 bisa sangat besar saat dirender ke PDF; naikkan limit hanya untuk proses ini.
+        @ini_set('memory_limit', '1024M');
+        @ini_set('max_execution_time', '0');
+        @set_time_limit(0);
+
+        $pdf = Pdf::loadView($template, $payload + ['exportFormat' => 'pdf'])
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->download('resume_'.$safeTable.'_'.$timestamp.'.pdf');
+    }
+
+    public function viewDokumen(Dokumen $dokumen)
+    {
+        if (!Storage::disk('public')->exists($dokumen->file_path)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::disk('public')->path($dokumen->file_path));
+    }
+
     private function getViewTitle(string $view): string
     {
         return match ($view) {
@@ -56,9 +137,404 @@ class ResumeController extends Controller
             'hasil-pelaksanaan-rkpd' => 'Hasil Pelaksanaan RKPD',
             'rekap-permasalahan' => 'Rekap Permasalahan',
             'realisasi' => 'Realisasi',
+            'dokumen' => 'Dokumen',
             'kertas-kerja' => 'Kertas Kerja',
             default => 'Resume',
         };
+    }
+
+    private function getDokumenMonitoring(): array
+    {
+        $years = [2026, 2027, 2028, 2029, 2030];
+
+        $dokumenRows = Dokumen::withoutGlobalScopes()
+            ->select(['id', 'opd_id', 'document_type', 'tahun', 'judul', 'file_path', 'created_at'])
+            ->whereIn('document_type', ['renstra', 'renja', 'dpa'])
+            ->orderByDesc('created_at')
+            ->get();
+
+        $grouped = [];
+        foreach ($dokumenRows as $dokumen) {
+            $opdId = (int) $dokumen->opd_id;
+            $documentType = (string) $dokumen->document_type;
+            $tahun = (int) $dokumen->tahun;
+
+            if ($documentType === 'renstra') {
+                $grouped[$opdId]['renstra'] ??= $this->transformDokumenCell($dokumen, '2026 - 2030');
+                continue;
+            }
+
+            if (!in_array($tahun, $years, true)) {
+                continue;
+            }
+
+            $grouped[$opdId]['years'][$tahun][$documentType] ??= $this->transformDokumenCell($dokumen, (string) $tahun);
+        }
+
+        return Opd::query()
+            ->where('is_active', true)
+            ->orderBy('nama')
+            ->get(['id', 'nama', 'singkatan'])
+            ->map(function (Opd $opd, int $index) use ($grouped, $years) {
+                $data = $grouped[$opd->id] ?? [];
+
+                $yearCells = [];
+                foreach ($years as $year) {
+                    $yearCells[$year] = [
+                        'renja' => $data['years'][$year]['renja'] ?? $this->emptyDokumenCell(),
+                        'dpa' => $data['years'][$year]['dpa'] ?? $this->emptyDokumenCell(),
+                    ];
+                }
+
+                return [
+                    'no' => $index + 1,
+                    'opd' => $opd->singkatan ?: $opd->nama,
+                    'renstra' => $data['renstra'] ?? $this->emptyDokumenCell(),
+                    'years' => $yearCells,
+                ];
+            })
+            ->values()
+            ->all();
+    }
+
+    private function transformDokumenCell(Dokumen $dokumen, string $label): array
+    {
+        return [
+            'has_file' => true,
+            'label' => $label,
+            'judul' => $dokumen->judul,
+            'view_url' => route('resume.dokumen.view', $dokumen),
+        ];
+    }
+
+    private function emptyDokumenCell(): array
+    {
+        return [
+            'has_file' => false,
+            'label' => null,
+            'judul' => null,
+            'view_url' => null,
+        ];
+    }
+
+    private function resolveTableMetricType(string $currentView, string $currentTable): string
+    {
+        if ($currentView === 'konsistensi-rpjmd-rkpd' && in_array($currentTable, ['tabel-2', 'tabel-3'], true)) {
+            return 'indikator';
+        }
+
+        return 'program';
+    }
+
+    private function buildTabel1ExportRows(Collection $tableData, string $metricType): array
+    {
+        return $tableData->map(function ($row) use ($metricType) {
+            $rowData = is_array($row) ? $row : [];
+
+            $rpjmdPrograms = $this->buildUniqueComparableItems((array) ($rowData['rpjmd_programs'] ?? []), $metricType);
+            $renstraPrograms = $this->buildUniqueComparableItems((array) ($rowData['renstra_programs'] ?? []), $metricType);
+            $rkpdPrograms = $this->buildUniqueComparableItems((array) ($rowData['rkpd_programs'] ?? []), $metricType);
+
+            $sameRpjmdRenstra = $this->countSameComparableItems($rpjmdPrograms, $renstraPrograms, $metricType);
+            $sameRpjmdRkpd = $this->countSameComparableItems($rpjmdPrograms, $rkpdPrograms, $metricType);
+            $sameRenstraRkpd = $this->countSameComparableItems($renstraPrograms, $rkpdPrograms, $metricType);
+
+            $totalRpjmd = count($rpjmdPrograms);
+            $totalRenstra = count($renstraPrograms);
+            $totalRkpd = count($rkpdPrograms);
+
+            return [
+                'no' => (int) ($rowData['no'] ?? 0),
+                'entitas' => $this->formatResumeEntityLabel((string) ($rowData['entitas'] ?? '')),
+                'rpjmd_total' => $totalRpjmd,
+                'renstra_total' => $totalRenstra,
+                'rkpd_total' => $totalRkpd,
+                'same_rpjmd_renstra' => $sameRpjmdRenstra,
+                'diff_rpjmd_renstra' => max($totalRpjmd - $sameRpjmdRenstra, 0),
+                'same_rpjmd_rkpd' => $sameRpjmdRkpd,
+                'diff_rpjmd_rkpd' => max($totalRpjmd - $sameRpjmdRkpd, 0),
+                'same_renstra_rkpd' => $sameRenstraRkpd,
+                'diff_renstra_rkpd' => max($totalRenstra - $sameRenstraRkpd, 0),
+            ];
+        })->values()->all();
+    }
+
+    private function buildUniqueComparableItems(array $items, string $metricType): array
+    {
+        $unique = [];
+
+        foreach ($items as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
+            $key = $this->buildComparableKey($item, $metricType);
+            if ($key === '' || $key === '|') {
+                continue;
+            }
+
+            if (!isset($unique[$key])) {
+                $unique[$key] = $item;
+            }
+        }
+
+        return array_values($unique);
+    }
+
+    private function countSameComparableItems(array $leftItems, array $rightItems, string $metricType): int
+    {
+        $rightKeys = [];
+        foreach ($rightItems as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
+            $rightKeys[$this->buildComparableKey($item, $metricType)] = true;
+        }
+
+        $count = 0;
+        foreach ($leftItems as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
+            $key = $this->buildComparableKey($item, $metricType);
+            if ($key !== '' && isset($rightKeys[$key])) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    private function buildComparableKey(array $item, string $metricType): string
+    {
+        if ($metricType === 'indikator') {
+            $name = $this->normalizeComparableText((string) ($item['nama'] ?? ''));
+
+            return preg_replace('/[^A-Z0-9]/', '', $name) ?? '';
+        }
+
+        $kode = $this->normalizeComparableText((string) ($item['kode'] ?? ''));
+        $nama = $this->normalizeComparableText((string) ($item['nama'] ?? ''));
+
+        return $kode.'|'.$nama;
+    }
+
+    private function normalizeComparableText(string $value): string
+    {
+        $normalized = preg_replace('/\s+/', ' ', trim($value)) ?? '';
+
+        return strtoupper($normalized);
+    }
+
+    private function formatResumeEntityLabel(string $value): string
+    {
+        $normalized = preg_replace('/^\s*URUSAN\s+PEMERINTAHAN\s+BIDANG\s+/i', '', $value) ?? $value;
+
+        return trim($normalized);
+    }
+
+    private function formatCurrentTableLabel(string $table): string
+    {
+        if (str_starts_with($table, 'tabel-')) {
+            return str_replace('tabel-', 'Tabel ', $table);
+        }
+
+        return $table;
+    }
+
+    private function buildUniqueProgramMap(array $programs, string $metricType): array
+    {
+        $map = [];
+        foreach ($this->buildUniqueComparableItems($programs, $metricType) as $item) {
+            $key = $this->buildComparableKey($item, $metricType);
+            if ($key !== '') {
+                $map[$key] = $item;
+            }
+        }
+
+        return $map;
+    }
+
+    private function formatIndicatorTarget(mixed $target): string
+    {
+        if ($target === null) {
+            return '-';
+        }
+
+        $text = trim((string) $target);
+
+        return $text === '' ? '-' : $text;
+    }
+
+    private function toNumber(mixed $value): float
+    {
+        if ($value === null || $value === '') {
+            return 0;
+        }
+
+        if (is_numeric($value)) {
+            return (float) $value;
+        }
+
+        $clean = preg_replace('/[^0-9.\-]/', '', (string) $value) ?? '';
+
+        return is_numeric($clean) ? (float) $clean : 0;
+    }
+
+    private function getRowProgramName(array $row): string
+    {
+        $lists = [
+            (array) ($row['rpjmd_programs'] ?? []),
+            (array) ($row['renstra_programs'] ?? []),
+            (array) ($row['rkpd_programs'] ?? []),
+        ];
+
+        foreach ($lists as $list) {
+            foreach ($list as $item) {
+                if (!is_array($item)) {
+                    continue;
+                }
+
+                $programName = trim((string) ($item['program_nama'] ?? ''));
+                if ($programName !== '') {
+                    return $programName;
+                }
+            }
+        }
+
+        return '-';
+    }
+
+    private function getAlignedIndicatorRows(array $row): array
+    {
+        $metricType = 'indikator';
+        $rpjmdMap = $this->buildUniqueProgramMap((array) ($row['rpjmd_programs'] ?? []), $metricType);
+        $renstraMap = $this->buildUniqueProgramMap((array) ($row['renstra_programs'] ?? []), $metricType);
+        $rkpdMap = $this->buildUniqueProgramMap((array) ($row['rkpd_programs'] ?? []), $metricType);
+
+        $matchedKeys = [];
+
+        foreach ($rpjmdMap as $key => $_value) {
+            if (isset($renstraMap[$key]) || isset($rkpdMap[$key])) {
+                $matchedKeys[] = $key;
+            }
+        }
+
+        foreach ($renstraMap as $key => $_value) {
+            if (isset($rkpdMap[$key]) && !in_array($key, $matchedKeys, true)) {
+                $matchedKeys[] = $key;
+            }
+        }
+
+        if (count($matchedKeys) === 0) {
+            $matchedKeys = [''];
+        }
+
+        $rows = [];
+        foreach ($matchedKeys as $key) {
+            $rpjmdItem = $rpjmdMap[$key] ?? null;
+            $renstraItem = $renstraMap[$key] ?? null;
+            $rkpdItem = $rkpdMap[$key] ?? null;
+
+            $rows[] = [
+                'rpjmd_name' => (string) ($rpjmdItem['nama'] ?? ''),
+                'rpjmd_target' => $this->formatIndicatorTarget($rpjmdItem['target'] ?? null),
+                'renstra_name' => (string) ($renstraItem['nama'] ?? ''),
+                'renstra_target' => $this->formatIndicatorTarget($renstraItem['target'] ?? null),
+                'rkpd_name' => (string) ($rkpdItem['nama'] ?? ''),
+                'rkpd_target' => $this->formatIndicatorTarget($rkpdItem['target'] ?? null),
+                'status_rpjmd_renstra' => $rpjmdItem === null ? '-' : (isset($renstraMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
+                'status_rpjmd_rkpd' => $rpjmdItem === null ? '-' : (isset($rkpdMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
+                'status_renstra_rkpd' => $renstraItem === null ? '-' : (isset($rkpdMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
+            ];
+        }
+
+        return $rows;
+    }
+
+    private function getAlignedAnggaranRows(array $row): array
+    {
+        $metricType = 'program';
+        $rpjmdMap = $this->buildUniqueProgramMap((array) ($row['rpjmd_programs'] ?? []), $metricType);
+        $renstraMap = $this->buildUniqueProgramMap((array) ($row['renstra_programs'] ?? []), $metricType);
+        $rkpdMap = $this->buildUniqueProgramMap((array) ($row['rkpd_programs'] ?? []), $metricType);
+
+        $matchedKeys = [];
+
+        foreach ($rpjmdMap as $key => $_value) {
+            if (isset($renstraMap[$key]) || isset($rkpdMap[$key])) {
+                $matchedKeys[] = $key;
+            }
+        }
+
+        foreach ($renstraMap as $key => $_value) {
+            if (isset($rkpdMap[$key]) && !in_array($key, $matchedKeys, true)) {
+                $matchedKeys[] = $key;
+            }
+        }
+
+        if (count($matchedKeys) === 0) {
+            $matchedKeys = [''];
+        }
+
+        $rows = [];
+        foreach ($matchedKeys as $key) {
+            $rpjmdItem = $rpjmdMap[$key] ?? null;
+            $renstraItem = $renstraMap[$key] ?? null;
+            $rkpdItem = $rkpdMap[$key] ?? null;
+
+            $rpjmdPagu = $this->toNumber($rpjmdItem['pagu'] ?? null);
+            $renstraPagu = $this->toNumber($renstraItem['pagu'] ?? null);
+            $rkpdPagu = $this->toNumber($rkpdItem['pagu'] ?? null);
+
+            $diffRpjmdRenstra = abs($rpjmdPagu - $renstraPagu);
+            $diffRpjmdRkpd = abs($rpjmdPagu - $rkpdPagu);
+            $diffRenstraRkpd = abs($renstraPagu - $rkpdPagu);
+
+            $rows[] = [
+                'program_name' => (string) ($rpjmdItem['nama'] ?? $renstraItem['nama'] ?? $rkpdItem['nama'] ?? '-'),
+                'rpjmd_pagu' => (int) round($rpjmdPagu),
+                'renstra_pagu' => (int) round($renstraPagu),
+                'rkpd_pagu' => (int) round($rkpdPagu),
+                'diff_rpjmd_renstra' => (int) round($diffRpjmdRenstra),
+                'diff_rpjmd_rkpd' => (int) round($diffRpjmdRkpd),
+                'diff_renstra_rkpd' => (int) round($diffRenstraRkpd),
+                'status_rpjmd_renstra' => $diffRpjmdRenstra === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
+                'status_rpjmd_rkpd' => $diffRpjmdRkpd === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
+                'status_renstra_rkpd' => $diffRenstraRkpd === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
+            ];
+        }
+
+        return $rows;
+    }
+
+    private function buildTabel3ExportGroups(Collection $tableData): array
+    {
+        return $tableData->map(function ($row) {
+            $rowData = is_array($row) ? $row : [];
+
+            return [
+                'no' => (int) ($rowData['no'] ?? 0),
+                'entitas' => $this->formatResumeEntityLabel((string) ($rowData['entitas'] ?? '')),
+                'program_name' => $this->getRowProgramName($rowData),
+                'lines' => $this->getAlignedIndicatorRows($rowData),
+            ];
+        })->values()->all();
+    }
+
+    private function buildTabel4ExportGroups(Collection $tableData): array
+    {
+        return $tableData->map(function ($row) {
+            $rowData = is_array($row) ? $row : [];
+
+            return [
+                'no' => (int) ($rowData['no'] ?? 0),
+                'entitas' => $this->formatResumeEntityLabel((string) ($rowData['entitas'] ?? '')),
+                'lines' => $this->getAlignedAnggaranRows($rowData),
+            ];
+        })->values()->all();
     }
     
     private function getKonsistensiRpjmdRkpd(string $filterBasis, ?int $selectedYear, string $metricType = 'program'): Collection

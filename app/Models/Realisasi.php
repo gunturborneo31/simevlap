@@ -12,7 +12,14 @@ class Realisasi extends Model
 
     protected $fillable = [
         'opd_id', 'document_type', 'tahun', 'tahun_ke', 'triwulan',
-        'realisasi_fisik', 'realisasi_keuangan', 'sisa_anggaran', 'catatan', 'input_by',
+        'realisasi_fisik', 'realisasi_keuangan', 'sisa_anggaran', 'catatan',
+        'is_verified', 'catatan_verifikator', 'verified_by', 'verified_at',
+        'input_by',
+    ];
+
+    protected $casts = [
+        'is_verified' => 'boolean',
+        'verified_at' => 'datetime',
     ];
 
     public function realisaseable(): MorphTo
@@ -28,5 +35,10 @@ class Realisasi extends Model
     public function inputBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'input_by');
+    }
+
+    public function verifiedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'verified_by');
     }
 }
