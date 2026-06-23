@@ -26,4 +26,17 @@ class ResumeProgramAnnotation extends Model
     {
         return $this->hasMany(ResumeProgramEvidence::class, 'resume_program_annotation_id');
     }
+
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            $val = isset($model->faktor_penghambat) ? trim((string) $model->faktor_penghambat) : '';
+            if ($val === '') {
+                $model->faktor_penghambat = 'tidak ada hambatan';
+            }
+            // normalize empty strings for other fields to null
+            $model->faktor_pendorong = isset($model->faktor_pendorong) ? trim((string) $model->faktor_pendorong) ?: null : null;
+            $model->faktor_tindak_lanjut = isset($model->faktor_tindak_lanjut) ? trim((string) $model->faktor_tindak_lanjut) ?: null : null;
+        });
+    }
 }

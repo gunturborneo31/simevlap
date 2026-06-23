@@ -1,0 +1,107 @@
+[
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01",
+        "uraian": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+        "indikator": "Predikat Nilai SAKIP Dinas Pendidikan dan Kebudayaan",
+        "TARGET": "BB Nilai",
+        "SATUAN": "BB Nilai",
+        "jenis_indikator": "Program"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.01",
+        "uraian": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+        "indikator": "Cakupan ketersediaan (CK) dokumen Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+        "TARGET": 100,
+        "SATUAN": "%",
+        "jenis_indikator": "Kegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.01",
+        "uraian": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+        "indikator": "Dokumen Perencanaan, Pengendalian, dan Pelaporan",
+        "TARGET": 4,
+        "SATUAN": "Dok",
+        "jenis_indikator": "Kegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.01.0001",
+        "uraian": "Penyusunan Dokumen Perencanaan Perangkat Daerah",
+        "indikator": "Jumlah Dokumen Perencanaan Perangkat Daerah",
+        "TARGET": 3,
+        "SATUAN": "Dokumen",
+        "jenis_indikator": "SubKegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.01.0006",
+        "uraian": "Koordinasi dan Penyusunan Laporan Capaian Kinerja dan Ikhtisar Realisasi Kinerja SKPD",
+        "indikator": "Jumlah Laporan Capaian Kinerja dan Ikhtisar Realisasi Kinerja SKPD dan Laporan Hasil Koordinasi Penyusunan Laporan Capaian Kinerja dan Ikhtisar Realisasi Kinerja SKPD",
+        "TARGET": 4,
+        "SATUAN": "Laporan",
+        "jenis_indikator": "SubKegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.02",
+        "uraian": "Administrasi Keuangan Perangkat Daerah",
+        "indikator": "-",
+        "TARGET": "-",
+        "jenis_indikator": "Kegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.02.0001",
+        "uraian": "Penyediaan Gaji dan Tunjangan ASN",
+        "indikator": "Jumlah Orang yang Menerima Gaji dan Tunjangan ASN",
+        "TARGET": 385,
+        "SATUAN": "Orang",
+        "jenis_indikator": "SubKegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.02.0002",
+        "uraian": "Penyediaan Administrasi Pelaksanaan Tugas ASN",
+        "indikator": "Jumlah Dokumen Hasil Penyediaan Administrasi Pelaksanaan Tugas ASN",
+        "TARGET": 1,
+        "SATUAN": "Dokumen",
+        "jenis_indikator": "SubKegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.02.0005",
+        "uraian": "Koordinasi dan Penyusunan Laporan Keuangan Akhir Tahun SKPD",
+        "indikator": "Jumlah Laporan Keuangan Akhir Tahun SKPD dan Laporan Hasil Koordinasi Penyusunan Laporan Keuangan Akhir Tahun SKPD",
+        "TARGET": 2,
+        "SATUAN": "Laporan",
+        "jenis_indikator": "SubKegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.03",
+        "uraian": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+        "indikator": "-",
+        "TARGET": "-",
+        "jenis_indikator": "Kegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.03.0004",
+        "uraian": "Pembinaan, Pengawasan, dan Pengendalian Barang Milik Daerah pada SKPD",
+        "indikator": "Jumlah Laporan Hasil Pembinaan, Pengawasan, dan Pengendalian Barang Milik Daerah pada SKPD",
+        "TARGET": 2,
+        "SATUAN": "Laporan",
+        "jenis_indikator": "SubKegiatan"
+    },
+    {
+        "kode_unit": "1.01.2.22.5.04.01.0000",
+        "kode_uraian": "1.01.01.2.05",
+        "uraian": "Administrasi Kepegawaian Perangkat Daerah",
+        "indikator": "-",
+        "TARGET": "-",
+        "jenis_indikator": "Kegiatan"
+    }
+]

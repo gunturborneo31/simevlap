@@ -18,6 +18,7 @@ use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia as InertiaRender;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     // Landing page dashboard hijau (Dashboard.vue), baik login maupun tidak
@@ -37,6 +38,86 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });
+
+// Temporary debug route to return Resume JSON payload without auth (local dev only)
+Route::get('/__debug/resume-json', function (Request $request) {
+    $controller = app(\App\Http\Controllers\ResumeController::class);
+    return $controller->index($request);
+});
+// Temporary debug route: fetch RENJA komponen + indikator for given opd_id/kode/tahun
+Route::get('/__debug/renja-indikator', function (Request $request) {
+    $opdId = (int) $request->query('opd_id');
+    $kode = (string) $request->query('kode');
+    $tahun = $request->query('tahun') !== null ? (int) $request->query('tahun') : null;
+
+    $query = DB::table('komponen_anggaran as ka')
+        ->leftJoin('indikator_anggaran as ia', 'ia.komponen_anggaran_id', '=', 'ka.id')
+        ->select(['ka.*', 'ia.nama_indikator'])
+        ->where('ka.opd_id', $opdId)
+        ->where('ka.document_type', 'renja')
+        ->where(function ($q) use ($kode) {
+            $q->where('ka.kode_program', $kode)
+              ->orWhere('ka.kode', $kode);
+        });
+
+    if ($tahun !== null) {
+        $query->where('ka.tahun', $tahun);
+    }
+
+    $rows = $query->get();
+
+    return response()->json($rows);
+});
+
+// Temporary debug route: search komponen_anggaran by name (substring) and return indicators
+Route::get('/__debug/komponen-search', function (Request $request) {
+    $q = (string) $request->query('q');
+    $opdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+    $tahun = $request->query('tahun') ? (int) $request->query('tahun') : null;
+
+    $query = DB::table('komponen_anggaran as ka')
+        ->leftJoin('indikator_anggaran as ia', 'ia.komponen_anggaran_id', '=', 'ka.id')
+        ->select(['ka.*', 'ia.nama_indikator'])
+        ->where('ka.document_type', 'renja')
+        ->where('ka.nama_komponen', 'like', "%{$q}%");
+
+    if ($opdId !== null) {
+        $query->where('ka.opd_id', $opdId);
+    }
+    if ($tahun !== null) {
+        $query->where('ka.tahun', $tahun);
+    }
+
+    $rows = $query->get();
+
+    return response()->json($rows);
+});
+
+// Temporary debug route: search indikator text and return komponen + indikator rows
+Route::get('/__debug/indikator-search', function (Request $request) {
+    $q = (string) $request->query('q');
+    $opdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+    $tahun = $request->query('tahun') ? (int) $request->query('tahun') : null;
+
+    $query = DB::table('indikator_anggaran as ia')
+        ->leftJoin('komponen_anggaran as ka', 'ka.id', '=', 'ia.komponen_anggaran_id')
+        ->select(['ia.*', 'ka.kode', 'ka.nama_komponen', 'ka.opd_id', 'ka.tahun'])
+        ->where('ia.nama_indikator', 'like', "%{$q}%");
+
+    if ($opdId !== null) {
+        $query->where('ka.opd_id', $opdId);
+    }
+    if ($tahun !== null) {
+        $query->where('ka.tahun', $tahun);
+    }
+
+    $rows = $query->get();
+
+    return response()->json($rows);
+});
+
+// Temporary debug route: return program-aksi rows + parents without auth (inspect payload)
+Route::get('/__debug/relasi/program-aksi', [DataDasarController::class, 'debugRelasiProgramAksi']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth');
 
 
@@ -76,8 +157,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data-dasar/relasi', [DataDasarController::class, 'relasiMenu'])->name('data-dasar.relasi');
         Route::get('/data-dasar/relasi/ringkasan', [DataDasarController::class, 'relasiRingkasan'])->name('data-dasar.relasi.ringkasan');
         Route::get('/data-dasar/relasi/{level}', [DataDasarController::class, 'relasiLevel'])->name('data-dasar.relasi.level');
-        Route::put('/data-dasar/relasi/{level}/parent/{parentId}', [DataDasarController::class, 'updateRelasiByParent'])->name('data-dasar.relasi.level.parent.update');
-        Route::put('/data-dasar/relasi/{level}/{id}', [DataDasarController::class, 'updateRelasi'])->name('data-dasar.relasi.level.update');
+        Route::put('/data-dasar/relasi/{level}/parent/{parentId}', [DataDasarController::class, 'updateRelasiByParent'])->middleware('role:superadmin')->name('data-dasar.relasi.level.parent.update');
+        Route::put('/data-dasar/relasi/{level}/{id}', [DataDasarController::class, 'updateRelasi'])->middleware('role:superadmin')->name('data-dasar.relasi.level.update');
         Route::post('/data-dasar/visi', [DataDasarController::class, 'storeVisi'])->name('data-dasar.visi.store');
         Route::put('/data-dasar/visi/{visi}', [DataDasarController::class, 'updateVisi'])->name('data-dasar.visi.update');
         Route::delete('/data-dasar/visi/{visi}', [DataDasarController::class, 'destroyVisi'])->name('data-dasar.visi.destroy');

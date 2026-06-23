@@ -5,14 +5,129 @@
       { label: 'Realisasi', href: route('realisasi.index') }
     ]"
   >
-    <section class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
-      <Link
+    <section v-if="isIkkMode" class="space-y-6">
+      <div class="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div class="space-y-1">
+            <h2 class="text-xl font-semibold text-emerald-950">Realisasi IKK</h2>
+            <p class="text-sm text-slate-500">Pilih OPD terkait, lalu isi realisasi pada tiap IKK yang muncul di bawah.</p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-3 lg:min-w-[520px]">
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">OPD</label>
+              <select
+                v-model="selectedOpdId"
+                @change="applyIkkFilter"
+                class="input-base"
+                :disabled="isOwnOpdOnly"
+              >
+                <option value="">Pilih OPD</option>
+                <option v-for="opd in opds" :key="opd.id" :value="opd.id">{{ opd.nama }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Tahun</label>
+              <input v-model="filters.tahun" @change="applyIkkFilter" type="number" class="input-base" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Triwulan</label>
+              <div class="grid grid-cols-4 gap-2">
+                <button
+                  v-for="tw in [1, 2, 3, 4]"
+                  :key="tw"
+                  type="button"
+                  @click="chooseTriwulan(tw)"
+                  class="rounded-lg border px-3 py-2 text-xs font-semibold transition"
+                  :class="filters.triwulan === tw ? 'border-emerald-500 bg-emerald-500 text-white shadow-sm' : 'border-slate-200 bg-white text-slate-600 hover:border-emerald-300 hover:text-emerald-700'"
+                >
+                  TW {{ tw }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+          <div>
+            <h3 class="text-base font-semibold text-slate-800">Daftar IKK Terkait</h3>
+            <p class="text-sm text-slate-500">Target ditampilkan dari relasi indikator, realisasi dapat diubah langsung per baris.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">{{ ikkRows.length }} data</span>
+            <button
+              type="button"
+              @click="saveAllIkkRows"
+              :disabled="savingAllRows || ikkRows.length === 0"
+              class="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {{ savingAllRows ? 'Menyimpan...' : 'Simpan Semua' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th class="px-4 py-3 text-center font-semibold">No</th>
+                <th class="px-4 py-3 text-left font-semibold">IKK</th>
+                <th class="px-4 py-3 text-left font-semibold">Target</th>
+                <th class="px-4 py-3 text-left font-semibold">Realisasi</th>
+                <th class="px-4 py-3 text-left font-semibold">Satuan</th>
+                <th class="px-4 py-3 text-left font-semibold">Sumber</th>
+                <th class="px-4 py-3 text-center font-semibold">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr v-if="ikkRows.length === 0">
+                <td colspan="7" class="px-4 py-10 text-center text-slate-400">Tidak ada data IKK untuk OPD dan periode ini.</td>
+              </tr>
+              <tr v-for="(row, index) in ikkRows" :key="row.pivot_id" class="align-top hover:bg-slate-50">
+                <td class="px-4 py-3 text-center text-slate-500">{{ index + 1 }}</td>
+                <td class="px-4 py-3 text-slate-800">{{ row.indikator_uraian }}</td>
+                <td class="px-4 py-3 font-semibold text-slate-700">{{ formatNumber(row.target) }}</td>
+                <td class="px-4 py-3">
+                  <input
+                    v-model="rowDrafts[row.pivot_id].realisasi"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    class="input-base text-right"
+                    placeholder="0"
+                  />
+                </td>
+                <td class="px-4 py-3 text-slate-600">{{ row.indikator_satuan || '-' }}</td>
+                <td class="px-4 py-3 text-xs text-slate-500">
+                  {{ describeIndicatorable(row.indicatorable_type) }} #{{ row.indicatorable_id }}
+                </td>
+                <td class="px-4 py-3 text-center">
+                  <button
+                    type="button"
+                    @click="saveIkkRow(row)"
+                    :disabled="savingRowId === row.pivot_id"
+                    class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {{ savingRowId === row.pivot_id ? 'Menyimpan...' : 'Simpan' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section v-else class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
+      <a
         v-for="item in visibleRealisasiMenu"
         :key="item.label"
         :href="item.value === 'dpa'
           ? route('realisasi.index', readonlyDpaQuery)
           : route('realisasi.index', { document_type: item.value, tahun: filters.tahun, triwulan: filters.triwulan })"
         class="group rounded-2xl border bg-white/90 p-4 text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        :aria-current="filters.document_type === item.value ? 'page' : undefined"
         :class="filters.document_type === item.value ? 'border-emerald-400 ring-2 ring-emerald-200' : 'border-emerald-100'"
       >
         <div :class="item.iconBg + ' mx-auto mb-2 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg'">
@@ -21,13 +136,13 @@
           </svg>
         </div>
         <h3 class="text-lg font-bold text-emerald-900 transition-colors group-hover:text-emerald-700">{{ item.label }}</h3>
-      </Link>
+      </a>
     </section>
   </AppLayout>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import InputField from '@/Components/InputField.vue';
@@ -38,13 +153,43 @@ const props = defineProps({
   documentType: String,
   tahun: [Number, String],
   triwulan: [Number, String],
+  opds: {
+    type: Array,
+    default: () => [],
+  },
+  selectedOpdId: [Number, String],
+  ikkRows: {
+    type: Array,
+    default: () => [],
+  },
 });
+
+const isIkkMode = computed(() => props.documentType === 'ikk');
 
 const filters = ref({
   document_type: props.documentType,
   tahun: props.tahun,
   triwulan: props.triwulan,
 });
+
+const selectedOpdId = ref(props.selectedOpdId ?? '');
+const rowDrafts = reactive({});
+const savingRowId = ref(null);
+const savingAllRows = ref(false);
+const isOwnOpdOnly = computed(() => props.opds.length === 1);
+
+watch(
+  () => props.ikkRows,
+  (rows) => {
+    Object.keys(rowDrafts).forEach((key) => delete rowDrafts[key]);
+    (rows || []).forEach((row) => {
+      rowDrafts[row.pivot_id] = {
+        realisasi: row.realisasi ?? '',
+      };
+    });
+  },
+  { immediate: true }
+);
 
 const page = usePage();
 const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
@@ -78,6 +223,98 @@ const visibleRealisasiMenu = computed(() => {
 
 function applyFilter() {
   router.get(route('realisasi.index'), filters.value, { preserveState: true, replace: true });
+}
+
+function applyIkkFilter() {
+  router.get(
+    route('realisasi.index'),
+    {
+      document_type: 'ikk',
+      tahun: filters.value.tahun,
+      triwulan: filters.value.triwulan,
+      opd_id: selectedOpdId.value || undefined,
+    },
+    { preserveState: true, replace: true, preserveScroll: true }
+  );
+}
+
+function chooseTriwulan(tw) {
+  filters.value.triwulan = tw;
+  applyIkkFilter();
+}
+
+function describeIndicatorable(type) {
+  if (type === 'App\\Models\\Program') return 'Program';
+  if (type === 'App\\Models\\Kegiatan') return 'Kegiatan';
+  if (type === 'App\\Models\\SubKegiatan') return 'Sub Kegiatan';
+  return 'IKK';
+}
+
+function formatNumber(value) {
+  if (value === null || value === undefined || value === '') {
+    return '-';
+  }
+
+  return Number(value).toLocaleString('id-ID', { maximumFractionDigits: 2 });
+}
+
+function saveIkkRow(row) {
+  const draft = rowDrafts[row.pivot_id] || {};
+  savingRowId.value = row.pivot_id;
+
+  router.post(route('realisasi.store'), {
+    document_type: 'ikk',
+    indikator_id: row.indikator_id,
+    indicatorable_type: row.indicatorable_type,
+    indicatorable_id: row.indicatorable_id,
+    tahun: filters.value.tahun,
+    triwulan: filters.value.triwulan,
+    target: row.target,
+    realisasi: draft.realisasi === '' || draft.realisasi === null ? 0 : draft.realisasi,
+    catatan: row.catatan ?? null,
+  }, {
+    preserveScroll: true,
+    onFinish: () => {
+      savingRowId.value = null;
+    },
+  });
+}
+
+function saveAllIkkRows() {
+  if (savingAllRows.value || ikkRows.length === 0) {
+    return;
+  }
+
+  savingAllRows.value = true;
+
+  const rows = [...props.ikkRows];
+
+  const saveNext = (index) => {
+    if (index >= rows.length) {
+      savingAllRows.value = false;
+      return;
+    }
+
+    const row = rows[index];
+    const draft = rowDrafts[row.pivot_id] || {};
+
+    router.post(route('realisasi.store'), {
+      document_type: 'ikk',
+      indikator_id: row.indikator_id,
+      indicatorable_type: row.indicatorable_type,
+      indicatorable_id: row.indicatorable_id,
+      tahun: filters.value.tahun,
+      triwulan: filters.value.triwulan,
+      target: row.target,
+      realisasi: draft.realisasi === '' || draft.realisasi === null ? 0 : draft.realisasi,
+      catatan: row.catatan ?? null,
+    }, {
+      preserveScroll: true,
+      onFinish: () => saveNext(index + 1),
+    });
+  };
+
+  saveNext(0);
 }
 
 const showModal = ref(false);

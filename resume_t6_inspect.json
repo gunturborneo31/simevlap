@@ -1,0 +1,142 @@
+﻿{
+    "rkpd":  [
+
+             ],
+    "first_no":  1,
+    "dpa":  [
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.02.2.01",
+                    "nama":  "Pengelolaan Barang Milik Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.02.2.02",
+                    "nama":  "Pengadaan, Pemberhentian dan Informasi Kepegawaian ASN",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.02.2.03",
+                    "nama":  "Mutasi dan Promosi ASN",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.02.2.04",
+                    "nama":  "Pengembangan Kompetensi ASN",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.01.2.01",
+                    "nama":  "Penilaian dan Evaluasi Kinerja Aparatur",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.01.2.02",
+                    "nama":  "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.01.2.05",
+                    "nama":  "Administrasi Keuangan Perangkat Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.01.2.06",
+                    "nama":  "Administrasi Kepegawaian Perangkat Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.01.2.07",
+                    "nama":  "Administrasi Umum Perangkat Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.01.2.08",
+                    "nama":  "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.03.01.2.09",
+                    "nama":  "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                },
+                {
+                    "opd_id":  20,
+                    "kode":  "5.04.02.2.02",
+                    "nama":  "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+                    "pagu":  0,
+                    "dokumen":  "DPA",
+                    "tahun":  2026,
+                    "indikator":  [
+
+                                  ]
+                }
+            ],
+    "first_entitas":  "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia",
+    "count":  45
+}

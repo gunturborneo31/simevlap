@@ -93,7 +93,7 @@ const resumeMenu = [
   { label: 'Rekap Permasalahan', query: { view: 'rekap-permasalahan' }, iconBg: 'bg-amber-500' },
   { label: 'Realisasi', query: { view: 'realisasi' }, iconBg: 'bg-yellow-600' },
   { label: 'Kertas Kerja', query: { view: 'kertas-kerja' }, iconBg: 'bg-lime-600' },
-  { label: 'Dokumen', query: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-indigo-600' },
+  { label: 'Dokumen (Renstra, Renja, DPA)', query: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-indigo-600' },
 ];
 
 // View configuration dengan jumlah tabel dan warna yang berbeda

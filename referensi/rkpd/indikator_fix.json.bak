@@ -1,4 +1,4 @@
-[
+﻿[
  {
   "kode_unit": "1.01.2.22.5.04.01.0000",
   "uraian": "DinasPendidikandanKebudayaan"
@@ -55,7 +55,7 @@
   "kode_unit": "1.01.2.22.5.04.01.0000",
   "kode_uraian": "1.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -90,7 +90,7 @@
   "kode_unit": "1.01.2.22.5.04.01.0000",
   "kode_uraian": "1.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -1368,7 +1368,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.01",
   "uraian": "Perencanaan,Penganggaran,danEvaluasiKinerjaPerangkatDaerah",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 2,
   "SATUAN": "Dok",
   "jenis_indikator": "Kegiatan"
@@ -1377,7 +1377,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.01",
   "uraian": "Perencanaan,Penganggaran,danEvaluasiKinerjaPerangkatDaerah",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "Kegiatan"
@@ -1428,7 +1428,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 2,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -1437,7 +1437,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 3,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -1464,7 +1464,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.02",
   "uraian": "AdministrasiKeuanganPerangkatDaerah",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "Kegiatan"
@@ -1473,7 +1473,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.02",
   "uraian": "AdministrasiKeuanganPerangkatDaerah",
-  "indikator": "JumlahlaporankeuanganSKPDbulanan\/triwulan\/semesteranSKPD",
+  "indikator": "JumlahlaporankeuanganSKPD bulanan\/triwulan\/semesteranSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "Kegiatan"
@@ -1482,7 +1482,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.02",
   "uraian": "AdministrasiKeuanganPerangkatDaerah",
-  "indikator": "PembuatanLaporanKeuanganSKPDYangDilaksanakanDenganBaik",
+  "indikator": "PembuatanLaporanKeuanganSKPD YangDilaksanakanDenganBaik",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "Kegiatan"
@@ -1518,7 +1518,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.02",
   "uraian": "AdministrasiKeuanganPerangkatDaerah",
-  "indikator": "TersedianyaLaporanKeuanganSKPDBulanan\/Triwulan\/Tahunan",
+  "indikator": "TersedianyaLaporanKeuanganSKPD Bulanan\/Triwulan\/Tahunan",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "Kegiatan"
@@ -1545,7 +1545,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -1554,7 +1554,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -1617,7 +1617,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.03",
   "uraian": "AdministrasiBarangMilikDaerahpadaPerangkatDaerah",
-  "indikator": "TersedialaporanbarangmilikdaerahSKPDyangakurat",
+  "indikator": "TersedialaporanbarangmilikdaerahSKPD yangakurat",
   "TARGET": 100,
   "SATUAN": "%",
   "jenis_indikator": "Kegiatan"
@@ -1626,7 +1626,7 @@
   "kode_unit": "1.02.2.14.0.00.02.0000",
   "kode_uraian": "1.02.01.2.03",
   "uraian": "AdministrasiBarangMilikDaerahpadaPerangkatDaerah",
-  "indikator": "TersedianyaLaporanBarangMilikDaerahSKPDYangAkurat",
+  "indikator": "TersedianyaLaporanBarangMilikDaerahSKPD YangAkurat",
   "TARGET": 100,
   "SATUAN": "%",
   "jenis_indikator": "Kegiatan"
@@ -6602,7 +6602,7 @@
   "kode_unit": "1.03.1.04.0.00.03.0000",
   "kode_uraian": "1.03.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -6645,7 +6645,7 @@
   "kode_unit": "1.03.1.04.0.00.03.0000",
   "kode_uraian": "1.03.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -6654,7 +6654,7 @@
   "kode_unit": "1.03.1.04.0.00.03.0000",
   "kode_uraian": "1.03.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -7488,7 +7488,7 @@
   "kode_unit": "1.05.0.00.0.00.04.0000",
   "kode_uraian": "1.05.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 15,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -7524,7 +7524,7 @@
   "kode_unit": "1.05.0.00.0.00.04.0000",
   "kode_uraian": "1.05.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 5,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -7533,7 +7533,7 @@
   "kode_unit": "1.05.0.00.0.00.04.0000",
   "kode_uraian": "1.05.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -8057,7 +8057,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -8066,7 +8066,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.01.2.01.0003",
   "uraian": "KoordinasidanPenyusunanDokumenPerubahanRKA-SKPD",
-  "indikator": "JumlahDokumenPerubahanRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
+  "indikator": "JumlahDokumenPerubahanRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -8075,7 +8075,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.01.2.01.0004",
   "uraian": "KoordinasidanPenyusunanDPA-SKPD",
-  "indikator": "JumlahDokumenDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
+  "indikator": "JumlahDokumenDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -8084,7 +8084,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.01.2.01.0005",
   "uraian": "KoordinasidanPenyusunanPerubahanDPA-SKPD",
-  "indikator": "JumlahDokumenPerubahanDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
+  "indikator": "JumlahDokumenPerubahanDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -8093,7 +8093,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -8147,7 +8147,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -8534,7 +8534,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.03.2.03.0002",
   "uraian": "ResponCepatDaruratBencanaKabupaten\/Kota",
-  "indikator": "JumlahDokumenSKPenetapanStatusDaruratBencanadanSKPDByangDitetapkanPalingLama1x24JamberdasarkanHasilDokumenLaporanKajiCepat",
+  "indikator": "JumlahDokumenSKPenetapanStatusDaruratBencanadanSKPD ByangDitetapkanPalingLama1x24JamberdasarkanHasilDokumenLaporanKajiCepat",
   "TARGET": 2,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -8561,7 +8561,7 @@
   "kode_unit": "1.05.0.00.0.00.26.0000",
   "kode_uraian": "1.05.03.2.03.0010",
   "uraian": "ResponCepatBencanaNonAlamEpidemi\/WabahPenyakit",
-  "indikator": "JumlahdokumenSKPenetapanStatusDaruratBencanadanSKPDByangDitetapkanPalingLama1x24JamberdasarkanHasilDokumenLaporanInvestigasiKLBdanEpidemiologiTerpadu",
+  "indikator": "JumlahdokumenSKPenetapanStatusDaruratBencanadanSKPD ByangDitetapkanPalingLama1x24JamberdasarkanHasilDokumenLaporanInvestigasiKLBdanEpidemiologiTerpadu",
   "TARGET": 2,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -8724,7 +8724,7 @@
   "kode_unit": "1.06.2.08.0.00.05.0000",
   "kode_uraian": "1.06.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -8759,7 +8759,7 @@
   "kode_unit": "1.06.2.08.0.00.05.0000",
   "kode_uraian": "1.06.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -8768,7 +8768,7 @@
   "kode_unit": "1.06.2.08.0.00.05.0000",
   "kode_uraian": "1.06.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 3,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -9633,7 +9633,7 @@
   "kode_unit": "2.11.0.00.0.00.06.0000",
   "kode_uraian": "2.11.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -9642,7 +9642,7 @@
   "kode_unit": "2.11.0.00.0.00.06.0000",
   "kode_uraian": "2.11.01.2.01.0004",
   "uraian": "KoordinasidanPenyusunanDPA-SKPD",
-  "indikator": "JumlahDokumenDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
+  "indikator": "JumlahDokumenDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -9651,7 +9651,7 @@
   "kode_unit": "2.11.0.00.0.00.06.0000",
   "kode_uraian": "2.11.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -9696,7 +9696,7 @@
   "kode_unit": "2.11.0.00.0.00.06.0000",
   "kode_uraian": "2.11.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -9705,7 +9705,7 @@
   "kode_unit": "2.11.0.00.0.00.06.0000",
   "kode_uraian": "2.11.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -10351,7 +10351,7 @@
   "kode_unit": "2.12.0.00.0.00.07.0000",
   "kode_uraian": "2.12.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -10387,7 +10387,7 @@
   "kode_unit": "2.12.0.00.0.00.07.0000",
   "kode_uraian": "2.12.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -10396,7 +10396,7 @@
   "kode_unit": "2.12.0.00.0.00.07.0000",
   "kode_uraian": "2.12.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -10863,7 +10863,7 @@
   "kode_unit": "2.13.0.00.0.00.08.0000",
   "kode_uraian": "2.13.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -10916,7 +10916,7 @@
   "kode_unit": "2.13.0.00.0.00.08.0000",
   "kode_uraian": "2.13.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -10925,7 +10925,7 @@
   "kode_unit": "2.13.0.00.0.00.08.0000",
   "kode_uraian": "2.13.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -11376,7 +11376,7 @@
   "kode_unit": "2.15.0.00.0.00.09.0000",
   "kode_uraian": "2.15.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 3,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -11385,7 +11385,7 @@
   "kode_unit": "2.15.0.00.0.00.09.0000",
   "kode_uraian": "2.15.01.2.01.0004",
   "uraian": "KoordinasidanPenyusunanDPA-SKPD",
-  "indikator": "JumlahDokumenDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
+  "indikator": "JumlahDokumenDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
   "TARGET": 3,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -11394,7 +11394,7 @@
   "kode_unit": "2.15.0.00.0.00.09.0000",
   "kode_uraian": "2.15.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -11457,7 +11457,7 @@
   "kode_unit": "2.15.0.00.0.00.09.0000",
   "kode_uraian": "2.15.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -11475,7 +11475,7 @@
   "kode_unit": "2.15.0.00.0.00.09.0000",
   "kode_uraian": "2.15.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -12382,7 +12382,7 @@
   "kode_unit": "2.16.2.21.2.20.10.0000",
   "kode_uraian": "2.16.01.2.01.0003",
   "uraian": "KoordinasidanPenyusunanDokumenPerubahanRKA-SKPD",
-  "indikator": "JumlahDokumenPerubahanRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
+  "indikator": "JumlahDokumenPerubahanRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
   "TARGET": 3,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -12391,7 +12391,7 @@
   "kode_unit": "2.16.2.21.2.20.10.0000",
   "kode_uraian": "2.16.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 5,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -12435,7 +12435,7 @@
   "kode_unit": "2.16.2.21.2.20.10.0000",
   "kode_uraian": "2.16.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -12444,7 +12444,7 @@
   "kode_unit": "2.16.2.21.2.20.10.0000",
   "kode_uraian": "2.16.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -13921,8 +13921,8 @@
  {
   "kode_unit": "3.26.2.19.0.00.12.0000",
   "kode_uraian": "3.26.04.2.02",
-  "uraian": "PengembanganEkosistemEkonomiKreatif ",
-  "indikator": "PersentaseEkosistemEkonomiKreatif ",
+  "uraian": "PengembanganEkosistemEkonomiKreatifÂ ",
+  "indikator": "PersentaseEkosistemEkonomiKreatifÂ ",
   "TARGET": 100,
   "SATUAN": "%",
   "jenis_indikator": "Kegiatan"
@@ -14419,7 +14419,7 @@
   "kode_unit": "3.27.2.09.3.25.13.0000",
   "kode_uraian": "3.27.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 2,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -14428,7 +14428,7 @@
   "kode_unit": "3.27.2.09.3.25.13.0000",
   "kode_uraian": "3.27.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -14472,7 +14472,7 @@
   "kode_unit": "3.27.2.09.3.25.13.0000",
   "kode_uraian": "3.27.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -14481,7 +14481,7 @@
   "kode_unit": "3.27.2.09.3.25.13.0000",
   "kode_uraian": "3.27.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 3,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -15277,7 +15277,7 @@
   "kode_unit": "4.01.0.00.0.00.14.0004",
   "kode_uraian": "4.01.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 9,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -15286,7 +15286,7 @@
   "kode_unit": "4.01.0.00.0.00.14.0004",
   "kode_uraian": "4.01.01.2.01.0003",
   "uraian": "KoordinasidanPenyusunanDokumenPerubahanRKA-SKPD",
-  "indikator": "JumlahDokumenPerubahanRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
+  "indikator": "JumlahDokumenPerubahanRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
   "TARGET": 9,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -15295,7 +15295,7 @@
   "kode_unit": "4.01.0.00.0.00.14.0004",
   "kode_uraian": "4.01.01.2.01.0004",
   "uraian": "KoordinasidanPenyusunanDPA-SKPD",
-  "indikator": "JumlahDokumenDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
+  "indikator": "JumlahDokumenDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
   "TARGET": 9,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -15304,7 +15304,7 @@
   "kode_unit": "4.01.0.00.0.00.14.0004",
   "kode_uraian": "4.01.01.2.01.0005",
   "uraian": "KoordinasidanPenyusunanPerubahanDPA-SKPD",
-  "indikator": "JumlahDokumenPerubahanDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
+  "indikator": "JumlahDokumenPerubahanDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
   "TARGET": 9,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -15313,7 +15313,7 @@
   "kode_unit": "4.01.0.00.0.00.14.0004",
   "kode_uraian": "4.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -15366,7 +15366,7 @@
   "kode_unit": "4.01.0.00.0.00.14.0004",
   "kode_uraian": "4.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -15375,7 +15375,7 @@
   "kode_unit": "4.01.0.00.0.00.14.0004",
   "kode_uraian": "4.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -16229,7 +16229,7 @@
   "kode_unit": "4.02.0.00.0.00.15.0000",
   "kode_uraian": "4.02.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 4,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -16238,7 +16238,7 @@
   "kode_unit": "4.02.0.00.0.00.15.0000",
   "kode_uraian": "4.02.01.2.01.0003",
   "uraian": "KoordinasidanPenyusunanDokumenPerubahanRKA-SKPD",
-  "indikator": "JumlahDokumenPerubahanRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
+  "indikator": "JumlahDokumenPerubahanRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
   "TARGET": 4,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -16247,7 +16247,7 @@
   "kode_unit": "4.02.0.00.0.00.15.0000",
   "kode_uraian": "4.02.01.2.01.0004",
   "uraian": "KoordinasidanPenyusunanDPA-SKPD",
-  "indikator": "JumlahDokumenDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
+  "indikator": "JumlahDokumenDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
   "TARGET": 4,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -16256,7 +16256,7 @@
   "kode_unit": "4.02.0.00.0.00.15.0000",
   "kode_uraian": "4.02.01.2.01.0005",
   "uraian": "KoordinasidanPenyusunanPerubahanDPA-SKPD",
-  "indikator": "JumlahDokumenPerubahanDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
+  "indikator": "JumlahDokumenPerubahanDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
   "TARGET": 4,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -16265,7 +16265,7 @@
   "kode_unit": "4.02.0.00.0.00.15.0000",
   "kode_uraian": "4.02.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -16318,7 +16318,7 @@
   "kode_unit": "4.02.0.00.0.00.15.0000",
   "kode_uraian": "4.02.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -16327,7 +16327,7 @@
   "kode_unit": "4.02.0.00.0.00.15.0000",
   "kode_uraian": "4.02.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -16975,7 +16975,7 @@
   "kode_unit": "5.01.5.02.5.05.21.0000",
   "kode_uraian": "5.01.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -16984,7 +16984,7 @@
   "kode_unit": "5.01.5.02.5.05.21.0000",
   "kode_uraian": "5.01.01.2.01.0003",
   "uraian": "KoordinasidanPenyusunanDokumenPerubahanRKA-SKPD",
-  "indikator": "JumlahDokumenPerubahanRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
+  "indikator": "JumlahDokumenPerubahanRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -16993,7 +16993,7 @@
   "kode_unit": "5.01.5.02.5.05.21.0000",
   "kode_uraian": "5.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 3,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -17038,7 +17038,7 @@
   "kode_unit": "5.01.5.02.5.05.21.0000",
   "kode_uraian": "5.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 10,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -17047,7 +17047,7 @@
   "kode_unit": "5.01.5.02.5.05.21.0000",
   "kode_uraian": "5.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -17717,7 +17717,7 @@
   "kode_unit": "5.02.0.00.0.00.22.0000",
   "kode_uraian": "5.02.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -18238,7 +18238,7 @@
   "kode_unit": "5.02.4.01.0.00.23.0000",
   "kode_uraian": "5.02.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -18292,7 +18292,7 @@
   "kode_unit": "5.02.4.01.0.00.23.0000",
   "kode_uraian": "5.02.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -18301,7 +18301,7 @@
   "kode_unit": "5.02.4.01.0.00.23.0000",
   "kode_uraian": "5.02.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 3,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -18559,16 +18559,16 @@
   "kode_unit": "5.02.4.01.0.00.23.0000",
   "kode_uraian": "5.02.02.2.01.0003",
   "uraian": "Koordinasi,PenyusunandanVerifikasiRKA-SKPD",
-  "indikator": "JumlahRKA-SKPDyangDiverifikasi",
+  "indikator": "JumlahRKA-SKPD yangDiverifikasi",
   "TARGET": 28,
-  "SATUAN": "SKPDDokumen",
+  "SATUAN": "SKPD Dokumen",
   "jenis_indikator": "SubKegiatan"
  },
  {
   "kode_unit": "5.02.4.01.0.00.23.0000",
   "kode_uraian": "5.02.02.2.01.0004",
   "uraian": "Koordinasi,PenyusunandanVerifikasiPerubahanRKA-SKPD",
-  "indikator": "JumlahPerubahanRKA-SKPDyangDiverifikasi",
+  "indikator": "JumlahPerubahanRKA-SKPD yangDiverifikasi",
   "TARGET": 1,
   "SATUAN": "DokumenDokumen",
   "jenis_indikator": "SubKegiatan"
@@ -18577,18 +18577,18 @@
   "kode_unit": "5.02.4.01.0.00.23.0000",
   "kode_uraian": "5.02.02.2.01.0005",
   "uraian": "Koordinasi,PenyusunandanVerifikasiDPA-SKPD",
-  "indikator": "JumlahDPA-SKPDyangDiverifikasi",
+  "indikator": "JumlahDPA-SKPD yangDiverifikasi",
   "TARGET": 28,
-  "SATUAN": "SKPDDokumen",
+  "SATUAN": "SKPD Dokumen",
   "jenis_indikator": "SubKegiatan"
  },
  {
   "kode_unit": "5.02.4.01.0.00.23.0000",
   "kode_uraian": "5.02.02.2.01.0006",
   "uraian": "Koordinasi,PenyusunandanVerifikasiPerubahanDPA-SKPD",
-  "indikator": "JumlahPerubahanDPA-SKPDyangDiverifikasi",
+  "indikator": "JumlahPerubahanDPA-SKPD yangDiverifikasi",
   "TARGET": 28,
-  "SATUAN": "SKPDDokumen",
+  "SATUAN": "SKPD Dokumen",
   "jenis_indikator": "SubKegiatan"
  },
  {
@@ -19055,7 +19055,7 @@
   "kode_unit": "5.03.5.04.0.00.24.0000",
   "kode_uraian": "5.03.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -19064,7 +19064,7 @@
   "kode_unit": "5.03.5.04.0.00.24.0000",
   "kode_uraian": "5.03.01.2.01.0003",
   "uraian": "KoordinasidanPenyusunanDokumenPerubahanRKA-SKPD",
-  "indikator": "JumlahDokumenPerubahanRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
+  "indikator": "JumlahDokumenPerubahanRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
   "TARGET": 1,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -19073,7 +19073,7 @@
   "kode_unit": "5.03.5.04.0.00.24.0000",
   "kode_uraian": "5.03.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -19108,7 +19108,7 @@
   "kode_unit": "5.03.5.04.0.00.24.0000",
   "kode_uraian": "5.03.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -19117,7 +19117,7 @@
   "kode_unit": "5.03.5.04.0.00.24.0000",
   "kode_uraian": "5.03.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -19609,7 +19609,7 @@
   "kode_unit": "5.06.0.00.0.00.26.0000",
   "kode_uraian": "5.06.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 2,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -19618,7 +19618,7 @@
   "kode_unit": "5.06.0.00.0.00.26.0000",
   "kode_uraian": "5.06.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -19663,7 +19663,7 @@
   "kode_unit": "5.06.0.00.0.00.26.0000",
   "kode_uraian": "5.06.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -19672,7 +19672,7 @@
   "kode_unit": "5.06.0.00.0.00.26.0000",
   "kode_uraian": "5.06.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20016,7 +20016,7 @@
   "kode_unit": "6.01.0.00.0.00.21.0000",
   "kode_uraian": "6.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20061,7 +20061,7 @@
   "kode_unit": "6.01.0.00.0.00.21.0000",
   "kode_uraian": "6.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 5,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20464,7 +20464,7 @@
   "kode_unit": "7.01.0.00.0.00.16.0000",
   "kode_uraian": "7.01.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 2,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -20473,7 +20473,7 @@
   "kode_unit": "7.01.0.00.0.00.16.0000",
   "kode_uraian": "7.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20517,7 +20517,7 @@
   "kode_unit": "7.01.0.00.0.00.16.0000",
   "kode_uraian": "7.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20526,7 +20526,7 @@
   "kode_unit": "7.01.0.00.0.00.16.0000",
   "kode_uraian": "7.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20822,7 +20822,7 @@
   "kode_unit": "7.01.0.00.0.00.17.0000",
   "kode_uraian": "7.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20866,7 +20866,7 @@
   "kode_unit": "7.01.0.00.0.00.17.0000",
   "kode_uraian": "7.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -20875,7 +20875,7 @@
   "kode_unit": "7.01.0.00.0.00.17.0000",
   "kode_uraian": "7.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 3,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -21223,7 +21223,7 @@
   "kode_unit": "7.01.0.00.0.00.18.0000",
   "kode_uraian": "7.01.01.2.01.0002",
   "uraian": "KoordinasidanPenyusunanDokumenRKA-SKPD",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "TARGET": 30,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -21232,7 +21232,7 @@
   "kode_unit": "7.01.0.00.0.00.18.0000",
   "kode_uraian": "7.01.01.2.01.0003",
   "uraian": "KoordinasidanPenyusunanDokumenPerubahanRKA-SKPD",
-  "indikator": "JumlahDokumenPerubahanRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
+  "indikator": "JumlahDokumenPerubahanRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanRKA-SKPD",
   "TARGET": 30,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -21241,7 +21241,7 @@
   "kode_unit": "7.01.0.00.0.00.18.0000",
   "kode_uraian": "7.01.01.2.01.0004",
   "uraian": "KoordinasidanPenyusunanDPA-SKPD",
-  "indikator": "JumlahDokumenDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
+  "indikator": "JumlahDokumenDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenDPA-SKPD",
   "TARGET": 30,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -21250,7 +21250,7 @@
   "kode_unit": "7.01.0.00.0.00.18.0000",
   "kode_uraian": "7.01.01.2.01.0005",
   "uraian": "KoordinasidanPenyusunanPerubahanDPA-SKPD",
-  "indikator": "JumlahDokumenPerubahanDPA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
+  "indikator": "JumlahDokumenPerubahanDPA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenPerubahanDPA-SKPD",
   "TARGET": 30,
   "SATUAN": "Dokumen",
   "jenis_indikator": "SubKegiatan"
@@ -21259,7 +21259,7 @@
   "kode_unit": "7.01.0.00.0.00.18.0000",
   "kode_uraian": "7.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -21294,7 +21294,7 @@
   "kode_unit": "7.01.0.00.0.00.18.0000",
   "kode_uraian": "7.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -21303,7 +21303,7 @@
   "kode_unit": "7.01.0.00.0.00.18.0000",
   "kode_uraian": "7.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 12,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -21730,7 +21730,7 @@
   "kode_unit": "7.01.0.00.0.00.19.0000",
   "kode_uraian": "7.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 5,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -21774,7 +21774,7 @@
   "kode_unit": "7.01.0.00.0.00.19.0000",
   "kode_uraian": "7.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 4,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -21783,7 +21783,7 @@
   "kode_unit": "7.01.0.00.0.00.19.0000",
   "kode_uraian": "7.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -22072,7 +22072,7 @@
   "kode_unit": "7.01.0.00.0.00.20.0000",
   "kode_uraian": "7.01.01.2.01.0006",
   "uraian": "KoordinasidanPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "TARGET": 2,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -22107,7 +22107,7 @@
   "kode_unit": "7.01.0.00.0.00.20.0000",
   "kode_uraian": "7.01.01.2.02.0005",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganAkhirTahunSKPD",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -22116,7 +22116,7 @@
   "kode_unit": "7.01.0.00.0.00.20.0000",
   "kode_uraian": "7.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"
@@ -22485,7 +22485,7 @@
   "kode_unit": "8.01.0.00.0.00.25.0000",
   "kode_uraian": "8.01.01.2.02.0007",
   "uraian": "KoordinasidanPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
-  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPDdanLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
+  "indikator": "JumlahLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD danLaporanKoordinasiPenyusunanLaporanKeuanganBulanan\/Triwulanan\/SemesteranSKPD",
   "TARGET": 1,
   "SATUAN": "Laporan",
   "jenis_indikator": "SubKegiatan"

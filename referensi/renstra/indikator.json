@@ -1,4 +1,4 @@
-[
+﻿[
  {
   "KODE_INDIKATOR": "1.01.0.1",
   "indikator": "Predikat Nilai SAKIP Dinas Pendidikan dan Kebudayaan",
@@ -306,7 +306,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.0.2",
-  "indikator": "Prevalensi Depresi pada Usia ≥ 15 Tahun",
+  "indikator": "Prevalensi Depresi pada Usia â‰¥ 15 Tahun",
   "opd": "DinasKesehatan,PengendalianPendudukdanKB",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 1,
@@ -4752,7 +4752,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.01",
-  "indikator": "JumlahDokumenRKA-SKPDdanLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
+  "indikator": "JumlahDokumenRKA-SKPD danLaporanHasilKoordinasiPenyusunanDokumenRKA-SKPD",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -4765,7 +4765,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.01",
-  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPDdanLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
+  "indikator": "JumlahLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD danLaporanHasilKoordinasiPenyusunanLaporanCapaianKinerjadanIkhtisarRealisasiKinerjaSKPD",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -4840,7 +4840,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.02",
-  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPDdanLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
+  "indikator": "JumlahLaporanKeuanganAkhirTahunSKPD danLaporanHasilKoordinasiPenyusunanLaporanKeuanganAkhirTahunSKPD",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -4853,7 +4853,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.02",
-  "indikator": "JumlahlaporankeuanganSKPDbulanan\/triwulan\/semesteranSKPD",
+  "indikator": "JumlahlaporankeuanganSKPD bulanan\/triwulan\/semesteranSKPD",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -4866,7 +4866,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.02",
-  "indikator": "PembuatanLaporanKeuanganSKPDYangDilaksanakanDenganBaik",
+  "indikator": "PembuatanLaporanKeuanganSKPD YangDilaksanakanDenganBaik",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -4918,7 +4918,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.02",
-  "indikator": "TersedianyaLaporanKeuanganSKPDBulanan\/Triwulan\/Tahunan",
+  "indikator": "TersedianyaLaporanKeuanganSKPD Bulanan\/Triwulan\/Tahunan",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -5009,7 +5009,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.03",
-  "indikator": "TersedialaporanbarangmilikdaerahSKPDyangakurat",
+  "indikator": "TersedialaporanbarangmilikdaerahSKPD yangakurat",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -5022,7 +5022,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.01.2.03",
-  "indikator": "TersedianyaLaporanBarangMilikDaerahSKPDYangAkurat",
+  "indikator": "TersedianyaLaporanBarangMilikDaerahSKPD YangAkurat",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -6208,7 +6208,7 @@
  },
  {
   "KODE_INDIKATOR": "1.02.02.2.02",
-  "indikator": "JumlahOrangyangMendapatkanPelayananKesehatanOrangdenganGangguanJiwaBeratSesuaiStandar",
+  "indikator": "JumlahOrang yangMendapatkanPelayananKesehatanOrangdenganGangguanJiwaBeratSesuaiStandar",
   "kode_opd": "1.02.2.14.0.00.02.0000",
   "target_2024": 0,
   "target_2025": 0,
@@ -11085,7 +11085,7 @@
  },
  {
   "KODE_INDIKATOR": "3.26.04.2.02",
-  "indikator": "PersentaseEkosistemEkonomiKreatif ",
+  "indikator": "PersentaseEkosistemEkonomiKreatifÂ ",
   "kode_opd": "3.26.2.19.0.00.12.0000",
   "target_2024": 0,
   "target_2025": 0,

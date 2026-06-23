@@ -48,6 +48,8 @@ class DokumenController extends Controller
 
     public function store(Request $request)
     {
+        // DD($request->all());
+
         $user = $request->user();
         $validated = $request->validate([
             'opd_id' => 'nullable|exists:opds,id',
@@ -58,6 +60,8 @@ class DokumenController extends Controller
         ]);
 
         $this->validateTahunByDocumentType($validated['document_type'], (int) $validated['tahun']);
+
+        // dd($validated['opd_id']);
 
         if ($user?->hasRole('opd')) {
             $validated['opd_id'] = $user->opd_id;
@@ -79,7 +83,7 @@ class DokumenController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user?->hasAnyRole(['superadmin', 'admin']) || $dokumen->opd_id === $user?->opd_id, 403);
+        abort_unless($this->canManageDokumen($user, $dokumen), 403);
 
         $validated = $request->validate([
             'document_type' => 'required|in:renstra,renja,dpa',
@@ -110,7 +114,7 @@ class DokumenController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user?->hasAnyRole(['superadmin', 'admin']) || $dokumen->opd_id === $user?->opd_id, 403);
+        abort_unless($this->canManageDokumen($user, $dokumen), 403);
 
         if (!Storage::disk('public')->exists($dokumen->file_path)) {
             abort(404);
@@ -121,13 +125,30 @@ class DokumenController extends Controller
 
     public function destroy(Request $request, Dokumen $dokumen)
     {
+        // dd("hapus dokumen");
         $user = $request->user();
+        dd($user, $dokumen);
 
-        abort_unless($user?->hasAnyRole(['superadmin', 'admin']) || $dokumen->opd_id === $user?->opd_id, 403);
+        abort_unless($this->canManageDokumen($user, $dokumen), 403);
 
-        Storage::disk('public')->delete($dokumen->file_path);
+        if ($dokumen->file_path) {
+            Storage::disk('public')->delete($dokumen->file_path);
+        }
         $dokumen->delete();
         return redirect()->back()->with('success', 'Dokumen berhasil dihapus.');
+    }
+
+    private function canManageDokumen($user, Dokumen $dokumen): bool
+    {
+        if ($user?->hasAnyRole(['superadmin', 'admin'])) {
+            return true;
+        }
+
+        if ($dokumen->opd_id === null || $user?->opd_id === null) {
+            return false;
+        }
+
+        return (int) $dokumen->opd_id === (int) $user->opd_id;
     }
 
     private function validateTahunByDocumentType(string $documentType, int $tahun): void

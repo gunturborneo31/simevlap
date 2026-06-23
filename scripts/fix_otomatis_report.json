@@ -1,0 +1,600 @@
+{
+    "timestamp": "2026-06-23T03:14:34+00:00",
+    "opd_id": "all",
+    "tahun": "all",
+    "total_checked": 74,
+    "rows": [
+        {
+            "table": "program",
+            "id": 159,
+            "kode_rek": "5.02.02",
+            "current": "Program 5.02.02 (otomatis)",
+            "suggested": "PROGRAM PENGELOLAAN KEUANGAN DAERAH",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 160,
+            "kode_rek": "7.01.03",
+            "current": "Program 7.01.03 (otomatis)",
+            "suggested": "PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN.KELURAHAN",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 161,
+            "kode_rek": "7.01.02",
+            "current": "Program 7.01.02 (otomatis)",
+            "suggested": "PROGRAM PENYELENGGARAAN PEMERINTAHAN DAN PELAYANAN PUBLIK",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 162,
+            "kode_rek": "7.01.01",
+            "current": "Program 7.01.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 163,
+            "kode_rek": "1.02.02",
+            "current": "Program 1.02.02 (otomatis)",
+            "suggested": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 164,
+            "kode_rek": "1.02.02",
+            "current": "Program 1.02.02 (otomatis)",
+            "suggested": "PROGRAM PEMENUHAN UPAYA KESEHATAN PERORANGAN DAN UPAYA KESEHATAN MASYARAKAT",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 165,
+            "kode_rek": "1.02.01",
+            "current": "Program 1.02.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 166,
+            "kode_rek": "1.02.01",
+            "current": "Program 1.02.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 167,
+            "kode_rek": "1.02.01",
+            "current": "Program 1.02.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 169,
+            "kode_rek": "4.01.02",
+            "current": "Program 4.01.02 (otomatis)",
+            "suggested": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 170,
+            "kode_rek": "4.01.02",
+            "current": "Program 4.01.02 (otomatis)",
+            "suggested": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 171,
+            "kode_rek": "4.01.02",
+            "current": "Program 4.01.02 (otomatis)",
+            "suggested": "PROGRAM PEMERINTAHAN DAN KESEJAHTERAAN RAKYAT",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 172,
+            "kode_rek": "4.01.03",
+            "current": "Program 4.01.03 (otomatis)",
+            "suggested": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 173,
+            "kode_rek": "4.01.03",
+            "current": "Program 4.01.03 (otomatis)",
+            "suggested": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 174,
+            "kode_rek": "4.01.03",
+            "current": "Program 4.01.03 (otomatis)",
+            "suggested": "PROGRAM PEREKONOMIAN DAN PEMBANGUNAN",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 175,
+            "kode_rek": "4.01.01",
+            "current": "Program 4.01.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 176,
+            "kode_rek": "4.01.01",
+            "current": "Program 4.01.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 177,
+            "kode_rek": "4.01.01",
+            "current": "Program 4.01.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 178,
+            "kode_rek": "4.01.01",
+            "current": "Program 4.01.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 179,
+            "kode_rek": "5.02.01",
+            "current": "Program 5.02.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH.KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 180,
+            "kode_rek": "7.01.06",
+            "current": "Program 7.01.06 (otomatis)",
+            "suggested": "PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN.DESA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 181,
+            "kode_rek": "7.01.01",
+            "current": "Program 7.01.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 182,
+            "kode_rek": "7.01.03",
+            "current": "Program 7.01.03 (otomatis)",
+            "suggested": "PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN.KELURAHAN",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 183,
+            "kode_rek": "7.01.06",
+            "current": "Program 7.01.06 (otomatis)",
+            "suggested": "PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN.DESA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 184,
+            "kode_rek": "7.01.06",
+            "current": "Program 7.01.06 (otomatis)",
+            "suggested": "PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN.DESA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 185,
+            "kode_rek": "7.01.01",
+            "current": "Program 7.01.01 (otomatis)",
+            "suggested": "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN\/KOTA",
+            "status": "updated"
+        },
+        {
+            "table": "program",
+            "id": 186,
+            "kode_rek": "7.01.06",
+            "current": "Program 7.01.06 (otomatis)",
+            "suggested": "PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN.DESA",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 435,
+            "kode_rek": "1.02.02.2.01",
+            "current": "Kegiatan 1.02.02.2.01 (otomatis)",
+            "suggested": "Pengelolaan Museum Kabupaten\/Kota",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 436,
+            "kode_rek": "1.02.02.2.02",
+            "current": "Kegiatan 1.02.02.2.02 (otomatis)",
+            "suggested": "Penyediaan Fasilitas Pelayanan Kesehatan untuk UKM dan UKP Kewenangan Daerah Kabupaten\/Kota",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 437,
+            "kode_rek": "1.02.02.2.02",
+            "current": "Kegiatan 1.02.02.2.02 (otomatis)",
+            "suggested": "Penyediaan Fasilitas Pelayanan Kesehatan untuk UKM dan UKP Kewenangan Daerah Kabupaten\/Kota",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 438,
+            "kode_rek": "1.02.01.2.07",
+            "current": "Kegiatan 1.02.01.2.07 (otomatis)",
+            "suggested": "Administrasi Umum Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 439,
+            "kode_rek": "1.02.01.2.07",
+            "current": "Kegiatan 1.02.01.2.07 (otomatis)",
+            "suggested": "Administrasi Umum Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 440,
+            "kode_rek": "1.02.01.2.09",
+            "current": "Kegiatan 1.02.01.2.09 (otomatis)",
+            "suggested": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 447,
+            "kode_rek": "4.01.02.2.01",
+            "current": "Kegiatan 4.01.02.2.01 (otomatis)",
+            "suggested": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 448,
+            "kode_rek": "4.01.02.2.02",
+            "current": "Kegiatan 4.01.02.2.02 (otomatis)",
+            "suggested": "Administrasi Tata Pemerintahan",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 449,
+            "kode_rek": "4.01.02.2.03",
+            "current": "Kegiatan 4.01.02.2.03 (otomatis)",
+            "suggested": "Pelaksanaan Kebijakan Kesejahteraan Rakyat",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 450,
+            "kode_rek": "4.01.02.2.04",
+            "current": "Kegiatan 4.01.02.2.04 (otomatis)",
+            "suggested": "Fasilitasi dan Koordinasi Hukum",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 451,
+            "kode_rek": "4.01.03.2.01",
+            "current": "Kegiatan 4.01.03.2.01 (otomatis)",
+            "suggested": "Fasilitasi Kerja Sama Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 452,
+            "kode_rek": "4.01.03.2.02",
+            "current": "Kegiatan 4.01.03.2.02 (otomatis)",
+            "suggested": "Pelaksanaan Kebijakan Perekonomian",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 453,
+            "kode_rek": "4.01.03.2.03",
+            "current": "Kegiatan 4.01.03.2.03 (otomatis)",
+            "suggested": "Pelaksanaan Administrasi Pembangunan",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 454,
+            "kode_rek": "4.01.03.2.04",
+            "current": "Kegiatan 4.01.03.2.04 (otomatis)",
+            "suggested": "Pengelolaan Pengadaan Barang dan Jasa",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 455,
+            "kode_rek": "4.01.01.2.01",
+            "current": "Kegiatan 4.01.01.2.01 (otomatis)",
+            "suggested": "Pemantauan Kebijakan Sumber Daya Alam",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 456,
+            "kode_rek": "4.01.01.2.02",
+            "current": "Kegiatan 4.01.01.2.02 (otomatis)",
+            "suggested": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 457,
+            "kode_rek": "4.01.01.2.03",
+            "current": "Kegiatan 4.01.01.2.03 (otomatis)",
+            "suggested": "Administrasi Keuangan Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 458,
+            "kode_rek": "4.01.01.2.05",
+            "current": "Kegiatan 4.01.01.2.05 (otomatis)",
+            "suggested": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 459,
+            "kode_rek": "4.01.01.2.05",
+            "current": "Kegiatan 4.01.01.2.05 (otomatis)",
+            "suggested": "Administrasi Barang Milik Daerah pada Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 460,
+            "kode_rek": "4.01.01.2.06",
+            "current": "Kegiatan 4.01.01.2.06 (otomatis)",
+            "suggested": "Administrasi Kepegawaian Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 461,
+            "kode_rek": "4.01.01.2.06",
+            "current": "Kegiatan 4.01.01.2.06 (otomatis)",
+            "suggested": "Administrasi Kepegawaian Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 462,
+            "kode_rek": "4.01.01.2.07",
+            "current": "Kegiatan 4.01.01.2.07 (otomatis)",
+            "suggested": "Administrasi Umum Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 463,
+            "kode_rek": "4.01.01.2.08",
+            "current": "Kegiatan 4.01.01.2.08 (otomatis)",
+            "suggested": "Pengadaan Barang Milik Daerah Penunjang Urusan Pemerintah Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 464,
+            "kode_rek": "4.01.01.2.09",
+            "current": "Kegiatan 4.01.01.2.09 (otomatis)",
+            "suggested": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 465,
+            "kode_rek": "4.01.01.2.11",
+            "current": "Kegiatan 4.01.01.2.11 (otomatis)",
+            "suggested": "Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 466,
+            "kode_rek": "4.01.01.2.12",
+            "current": "Kegiatan 4.01.01.2.12 (otomatis)",
+            "suggested": "Administrasi Keuangan dan Operasional Kepala Daerah dan Wakil Kepala Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 467,
+            "kode_rek": "4.01.01.2.13",
+            "current": "Kegiatan 4.01.01.2.13 (otomatis)",
+            "suggested": "Fasilitasi Kerumahtanggaan Sekretariat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 468,
+            "kode_rek": "4.01.01.2.14",
+            "current": "Kegiatan 4.01.01.2.14 (otomatis)",
+            "suggested": "Penataan Organisasi",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 469,
+            "kode_rek": "5.02.02.2.01",
+            "current": "Kegiatan 5.02.02.2.01 (otomatis)",
+            "suggested": "Pengembangan Inovasi dan Teknologi",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 470,
+            "kode_rek": "5.02.02.2.02",
+            "current": "Kegiatan 5.02.02.2.02 (otomatis)",
+            "suggested": "Koordinasi dan Penyusunan Rencana Anggaran Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 471,
+            "kode_rek": "5.02.01.2.02",
+            "current": "Kegiatan 5.02.01.2.02 (otomatis)",
+            "suggested": "Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 472,
+            "kode_rek": "5.02.01.2.05",
+            "current": "Kegiatan 5.02.01.2.05 (otomatis)",
+            "suggested": "Administrasi Pendapatan Daerah Kewenangan Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 473,
+            "kode_rek": "5.02.01.2.06",
+            "current": "Kegiatan 5.02.01.2.06 (otomatis)",
+            "suggested": "Administrasi Kepegawaian Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 474,
+            "kode_rek": "5.02.01.2.07",
+            "current": "Kegiatan 5.02.01.2.07 (otomatis)",
+            "suggested": "Administrasi Umum Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 475,
+            "kode_rek": "5.02.01.2.09",
+            "current": "Kegiatan 5.02.01.2.09 (otomatis)",
+            "suggested": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 476,
+            "kode_rek": "7.01.06.2.01",
+            "current": "Kegiatan 7.01.06.2.01 (otomatis)",
+            "suggested": "Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 477,
+            "kode_rek": "7.01.01.2.06",
+            "current": "Kegiatan 7.01.01.2.06 (otomatis)",
+            "suggested": "Administrasi Keuangan Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 478,
+            "kode_rek": "7.01.01.2.08",
+            "current": "Kegiatan 7.01.01.2.08 (otomatis)",
+            "suggested": "Administrasi Umum Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 479,
+            "kode_rek": "7.01.01.2.09",
+            "current": "Kegiatan 7.01.01.2.09 (otomatis)",
+            "suggested": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 480,
+            "kode_rek": "7.01.03.2.01",
+            "current": "Kegiatan 7.01.03.2.01 (otomatis)",
+            "suggested": "Kegiatan hasil sinkronisasi RENSTRA",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 481,
+            "kode_rek": "7.01.06.2.01",
+            "current": "Kegiatan 7.01.06.2.01 (otomatis)",
+            "suggested": "Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 482,
+            "kode_rek": "7.01.01.2.01",
+            "current": "Kegiatan 7.01.01.2.01 (otomatis)",
+            "suggested": "Kegiatan hasil sinkronisasi RENSTRA",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 483,
+            "kode_rek": "7.01.01.2.06",
+            "current": "Kegiatan 7.01.01.2.06 (otomatis)",
+            "suggested": "Administrasi Keuangan Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 484,
+            "kode_rek": "7.01.01.2.09",
+            "current": "Kegiatan 7.01.01.2.09 (otomatis)",
+            "suggested": "Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 485,
+            "kode_rek": "7.01.06.2.01",
+            "current": "Kegiatan 7.01.06.2.01 (otomatis)",
+            "suggested": "Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 486,
+            "kode_rek": "7.01.01.2.06",
+            "current": "Kegiatan 7.01.01.2.06 (otomatis)",
+            "suggested": "Administrasi Keuangan Perangkat Daerah",
+            "status": "updated"
+        },
+        {
+            "table": "kegiatan",
+            "id": 487,
+            "kode_rek": "7.01.06.2.01",
+            "current": "Kegiatan 7.01.06.2.01 (otomatis)",
+            "suggested": "Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah",
+            "status": "updated"
+        }
+    ]
+}

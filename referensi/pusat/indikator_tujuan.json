@@ -1,0 +1,52 @@
+[
+ {
+  "kode_tujuan": "tujuan1",
+  "indikator": "Indeks  Pembangunan  Manusia",
+  "target_2025": 71.07,
+  "target_2026": 71.33,
+  "target_2027": 71.58,
+  "target_2028": 71.84,
+  "target_2029": 72.09,
+  "target_2030": 72.35
+ },
+ {
+  "kode_tujuan": "tujuan1",
+  "indikator": "Laju  Pertumbuhan  Ekonomi",
+  "target_2025": 3.65,
+  "target_2026": 3.88,
+  "target_2027": 4.11,
+  "target_2028": 4.34,
+  "target_2029": 4.57,
+  "target_2030": 4.8
+ },
+ {
+  "kode_tujuan": "tujuan2",
+  "indikator": "Rasio  gini  (Indeks)",
+  "target_2025": "0,280 – 0,285",
+  "target_2026": "0,269  - 0,281",
+  "target_2027": "0,258  - 0,276",
+  "target_2028": "0,247  - 0,272",
+  "target_2029": "0,236  - 0,267",
+  "target_2030": "0,225– 0,263"
+ },
+ {
+  "kode_tujuan": "tujuan3",
+  "indikator": "Indeks  kualitas  lingkungan hidup",
+  "target_2025": 86.81,
+  "target_2026": 86.76,
+  "target_2027": 86.92,
+  "target_2028": 87.07,
+  "target_2029": 87.23,
+  "target_2030": 87.34
+ },
+ {
+  "kode_tujuan": "tujuan4",
+  "indikator": "Indeks  Reformasi  Birokrasi",
+  "target_2025": "57,92 (CC)",
+  "target_2026": "61,92 (B)",
+  "target_2027": "66,18 (B)",
+  "target_2028": "70,74 (BB)",
+  "target_2029": "75,62 (BB)",
+  "target_2030": "80,83 (A)"
+ }
+]

@@ -93,11 +93,12 @@ defineProps({
 const page = usePage();
 const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
 const isPimpinan = computed(() => userRoles.value.includes('pimpinan'));
+const isAdmin = computed(() => userRoles.value.includes('admin'));
 const isVerifikator = computed(() => userRoles.value.includes('verifikator'));
 const isOpd = computed(() => userRoles.value.includes('opd'));
 const canAccessDashboard = computed(() => !isPimpinan.value);
-const canAccessDataDasar = computed(() => !isPimpinan.value && !isOpd.value);
-const canAccessDokumen = computed(() => !isPimpinan.value);
+const canAccessDataDasar = computed(() => !isPimpinan.value && !isOpd.value && !isAdmin.value);
+const canAccessDokumen = computed(() => !isPimpinan.value && !isAdmin.value);
 const canAccessRealisasi = computed(() => !isPimpinan.value);
 const canAccessSettings = computed(() => {
   return userRoles.value.includes('superadmin') || userRoles.value.includes('admin');

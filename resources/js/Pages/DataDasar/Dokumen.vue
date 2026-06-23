@@ -10,7 +10,7 @@
       <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-md">
         <div class="mb-5 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div>
-            <h2 class="text-lg font-bold text-emerald-900">Daftar Dokumen OPD</h2>
+            <h2 class="text-lg font-bold text-emerald-900">Daftar Dokumen OPDas</h2>
             <p class="mt-1 text-sm text-slate-500">Tabel dokumen tampil lebih dulu. Gunakan tombol upload atau edit untuk mengisi file dokumen.</p>
           </div>
           <button type="button" class="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700" @click="openCreateModal">Upload Dokumen</button>
@@ -46,7 +46,7 @@
                   <td class="px-4 py-3">
                     <div class="flex flex-wrap gap-2">
                       <button type="button" class="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-100" @click="openEditModal(dokumen)">Edit File</button>
-                      <button type="button" class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700 hover:bg-red-100" @click="hapusDokumen(dokumen.id)">Hapus</button>
+                      <button type="button" class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700 hover:bg-red-100" @click="hapusDokumen(dokumen.id)">Hapus </button>
                     </div>
                   </td>
                 </tr>

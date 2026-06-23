@@ -1,0 +1,262 @@
+[
+ {
+  "sasaran": "sasaran1",
+  "indikator": "Umur Harapan Hidup (UHH)",
+  "target_2025": 73,
+  "target_2026": 73.2,
+  "target_2027": 73.75,
+  "target_2028": 74.3,
+  "target_2029": 74.85,
+  "target_2030": 75.4
+ },
+ {
+  "sasaran": "sasaran2",
+  "indikator": "Rata-Rata lama sekolah   (Tahun)",
+  "target_2025": 8.64,
+  "target_2026": 8.78,
+  "target_2027": 8.92,
+  "target_2028": 9.07,
+  "target_2029": 9.21,
+  "target_2030": 9.36
+ },
+ {
+  "sasaran": "sasaran2",
+  "indikator": "Harapan Lama Sekolah (Tahun)",
+  "target_2025": 12.85,
+  "target_2026": 12.92,
+  "target_2027": 12.99,
+  "target_2028": 13.06,
+  "target_2029": 13.13,
+  "target_2030": 13.2
+ },
+ {
+  "sasaran": "sasaran3",
+  "indikator": "Tingkat Kemiskinan (%)",
+  "target_2025": "9,70–\n10,30",
+  "target_2026": "9,06 - 9,62",
+  "target_2027": "8,42 - 8,94",
+  "target_2028": "7,78 - 8,26",
+  "target_2029": "7,14 - 7,58",
+  "target_2030": "6,50–6,90"
+ },
+ {
+  "sasaran": "sasaran3",
+  "indikator": "Indeks Ketahanan Pangan",
+  "target_2025": 57.85,
+  "target_2026": 59.2,
+  "target_2027": 60.58,
+  "target_2028": 61.99,
+  "target_2029": 63.44,
+  "target_2030": 64.92
+ },
+ {
+  "sasaran": "sasaran3",
+  "indikator": "Tingkat Pengangguran Terbuka (%)",
+  "target_2025": "2,18- 2,25",
+  "target_2026": "2,02 - 2,10",
+  "target_2027": "1,87 - 1,95",
+  "target_2028": "1,71 - 1,80",
+  "target_2029": "1,56 - 1,65",
+  "target_2030": "1,40–1,50"
+ },
+ {
+  "sasaran": "sasaran4",
+  "indikator": "Indeks Pembangunan Keluarga (ibangga)",
+  "target_2025": "NA",
+  "target_2026": 64.1,
+  "target_2027": 65.8,
+  "target_2028": 67.5,
+  "target_2029": 69.2,
+  "target_2030": 70.9
+ },
+ {
+  "sasaran": "sasaran4",
+  "indikator": "Indeks Pembangunan Gender",
+  "target_2025": 84.28,
+  "target_2026": 84.96,
+  "target_2027": 85.64,
+  "target_2028": 86.33,
+  "target_2029": 87.02,
+  "target_2030": 87.72
+ },
+ {
+  "sasaran": "sasaran5",
+  "indikator": "Kontribusi Industri Pengolahan terhadap PDRB (%)",
+  "target_2025": 0.48,
+  "target_2026": 0.49,
+  "target_2027": 0.5,
+  "target_2028": 0.51,
+  "target_2029": 0.52,
+  "target_2030": 0.53
+ },
+ {
+  "sasaran": "sasaran5",
+  "indikator": "Laju Pertumbuhan Sektor Pertanian, Kehutanan, dan Perikanan",
+  "target_2025": 3.16,
+  "target_2026": 3.47,
+  "target_2027": 3.82,
+  "target_2028": 4.2,
+  "target_2029": 4.62,
+  "target_2030": 5.08
+ },
+ {
+  "sasaran": "sasaran6",
+  "indikator": "Persentase Peningkatan Investasi",
+  "target_2025": 15,
+  "target_2026": 15,
+  "target_2027": 15,
+  "target_2028": 15,
+  "target_2029": 16,
+  "target_2030": 20
+ },
+ {
+  "sasaran": "sasaran7",
+  "indikator": "Indeks Kualitas Layanan Infrastruktur (IKLI)",
+  "target_2025": 16.62,
+  "target_2026": 17.63,
+  "target_2027": 18.27,
+  "target_2028": 18.93,
+  "target_2029": 19.63,
+  "target_2030": 20.35
+ },
+ {
+  "sasaran": "sasaran7",
+  "indikator": "Rasio Konetivitas",
+  "target_2025": 0.25,
+  "target_2026": 0.35,
+  "target_2027": 0.45,
+  "target_2028": 0.55,
+  "target_2029": 0.65,
+  "target_2030": 0.75
+ },
+ {
+  "sasaran": "sasaran8",
+  "indikator": "Indeks Desa",
+  "target_2025": "69, 35 (MAJU)",
+  "target_2026": "71,41 (MAJU)",
+  "target_2027": "73,46 (MAJU)",
+  "target_2028": "75,52 (MAJU)",
+  "target_2029": "77,57 (MAJU)",
+  "target_2030": "79,63 (MANDIRI)"
+ },
+ {
+  "sasaran": "sasaran8",
+  "indikator": "Indeks Pengelolaan Kawasan Perbatasan Prioritas",
+  "target_2025": 0.78,
+  "target_2026": 0.8,
+  "target_2027": 0.82,
+  "target_2028": 0.84,
+  "target_2029": 0.86,
+  "target_2030": 0.88
+ },
+ {
+  "sasaran": "sasaran9",
+  "indikator": "Penurunan Intensitas Emisi GRK (%)",
+  "target_2025": "40,71 - 41",
+  "target_2026": "44,64 - 44,93",
+  "target_2027": "48,95 - 49,24",
+  "target_2028": "53,68 - 53,96",
+  "target_2029": "58,86 - 59,13",
+  "target_2030": "64,54 - 64,80"
+ },
+ {
+  "sasaran": "sasaran9",
+  "indikator": "Indeks Resiko Bencana",
+  "target_2025": 103,
+  "target_2026": 100,
+  "target_2027": 95,
+  "target_2028": 90,
+  "target_2029": 85,
+  "target_2030": 80
+ },
+ {
+  "sasaran": "sasaran10",
+  "indikator": "Indeks Harmony Indonesia",
+  "target_2025": 55,
+  "target_2026": 60,
+  "target_2027": 65,
+  "target_2028": 70,
+  "target_2029": 75,
+  "target_2030": 80
+ },
+ {
+  "sasaran": "sasaran10",
+  "indikator": "Indeks Pembangunan Kebudayaan",
+  "target_2025": 53.18,
+  "target_2026": "41,48 - 51,03",
+  "target_2027": "43,01 - 52,08",
+  "target_2028": "44,6 - 53,15",
+  "target_2029": "46,25 - 54,25",
+  "target_2030": 58
+ },
+ {
+  "sasaran": "sasaran11",
+  "indikator": "Indeks Pemerintah Digital",
+  "target_2025": "NA",
+  "target_2026": 20,
+  "target_2027": 26,
+  "target_2028": 35,
+  "target_2029": 40,
+  "target_2030": 50
+ },
+ {
+  "sasaran": "sasaran11",
+  "indikator": "Indeks Profesionalitas ASN",
+  "target_2025": 68.35,
+  "target_2026": 71.08,
+  "target_2027": 73.21,
+  "target_2028": 75.34,
+  "target_2029": 81.13,
+  "target_2030": 82.61
+ },
+ {
+  "sasaran": "sasaran11",
+  "indikator": "Nilai AKIP",
+  "target_2025": 55.66,
+  "target_2026": 56.85,
+  "target_2027": 58.06,
+  "target_2028": 59.3,
+  "target_2029": 60.56,
+  "target_2030": 61.85
+ },
+ {
+  "sasaran": "sasaran11",
+  "indikator": "Maturitas Penyelenggaraan Sistem Pengendalian Internal Pemerintah (SPIP) Terintegrasi",
+  "target_2025": "Level 3",
+  "target_2026": "Level 3",
+  "target_2027": "Level 3",
+  "target_2028": "Level 3",
+  "target_2029": "Level 3",
+  "target_2030": "Level 3"
+ },
+ {
+  "sasaran": "sasaran11",
+  "indikator": "Indeks Inovasi Daerah",
+  "target_2025": "15 - 16",
+  "target_2026": "16,83 - 18,24",
+  "target_2027": "18,87 - 20,78",
+  "target_2028": "21,17 - 23,69",
+  "target_2029": "23,75 - 27",
+  "target_2030": "26,64 - 30,77"
+ },
+ {
+  "sasaran": "sasaran11",
+  "indikator": "Opini BPK Atas Laporan Keuangan",
+  "target_2025": "WTP",
+  "target_2026": "WTP",
+  "target_2027": "WTP",
+  "target_2028": "WTP",
+  "target_2029": "WTP",
+  "target_2030": "WTP"
+ },
+ {
+  "sasaran": "sasaran12",
+  "indikator": "Indeks Pelayanan Publik",
+  "target_2025": "2,5 - 2,9",
+  "target_2026": "2,53 - 2,96",
+  "target_2027": "2,56 - 3,02",
+  "target_2028": "2,6 - 3,09",
+  "target_2029": "2,63 - 3,15",
+  "target_2030": "2,66 - 3,22"
+ }
+]

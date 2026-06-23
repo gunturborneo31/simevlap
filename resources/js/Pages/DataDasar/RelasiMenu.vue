@@ -60,6 +60,7 @@ const relasiItems = [
   { slug: 'arah-kebijakan', label: 'Arah Kebijakan', parentLabel: 'Relasi ke: Strategi' },
   { slug: 'bidang-urusan',  label: 'Bidang Urusan', parentLabel: 'Relasi ke: Urusan' },
   { slug: 'program',        label: 'Program',        parentLabel: 'Relasi ke: Bidang Urusan' },
+  { slug: 'program-aksi',   label: 'Program Aksi',   parentLabel: 'Relasi ke: Program Prioritas SKPD' },
   { slug: 'kegiatan',       label: 'Kegiatan',       parentLabel: 'Relasi ke: Program' },
   { slug: 'sub-kegiatan',   label: 'Sub Kegiatan',   parentLabel: 'Relasi ke: Kegiatan' },
 ];

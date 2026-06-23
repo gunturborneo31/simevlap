@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class KomponenAnggaranController extends Controller
 {
@@ -137,7 +138,7 @@ class KomponenAnggaranController extends Controller
                 'bidang'      => $p->bidangUrusanRef?->nama ?? $p->bidang_urusan,
                 'opd_id'      => $p->opd_id,
                 'indikator'   => $p->indikator->map(fn($i) => [
-                    'nama_indikator' => $i->nama_indikator,
+                    'nama_indikator' => $this->prettifyIndikatorName((string) ($i->nama_indikator ?? '')),
                     'sifat_indikator'=> $i->sifat_indikator,
                     'target_indikator'=> $i->target_indikator,
                     'satuan'         => $i->satuan,
@@ -223,10 +224,17 @@ class KomponenAnggaranController extends Controller
         ]);
 
         $annotation = $this->resolveRealisasiAnnotation($data);
+
+        // If faktor_penghambat is empty or null, store a default message
+        $faktorPenghambat = isset($data['faktor_penghambat']) ? trim((string) $data['faktor_penghambat']) : '';
+        if ($faktorPenghambat === '') {
+            $faktorPenghambat = 'tidak ada hambatan';
+        }
+
         $annotation->fill([
-            'faktor_penghambat' => $data['faktor_penghambat'] ?? null,
-            'faktor_pendorong' => $data['faktor_pendorong'] ?? null,
-            'faktor_tindak_lanjut' => $data['faktor_tindak_lanjut'] ?? null,
+            'faktor_penghambat' => $faktorPenghambat,
+            'faktor_pendorong' => isset($data['faktor_pendorong']) ? trim((string) $data['faktor_pendorong']) : null,
+            'faktor_tindak_lanjut' => isset($data['faktor_tindak_lanjut']) ? trim((string) $data['faktor_tindak_lanjut']) : null,
         ]);
         $annotation->save();
 
@@ -755,7 +763,7 @@ class KomponenAnggaranController extends Controller
 
                 return [
                     'id' => $source === 'dpa' ? (int) ($item->id ?? 0) : null,
-                    'nama_indikator' => (string) ($item->nama_indikator ?? ''),
+                    'nama_indikator' => $this->prettifyIndikatorName((string) ($item->nama_indikator ?? '')),
                     'sifat_indikator' => (string) ($item->sifat_indikator ?? ''),
                     'target_indikator' => $target,
                     'target_dpa' => $source === 'dpa' ? $target : '0',
@@ -817,11 +825,20 @@ class KomponenAnggaranController extends Controller
 
     private function makeIndikatorMergeKey(array $indikator): string
     {
-        return implode('|', [
-            trim((string) ($indikator['nama_indikator'] ?? '')),
-            trim((string) ($indikator['satuan'] ?? '')),
-            trim((string) ($indikator['sifat_indikator'] ?? '')),
-        ]);
+        $nama = $this->normalizeForKey((string) ($indikator['nama_indikator'] ?? ''));
+        $satuan = $this->normalizeForKey((string) ($indikator['satuan'] ?? ''));
+        $sifat = $this->normalizeForKey((string) ($indikator['sifat_indikator'] ?? ''));
+
+        return implode('|', [$nama, $satuan, $sifat]);
+    }
+
+    private function normalizeForKey(string $text): string
+    {
+        $text = Str::ascii($text);
+        $text = strtolower($text);
+        // remove all non-alphanumeric characters including spaces
+        $text = preg_replace('/[^a-z0-9]+/', '', $text);
+        return trim((string) $text);
     }
 
     private function buildRealisasiLookup(array $opdFilterIds, $tahun, array &$realisasiRefLookup = []): array
@@ -915,6 +932,27 @@ class KomponenAnggaranController extends Controller
     private function makeRealisasiLookupKey(string $jenis, string $kode, int $opdId): string
     {
         return implode('|', [$jenis, trim($kode), $opdId]);
+    }
+
+    private function prettifyIndikatorName(string $text): string
+    {
+        $text = trim($text);
+        if ($text === '') return $text;
+
+        // If it already contains spaces, assume it's fine
+        if (strpos($text, ' ') !== false) {
+            return $text;
+        }
+
+        $t = Str::ascii($text);
+        // insert space between lower->Upper (camelCase/JoinedWords)
+        $t = preg_replace('/(?<=[a-z0-9])(?=[A-Z])/', ' ', $t);
+        // insert space between letter<->digit boundaries
+        $t = preg_replace('/(?<=[A-Za-z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])/', ' ', $t);
+        // split acronym boundary (e.g. APKSDMI -> APKSD MI)
+        $t = preg_replace('/(?<=[A-Z])(?=[A-Z][a-z])/', ' ', $t);
+
+        return trim($t);
     }
 
     private function getRealisasiAnnotationsPayload(string $pageMode, string $documentType, ?int $opdId, ?int $tahun): array

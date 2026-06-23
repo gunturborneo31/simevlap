@@ -103,6 +103,14 @@
               :class="hasAnyChanges ? 'btn-save-blink' : 'opacity-50 cursor-not-allowed'"
               title="Simpan perubahan pagu dan target indikator"
             >Simpan</button>
+            <button
+              v-if="showRealisasiMode"
+              @click="saveAllRealisasi"
+              :disabled="!hasRealisasiChanges || isSavingRealisasi"
+              class="px-4 py-2 rounded-lg bg-sky-700 text-white font-bold hover:bg-sky-800 transition whitespace-nowrap shrink-0"
+              :class="hasRealisasiChanges ? 'btn-save-blink' : 'opacity-50 cursor-not-allowed'"
+              title="Simpan seluruh perubahan realisasi"
+            >{{ isSavingRealisasi ? 'Menyimpan...' : 'Simpan Realisasi' }}</button>
           </div>
         </div>
       </div>
@@ -199,7 +207,7 @@
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Pagu DPA</th>
               <th
                 v-if="showRealisasiMode"
-                v-for="tw in selectedTriwulanNumbers"
+                v-for="tw in [1,2,3,4]"
                 :key="`head-realisasi-keu-${tw}`"
                 class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide"
               >
@@ -215,7 +223,7 @@
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Target DPA</th>
               <th
                 v-if="showRealisasiMode"
-                v-for="tw in selectedTriwulanNumbers"
+                v-for="tw in [1,2,3,4]"
                 :key="`head-realisasi-fisik-${tw}`"
                 class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide"
               >
@@ -330,22 +338,21 @@
                     <span v-else-if="col.type === 'pagu_computed'" class="font-semibold tabular-nums">
                       {{ formatRupiah(getEffectivePagu(col.komponen)) }}
                     </span>
-                    <input
-                      v-else-if="col.type === 'realisasi_keuangan_input' && !isVerifikatorMode"
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      :value="getRealisasiTwValue(col.komponen, col.tw, 'keuangan')"
-                      @input="e => onRealisasiTwInput(col.komponen.id, col.tw, 'keuangan', e.target.value)"
-                      @blur="saveRealisasiTw(col.komponen, col.tw)"
-                      class="w-full text-right bg-white border border-sky-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
-                    />
-                    <span
-                      v-else-if="col.type === 'realisasi_keuangan_input' && isVerifikatorMode"
-                      class="font-semibold tabular-nums"
-                    >
-                      {{ formatRupiah(getRealisasiTwValue(col.komponen, col.tw, 'keuangan')) }}
-                    </span>
+                    <template v-else-if="col.type === 'realisasi_keuangan_input'">
+                      <input
+                        v-if="!isVerifikatorMode && isEditableKomponen(col.komponen)"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        :value="getRealisasiTwValue(col.komponen, col.tw, 'keuangan')"
+                        @input="e => onRealisasiTwInput(col.komponen.id, col.tw, 'keuangan', e.target.value)"
+                        @blur="saveRealisasiTw(col.komponen, col.tw)"
+                        class="w-full text-right bg-white border border-sky-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                      />
+                      <span v-else class="font-semibold tabular-nums">
+                        {{ formatRupiah(computeRealisasiKeuanganSum(col.komponen, col.tw)) }}
+                      </span>
+                    </template>
                     <input
                       v-else-if="col.type === 'indikator_target_input'"
                       type="text"
@@ -360,13 +367,13 @@
                       type="number"
                       step="0.01"
                       min="0"
-                      :value="getRealisasiTwValue(col.komponen, col.tw, 'fisik')"
+                      :value="(getRealisasiTwValue(col.komponen, col.tw, 'fisik') !== 0 ? getRealisasiTwValue(col.komponen, col.tw, 'fisik') : computeDefaultFisik(col.komponen, col.tw, col.indikatorTarget))"
                       @input="e => onRealisasiTwInput(col.komponen.id, col.tw, 'fisik', e.target.value)"
                       @blur="saveRealisasiTw(col.komponen, col.tw)"
                       class="w-full text-right bg-white border border-indigo-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                     <span
-                      v-else-if="col.type === 'realisasi_fisik_input' && isVerifikatorMode"
+                      v-else-if="col.type === 'realisasi_fisik_input'"
                       class="font-semibold"
                     >
                       {{ getRealisasiTwValue(col.komponen, col.tw, 'fisik') }}
@@ -722,13 +729,16 @@ const editedRealisasiFisik = reactive({});
 const verifierNotes = reactive({});
 const evidenceFileInput = ref(null);
 const pendingEvidencePayload = ref(null);
+const isSavingRealisasi = ref(false);
 
 const tableColspan = computed(() => {
-  const twCount = showRealisasiMode.value ? selectedTriwulanNumbers.value.length : 0;
+  const twCount = showRealisasiMode.value ? 4 : 0;
   const verifierCols = showRealisasiMode.value && isVerifikatorMode.value ? 3 : 0;
   const base = (showRealisasiMode.value ? 18 : 10) + verifierCols + (showDpaActions.value ? 3 : 0) + (twCount * 2);
   return base;
 });
+
+const hasRealisasiChanges = computed(() => Object.keys(editedRealisasiFisik).length > 0 || Object.keys(editedRealisasiKeuangan).length > 0);
 
 function selectedTriwulanForVerification() {
   return selectedTriwulanNumbers.value.length === 1 ? selectedTriwulanNumbers.value[0] : null;
@@ -1397,8 +1407,15 @@ function realisasiEditKey(komponenId, tw) {
 
 function getRealisasiTwValue(komponen, tw, field) {
   const key = realisasiEditKey(komponen?.id, tw);
-  const edited = field === 'keuangan' ? editedRealisasiKeuangan[key] : editedRealisasiFisik[key];
-  if (edited !== undefined) return edited;
+  if (field === 'keuangan') {
+    // prefer edited keuangan when present (only sub_kegiatan inputs produce edits)
+    const editedK = editedRealisasiKeuangan[key];
+    if (editedK !== undefined) return editedK;
+  }
+  if (field === 'fisik') {
+    const edited = editedRealisasiFisik[key];
+    if (edited !== undefined) return edited;
+  }
 
   const source = komponen?.realisasi_tw?.[tw] || {};
   if (field === 'keuangan') {
@@ -1406,6 +1423,58 @@ function getRealisasiTwValue(komponen, tw, field) {
   }
 
   return Number(source.fisik ?? 0);
+}
+
+function computeRealisasiKeuanganSum(komponen, tw) {
+  if (!komponen) return 0;
+  // if component has children, sum recursively
+  if (Array.isArray(komponen.children) && komponen.children.length) {
+    return komponen.children.reduce((acc, child) => acc + computeRealisasiKeuanganSum(child, tw), 0);
+  }
+
+  return getRealisasiTwValue(komponen, tw, 'keuangan') || 0;
+}
+
+function computeDefaultFisik(komponen, tw, indikatorTarget) {
+  let t = Number(indikatorTarget ?? 0);
+  if (!t || Number.isNaN(t)) {
+    // try to compute target from komponen's indicators or children
+    t = computeTargetFromKomponen(komponen);
+  }
+  if (!t || Number.isNaN(t)) return 0;
+  if (Number(t) === 0) return 0;
+  if (Number(t) && Number(t) !== 0) {
+    if (Number(tw) === 1) return Number((t * 0.25).toFixed(2));
+    if (Number(tw) === 2) return Number((t * 0.5).toFixed(2));
+  }
+  return 0;
+}
+
+function computeTargetFromKomponen(komponen) {
+  if (!komponen) return 0;
+  let total = 0;
+  // if komponen has indikator array, sum their target_dpa/target_indikator
+  if (Array.isArray(komponen.indikator) && komponen.indikator.length) {
+    for (const ind of komponen.indikator) {
+      const v = Number(ind?.target_dpa ?? ind?.target_indikator ?? 0);
+      if (!Number.isNaN(v)) total += v;
+    }
+    return total;
+  }
+
+  // otherwise, recurse into children
+  if (Array.isArray(komponen.children) && komponen.children.length) {
+    for (const child of komponen.children) {
+      total += computeTargetFromKomponen(child);
+    }
+  }
+
+  return total;
+}
+
+function isEditableKomponen(komponen) {
+  const meta = komponen?.realisasi_ref;
+  return meta && meta.realisaseable_type === 'App\\Models\\SubKegiatan';
 }
 
 function onRealisasiTwInput(komponenId, tw, field, value) {
@@ -1427,17 +1496,24 @@ function toNumberOr(defaultValue, value) {
   return Number.isNaN(n) ? (Number(defaultValue ?? 0) || 0) : n;
 }
 
-function saveRealisasiTw(komponen, tw) {
+function saveRealisasiTw(komponen, tw, options = {}) {
+  const { redirectAfterSave = true, onFinish } = options;
+  const key = realisasiEditKey(komponen.id, tw);
+  // proceed when there is a fisik edit OR an editable keuangan edit (sub_kegiatan)
+  const hasFisikEdit = editedRealisasiFisik[key] !== undefined;
+  const hasKeuEdit = editedRealisasiKeuangan[key] !== undefined && isEditableKomponen(komponen);
+  if (!hasFisikEdit && !hasKeuEdit) {
+    if (typeof onFinish === 'function') onFinish();
+    return;
+  }
   const meta = komponen?.realisasi_ref;
   if (!meta?.realisaseable_id || !meta?.realisaseable_type) {
     return;
   }
 
-  const key = realisasiEditKey(komponen.id, tw);
   const current = komponen?.realisasi_tw?.[tw] || {};
-
-  const realisasiKeuangan = toNumberOr(current.keuangan, editedRealisasiKeuangan[key]);
   const realisasiFisik = toNumberOr(current.fisik, editedRealisasiFisik[key]);
+  const realisasiKeuangan = hasKeuEdit ? toNumberOr(current.keuangan, editedRealisasiKeuangan[key]) : undefined;
 
   const payloadStore = {
     realisaseable_id: meta.realisaseable_id,
@@ -1446,34 +1522,29 @@ function saveRealisasiTw(komponen, tw) {
     document_type: 'dpa',
     tahun: Number(selectedTahun.value) || new Date().getFullYear(),
     triwulan: Number(tw),
-    realisasi_keuangan: realisasiKeuangan,
-    realisasi_fisik: realisasiFisik,
   };
+  if (hasFisikEdit) payloadStore.realisasi_fisik = realisasiFisik;
+  if (hasKeuEdit) payloadStore.realisasi_keuangan = realisasiKeuangan;
 
-  const payloadUpdate = {
-    realisasi_keuangan: realisasiKeuangan,
-    realisasi_fisik: realisasiFisik,
-  };
+  const payloadUpdate = {};
+  if (hasFisikEdit) payloadUpdate.realisasi_fisik = realisasiFisik;
+  if (hasKeuEdit) payloadUpdate.realisasi_keuangan = realisasiKeuangan;
 
   const onSuccessSync = (id = null) => {
-    if (!komponen.realisasi_tw) {
-      komponen.realisasi_tw = {};
-    }
-
-    komponen.realisasi_tw[tw] = {
-      id: id ?? current.id ?? null,
-      keuangan: realisasiKeuangan,
-      fisik: realisasiFisik,
-    };
-
-    delete editedRealisasiKeuangan[key];
-    delete editedRealisasiFisik[key];
+    if (!komponen.realisasi_tw) komponen.realisasi_tw = {};
+    const newObj = { id: id ?? current.id ?? null };
+    if (hasFisikEdit) newObj.fisik = realisasiFisik;
+    if (hasKeuEdit) newObj.keuangan = realisasiKeuangan;
+    komponen.realisasi_tw[tw] = { ...current, ...komponen.realisasi_tw[tw], ...newObj };
+    if (hasFisikEdit) delete editedRealisasiFisik[key];
+    if (hasKeuEdit) delete editedRealisasiKeuangan[key];
   };
 
   if (current.id) {
     router.put(route('realisasi.update', current.id), payloadUpdate, {
       preserveScroll: true,
       onSuccess: () => onSuccessSync(current.id),
+      onFinish: () => { if (typeof onFinish === 'function') onFinish(); },
     });
     return;
   }
@@ -1483,21 +1554,71 @@ function saveRealisasiTw(komponen, tw) {
     onSuccess: () => {
       // keep optimistic value even when server doesn't return created id
       onSuccessSync(null);
-      const redirectRoute = showRealisasiMode.value ? route('realisasi.index') : route('anggaran.index');
-      router.get(redirectRoute, {
-        opd_id: selectedOpd.value?.id || undefined,
-        tahun: selectedTahun.value || undefined,
-        triwulan: getTriwulanQueryValue(),
-        page_mode: pageMode.value,
-        document_type: props.documentType,
-        readonly: props.readonly && showDpaActions.value ? 1 : undefined,
-      }, {
-        preserveState: true,
-        preserveScroll: true,
-        replace: true,
-      });
+      if (redirectAfterSave) {
+        const redirectRoute = showRealisasiMode.value ? route('realisasi.index') : route('anggaran.index');
+        router.get(redirectRoute, {
+          opd_id: selectedOpd.value?.id || undefined,
+          tahun: selectedTahun.value || undefined,
+          triwulan: getTriwulanQueryValue(),
+          page_mode: pageMode.value,
+          document_type: props.documentType,
+          readonly: props.readonly && showDpaActions.value ? 1 : undefined,
+        }, {
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+        });
+      }
     },
+    onFinish: () => { if (typeof onFinish === 'function') onFinish(); },
   });
+}
+
+function collectRealisasiChanges(items, bucket = []) {
+  (items || []).forEach((item) => {
+    const children = Array.isArray(item?.children) ? item.children : [];
+
+      [1,2,3,4].forEach((tw) => {
+        const key = realisasiEditKey(item.id, tw);
+        if (editedRealisasiFisik[key] !== undefined || editedRealisasiKeuangan[key] !== undefined) {
+          bucket.push({ komponen: item, tw });
+        }
+      });
+
+    if (children.length) {
+      collectRealisasiChanges(children, bucket);
+    }
+  });
+
+  return bucket;
+}
+
+function saveAllRealisasi() {
+  if (isSavingRealisasi.value || !hasRealisasiChanges.value) {
+    return;
+  }
+
+  const queue = collectRealisasiChanges(props.data);
+  if (!queue.length) {
+    return;
+  }
+
+  isSavingRealisasi.value = true;
+
+  const runNext = () => {
+    const nextItem = queue.shift();
+    if (!nextItem) {
+      isSavingRealisasi.value = false;
+      return;
+    }
+
+    saveRealisasiTw(nextItem.komponen, nextItem.tw, {
+      redirectAfterSave: false,
+      onFinish: runNext,
+    });
+  };
+
+  runNext();
 }
 
 onMounted(() => {
@@ -1846,29 +1967,24 @@ function onRealisasiEvidenceSelected(event) {
     return;
   }
 
-  router.post(route('anggaran.realisasi-evidence.upload'), {
-    opd_id: payload.opd_id,
-    tahun: payload.tahun,
-    program_kode: payload.program_kode,
-    program_nama: payload.program_nama,
-    sub_kegiatan_kode: payload.indicator_code,
-    sub_kegiatan_nama: payload.indicator_name,
-    file,
-  }, {
-    forceFormData: true,
-    preserveScroll: true,
-    preserveState: false,
-    onFinish: () => {
-      if (event?.target) event.target.value = '';
-      pendingEvidencePayload.value = null;
-    },
-  });
+    router.post(route('anggaran.realisasi-evidence.upload'), {
+      opd_id: payload.opd_id,
+      tahun: payload.tahun,
+      program_kode: payload.program_kode,
+      program_nama: payload.program_nama,
+      sub_kegiatan_kode: payload.indicator_code,
+      sub_kegiatan_nama: payload.indicator_name,
+      file: file,
+    }, {
+      forceFormData: true,
+      preserveScroll: true,
+      preserveState: false,
+      onFinish: () => {
+        if (event?.target) event.target.value = '';
+        pendingEvidencePayload.value = null;
+      },
+    });
 }
-
-function decreaseTableFont() {
-  tableFontSize.value = Math.max(10, tableFontSize.value - 1);
-}
-
 function increaseTableFont() {
   tableFontSize.value = Math.min(18, tableFontSize.value + 1);
 }
@@ -1917,7 +2033,7 @@ function confirmDeleteIndikator(col) {
 }
 
 function buildNoticeRow({ key, jenis, message }) {
-  const twCount = showRealisasiMode.value ? selectedTriwulanNumbers.value.length : 0;
+  const twCount = showRealisasiMode.value ? 4 : 0;
   const cols = [
     { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
     { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
@@ -2043,7 +2159,7 @@ function renderRows(data, parentKey = '', parentProgram = null) {
                   : { type: 'pagu_computed', komponen, rowspan: indikator.length, skip: i !== 0, class: 'px-3 py-2 align-top text-right whitespace-nowrap border-b border-r border-gray-300' },
               ]),
           ...(showRealisasiMode.value
-            ? selectedTriwulanNumbers.value.map((tw) => ({
+            ? [1,2,3,4].map((tw) => ({
               type: 'realisasi_keuangan_input',
               komponen,
               tw,
@@ -2072,10 +2188,11 @@ function renderRows(data, parentKey = '', parentProgram = null) {
                   : { value: (ind.target_dpa ?? ind.target_indikator) || '-', class: 'px-3 py-2 border-b border-r border-gray-300' },
               ]),
           ...(showRealisasiMode.value
-            ? selectedTriwulanNumbers.value.map((tw) => ({
+            ? [1,2,3,4].map((tw) => ({
               type: 'realisasi_fisik_input',
               komponen,
               tw,
+              indikatorTarget: ind.target_dpa ?? ind.target_indikator ?? null,
               class: 'px-2 py-1 align-top border-b border-r border-gray-300 min-w-[130px]'
             }))
             : []),

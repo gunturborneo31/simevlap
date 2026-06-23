@@ -537,6 +537,9 @@ class DataDasarController extends Controller
             return [$rows, $parents];
         }
 
+        // Special handling: program-aksi should return both program-aksi rows and program-prioritas parents
+        
+
         if ($this->isProgramLevel($level)) {
             $jenis = $this->resolveProgramType($level);
             $query = Program::query()->latest();
@@ -554,6 +557,66 @@ class DataDasarController extends Controller
             return [$rows, collect()];
         }
 
+        if ($level === 'program-aksi') {
+            // allow OPD filtering via query ?opd_id=...
+            $opdId = request()->get('opd_id');
+            $opdFilterIds = $this->resolveOpdFilterIds($opdId);
+
+            $rowsQuery = Program::where('jenis_program', 'program-aksi')->latest();
+            if (!empty($opdFilterIds)) $rowsQuery->whereIn('opd_id', $opdFilterIds);
+            $rows = $rowsQuery->get()->map(fn($r) => ['id' => $r->id, 'kode' => $r->kode_rek, 'uraian' => $r->nama_rincian, 'deskripsi' => $r->deskripsi, 'pagu' => $r->pagu, 'opd_id' => $r->opd_id]);
+
+            // parents: use Renstra programs stored in KomponenAnggaran (document_type = 'renstra', jenis = 'program')
+            // Prefer Program.nama_rincian if a Program row exists (kode_rek + opd_id), otherwise use nama_komponen
+            $komponens = \App\Models\KomponenAnggaran::where('document_type', 'renstra')->where('jenis', 'program')->orderBy('kode')->get();
+            if ($komponens->isNotEmpty()) {
+                $parents = $komponens->map(function ($k) {
+                    $labelName = $k->nama_komponen;
+                    $programMatch = Program::where('kode_rek', $k->kode)->where('opd_id', $k->opd_id)->first();
+                    if ($programMatch && $programMatch->nama_rincian) {
+                        $labelName = $programMatch->nama_rincian;
+                    }
+                    $opdName = null;
+                    if ($k->opd_id) {
+                        $opd = Opd::find($k->opd_id, ['id', 'nama']);
+                        $opdName = $opd?->nama;
+                    }
+                    return [
+                        'id' => (int) $k->id,
+                        'label' => (($k->kode ? $k->kode . ' - ' : '') . $labelName),
+                        'opd_id' => $k->opd_id,
+                        'opd_name' => $opdName,
+                        'kode' => $k->kode,
+                        'uraian' => $labelName,
+                    ];
+                });
+            } else {
+                // Fallback: if no KomponenAnggaran rows, try to load referensi/apbd/program.json
+                $parents = collect();
+                $jsonPath = base_path('referensi/apbd/program.json');
+                if (file_exists($jsonPath)) {
+                    $data = json_decode((string)@file_get_contents($jsonPath), true);
+                    if (is_array($data)) {
+                        $counter = -1;
+                        foreach ($data as $row) {
+                            $kode = $row['KODE_PROGRAM'] ?? null;
+                            $nama = $row['NAMA_PROGRAM'] ?? ($row['NAMA_PROGRAM'] ?? null);
+                            $label = (($kode) ? ($kode . ' - ') : '') . ($nama ?? '');
+                            $parents->push([
+                                'id' => $counter--,
+                                'label' => $label,
+                                'opd_id' => null,
+                                'kode' => $kode,
+                                'uraian' => $nama,
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            return $this->attachRelasiAssignments($level, 'komponen_anggaran', $rows, $parents);
+        }
+
         if ($level === 'kegiatan') {
             $query = Kegiatan::latest();
             if ($activeKepmenId) $query->where('kepmen_id', $activeKepmenId);
@@ -565,6 +628,20 @@ class DataDasarController extends Controller
         if ($activeKepmenId) $query->where('kepmen_id', $activeKepmenId);
         $rows = $query->get()->map(fn ($r) => ['id' => $r->id, 'kode' => $r->kode_rek, 'uraian' => $r->nama_rincian, 'deskripsi' => $r->deskripsi, 'pagu' => $r->pagu]);
         return [$rows, collect()];
+    }
+
+    /**
+     * Temporary debug endpoint: return program-aksi rows and parents as JSON
+     * (no role check). For local inspection only.
+     */
+    public function debugRelasiProgramAksi(Request $request)
+    {
+        [$rows, $parents] = $this->buildLevelData('program-aksi', null, null);
+
+        $rowsArr = is_object($rows) && method_exists($rows, 'values') ? $rows->values()->all() : (is_array($rows) ? $rows : (array) $rows);
+        $parentsArr = is_object($parents) && method_exists($parents, 'values') ? $parents->values()->all() : (is_array($parents) ? $parents : (array) $parents);
+
+        return response()->json(['rows' => $rowsArr, 'parents' => $parentsArr]);
     }
 
     public function storeVisi(Request $request)
@@ -840,13 +917,30 @@ class DataDasarController extends Controller
         $level = $this->normalizeRelasiLevel($level);
         abort_if($level === null, 404);
 
+        // program-aksi relasi management allowed only for superadmin
+        if ($level === 'program-aksi') {
+            abort_unless($request->user()?->hasRole('superadmin'), 403);
+        }
+
         $activeKepmen = Kepmen::find($request->session()->get('active_kepmen_id'));
-        [$rows, $parents] = $this->buildRelasiData($level, $activeKepmen?->id);
+        // For program-aksi, use the bank-data logic so listing/filtering matches
+        if ($level === 'program-aksi') {
+            $search = trim((string) $request->get('search', ''));
+            [$rows, $parents] = $this->buildLevelData('program-aksi', $activeKepmen?->id, $search);
+        } else {
+            [$rows, $parents] = $this->buildRelasiData($level, $activeKepmen?->id);
+        }
+
+        $opds = collect();
+        if ($level === 'program-aksi') {
+            $opds = Opd::where('is_active', true)->orderBy('nama')->get(['id', 'nama']);
+        }
 
         return Inertia::render('DataDasar/RelasiLevel', [
             'level' => $level,
             'rows' => $rows,
             'parents' => $parents,
+            'opds' => $opds,
             'activePeraturan' => $activeKepmen ? [
                 'id' => $activeKepmen->id,
                 'kode' => $activeKepmen->kode,
@@ -859,6 +953,7 @@ class DataDasarController extends Controller
     {
         $level = $this->normalizeRelasiLevel($level);
         abort_if($level === null, 404);
+        abort_unless($request->user()?->hasRole('superadmin'), 403);
 
         $validated = $request->validate([
             'parent_ids' => 'nullable|array',
@@ -904,6 +999,32 @@ class DataDasarController extends Controller
             ])->all();
 
             DataDasarRelasi::query()->insert($rows);
+
+            // If we're relating program-aksi -> komponen_anggaran, mark/create corresponding Program as prioritas
+            if ($level === 'program-aksi' && $parentType === 'komponen_anggaran') {
+                foreach ($parentIds as $komponenId) {
+                    $k = \App\Models\KomponenAnggaran::find((int) $komponenId);
+                    if (!$k) continue;
+
+                    $existingProgram = Program::where('kode_rek', $k->kode)->where('opd_id', $k->opd_id)->first();
+                    if ($existingProgram) {
+                        $existingProgram->update([ 'is_prioritas' => 1, 'document_type' => 'renstra' ]);
+                    } else {
+                        Program::create([
+                            'opd_id' => $k->opd_id,
+                            'kepmen_id' => null,
+                            'document_type' => 'renstra',
+                            'jenis_program' => 'program',
+                            'kode_rek' => $k->kode,
+                            'nama_rincian' => $k->nama_komponen,
+                            'deskripsi' => null,
+                            'pagu' => 0,
+                            'tahun' => null,
+                            'is_prioritas' => 1,
+                        ]);
+                    }
+                }
+            }
         });
 
         return redirect()->back()->with('success', 'Relasi berhasil diperbarui.');
@@ -913,6 +1034,7 @@ class DataDasarController extends Controller
     {
         $level = $this->normalizeRelasiLevel($level);
         abort_if($level === null, 404);
+        abort_unless($request->user()?->hasRole('superadmin'), 403);
 
         $validated = $request->validate([
             'child_ids' => 'nullable|array',
@@ -967,7 +1089,7 @@ class DataDasarController extends Controller
 
     private function normalizeRelasiLevel(string $level): ?string
     {
-        $allowed = ['urusan', 'bidang-urusan', 'program', 'misi', 'tujuan', 'sasaran', 'strategi', 'arah-kebijakan', 'kegiatan', 'sub-kegiatan'];
+        $allowed = ['urusan', 'bidang-urusan', 'program', 'program-aksi', 'misi', 'tujuan', 'sasaran', 'strategi', 'arah-kebijakan', 'kegiatan', 'sub-kegiatan'];
         return in_array($level, $allowed, true) ? $level : null;
     }
 
@@ -1033,6 +1155,56 @@ class DataDasarController extends Controller
             return $this->attachRelasiAssignments($level, $parentType, $rows, $parents);
         }
 
+        if ($level === 'program-aksi') {
+            // Parent options for program-aksi come from KomponenAnggaran (renstra programs)
+            $komponens = \App\Models\KomponenAnggaran::where('document_type', 'renstra')->where('jenis', 'program')->orderBy('kode')->get();
+            if ($komponens->isNotEmpty()) {
+                $parents = $komponens->map(fn($k) => ['id' => (int) $k->id, 'label' => (($k->kode ? $k->kode . ' - ' : '') . $k->nama_komponen), 'opd_id' => $k->opd_id, 'kode' => $k->kode, 'uraian' => $k->nama_komponen]);
+                return $parents;
+            }
+
+            // Fallback: if no KomponenAnggaran rows, load referensi/apbd/program.json
+            $parents = collect();
+            $jsonPath = base_path('referensi/apbd/program.json');
+            if (file_exists($jsonPath)) {
+                $data = json_decode((string)@file_get_contents($jsonPath), true);
+                if (is_array($data)) {
+                    $counter = -1;
+                    foreach ($data as $row) {
+                        $kode = $row['KODE_PROGRAM'] ?? null;
+                        $nama = $row['NAMA_PROGRAM'] ?? null;
+                        $kodeSkpd = $row['KODE_SKPD'] ?? null;
+                        $namaOpd = $row['NAMA_OPD'] ?? null;
+                        $label = (($kode) ? ($kode . ' - ') : '') . ($nama ?? '');
+
+                        $opdId = null;
+                        $opdName = null;
+                        if ($kodeSkpd) {
+                            $opd = Opd::where('kode', $kodeSkpd)->first(['id', 'nama']);
+                            $opdId = $opd?->id ?? null;
+                            $opdName = $opd?->nama ?? null;
+                        }
+                        if (!$opdId && $namaOpd) {
+                            $opd = Opd::where('nama', 'like', '%' . trim($namaOpd) . '%')->first(['id', 'nama']);
+                            $opdId = $opd?->id ?? null;
+                            $opdName = $opd?->nama ?? $opdName;
+                        }
+
+                        $parents->push([
+                            'id' => $counter--,
+                            'label' => $label,
+                            'opd_id' => $opdId,
+                            'opd_name' => $opdName,
+                            'kode' => $kode,
+                            'uraian' => $nama,
+                        ]);
+                    }
+                }
+            }
+
+            return $parents;
+        }
+
         // sub-kegiatan
         $query = SubKegiatan::latest();
         if ($activeKepmenId) $query->where('kepmen_id', $activeKepmenId);
@@ -1049,6 +1221,7 @@ class DataDasarController extends Controller
             'urusan' => '',
             'bidang-urusan' => 'urusan',
             'program' => 'bidang-urusan',
+            'program-aksi' => 'komponen_anggaran',
             'misi' => 'visi',
             'tujuan' => 'misi',
             'sasaran' => 'tujuan',
@@ -1066,6 +1239,7 @@ class DataDasarController extends Controller
             'urusan' => \App\Models\Urusan::findOrFail($id),
             'bidang-urusan' => \App\Models\BidangUrusan::findOrFail($id),
             'program' => \App\Models\Program::findOrFail($id),
+            'program-aksi' => \App\Models\Program::findOrFail($id),
             'misi' => Misi::findOrFail($id),
             'tujuan' => Tujuan::findOrFail($id),
             'sasaran' => Sasaran::findOrFail($id),
