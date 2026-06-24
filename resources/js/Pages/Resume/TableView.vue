@@ -43,6 +43,13 @@
               >
                 Download Excel
               </a>
+              <button
+                type="button"
+                @click="exportRealisasiExcel"
+                class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 ml-2"
+              >
+                Export Excel (Client)
+              </button>
             </div>
 
             <!-- Basis filter: Perangkat Daerah / Bidang Urusan -->
@@ -64,7 +71,7 @@
               </select>
             </div>
             <!-- OPD filter + Triwulan for tabel-7 -->
-            <div v-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-7'" class="mt-2 md:mt-0 md:ml-4 flex items-center gap-3">
+            <div v-if="currentView === 'hasil-pelaksanaan-rkpd' && (currentTable === 'tabel-7' || currentTable === 'tabel-3' || currentTable === 'tabel-4' || currentTable === 'tabel-5')" class="mt-2 md:mt-0 md:ml-4 flex items-center gap-3">
               <div>
                 <label class="text-xs text-slate-600 mr-2">OPD</label>
                 <select v-model="selectedOpd" @change="applyFilters" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
@@ -95,14 +102,14 @@
 
         <!-- Tabel 10: match requested 11-column layout with double-header style -->
         <div v-if="currentTable === 'tabel-10' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
-          <table class="min-w-[1200px] w-full border-collapse text-sm">
+          <table class="min-w-[1000px] w-full border-collapse text-sm">
             <thead class="sticky top-0 bg-emerald-50">
               <tr>
                 <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
                 <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Bidang Urusan / Perangkat Daerah</th>
                 <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Program/Kegiatan/Sub Kegiatan</th>
-                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">{{ rkpdLabel }} (Tahun {{ yearValue || 2026 }})</th>
-                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">{{ apbdLabel }} (Tahun {{ yearValue || 2026 }})</th>
+                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">{{ rkpdLabel }} (Tahun {{ yearValue || 2030 }})</th>
+                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">{{ apbdLabel }} (Tahun {{ yearValue || 2030 }})</th>
                 <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi {{ rkpdLabel }} - {{ apbdLabel }}</th>
                 <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RPJMD - {{ rkpdLabel }}</th>
               </tr>
@@ -132,7 +139,7 @@
                   <tr :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
                     <td v-if="pIdx === 0" :rowspan="getUniquePrograms([ ...(row?.rpjmd_programs||[]), ...(row?.renstra_programs||[]), ...(row?.rkpd_programs||[]), ...(row?.dpa_programs||[]) ]).length" class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
                     <td v-if="pIdx === 0" :rowspan="getUniquePrograms([ ...(row?.rpjmd_programs||[]), ...(row?.renstra_programs||[]), ...(row?.rkpd_programs||[]), ...(row?.dpa_programs||[]) ]).length" class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(row.entitas) }}</td>
-                    <td class="border border-emerald-200 px-3 py-3">{{ program?.nama ?? program?.program_nama ?? program?.indikator ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 max-w-[520px] break-words" :title="formatReadableText(program?.nama || program?.program_nama || program?.indikator)">{{ program?.nama ?? program?.program_nama ?? program?.indikator ?? '-' }}</td>
 
                     <!-- RKPD pagu (value + presence) -->
                     <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(sumPaguForProgram(row, 'rkpd_programs', program)) }}</td>
@@ -315,8 +322,8 @@
               <tr class="bg-emerald-50">
                 <th rowspan="2" class="min-w-[70px] border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
                 <th rowspan="2" class="min-w-[230px] border border-emerald-200 px-3 py-3 text-left font-bold">{{ entityHeaderLabel }}</th>
-                <th class="min-w-[160px] border border-emerald-200 px-3 py-3 text-center font-bold">RKPD/Renja (Tahun {{ yearValue || 2026 }})</th>
-                <th class="min-w-[160px] border border-emerald-200 px-3                                                                                   xt-center font-bold">APBD (Tahun {{ yearValue || 2026 }})</th>
+                <th class="min-w-[160px] border border-emerald-200 px-3 py-3 text-center font-bold">RKPD/Renja (Tahun {{ yearValue || 2030 }})</th>
+                <th class="min-w-[160px] border border-emerald-200 px-3                                                                                   xt-center font-bold">APBD (Tahun {{ yearValue || 2030 }})</th>
                 <th colspan="2" class="min-w-[220px] border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RKPD/Renja - APBD</th>
               </tr>
               <tr class="bg-emerald-100">
@@ -340,15 +347,9 @@
                 <td class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(row.entitas) }}</td>
                 <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} ${rkpdLabel}`)">
                   <div class="font-semibold">{{ Number(row.rkpd_count || 0) }}</div>
-                  <div class="text-xs text-slate-600 mt-1 break-words" v-if="getIndicatorsForRow(row, 'rkpd').length">
-                    {{ getIndicatorsForRow(row, 'rkpd').slice(0,3).join(', ') }}<span v-if="getIndicatorsForRow(row, 'rkpd').length > 3">, ...</span>
-                  </div>
                 </td>
                 <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} ${apbdLabel}`)">
                   <div class="font-semibold">{{ Number(row.dpa_count || 0) }}</div>
-                  <div class="text-xs text-slate-600 mt-1 break-words" v-if="getIndicatorsForRow(row, 'dpa').length">
-                    {{ getIndicatorsForRow(row, 'dpa').slice(0,3).join(', ') }}<span v-if="getIndicatorsForRow(row, 'dpa').length > 3">, ...</span>
-                  </div>
                 </td>
                 <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'same')">
                   <span :class="(getSameCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-emerald-700' : 'text-slate-500'">{{ getSameCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
@@ -368,8 +369,8 @@
               <tr class="bg-emerald-50">
                 <th rowspan="2" class="min-w-[70px] border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
                 <th rowspan="2" class="min-w-[230px] border border-emerald-200 px-3 py-3 text-left font-bold">{{ entityHeaderLabel }}</th>
-                <th class="min-w-[160px] border border-emerald-200 px-3 py-3 text-center font-bold">RKPD/Renja (Tahun {{ yearValue || 2026 }})</th>
-                <th class="min-w-[160px] border border-emerald-200 px-3                                                                                   xt-center font-bold">APBD (Tahun {{ yearValue || 2026 }})</th>
+                <th class="min-w-[160px] border border-emerald-200 px-3 py-3 text-center font-bold">RKPD/Renja (Tahun {{ yearValue || 2030 }})</th>
+                <th class="min-w-[160px] border border-emerald-200 px-3                                                                                   xt-center font-bold">APBD (Tahun {{ yearValue || 2030 }})</th>
                 <th colspan="2" class="min-w-[220px] border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RKPD/Renja - APBD</th>
               </tr>
               <tr class="bg-emerald-100">
@@ -407,41 +408,82 @@
         <!-- Tabel 3: Detailed list per entitas (compact lists inside cells) -->
         <div v-else-if="currentTable === 'tabel-3'" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
           <table class="w-full table-fixed border-collapse text-sm">
-            <thead>
-              <tr class="bg-emerald-50">
-                <th rowspan="2" class="min-w-[70px] border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
-                <th rowspan="2" class="min-w-[230px] border border-emerald-200 px-3 py-3 text-left font-bold">{{ entityHeaderLabel }}</th>
-                <th class="min-w-[160px] border border-emerald-200 px-3 py-3 text-center font-bold">RKPD/Renja (Tahun {{ yearValue || 2026 }})</th>
-                <th class="min-w-[160px] border border-emerald-200 px-3                                                                                   xt-center font-bold">APBD (Tahun {{ yearValue || 2026 }})</th>
-                <th colspan="2" class="min-w-[220px] border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RKPD/Renja - APBD</th>
+            <thead style="background-color:#166534; color: white; font-weight: bold; vertical-align: middle;">
+              <tr>
+                <th rowspan="2" style="width: 3%;">No</th>
+                <th rowspan="2" style="width: 15%;">Program Prioritas</th>
+                <th rowspan="2" style="width: 20%;">Indikator Kinerja (Outcome)</th>
+                <th rowspan="2" style="width: 5%;">Kondisi Awal (Tahun 2025)</th>
+                <th colspan="5">Pagu RPJMD (Rp)</th>
+                <th colspan="5">Target RPJMD</th>
+                <th colspan="2">Capaian Kinerja</th>
+                <th colspan="2">Rata - Rata Capaian Kinerja (Tahun {{ yearValue || 2030 }} TW {{ twValue === 'all' ? 1 : twValue }})</th>
+                <th rowspan="2" style="width: 12%;">PD Penanggung Jawab Program</th>
               </tr>
-              <tr class="bg-emerald-100">
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }}</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }}</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }} Yang Sama</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }} Yang Tidak Sama</th>
+              <tr>
+                <th>2026</th>
+                <th>2027</th>
+                <th>2028</th>
+                <th>2029</th>
+                <th>2030</th>
+                <th>2026</th>
+                <th>2027</th>
+                <th>2028</th>
+                <th>2029</th>
+                <th>2030</th>
+                <th>Rp</th>
+                <th>Capaian Kinerja</th>
+                <th>Rp</th>
+                <th>Capaian Kinerja</th>
               </tr>
-              <tr class="bg-emerald-100">
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold text-emerald-700">(1)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold text-emerald-700">(2)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold text-emerald-700">(3)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold text-emerald-700">(4)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold text-emerald-700">(5)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold text-emerald-700">(6)</th>
+              <tr style="background-color:#0f172a; color: white;">
+                <td>(1)</td>
+                <td>(2)</td>
+                <td>(3)</td>
+                <td>(4)</td>
+                <td>(5)</td>
+                <td>(6)</td>
+                <td>(7)</td>
+                <td>(8)</td>
+                <td>(9)</td>
+                <td>(10)</td>
+                <td>(11)</td>
+                <td>(12)</td>
+                <td>(13)</td>
+                <td>(14)</td>
+                <td>(15)</td>
+                <td>(16)</td>
+                <td>(17)</td>
+                <td>(18)</td>
+                <td>(19)</td>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
                 <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
-                <td class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(row.entitas) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} ${rkpdLabel}`)">{{ Number(row.rkpd_count || 0) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} ${apbdLabel}`)">{{ Number(row.dpa_count || 0) }}</td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'same')">
-                  <span :class="(getSameCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-emerald-700' : 'text-slate-500'">{{ getSameCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
-                </td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'diff')">
-                  <span :class="(getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-amber-700' : 'text-slate-500'">{{ getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
-                </td>
+                <td class="border border-emerald-200 px-3 py-3 font-medium">{{ row.program_prioritas ?? row.program ?? '-' }}</td>
+                <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.kondisi_awal ?? '-' }}</td>
+
+                <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((row.pagu && row.pagu['2026']) ? row.pagu['2026'] : 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((row.pagu && row.pagu['2027']) ? row.pagu['2027'] : 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((row.pagu && row.pagu['2028']) ? row.pagu['2028'] : 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((row.pagu && row.pagu['2029']) ? row.pagu['2029'] : 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((row.pagu && row.pagu['2030']) ? row.pagu['2030'] : 0) }}</td>
+
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target?.['2026'] ?? '-' }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target?.['2027'] ?? '-' }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target?.['2028'] ?? '-' }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target?.['2029'] ?? '-' }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target?.['2026'] ?? '-' }}</td>
+
+                <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.capaian_rp ?? 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.capaian_kinerja ?? '-' }}</td>
+
+                <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.rata_rp ?? 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.rata_capaian ?? '-' }}</td>
+
+                <td class="border border-emerald-200 px-3 py-3">{{ row.pd_penanggungjawab ?? row.opd ?? '-' }}</td>
               </tr>
             </tbody>
           </table>
@@ -455,8 +497,8 @@
                   <th class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900" rowspan="2">No</th>
                   <th class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900" rowspan="2">Bidang Urusan</th>
                   <th class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900" rowspan="2">{{ metricLabel }}</th>
-                  <th :colspan="showTargetColumns ? 2 : 1" class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900">RKPD/Renja (Tahun {{ yearValue || 2026 }})</th>
-                  <th :colspan="showTargetColumns ? 2 : 1" class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900">APBD (Tahun {{ yearValue || 2026 }})</th>
+                  <th :colspan="showTargetColumns ? 2 : 1" class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900">RKPD/Renja (Tahun {{ yearValue || 2030 }})</th>
+                  <th :colspan="showTargetColumns ? 2 : 1" class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900">APBD (Tahun {{ yearValue || 2030 }})</th>
                   <th class="px-3 py-3 border border-emerald-200 text-center font-bold text-emerald-900" rowspan="2">Status Konsistensi RKPD/Renja - APBD</th>
                 </tr>
                 <!-- single 'Indikator Program' header row retained -->
@@ -550,79 +592,91 @@
         <!-- tabel-5: Hasil Pelaksanaan RKPD (dengan header RKPD / APBD / Realisasi / Capaian) -->
         <div v-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-5' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
           <table class="w-full table-fixed border-collapse text-sm">
-            <thead>
-              <tr class="bg-emerald-50">
-                <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Kode Rek</th>
-                <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Program / Kegiatan / Sub Kegiatan</th>
-                <th colspan="4" class="border border-emerald-200 px-3 py-3 text-center font-bold">RKPD</th>
-                <th colspan="4" class="border border-emerald-200 px-3 py-3 text-center font-bold">APBD</th>
-                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi</th>
-                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian</th>
+            <thead style="color: white; font-weight: bold; vertical-align: middle; background-color:#0b5e40;">
+              <tr>
+                <th rowspan="3" style="width: 3%;">No</th>
+                <th rowspan="3" style="width: 12%;">Sasaran</th>
+                <th rowspan="3" style="width: 5%;">Kode</th>
+                <th rowspan="3" style="width: 15%;">Urusan/Bidang Urusan Pemerintahan Daerah/Program</th>
+                <th rowspan="3" style="width: 15%;">Indikator Kinerja Program</th>
+                <th colspan="2" rowspan="2">Target RPJMD Pada Tahun {{ yearValue || selectedYear || 2030 }}</th>
+                <th colspan="2" rowspan="2">Realisasi Kinerja RPJMD Sampai Dengan Tahun Lalu</th>
+                <th colspan="2" rowspan="2">Target Kinerja Dan Anggaran RKPD Tahun {{ yearValue || selectedYear || 2030 }}</th>
+                <th colspan="8">Realisasi Kinerja RKPD/Renja Pada Triwulan</th>
+                <th colspan="2" rowspan="2">Realisasi Capaian Kinerja Dan Anggaran RKPD Tahun {{ yearValue || selectedYear || 2030 }}</th>
+                <th colspan="2" rowspan="2">Realisasi Kinerja Dan Anggaran RPJMD Sampai Dengan Tahun {{ yearValue || selectedYear || 2030 }}</th>
+                <th colspan="2" rowspan="2">Tingkat Capaian Kinerja Dan Realisasi Anggaran RPJMD Sampai Dengan Tahun {{ yearValue || selectedYear || 2030 }}</th>
+                <th rowspan="3" style="width: 10%;">Perangkat Daerah Penanggung Jawab</th>
               </tr>
-              <tr class="bg-emerald-100">
-                <!-- RKPD -->
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Indikator</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Target</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Satuan</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Pagu</th>
-
-                <!-- APBD -->
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Indikator</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Target</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Satuan</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Pagu</th>
-
-                <!-- Realisasi -->
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Kinerja</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Keuangan</th>
-
-                <!-- Capaian -->
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Kinerja</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Keuangan</th>
+              <tr>
+                <th colspan="2">Triwulan I</th>
+                <th colspan="2">Triwulan II</th>
+                <th colspan="2">Triwulan III</th>
+                <th colspan="2">Triwulan IV</th>
               </tr>
-              <tr class="bg-emerald-100">
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(1)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(2)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(3)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(4)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(5)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(6)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(7)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(8)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(9)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(10)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(11)</th>
-                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(12)</th>
+              <tr>
+                <th>Kinerja</th><th>Rp</th>
+                <th>Kinerja</th><th>Rp</th>
+                <th>Kinerja</th><th>Rp</th>
+                <th>Kinerja</th><th>Rp</th>
+                <th>Kinerja</th><th>Rp</th>
+                <th>Kinerja</th><th>Rp</th>
+                <th>Kinerja (%)</th><th>Rp (%)</th>
+              </tr>
+              <tr style=" color: white; background-color:#064e3b;">
+                <td>(1)</td><td>(2)</td><td>(3)</td><td>(4)</td><td>(5)</td>
+                <td>(6)</td><td>(7)</td><td>(8)</td><td>(9)</td><td>(10)</td>
+                <td>(11)</td><td>(12)</td><td>(13)</td><td>(14)</td><td>(15)</td>
+                <td>(16)</td><td>(17)</td><td>(18)</td><td>(19)</td><td>(20)</td>
+                <td>(21)</td><td>(22)</td><td>(23)</td><td>(24)</td><td>(25)</td><td>(26)</td>
               </tr>
             </thead>
             <tbody>
-              <template v-for="(row, idx) in tableData" :key="'group5-' + idx">
-                <template v-for="(line, lineIdx) in getProgramLines(row)" :key="'line5-' + idx + '-' + line.key">
-                  <template v-for="(indRow, indIdx) in getIndicatorRowsForLine(line, row)" :key="'ind5-' + idx + '-' + line.key + '-' + indIdx">
+              <template v-for="(row, idx) in tableData" :key="'t5-' + idx">
+                <template v-for="(line, lineIdx) in getProgramLines(row)" :key="'t5-line-' + idx + '-' + line.key">
+                  <template v-for="(indRow, indIdx) in getIndicatorRowsForLine(line, row)" :key="'t5-ind-' + idx + '-' + line.key + '-' + indIdx">
                     <tr :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
-                      <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-2 text-center align-top">{{ row.no }}</td>
-                      <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-2 align-top">{{ formatEntityLabel(row.entitas) }}</td>
-                      <td v-if="indIdx === 0" :rowspan="getIndicatorRowsForLine(line, row).length" class="border border-emerald-200 px-3 py-2 align-top text-sm font-medium break-words">{{ formatReadableText(line.name) }}</td>
+                      <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-2 text-center align-top">{{ row.no ?? idx+1 }}</td>
+                      <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-2 align-top">{{ formatEntityLabel(row.sasaran || row.entitas) }}</td>
+                      <td v-if="indIdx === 0" :rowspan="getIndicatorRowsForLine(line, row).length" class="border border-emerald-200 px-3 py-2 align-top text-sm font-medium break-words">{{ line.kode ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-sm">{{ formatReadableText(line.name) }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-sm">{{ (indRow.nama_indikator ?? indRow.indikator) || '-' }}</td>
 
-                      <!-- RKPD -->
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-sm text-emerald-700 break-words">{{ formatReadableText(indRow.rkpd) ?? '-' }}</td>
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.rkpd_target ?? '-' }}</td>
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.satuan ?? '-' }}</td>
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-right text-sm text-emerald-700">{{ formatRupiah(indRow.rkpd_pagu || 0) }}</td>
+                      <!-- Target RPJMD -->
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.rpjmd_target ?? indRow.target_rpjmd ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.rpjmd_pagu || indRow.rpjmd_rp || 0) }}</td>
 
-                      <!-- APBD -->
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-sm text-emerald-700 break-words">{{ formatReadableText(indRow.dpa) ?? '-' }}</td>
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.dpa_target ?? '-' }}</td>
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.satuan_dpa ?? indRow.satuan ?? '-' }}</td>
-                      <td class="border border-emerald-200 px-3 py-2 align-top text-right text-sm text-emerald-700">{{ formatRupiah(indRow.dpa_pagu || 0) }}</td>
+                      <!-- Realisasi RPJMD sampai lalu -->
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.rpjmd_realisasi_kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.rpjmd_realisasi_rp || 0) }}</td>
 
-                      <!-- Realisasi -->
-                      <td class="border border-emerald-200 px-3 py-2 text-center align-top">{{ indRow.realisasi_kinerja ?? '-' }}</td>
-                      <td class="border border-emerald-200 px-3 py-2 text-center align-top">{{ indRow.realisasi_keuangan ?? '-' }}</td>
+                      <!-- Target RKPD -->
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.rkpd_target ?? indRow.rkpd_target_ind ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.rkpd_pagu || indRow.rkpd_rp || 0) }}</td>
 
-                      <!-- Capaian -->
-                      <td :class="getCapaianClass(computeCapaianKinerja(indRow, row))" class="border border-emerald-200 px-3 py-2 text-center align-top">{{ computeCapaianKinerja(indRow, row) }}</td>
-                      <td :class="getCapaianClass(computeCapaianKeuangan(indRow, row))" class="border border-emerald-200 px-3 py-2 text-center align-top">{{ computeCapaianKeuangan(indRow, row) }}</td>
+                      <!-- Triwulan I-IV (Kinerja / Rp) -->
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.tw1_kinerja ?? indRow.tw1?.kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.tw1_rp ?? indRow.tw1?.rp ?? 0) }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.tw2_kinerja ?? indRow.tw2?.kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.tw2_rp ?? indRow.tw2?.rp ?? 0) }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.tw3_kinerja ?? indRow.tw3?.kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.tw3_rp ?? indRow.tw3?.rp ?? 0) }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.tw4_kinerja ?? indRow.tw4?.kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.tw4_rp ?? indRow.tw4?.rp ?? 0) }}</td>
+
+                      <!-- Realisasi RKPD total -->
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.rkpd_realisasi_kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.rkpd_realisasi_rp ?? 0) }}</td>
+
+                      <!-- Realisasi RPJMD total -->
+                      <td class="border border-emerald-200 px-3 py-2 text-center">{{ indRow.rpjmd_realisasi_kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-right">{{ formatRupiah(indRow.rpjmd_realisasi_rp ?? 0) }}</td>
+
+                      <!-- Tingkat capaian (Kinerja % & Rp %) computed -->
+                      <td :class="getCapaianClass(computeCapaianKinerja(indRow, row))" class="border border-emerald-200 px-3 py-2 text-center">{{ computeCapaianKinerja(indRow, row) }}</td>
+                      <td :class="getCapaianClass(computeCapaianKeuangan(indRow, row))" class="border border-emerald-200 px-3 py-2 text-center">{{ computeCapaianKeuangan(indRow, row) }}</td>
+
+                      <td class="border border-emerald-200 px-3 py-2">{{ row.pd_penanggungjawab ?? row.opd ?? '-' }}</td>
                     </tr>
                   </template>
                 </template>
@@ -640,7 +694,7 @@
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
               <th class="border border-emerald-200 px-3 py-3 text-left font-bold">Indikator</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Satuan</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target 2026</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target 2030</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi Tahun</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Fisik</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Keuangan</th>
@@ -649,9 +703,9 @@
           <tbody>
             <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
               <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
-              <td class="border border-emerald-200 px-3 py-3">{{ row.indikator }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.satuan }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target_2026 }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target_2030 }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_tahun ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_fisik ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_keuangan ?? '-' }}</td>
@@ -672,7 +726,7 @@
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Satuan</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target RPJMD</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target RKPD</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Tahun {{ yearValue || 2026 }}</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Tahun {{ yearValue || 2030 }}</th>
             </tr>
             <tr class="bg-emerald-100">
               <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(1)</th>
@@ -691,12 +745,82 @@
               <td v-if="row.tujuan_first" :rowspan="row.tujuan_rowspan" class="border border-emerald-200 px-3 py-3 align-top">{{ row.tujuan ?? '-' }}</td>
               <td v-else class="hidden"></td>
               <td class="border border-emerald-200 px-3 py-3">{{ row.sasaran ?? '-' }}</td>
-              <td class="border border-emerald-200 px-3 py-3">{{ row.indikator ?? '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.satuan ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target_rpjmd ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target_rkpd ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.capaian_tahun ?? '-' }}</td>
             </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Hasil Pelaksanaan RKPD - Tabel 3: header 3-baris sesuai permintaan -->
+      <div v-else-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-3' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
+        <table class="w-full table-fixed border-collapse text-sm">
+          <thead class="text-white font-semibold align-middle bg-emerald-800">
+            <tr>
+              <th rowspan="3" class="border border-emerald-200 px-3 py-3 text-center w-12">No</th>
+              <th rowspan="3" class="border border-emerald-200 px-3 py-3 text-left min-w-[220px]">Program Prioritas</th>
+              <th rowspan="3" class="border border-emerald-200 px-3 py-3 text-left min-w-[300px]">Indikator Kinerja (Outcome)</th>
+              <th rowspan="3" class="border border-emerald-200 px-3 py-3 text-center w-28">Kondisi Awal (Tahun 2021)</th>
+              <th colspan="5" class="border border-emerald-200 px-3 py-3 text-center">Pagu RPJMD (Rp)</th>
+              <th colspan="5" class="border border-emerald-200 px-3 py-3 text-center">Target RPJMD</th>
+              <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center">Capaian Kinerja</th>
+              <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center">Rata - Rata Capaian Kinerja (Tahun {{ yearValue || selectedYear || 2030 }} TW {{ twValue === 'all' ? 1 : twValue }})</th>
+              <th rowspan="3" class="border border-emerald-200 px-3 py-3 text-left">PD Penanggung Jawab Program</th>
+            </tr>
+            <tr class="bg-emerald-700 text-white">
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2026</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2027</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2028</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2029</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2026</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2026</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2027</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2028</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2029</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-20">2026</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-24">Rp</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-24">Capaian Kinerja</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-24">Rp</th>
+              <th class="border border-emerald-200 px-3 py-2 text-center w-24">Capaian Kinerja</th>
+            </tr>
+            <!-- numbering row removed as requested -->
+          </thead>
+          <tbody>
+            <template v-for="(row, idx) in tableData" :key="'t3-'+idx">
+              <template v-for="(line, lineIdx) in getProgramLines(row)" :key="'t3-line-'+idx+'-'+line.key">
+                <template v-for="(indRow, indIdx) in getIndicatorRowsForLine(line, row)" :key="'t3-ind-'+idx+'-'+line.key+'-'+indIdx">
+                  <tr :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
+                    <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-3 text-center align-top font-semibold">{{ row.no ?? idx+1 }}</td>
+                    <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-3 align-top font-medium">{{ row.program_prioritas ?? row.program ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 align-top">{{ (indRow.nama_indikator ?? indRow.indikator) || '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.kondisi_awal ?? row.kondisi_awal ?? '-' }}</td>
+
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((indRow.pagu?.['2026'] ?? row.pagu?.['2026']) || 0) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((indRow.pagu?.['2027'] ?? row.pagu?.['2027']) || 0) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((indRow.pagu?.['2028'] ?? row.pagu?.['2028']) || 0) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((indRow.pagu?.['2029'] ?? row.pagu?.['2029']) || 0) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah((indRow.pagu?.['2026'] ?? row.pagu?.['2026']) || 0) }}</td>
+
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.target?.['2026'] ?? row.target?.['2026'] ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.target?.['2027'] ?? row.target?.['2027'] ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.target?.['2028'] ?? row.target?.['2028'] ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.target?.['2029'] ?? row.target?.['2029'] ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.target?.['2026'] ?? row.target?.['2026'] ?? '-' }}</td>
+
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(indRow.capaian_rp ?? row.capaian_rp ?? 0) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.capaian_kinerja ?? row.capaian_kinerja ?? '-' }}</td>
+
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(indRow.rata_rp ?? row.rata_rp ?? 0) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center">{{ indRow.rata_capaian ?? row.rata_capaian ?? '-' }}</td>
+
+                    <td class="border border-emerald-200 px-3 py-3">{{ row.pd_penanggungjawab ?? row.opd ?? '-' }}</td>
+                  </tr>
+                </template>
+              </template>
+            </template>
           </tbody>
         </table>
       </div>
@@ -708,13 +832,23 @@
             <tr class="bg-emerald-50">
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">10 Program Aksi Kepala Daerah</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Tahun {{ yearValue || 2026 }}</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Anggaran Tahun {{ yearValue || 2026 }}</th>
+              <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Utama (Tahun {{ yearValue || 2030 }})</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Program Prioritas (Pendukung)</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Indikator Program Prioritas (RPJMD)</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target Tahun {{ yearValue || 2026 }}</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target Tahun {{ yearValue || 2030 }}</th>
               <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Satuan</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Tahun {{ yearValue || 2026 }}</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Tahun {{ yearValue || 2030 }}</th>
+            </tr>
+            <tr class="bg-emerald-100">
+              <th></th>
+              <th></th>
+              <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">Kinerja</th>
+              <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">Anggaran</th>
+              <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(5)</th>
+              <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(6)</th>
+              <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(7)</th>
+              <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(8)</th>
+              <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(9)</th>
             </tr>
             <tr class="bg-emerald-100">
               <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(1)</th>
@@ -736,10 +870,84 @@
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.capaian_fisik ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.capaian_keuangan ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-sm">{{ (row.prioritas_programs || []).join(', ') || '-' }}</td>
-              <td class="border border-emerald-200 px-3 py-3">{{ row.rpjmd_indikator ?? row.indikator ?? '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.rpjmd_target ?? row.target ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.rpjmd_satuan ?? row.satuan ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.rpjmd_capaian ?? row.indikator_capaian ?? '-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- New: tabel-4 for hasil-pelaksanaan-rkpd (dedicated block) -->
+      <div v-else-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-4' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
+        <table class="w-full table-fixed border-collapse text-sm">
+          <thead>
+            <tr class="bg-emerald-50">
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
+              <th class="border border-emerald-200 px-3 py-3 text-left font-bold">Program / Kode</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">RENJA Indikator</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">RENJA Target</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">DPA Indikator</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">DPA Target</th>
+              <th class="border border-emerald-200 px-3 py-3 text-right font-bold">Pagu</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi Fisik</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi Keu</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Kinerja</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Keuangan</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">PD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
+              <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no ?? idx + 1 }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ row.nama || row.program || row.kode || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.rkpd_target ?? row.target) || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ (row.dpa_indikator ?? row.dpa_nama_indikator ?? row.dpa?.[0]?.nama_indikator) || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.dpa_target ?? row.dpa?.[0]?.target_indikator) || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.pagu ?? row.dpa_pagu ?? 0) }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_fisik ?? '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.realisasi_keu ?? 0) }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.capaian_kinerja ?? row.capaian ?? '-') }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.capaian_keuangan ?? '-') }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ row.pd_penanggungjawab ?? row.opd ?? '-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- New: tabel-6 for hasil-pelaksanaan-rkpd (dedicated block) -->
+      <div v-else-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-6' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
+        <table class="w-full table-fixed border-collapse text-sm">
+          <thead>
+            <tr class="bg-emerald-50">
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
+              <th class="border border-emerald-200 px-3 py-3 text-left font-bold">Program / Kode</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Indikator</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Satuan</th>
+              <th class="border border-emerald-200 px-3 py-3 text-right font-bold">Pagu</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi Fisik</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi Keu</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Kinerja</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian Keuangan</th>
+              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">PD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
+              <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no ?? idx + 1 }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ row.nama || row.program || row.kode || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.target ?? row.target_indikator) || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.satuan ?? '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.pagu ?? row.dpa_pagu ?? 0) }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_fisik ?? '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.realisasi_keu ?? 0) }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.capaian_kinerja ?? '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.capaian_keuangan ?? '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3">{{ row.pd_penanggungjawab ?? row.opd ?? '-' }}</td>
             </tr>
           </tbody>
         </table>
@@ -757,8 +965,8 @@
                 <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">2</span>
               </th>
 
-              <th colspan="4" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">RENJA (Tahun {{ yearValue || selectedYear || 2026 }})</th>
-              <th colspan="4" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">DPA (Tahun {{ yearValue || selectedYear || 2026 }})</th>
+              <th colspan="4" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">RENJA (Tahun {{ yearValue || selectedYear || 2030 }})</th>
+              <th colspan="4" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">DPA (Tahun {{ yearValue || selectedYear || 2030 }})</th>
 
               <th colspan="2" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">Realisasi</th>
               <th colspan="2" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">Capaian</th>
@@ -1141,7 +1349,7 @@
       
 
       <div
-        v-else-if="currentView === 'konsistensi-rpjmd-rkpd' && currentTable === 'tabel-3' && tableData"
+        v-else-if="currentView === 'konsistensi-rpjmd-rkpd' && currentTable === 'tabel-3'"
         class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md"
       >
         <table class="w-full table-fixed border-collapse text-sm">
@@ -1164,9 +1372,9 @@
               <th rowspan="2" class="w-[52px] border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">No</th>
               <th rowspan="2" class="w-[160px] border border-emerald-200 bg-emerald-100 px-2 py-2 text-left font-bold text-emerald-900">{{ entityHeaderLabel }}</th>
               <th rowspan="2" class="w-[200px] border border-emerald-200 bg-emerald-100 px-2 py-2 text-left font-bold text-emerald-900">Program</th>
-              <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">RPJMD - Tahun {{ yearValue || 2026 }}</th>
-              <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">Renstra - Tahun {{ yearValue || 2026 }}</th>
-              <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">RKPD - Tahun {{ yearValue || 2026 }}</th>
+              <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">RPJMD - Tahun {{ yearValue || 2030 }}</th>
+              <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">Renstra - Tahun {{ yearValue || 2030 }}</th>
+              <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-3 py-3 text-center font-bold text-emerald-900">RKPD - Tahun {{ yearValue || 2030 }}</th>
               <th rowspan="2" class="w-[140px] border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Status Konsistensi RPJMD - Renstra</th>
               <th rowspan="2" class="w-[140px] border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Status Konsistensi RPJMD - RKPD/Renja</th>
               <th rowspan="2" class="w-[140px] border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Status Konsistensi Renstra - RKPD/Renja</th>
@@ -1218,10 +1426,10 @@
                   <div class="rounded-md border border-emerald-200 bg-white px-2 py-1 break-words whitespace-normal leading-snug">{{ line.renstraTarget }}</div>
                 </td>
                 <td class="border border-emerald-200 px-2 py-2 align-top text-sm text-slate-800 break-words whitespace-normal">
-                  <div class="rounded-md border border-emerald-200 bg-emerald-50/40 px-2 py-1 break-words whitespace-normal leading-snug">{{ formatReadableText(line.rkpdName) }}</div>
+                  <div class="rounded-md border border-emerald-200 bg-emerald-50/40 px-2 py-1 break-words whitespace-normal leading-snug">{{ useRenjaForLeftColumn.value ? '' : formatReadableText(line.rkpdName) }}</div>
                 </td>
                 <td class="border border-emerald-200 px-2 py-2 align-top text-center text-sm font-semibold text-slate-700 break-words whitespace-normal">
-                  <div class="rounded-md border border-emerald-200 bg-white px-2 py-1 break-words whitespace-normal leading-snug">{{ line.rkpdTarget }}</div>
+                  <div class="rounded-md border border-emerald-200 bg-white px-2 py-1 break-words whitespace-normal leading-snug">{{ useRenjaForLeftColumn.value ? '' : line.rkpdTarget }}</div>
                 </td>
                 <td class="border border-emerald-200 px-2 py-2 align-top text-center text-sm font-semibold break-words whitespace-normal">
                   <div :class="[getStatusClass(line.statusRpjmdRenstra), 'rounded-md border border-emerald-200 bg-white px-2 py-1 break-words whitespace-normal leading-snug']">{{ line.statusRpjmdRenstra }}</div>
@@ -1239,9 +1447,16 @@
       </div>
 
       <div
-        v-else-if="currentView === 'konsistensi-rpjmd-rkpd' && currentTable === 'tabel-4' && tableData"
+        v-else-if="currentView === 'konsistensi-rpjmd-rkpd' && currentTable === 'tabel-4'"
         class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md"
       >
+        <div v-if="Array.isArray(tableData) && tableData.length === 0" class="p-6 text-sm text-center text-slate-700">
+          Tidak ada data untuk tabel ini.
+          <div class="mt-3 flex items-center justify-center gap-3">
+            <a :href="(window.location.pathname || '/') + '?view=' + currentView + '&table=' + currentTable + '&debug_opd_id=20'" class="rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700">Tampilkan debug OPD sample</a>
+            <a :href="(window.location.pathname || '/') + '?view=' + currentView + '&table=' + currentTable" class="rounded-md bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200">Reload tanpa filter</a>
+          </div>
+        </div>
         <table class="w-full table-fixed border-collapse text-sm">
           <colgroup>
             <col class="w-[52px]" />
@@ -1262,9 +1477,9 @@
               <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">No</th>
               <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-left font-bold text-emerald-900">{{ entityHeaderLabel }}</th>
               <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-left font-bold text-emerald-900">Program</th>
-              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Pagu RPJMD ({{ yearValue || 2026 }})</th>
-              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Pagu Renstra ({{ yearValue || 2026 }})</th>
-              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Pagu RKPD/Renja ({{ yearValue || 2026 }})</th>
+              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Pagu RPJMD ({{ yearValue || 2030 }})</th>
+              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Pagu Renstra ({{ yearValue || 2030 }})</th>
+              <th rowspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Pagu RKPD/Renja ({{ yearValue || 2030 }})</th>
               <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Konsistensi RPJMD - Renstra</th>
               <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Konsistensi RPJMD - RKPD/Renja</th>
               <th colspan="2" class="border border-emerald-200 bg-emerald-100 px-2 py-2 text-center font-bold text-emerald-900">Konsistensi Renstra - RKPD/Renja</th>
@@ -1500,6 +1715,8 @@ const activeBranch = computed(() => {
 
 // For some resume views/tables we want to alter visible labels
 const isRenjaDpaMode = computed(() => props.currentView === 'hasil-pelaksanaan-rkpd' && props.currentTable === 'tabel-7');
+// Also allow using Renja indicators for left column when viewing konsistensi tabel-4
+const useRenjaForLeftColumn = computed(() => isRenjaDpaMode.value || (props.currentView === 'konsistensi-rkpd-apbd' && props.currentTable === 'tabel-4'));
 const rkpdLabel = computed(() => isRenjaDpaMode.value ? 'Renja' : 'RKPD/Renja');
 const apbdLabel = computed(() => isRenjaDpaMode.value ? 'DPA' : 'APBD');
 
@@ -1846,6 +2063,22 @@ function renderCapaian(pctString) {
     return { text: pctString, cls };
   } catch (e) {
     return { text: 'NA', cls: 'bg-gray-400 text-white rounded px-1' };
+  }
+}
+
+function getPreferredIndicatorLabel(row, kode) {
+  try {
+    // prefer renstra program-level indicators when available
+    const programs = row?.renstra_programs || row?.rkpd_programs || row?.renja_programs || [];
+    if (Array.isArray(programs) && programs.length > 0) {
+      const k = kode || row?.kode_rek || row?.kode || (programs[0] && programs[0].kode) || '';
+      const v = getIndicatorValue(programs, k, 'nama_indikator');
+      if (v && v !== '-') return v;
+    }
+    // fallback to common fields on the row
+    return row?.renstra_indikator ?? row?.rpjmd_indikator ?? row?.rkpd_indikator ?? row?.indikator_program ?? row?.indikator ?? row?.nama_indikator ?? '-';
+  } catch (e) {
+    return row?.indikator ?? '-';
   }
 }
 
@@ -2391,7 +2624,11 @@ function computeProgramRowspans(lines) {
 const isDokumenView = computed(() => props.currentView === 'dokumen' && props.currentTable === 'monitoring');
 
 const isIndikatorMode = computed(() => {
-  return props.tableMetricType === 'indikator';
+  // treat `tabel-4` in `konsistensi-rkpd-apbd` as indikator mode even when
+  // `tableMetricType` wasn't explicitly set by the server.
+  if (props.tableMetricType === 'indikator') return true;
+  if (props.currentView === 'konsistensi-rkpd-apbd' && props.currentTable === 'tabel-4') return true;
+  return false;
 });
 
 const sortedRealisasiTableData = computed(() => {
@@ -2904,7 +3141,7 @@ const getProgramLines = (row) => {
     const entry = map.get(key);
 
     const collectIndicatorsFrom = (item) => {
-      if (props.tableMetricType === 'program') return [];
+      if (!isIndikatorMode.value) return [];
       return extractIndicatorNamesGlobal(item);
     };
 
@@ -2959,14 +3196,44 @@ const getProgramLines = (row) => {
 
   // If RKPD indicators are absent but DPA indicators exist for the same program,
   // mirror DPA indicators into RKPD so the RKPD column (kolom 4) shows values.
-  // Only do this for non-program metric types (we should not create program-level indicators).
-  if (props.tableMetricType !== 'program') {
+  // Only do this for non-program metric types and only when RENJA-as-left isn't active.
+  // When `useRenjaForLeftColumn` is true we must not create RKPD indicators from DPA,
+  // because the left column should strictly reflect RENJA presence (or be empty).
+  if (props.tableMetricType !== 'program' && !useRenjaForLeftColumn.value) {
     lines.forEach((l) => {
       if ((!l.rkpdIndicators || l.rkpdIndicators.length === 0) && (l.dpaIndicators && l.dpaIndicators.length > 0)) {
         l.rkpdIndicators = [...l.dpaIndicators];
       }
     });
   }
+
+  // Additional rule: when RENJA-as-left mode is active for tabel-4, treat the DPA
+  // dataset as the reference for whether indicators should be shown. If there
+  // is no matching DPA program for a line, or the matching DPA program has no
+  // indikator entries, clear both RKPD and DPA indicator arrays so the table
+  // renders an empty indicator row (per user's DPA-as-acuan request).
+  try {
+    if (useRenjaForLeftColumn.value) {
+      const dpaList = Array.isArray(row?.dpa_programs) ? row.dpa_programs : [];
+      lines.forEach((l) => {
+        // try to locate a DPA program matching this line by program key or name
+        const match = dpaList.find((p) => {
+          const k1 = buildProgramKey(p) || '';
+          const k2 = l.key || '';
+          if (k1 && k2 && k1 === k2) return true;
+          const name = (p?.nama ?? p?.program_nama ?? '').trim();
+          if (name && l.name && name === l.name) return true;
+          return false;
+        });
+
+        const hasDpaIndicators = match && Array.isArray(match.indikator) && match.indikator.filter(Boolean).length > 0;
+        if (!hasDpaIndicators) {
+          l.rkpdIndicators = [];
+          l.dpaIndicators = [];
+        }
+      });
+    }
+  } catch (e) {}
 
   return lines.length > 0 ? lines : [{ key: '__none', name: '-', rpjmdIndicators: [], renstraIndicators: [], rkpdIndicators: [], dpaIndicators: [] }];
 };
@@ -3021,7 +3288,7 @@ function getIndicatorRowsForLine(line, row) {
   // Collect Renja indicators for the selected year when in Renja-DPA (tabel-7) mode
   const renjaList = (() => {
     try {
-      if (!isRenjaDpaMode.value) return [];
+      if (!useRenjaForLeftColumn.value) return [];
       const year = yearValue.value;
       const programs = Array.isArray(row?.rkpd_programs) ? row.rkpd_programs.filter(p => String((p?.dokumen || '')).toUpperCase() === 'RENJA') : [];
       const filtered = programs.filter(p => (year ? Number(p?.tahun) === Number(year) : true));
@@ -3030,6 +3297,15 @@ function getIndicatorRowsForLine(line, row) {
       return [];
     }
   })();
+
+  // If RENJA is the required left source but RENJA provides no indicators,
+  // do not show indicators from other sources — return a single empty row
+  // so the program renders without indicator lines.
+  try {
+    if (useRenjaForLeftColumn.value && Array.isArray(renjaList) && renjaList.length === 0) {
+      return [{ rkpd: '', dpa: '' }];
+    }
+  } catch (e) {}
 
   // Build maps from normalized indicator text -> original text
   const rkpdMap = new Map();
@@ -3074,7 +3350,7 @@ function getIndicatorRowsForLine(line, row) {
   // Build Renja-specific target map (prefer renja program entries for the selected year)
   const renjaTargetMap = new Map();
   try {
-    if (isRenjaDpaMode.value) {
+    if (useRenjaForLeftColumn.value) {
       const year = yearValue.value;
       (row?.rkpd_programs || []).filter(p => String((p?.dokumen || '')).toUpperCase() === 'RENJA' && (year ? Number(p?.tahun) === Number(year) : true)).forEach((p) => {
         const names = extractIndicatorNamesGlobal(p);
@@ -3124,7 +3400,7 @@ function getIndicatorRowsForLine(line, row) {
   // Renja satuan map
   const renjaSatuanMap = new Map();
   try {
-    if (isRenjaDpaMode.value) {
+    if (useRenjaForLeftColumn.value) {
       const year = yearValue.value;
       (row?.rkpd_programs || []).filter(p => String((p?.dokumen || '')).toUpperCase() === 'RENJA' && (year ? Number(p?.tahun) === Number(year) : true)).forEach((p) => {
         const names = extractIndicatorNamesGlobal(p);
@@ -3257,6 +3533,8 @@ function getIndicatorRowsForLine(line, row) {
   const seen = new Set();
   const keys = [];
   const pushKey = (k) => { if (k && !seen.has(k)) { seen.add(k); keys.push(k); } };
+  // prefer Renja keys first so Renja-only indicators appear in the left column
+  renjaList.forEach(i => pushKey(normalize(i)));
   rkpdList.forEach(i => pushKey(normalize(i)));
   dpaList.forEach(i => pushKey(normalize(i)));
   rpjmdList.forEach(i => pushKey(normalize(i)));
@@ -3268,16 +3546,19 @@ function getIndicatorRowsForLine(line, row) {
   }
 
   return keys.map((k) => ({
-    // Prefer Renja/Renstra indicators for the RKPD column when available,
-    // otherwise fallback to RKPD or RPJMD indicators.
-    rkpd: (isRenjaDpaMode.value ? (renjaMap.get(k) || renstraMap.get(k) || rkpdMap.get(k) || rpjmdMap.get(k)) : (renstraMap.get(k) || rkpdMap.get(k) || rpjmdMap.get(k))) || '',
+    // Prefer RENJA for the left RKPD column when requested. If RENJA has no
+    // indicator for this key, show '-' explicitly (no fallback).
+    rkpd: useRenjaForLeftColumn.value ? (renjaMap.has(k) ? renjaMap.get(k) : '-') : ((renstraMap.get(k) || rkpdMap.get(k) || rpjmdMap.get(k)) || ''),
     dpa: dpaMap.get(k) || '',
-    rkpd_target: (isRenjaDpaMode.value ? (renjaTargetMap.has(k) ? renjaTargetMap.get(k) : (rkpdTargetMap.has(k) ? rkpdTargetMap.get(k) : null)) : (rkpdTargetMap.has(k) ? rkpdTargetMap.get(k) : null)),
+    // Targets: when using RENJA as left source, show RENJA target if present,
+    // otherwise show '-' to indicate missing RENJA target.
+    rkpd_target: useRenjaForLeftColumn.value ? (renjaTargetMap.has(k) ? renjaTargetMap.get(k) : '-') : (rkpdTargetMap.has(k) ? rkpdTargetMap.get(k) : null),
     dpa_target: dpaTargetMap.has(k) ? dpaTargetMap.get(k) : null,
-    rkpd_satuan: (isRenjaDpaMode.value ? (renjaSatuanMap.has(k) ? renjaSatuanMap.get(k) : (rkpdSatuanMap.has(k) ? rkpdSatuanMap.get(k) : null)) : (rkpdSatuanMap.has(k) ? rkpdSatuanMap.get(k) : null)),
+    // Satuan: same handling as targets
+    rkpd_satuan: useRenjaForLeftColumn.value ? (renjaSatuanMap.has(k) ? renjaSatuanMap.get(k) : '-') : (rkpdSatuanMap.has(k) ? rkpdSatuanMap.get(k) : null),
     dpa_satuan: dpaSatuanMap.has(k) ? dpaSatuanMap.get(k) : null,
-    // pagu: prefer Renstra (Renja) pagu -> RKPD pagu -> DPA pagu
-    rkpd_pagu: (isRenjaDpaMode.value ? (renjaPaguMap.get(k) || renstraPaguMap.get(k) || rkpdPaguMap.get(k) || dpaPaguMap.get(k)) : (renstraPaguMap.get(k) || rkpdPaguMap.get(k) || dpaPaguMap.get(k))) || 0,
+    // pagu: prefer RENJA pagu when using RENJA, otherwise follow previous order
+    rkpd_pagu: useRenjaForLeftColumn.value ? (renjaPaguMap.has(k) ? renjaPaguMap.get(k) : 0) : ((renstraPaguMap.get(k) || rkpdPaguMap.get(k) || dpaPaguMap.get(k)) || 0),
     dpa_pagu: dpaPaguMap.get(k) || 0,
   }));
 }
@@ -3467,6 +3748,14 @@ const compareProgramLists = (leftPrograms, rightPrograms) => {
     leftOnlyPrograms,
     rightOnlyPrograms,
   };
+};
+
+// Return indicator names suitable for preview: filter out program names to avoid
+// showing program titles where only indicators should appear.
+const getIndicatorPreviewForRow = (row, type) => {
+  const indicators = getIndicatorsForRow(row, type) || [];
+  const programNames = (getProgramNamesForRow(row) || []).map(s => String(s || '').toLowerCase());
+  return indicators.filter(i => !programNames.includes(String(i || '').toLowerCase()));
 };
 
 const getSameCountByKeys = (row, leftKey, rightKey) => {

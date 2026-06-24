@@ -385,6 +385,51 @@ class ResumeController extends Controller
                 $tableData = $rows;
             }
 
+            // Hasil Pelaksanaan RKPD - tabel-3: summary per Program Prioritas (fallback generator)
+            if ($currentView === 'hasil-pelaksanaan-rkpd' && $currentTable === 'tabel-3') {
+                $rows = [];
+                $counter = 0;
+                $programs = Program::query()->orderBy('kode_rek')->get();
+                foreach ($programs as $program) {
+                    $indikators = DB::table('indikatorables as ia')
+                        ->join('indikator as i', 'i.id', '=', 'ia.indikator_id')
+                        ->where('ia.indicatorable_type', Program::class)
+                        ->where('ia.indicatorable_id', $program->id)
+                        ->when($selectedYear, fn($q) => $q->where('ia.tahun', $selectedYear))
+                        ->select('i.uraian as indikator', 'i.satuan', 'ia.target', 'ia.realisasi')
+                        ->get();
+
+                    $first = $indikators->first();
+                    $counter++;
+                    $rows[] = [
+                        'no' => $counter,
+                        'program_prioritas' => $program->nama_rincian ?? $program->nama ?? $program->kode_rek,
+                        'indikator' => $first->indikator ?? '-',
+                        'kondisi_awal' => null,
+                        'pagu' => [
+                            '2022' => null,
+                            '2023' => null,
+                            '2024' => null,
+                            '2025' => null,
+                            '2026' => null,
+                        ],
+                        'target' => [
+                            '2022' => null,
+                            '2023' => null,
+                            '2024' => null,
+                            '2025' => null,
+                            '2026' => null,
+                        ],
+                        'capaian_rp' => $first->realisasi ?? null,
+                        'capaian_kinerja' => $first->realisasi ?? null,
+                        'rata_rp' => null,
+                        'rata_capaian' => null,
+                        'pd_penanggungjawab' => $program->opd_id ? (Opd::query()->where('id', $program->opd_id)->value('nama') ?? null) : null,
+                    ];
+                }
+                $tableData = $rows;
+            }
+
             // Provide a full Renja dump: group top-level Renja programs by OPD
             if ($currentView === 'renja' && $currentTable === 'semua-renja') {
                 $tableData = [];
@@ -1117,10 +1162,116 @@ class ResumeController extends Controller
             ], $inertiaExtras));
         }
 
-        return Inertia::render('Resume/Index', [
+        $inertiaPayload = [
             'currentView' => $currentView,
             'currentTable' => $currentTable,
-        ]);
+        ];
+
+        // Optional debug payload: if debug_opd_id is provided, include raw program/indikator lists
+        $debugOpdId = $request->query('debug_opd_id') ? (int) $request->query('debug_opd_id') : null;
+        if ($debugOpdId !== null) {
+            $debugInfo = ['found' => false, 'opd_id' => $debugOpdId];
+            try {
+                $opd = Opd::find($debugOpdId);
+                if ($opd) {
+                    $opdName = $opd->nama;
+                    $debugInfo['opd_name'] = $opdName;
+                    // find matching row in tableData
+                    $foundRow = null;
+                    foreach ($tableData as $row) {
+                        $r = is_array($row) ? $row : (array) $row;
+                        if (isset($r['entitas']) && trim((string)$r['entitas']) === trim((string)$opdName)) {
+                            $foundRow = $r;
+                            break;
+                        }
+                    }
+
+                    if ($foundRow !== null) {
+                        $debugInfo['found'] = true;
+                        $lists = [
+                            'rpjmd_programs' => (array) ($foundRow['rpjmd_programs'] ?? []),
+                            'renstra_programs' => (array) ($foundRow['renstra_programs'] ?? []),
+                            'rkpd_programs' => (array) ($foundRow['rkpd_programs'] ?? []),
+                        ];
+
+                        $normalized = [];
+                        foreach ($lists as $k => $items) {
+                            $normalized[$k] = array_map(function ($it) use ($k) {
+                                if (!is_array($it)) return $it;
+                                return [
+                                    'raw' => $it,
+                                    'comp_key' => $this->buildComparableKey($it, $k === 'rpjmd_programs' ? 'program' : ( $k === 'renstra_programs' ? 'program' : 'program')),
+                                    'name_key' => $this->buildComparableName($it, 'program'),
+                                ];
+                            }, $items);
+                        }
+
+                        $debugInfo['lists'] = $lists;
+                        $debugInfo['normalized'] = $normalized;
+                        // counts
+                        $debugInfo['counts'] = [
+                            'rpjmd' => count($lists['rpjmd_programs']),
+                            'renstra' => count($lists['renstra_programs']),
+                            'rkpd' => count($lists['rkpd_programs']),
+                        ];
+
+                            // If this is tabel-2 (indikator), include detailed indicator maps and aligned lines
+                            if (($currentTable ?? '') === 'tabel-2' || ($tableMetricType ?? '') === 'indikator') {
+                                $rpjmdCounts = [];
+                                $rpjmdSamples = [];
+                                foreach (($foundRow['rpjmd_programs'] ?? []) as $it) {
+                                    if (!is_array($it)) continue;
+                                    $k = $this->buildComparableKey($it, 'indikator');
+                                    if ($k === '' || $k === '|') continue;
+                                    $rpjmdCounts[$k] = ($rpjmdCounts[$k] ?? 0) + 1;
+                                    $rpjmdSamples[$k] = $it;
+                                }
+
+                                $dpaCounts = [];
+                                $dpaSamples = [];
+                                foreach (($foundRow['rkpd_programs'] ?? []) as $it) {
+                                    if (!is_array($it)) continue;
+                                    $k = $this->buildComparableKey($it, 'indikator');
+                                    if ($k === '' || $k === '|') continue;
+                                    $dpaCounts[$k] = ($dpaCounts[$k] ?? 0) + 1;
+                                    $dpaSamples[$k] = $it;
+                                }
+
+                                $allKeys = array_values(array_unique(array_merge(array_keys($rpjmdCounts), array_keys($dpaCounts))));
+                                if (count($allKeys) === 0) $allKeys = [''];
+
+                                $aligned = [];
+                                foreach ($allKeys as $k) {
+                                    $r = $rpjmdSamples[$k] ?? null;
+                                    $d = $dpaSamples[$k] ?? null;
+                                    $rkpdCount = $rpjmdCounts[$k] ?? 0;
+                                    $dpaCount = $dpaCounts[$k] ?? 0;
+                                    $aligned[] = [
+                                        'key' => $k,
+                                        'rpjmd_sample' => $r,
+                                        'rkpd_sample' => $d,
+                                        'rpjmd_count' => $rkpdCount,
+                                        'rkpd_count' => $dpaCount,
+                                        'status' => ($rkpdCount > 0 && $rkpdCount === $dpaCount) ? 'Konsisten' : 'Tidak Konsisten',
+                                    ];
+                                }
+
+                                $debugInfo['indicator_debug'] = [
+                                    'rpjmdCounts' => $rpjmdCounts,
+                                    'rkpdCounts' => $dpaCounts,
+                                    'aligned' => $aligned,
+                                ];
+                            }
+                    }
+                }
+            } catch (\Throwable $e) {
+                $debugInfo['error'] = $e->getMessage();
+            }
+
+            $inertiaPayload['debug'] = $debugInfo;
+        }
+
+        return Inertia::render('Resume/Index', $inertiaPayload);
     }
 
     /**
@@ -1811,12 +1962,18 @@ class ResumeController extends Controller
     private function countSameComparableItems(array $leftItems, array $rightItems, string $metricType): int
     {
         $rightKeys = [];
+        $rightNames = [];
         foreach ($rightItems as $item) {
             if (!is_array($item)) {
                 continue;
             }
 
-            $rightKeys[$this->buildComparableKey($item, $metricType)] = true;
+            $rk = $this->buildComparableKey($item, $metricType);
+            if ($rk !== '') $rightKeys[$rk] = true;
+
+            // also store name-only normalized key as fallback
+            $rname = $this->buildComparableName($item, $metricType);
+            if ($rname !== '') $rightNames[$rname] = true;
         }
 
         $count = 0;
@@ -1826,12 +1983,25 @@ class ResumeController extends Controller
             }
 
             $key = $this->buildComparableKey($item, $metricType);
-            if ($key !== '' && isset($rightKeys[$key])) {
+            $nameKey = $this->buildComparableName($item, $metricType);
+
+            if (($key !== '' && isset($rightKeys[$key])) || ($nameKey !== '' && isset($rightNames[$nameKey]))) {
                 $count++;
             }
         }
 
         return $count;
+    }
+
+    private function buildComparableName(array $item, string $metricType): string
+    {
+        if ($metricType === 'indikator') {
+            $name = $this->normalizeComparableText((string) ($item['nama'] ?? '' ));
+            return preg_replace('/[^A-Z0-9]/', '', $name) ?? '';
+        }
+
+        $name = $this->normalizeComparableText((string) ($item['nama'] ?? '' ));
+        return preg_replace('/[^A-Z0-9]/', '', $name) ?? '';
     }
 
     private function buildComparableKey(array $item, string $metricType): string
@@ -2099,15 +2269,15 @@ class ResumeController extends Controller
             $rkpdItem = $rkpdMap[$key] ?? null;
 
             $rows[] = [
-                'rpjmd_name' => (string) ($rpjmdItem['nama'] ?? ''),
-                'rpjmd_target' => $this->formatIndicatorTarget($rpjmdItem['target'] ?? null),
-                'renstra_name' => (string) ($renstraItem['nama'] ?? ''),
-                'renstra_target' => $this->formatIndicatorTarget($renstraItem['target'] ?? null),
-                'rkpd_name' => (string) ($rkpdItem['nama'] ?? ''),
-                'rkpd_target' => $this->formatIndicatorTarget($rkpdItem['target'] ?? null),
-                'status_rpjmd_renstra' => $rpjmdItem === null ? '-' : (isset($renstraMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
-                'status_rpjmd_rkpd' => $rpjmdItem === null ? '-' : (isset($rkpdMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
-                'status_renstra_rkpd' => $renstraItem === null ? '-' : (isset($rkpdMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
+                'rpjmdName' => (string) ($rpjmdItem['nama'] ?? ''),
+                'rpjmdTarget' => $this->formatIndicatorTarget($rpjmdItem['target'] ?? null),
+                'renstraName' => (string) ($renstraItem['nama'] ?? ''),
+                'renstraTarget' => $this->formatIndicatorTarget($renstraItem['target'] ?? null),
+                'rkpdName' => (string) ($rkpdItem['nama'] ?? ''),
+                'rkpdTarget' => $this->formatIndicatorTarget($rkpdItem['target'] ?? null),
+                'statusRpjmdRenstra' => $rpjmdItem === null ? '-' : (isset($renstraMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
+                'statusRpjmdRkpd' => $rpjmdItem === null ? '-' : (isset($rkpdMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
+                'statusRenstraRkpd' => $renstraItem === null ? '-' : (isset($rkpdMap[$key]) ? 'Konsisten' : 'Tidak Konsisten'),
             ];
         }
 
@@ -2153,16 +2323,16 @@ class ResumeController extends Controller
             $diffRenstraRkpd = abs($renstraPagu - $rkpdPagu);
 
             $rows[] = [
-                'program_name' => (string) ($rpjmdItem['nama'] ?? $renstraItem['nama'] ?? $rkpdItem['nama'] ?? '-'),
-                'rpjmd_pagu' => (int) round($rpjmdPagu),
-                'renstra_pagu' => (int) round($renstraPagu),
-                'rkpd_pagu' => (int) round($rkpdPagu),
-                'diff_rpjmd_renstra' => (int) round($diffRpjmdRenstra),
-                'diff_rpjmd_rkpd' => (int) round($diffRpjmdRkpd),
-                'diff_renstra_rkpd' => (int) round($diffRenstraRkpd),
-                'status_rpjmd_renstra' => $diffRpjmdRenstra === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
-                'status_rpjmd_rkpd' => $diffRpjmdRkpd === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
-                'status_renstra_rkpd' => $diffRenstraRkpd === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
+                'programName' => (string) ($rpjmdItem['nama'] ?? $renstraItem['nama'] ?? $rkpdItem['nama'] ?? '-'),
+                'rpjmdPagu' => (int) round($rpjmdPagu),
+                'renstraPagu' => (int) round($renstraPagu),
+                'rkpdPagu' => (int) round($rkpdPagu),
+                'diffRpjmdRenstra' => (int) round($diffRpjmdRenstra),
+                'diffRpjmdRkpd' => (int) round($diffRpjmdRkpd),
+                'diffRenstraRkpd' => (int) round($diffRenstraRkpd),
+                'statusRpjmdRenstra' => $diffRpjmdRenstra === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
+                'statusRpjmdRkpd' => $diffRpjmdRkpd === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
+                'statusRenstraRkpd' => $diffRenstraRkpd === 0.0 ? 'Konsisten' : 'Tidak Konsisten',
             ];
         }
 
@@ -2191,11 +2361,13 @@ class ResumeController extends Controller
                 $join->on('p.opd_id', '=', 'ka.opd_id')
                     ->on('p.kode_rek', '=', 'ka.kode_program');
             })
+            ->leftJoin('indikator as i', 'i.id', '=', 'ia.indikator_id')
             ->select([
                 'ka.opd_id',
                 'ka.document_type',
                 'ia.id as indikator_id',
-                'ia.nama_indikator as indikator_uraian',
+                // prefer explicitly entered nama_indikator, otherwise fall back to master indikator.uraian
+                DB::raw("COALESCE(NULLIF(ia.nama_indikator, ''), i.uraian) as indikator_uraian"),
                 'ka.kode_program as program_kode',
                 'p.nama_rincian as program_nama',
                 'ia.target_indikator as indikator_target',
@@ -2251,7 +2423,11 @@ class ResumeController extends Controller
 
             $matchesSelectedYear = $selectedYear === null || (int) $row->tahun === $selectedYear;
 
-            if (in_array($row->document_type, ['rkpd', 'renja'], true) && $matchesSelectedYear) {
+            // When viewing konsistensi-rkpd-apbd tabel-5 we want columns 4-5 to show RENJA
+            // specifically (not RKPD). Detect this from request query and prefer RENJA only.
+            $onlyRenjaLeft = request()->query('view') === 'konsistensi-rkpd-apbd' && request()->query('table') === 'tabel-5';
+
+            if (($onlyRenjaLeft ? ($row->document_type === 'renja') : in_array($row->document_type, ['rkpd', 'renja'], true)) && $matchesSelectedYear) {
                 $this->appendIndikator($aggregates[$opdId], 'rkpd_programs', $row);
             }
 
@@ -3326,6 +3502,8 @@ class ResumeController extends Controller
             $opds = Opd::query()->select(['id', 'nama'])->get()->sortBy('nama')->values();
 
             $aggregates = [];
+            // When viewing konsistensi-rkpd-apbd tabel-5 we want left columns to show RENJA only
+            $onlyRenjaLeft = request()->query('view') === 'konsistensi-rkpd-apbd' && request()->query('table') === 'tabel-5';
 
             foreach ($rkpdPrograms as $row) {
                 if ($selectedYear !== null && isset($row['tahun']) && ($row['tahun'] ?? null) !== $selectedYear) {
@@ -3344,11 +3522,16 @@ class ResumeController extends Controller
 
                 $key = trim($row['kode'] ?? '') . '|' . trim($row['nama'] ?? '') . '|' . ($row['dokumen'] ?? '') . '|' . ($row['tahun'] ?? '');
                 if (!isset($aggregates[$opdId]['rkpd_programs_keys'][$key])) {
-                    $aggregates[$opdId]['rkpd_programs_keys'][$key] = true;
-                    $ikey = ($opdId ?? '').'|'.trim((string) ($row['kode'] ?? '')).'|'.trim((string) ($row['dokumen'] ?? '')).'|'.($row['tahun'] ?? '');
-                    $r = $row;
-                    $r['indikator'] = $indikatorMap[$ikey] ?? [];
-                    $aggregates[$opdId]['rkpd_programs'][] = $r;
+                    // if onlyRenjaLeft, skip non-RENJA rows for rkpd_programs
+                    if ($onlyRenjaLeft && strtoupper(($row['dokumen'] ?? '')) !== 'RENJA') {
+                        // skip adding this rkpd row
+                    } else {
+                        $aggregates[$opdId]['rkpd_programs_keys'][$key] = true;
+                        $ikey = ($opdId ?? '').'|'.trim((string) ($row['kode'] ?? '')).'|'.trim((string) ($row['dokumen'] ?? '')).'|'.($row['tahun'] ?? '');
+                        $r = $row;
+                        $r['indikator'] = $indikatorMap[$ikey] ?? [];
+                        $aggregates[$opdId]['rkpd_programs'][] = $r;
+                    }
                 }
             }
 
@@ -3407,6 +3590,8 @@ class ResumeController extends Controller
             ]);
 
         $aggregates = [];
+        // When viewing konsistensi-rkpd-apbd tabel-5 we want left columns to show RENJA only
+        $onlyRenjaLeft = request()->query('view') === 'konsistensi-rkpd-apbd' && request()->query('table') === 'tabel-5';
 
         foreach ($rkpdPrograms as $row) {
             $bidangKode = $opdBidangById[$row['opd_id']] ?? null;
@@ -3424,11 +3609,16 @@ class ResumeController extends Controller
 
             $key = trim($row['kode'] ?? '') . '|' . trim($row['nama'] ?? '') . '|' . ($row['dokumen'] ?? '') . '|' . ($row['tahun'] ?? '');
             if (!isset($aggregates[$bidangKode]['rkpd_programs_keys'][$key])) {
-                $aggregates[$bidangKode]['rkpd_programs_keys'][$key] = true;
-                $ikey = ($row['opd_id'] ?? '').'|'.trim((string) ($row['kode'] ?? '')).'|'.trim((string) ($row['dokumen'] ?? '')).'|'.($row['tahun'] ?? '');
-                $r = $row;
-                $r['indikator'] = $indikatorMap[$ikey] ?? [];
-                $aggregates[$bidangKode]['rkpd_programs'][] = $r;
+                // if onlyRenjaLeft, skip non-RENJA rows for rkpd_programs
+                if ($onlyRenjaLeft && strtoupper(($row['dokumen'] ?? '')) !== 'RENJA') {
+                    // skip
+                } else {
+                    $aggregates[$bidangKode]['rkpd_programs_keys'][$key] = true;
+                    $ikey = ($row['opd_id'] ?? '').'|'.trim((string) ($row['kode'] ?? '')).'|'.trim((string) ($row['dokumen'] ?? '')).'|'.($row['tahun'] ?? '');
+                    $r = $row;
+                    $r['indikator'] = $indikatorMap[$ikey] ?? [];
+                    $aggregates[$bidangKode]['rkpd_programs'][] = $r;
+                }
             }
         }
 
@@ -3561,7 +3751,9 @@ class ResumeController extends Controller
     private function appendIndikator(array &$aggregateBucket, string $listKey, object $indikatorRow): void
     {
         $item = $this->buildIndikatorItem($indikatorRow);
-        $itemKey = $item['kode'].'|'.$item['nama'].'|'.$item['dokumen'];
+        // Use normalized comparable key for indikator to match comparison logic
+        $compareKey = $this->buildComparableKey($item, 'indikator');
+        $itemKey = ($compareKey !== '' ? $compareKey : ($item['kode'] ?? '')) . '|' . ($item['dokumen'] ?? '');
         $itemMapKey = $listKey.'_keys';
 
         if (isset($aggregateBucket[$itemMapKey][$itemKey])) {

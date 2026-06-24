@@ -122,13 +122,13 @@ const props = defineProps({
     { label: 'Konsistensi RKPD - APBD', query: { view: 'konsistensi-rkpd-apbd' }, iconBg: 'bg-teal-500' },
     { label: 'Hasil Pelaksanaan RKPD', query: { view: 'hasil-pelaksanaan-rkpd' }, iconBg: 'bg-emerald-600' },
     { label: 'Rekap Permasalahan', query: { view: 'rekap-permasalahan' }, iconBg: 'bg-amber-500' },
-    { label: 'Realisasi', query: { view: 'realisasi' }, iconBg: 'bg-yellow-600' },
-    { label: 'Kertas Kerja', query: { view: 'kertas-kerja' }, iconBg: 'bg-lime-600' },
+    // { label: 'Realisasi', query: { view: 'realisasi' }, iconBg: 'bg-yellow-600' },
+    // { label: 'Kertas Kerja', query: { view: 'kertas-kerja' }, iconBg: 'bg-lime-600' },
     { label: 'Dokumen (Renstra, Renja, DPA)', query: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-indigo-600' },
   ];
 
   // Lampiran card opens the attachments page — ensure href is available at runtime
-  const lampiran = { label: 'Lampiran', routeName: 'resume.attachments', routeParams: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-slate-600' };
+  const lampiran = { label: '-', routeName: 'resume.attachments', routeParams: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-slate-600' };
   try {
     lampiran.href = route(lampiran.routeName, lampiran.routeParams || {});
   } catch (e) {
@@ -137,7 +137,8 @@ const props = defineProps({
   items.push(lampiran);
 
   return items;
-})();
+}
+)();
 
 // View configuration dengan jumlah tabel dan warna yang berbeda
 const viewConfigs = {
