@@ -191,6 +191,10 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/resume', [ResumeController::class, 'index'])->name('resume.index');
+    Route::post('/resume/export-server', [ResumeController::class, 'exportExcelServer'])->name('resume.export.server');
+    // Temporary debug route to inspect clone payload (returns JSON)
+    Route::get('/debug/realisasi-clone', [\App\Http\Controllers\RealisasiCloneDebugController::class, 'index'])->name('debug.realisasi.clone');
+    Route::get('/resume/attachments', [ResumeController::class, 'attachments'])->name('resume.attachments');
     Route::get('/resume/export', [ResumeController::class, 'export'])->name('resume.export');
     Route::get('/resume/dokumen/{dokumen}/view', [ResumeController::class, 'viewDokumen'])->name('resume.dokumen.view');
 

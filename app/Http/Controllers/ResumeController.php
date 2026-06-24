@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\KomponenAnggaran;
+use App\Http\Controllers\KomponenAnggaranController;
+use Illuminate\Http\Request as HttpRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RealisasiArrayExport;
 
 class ResumeController extends Controller
 {
@@ -39,6 +44,7 @@ class ResumeController extends Controller
         $selectedTw = $request->query('tw') !== null ? (int) $request->query('tw') : null;
 
         if ($currentView !== '' && $currentTable !== '') {
+            
             // Preserve requested table name. Do not remap `berdasarkan-sasaran` to `berdasarkan-bidang-urusan`.
             // (Annotations migration still runs only when opening the explicit bidang-urusan table below.)
 
@@ -68,6 +74,18 @@ class ResumeController extends Controller
 
             if ($currentView === 'dokumen' && $currentTable === 'monitoring') {
                 $tableData = $this->getDokumenMonitoring();
+            }
+
+            // Resume Lampiran: render DPA realisasi view but as a read-only view (no inputs)
+            if ($currentView === 'lampiran' && $currentTable === 'monitoring') {
+                $opdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                $tahun = $selectedYear;
+                // reuse KomponenAnggaranController to build the same payload shape
+                $komponen = app( KomponenAnggaranController::class );
+                $payload = $komponen->buildRealisasiPayloadForOpd($opdId, $tahun, 'realisasi', 'dpa', false);
+                // force readonly and return the original DPA index component
+                $payload['readonly'] = true;
+                return Inertia::render('DataDasar/Dokumen/Dpa/Index', $payload);
             }
 
             if ($currentView === 'realisasi' && $currentTable === 'iku') {
@@ -154,6 +172,47 @@ class ResumeController extends Controller
                 }
 
                 $tableData = $rows;
+            }
+
+            // Temporary synthetic fallback for tabel-5 when no real rows found.
+            // This helps verify frontend rendering while debugging DB connectivity.
+            if ($currentView === 'hasil-pelaksanaan-rkpd' && $currentTable === 'tabel-5' && empty($tableData)) {
+                $tableData = [
+                    [
+                        'no' => 1,
+                        'kode_rek' => '1.01.01',
+                        'program_nama' => 'Program Contoh A',
+                        'rkpd_indikator' => 'Persentase cakupan layanan A',
+                        'rkpd_target' => 75,
+                        'rkpd_satuan' => 'Persen',
+                        'rkpd_pagu' => 150000000,
+                        'dpa_indikator' => 'Persentase cakupan layanan A',
+                        'dpa_target' => 70,
+                        'dpa_satuan' => 'Persen',
+                        'dpa_pagu' => 140000000,
+                        'realisasi_kinerja' => 68,
+                        'realisasi_keuangan' => 135000000,
+                        'capaian_kinerja' => 68,
+                        'capaian_keuangan' => 96,
+                    ],
+                    [
+                        'no' => 2,
+                        'kode_rek' => '1.02.01',
+                        'program_nama' => 'Program Contoh B',
+                        'rkpd_indikator' => 'Jumlah kegiatan yang terselesaikan',
+                        'rkpd_target' => 20,
+                        'rkpd_satuan' => 'Kegiatan',
+                        'rkpd_pagu' => 50000000,
+                        'dpa_indikator' => 'Jumlah kegiatan yang terselesaikan',
+                        'dpa_target' => 18,
+                        'dpa_satuan' => 'Kegiatan',
+                        'dpa_pagu' => 45000000,
+                        'realisasi_kinerja' => 15,
+                        'realisasi_keuangan' => 42000000,
+                        'capaian_kinerja' => 75,
+                        'capaian_keuangan' => 93,
+                    ],
+                ];
             }
 
             // Hasil Pelaksanaan RKPD - tabel-2: Program Aksi Kepala Daerah (top 10)
@@ -262,6 +321,540 @@ class ResumeController extends Controller
                 $tableData = $rows;
             }
 
+            // Hasil Pelaksanaan RKPD - tabel-5: detail indikator per Program/Kegiatan/Sub Kegiatan
+            if ($currentView === 'hasil-pelaksanaan-rkpd' && $currentTable === 'tabel-5') {
+                $rows = [];
+                $counter = 0;
+
+                $programs = Program::query()->orderBy('kode_rek')->get();
+
+                foreach ($programs as $program) {
+                    $indikators = DB::table('indikatorables as ia')
+                        ->join('indikator as i', 'i.id', '=', 'ia.indikator_id')
+                        ->where('ia.indicatorable_type', Program::class)
+                        ->where('ia.indicatorable_id', $program->id)
+                        ->when($selectedYear, fn($q) => $q->where('ia.tahun', $selectedYear))
+                        ->select('i.uraian as indikator', 'i.satuan', 'ia.target', 'ia.realisasi')
+                        ->get();
+
+                    if ($indikators->isEmpty()) {
+                        $counter++;
+                        $rows[] = [
+                            'no' => $counter,
+                            'kode_rek' => $program->kode_rek ?? null,
+                            'program_nama' => $program->nama_rincian ?? $program->nama ?? $program->kode_rek,
+                            'rkpd_indikator' => null,
+                            'rkpd_target' => null,
+                            'rkpd_satuan' => null,
+                            'rkpd_pagu' => null,
+                            'dpa_indikator' => null,
+                            'dpa_target' => null,
+                            'dpa_satuan' => null,
+                            'dpa_pagu' => null,
+                            'realisasi_kinerja' => null,
+                            'realisasi_keuangan' => null,
+                            'capaian_kinerja' => null,
+                            'capaian_keuangan' => null,
+                        ];
+                        continue;
+                    }
+
+                    foreach ($indikators as $indik) {
+                        $counter++;
+                        $rows[] = [
+                            'no' => $counter,
+                            'kode_rek' => $program->kode_rek ?? null,
+                            'program_nama' => $program->nama_rincian ?? $program->nama ?? $program->kode_rek,
+                            'rkpd_indikator' => $indik->indikator,
+                            'rkpd_target' => $indik->target,
+                            'rkpd_satuan' => $indik->satuan,
+                            'rkpd_pagu' => null,
+                            // For now mirror RKPD indicator into APBD where explicit APBD source not available
+                            'dpa_indikator' => $indik->indikator,
+                            'dpa_target' => $indik->target,
+                            'dpa_satuan' => $indik->satuan,
+                            'dpa_pagu' => null,
+                            'realisasi_kinerja' => $indik->realisasi ?? null,
+                            'realisasi_keuangan' => null,
+                            'capaian_kinerja' => $indik->realisasi ?? null,
+                            'capaian_keuangan' => null,
+                        ];
+                    }
+                }
+
+                $tableData = $rows;
+            }
+
+            // Provide a full Renja dump: group top-level Renja programs by OPD
+            if ($currentView === 'renja' && $currentTable === 'semua-renja') {
+                $tableData = [];
+                try {
+                    $renjaQuery = \App\Models\KomponenAnggaran::with(['indikator'])
+                        ->whereRaw('LOWER(document_type) = ?', ['renja'])
+                        ->whereNull('parent_id');
+                    if ($selectedYear) $renjaQuery->where('tahun', $selectedYear);
+                    $renjaRows = $renjaQuery->orderBy('opd_id')->orderBy('kode')->get();
+
+                    // group by opd
+                    $grouped = $renjaRows->groupBy('opd_id');
+                    foreach ($grouped as $opdId => $programs) {
+                        $opdName = $opdId ? (Opd::query()->where('id', $opdId)->value('nama') ?? ('OPD '.($opdId))) : 'Umum';
+                        $mapped = $programs->map(fn($p) => [
+                            'id' => $p->id,
+                            'kode' => $p->kode,
+                            'nama' => $p->nama_komponen ?? $p->nama ?? '',
+                            'pagu' => (int) ($p->pagu ?? 0),
+                            'indikator' => collect($p->indikator ?? [])->map(fn($i) => [
+                                'nama_indikator' => (string) ($i->nama_indikator ?? $i->nama ?? ''),
+                                'target_indikator' => $i->target_indikator ?? $i->target ?? null,
+                                'satuan' => $i->satuan ?? null,
+                            ])->values()->all(),
+                        ])->values()->all();
+
+                        $tableData[] = [
+                            'no' => count($tableData) + 1,
+                            'entitas' => $opdName,
+                            'opd_id' => $opdId,
+                            'renja_programs' => $mapped,
+                        ];
+                    }
+                } catch (\Throwable $e) {
+                    Log::warning('resume.semua_renja_failed', ['error' => $e->getMessage()]);
+                }
+            }
+
+            // Build simple tabel-7 payload using KomponenAnggaran (DPA) + Realisasi lookup
+            if ($currentView === 'hasil-pelaksanaan-rkpd' && $currentTable === 'tabel-7') {
+                try {
+                    $opdIdFilter = $request->query('opd_id') ?: null;
+                    $twFilter = $request->query('tw') !== null ? $request->query('tw') : $request->query('triwulan');
+
+                    $opdFilterIds = [];
+                    if ($opdIdFilter) $opdFilterIds = is_array($opdIdFilter) ? $opdIdFilter : [(int) $opdIdFilter];
+
+                    $dpaQuery = \App\Models\KomponenAnggaran::with(['indikator', 'children.indikator', 'children.children.indikator'])
+                        ->whereRaw('LOWER(document_type) = ?', ['dpa'])
+                        ->whereNull('parent_id');
+
+                    if (!empty($opdFilterIds)) {
+                        $dpaQuery->whereIn('opd_id', $opdFilterIds);
+                    }
+                    if ($selectedYear) {
+                        $dpaQuery->where('tahun', $selectedYear);
+                    }
+
+                    $dpaRows = $dpaQuery->orderBy('kode')->get();
+
+                    // Aggregate pagu recursively on loaded komponen_anggaran nodes (computed-only)
+                    $aggregateNodePagu = function ($node) use (&$aggregateNodePagu) {
+                        $sum = 0;
+                        if (!empty($node->children)) {
+                            foreach ($node->children as $child) {
+                                $sum += $aggregateNodePagu($child);
+                            }
+                        }
+
+                        // if node has its own pagu and children sum is zero, prefer children sum if available
+                        $own = (int) ($node->pagu ?? 0);
+                        $total = $sum > 0 ? $sum : $own;
+
+                        // set computed pagu on node for downstream use
+                        $node->pagu = $total;
+                        return (int) $total;
+                    };
+
+                    foreach ($dpaRows as $rootNode) {
+                        try { $aggregateNodePagu($rootNode); } catch (\Throwable $e) { /* ignore */ }
+                    }
+
+                    // build realisasi lookup keyed by jenis|kode|opd_id -> [tw => data]
+                    $realisasiLookup = $this->buildRealisasiLookupForResume($opdFilterIds, $selectedYear);
+
+                    // load Renja (RKPD) reference to populate RKPD columns
+                    $renjaQuery = \App\Models\KomponenAnggaran::with(['indikator'])
+                        ->whereRaw('LOWER(document_type) = ?', ['renja'])
+                        ->whereNull('parent_id');
+                    if (!empty($opdFilterIds)) $renjaQuery->whereIn('opd_id', $opdFilterIds);
+                    if ($selectedYear) $renjaQuery->where('tahun', $selectedYear);
+                    $renjaRows = $renjaQuery->orderBy('kode')->get();
+
+                    // Aggregate pagu for RENJA nodes as well
+                    foreach ($renjaRows as $rootNode) {
+                        try { $aggregateNodePagu($rootNode); } catch (\Throwable $e) { /* ignore */ }
+                    }
+
+                    $renjaMap = [];
+
+                    $addRenjaNode = function ($node, $level = 'program') use (&$renjaMap) {
+                        if (!$node) return;
+                        $jenis = $level === 'program' ? ($node->jenis ?? 'program') : ($level === 'kegiatan' ? 'kegiatan' : 'sub_kegiatan');
+                        $kode = trim((string) ($node->kode ?? $node->kode_program ?? ''));
+                        $opdId = (int) ($node->opd_id ?? 0);
+                        $rk = implode('|', [$jenis, $kode, $opdId]);
+
+                        // normalize indikator array
+                        $inds = [];
+                        foreach (($node->indikator ?? []) as $ii) {
+                            if (is_object($ii)) {
+                                $inds[] = [
+                                    'nama_indikator' => (string) ($ii->nama_indikator ?? $ii->nama ?? ''),
+                                    'target_indikator' => $ii->target_indikator ?? $ii->target ?? null,
+                                    'satuan' => $ii->satuan ?? null,
+                                ];
+                            } elseif (is_array($ii)) {
+                                $inds[] = [
+                                    'nama_indikator' => (string) ($ii['nama_indikator'] ?? $ii['nama'] ?? ''),
+                                    'target_indikator' => $ii['target_indikator'] ?? $ii['target'] ?? null,
+                                    'satuan' => $ii['satuan'] ?? null,
+                                ];
+                            } else {
+                                $inds[] = [
+                                    'nama_indikator' => (string) $ii,
+                                    'target_indikator' => null,
+                                    'satuan' => null,
+                                ];
+                            }
+                        }
+
+                        $renjaMap[$rk] = [
+                            'pagu' => (int) ($node->pagu ?? 0),
+                            'pagu_tahunan' => $node->pagu_tahunan ?? null,
+                            'dokumen' => strtoupper((string) ($node->document_type ?? 'RENJA')),
+                            'indikator' => array_values(array_filter($inds, fn($v) => ($v['nama_indikator'] ?? '') !== '')),
+                        ];
+                    };
+
+                    // renjaRows contains root programs with nested children (kegiatan -> sub)
+                    foreach ($renjaRows as $root) {
+                        $addRenjaNode($root, 'program');
+                        foreach (($root->children ?? []) as $keg) {
+                            $addRenjaNode($keg, 'kegiatan');
+                            foreach (($keg->children ?? []) as $sub) {
+                                $addRenjaNode($sub, 'sub');
+                            }
+                        }
+                    }
+
+                    // Group DPA nodes into rows keyed by program kode/opd so TableView can render program/kegiatan/sub
+                    $grouped = [];
+
+                    $addNodeAsDpaProgram = function ($node, $level = 'program') use (&$grouped, $selectedYear) {
+                        $kode = trim((string) ($node->kode ?? $node->kode_program ?? ''));
+                        $opd_id = (int) ($node->opd_id ?? 0);
+                        $key = $opd_id.'|'.$kode;
+                        if (!isset($grouped[$key])) {
+                            $grouped[$key] = [
+                                'no' => count($grouped) + 1,
+                                'kode_rek' => $kode,
+                                'entitas' => $node->sub_unit ?? null,
+                                'program_nama' => $node->nama_komponen ?? $node->nama ?? null,
+                                'opd_id' => $opd_id,
+                                'dpa_programs' => [],
+                                'rkpd_programs' => [],
+                            ];
+                        }
+
+                        $indik = [];
+                        // preserve indikator objects when possible (include target and satuan)
+                        foreach (($node->indikator ?? []) as $ii) {
+                            if (is_object($ii)) {
+                                $indik[] = [
+                                    'nama_indikator' => (string) ($ii->nama_indikator ?? $ii->nama ?? ''),
+                                    'target_indikator' => $ii->target_indikator ?? $ii->target ?? null,
+                                    'satuan' => $ii->satuan ?? null,
+                                ];
+                            } elseif (is_array($ii)) {
+                                $indik[] = [
+                                    'nama_indikator' => (string) ($ii['nama_indikator'] ?? $ii['nama'] ?? ''),
+                                    'target_indikator' => $ii['target_indikator'] ?? $ii['target'] ?? null,
+                                    'satuan' => $ii['satuan'] ?? null,
+                                ];
+                            } else {
+                                $indik[] = [
+                                    'nama_indikator' => (string) $ii,
+                                    'target_indikator' => null,
+                                    'satuan' => null,
+                                ];
+                            }
+                        }
+
+                        $programName = $node->nama_komponen ?? $node->nama ?? null;
+                        $cleanKode = trim((string) $kode);
+                        $cleanName = $programName ? preg_replace('/\s+/', ' ', trim((string) $programName)) : '';
+                        $clientKey = strtoupper($cleanKode) . '|' . strtoupper($cleanName);
+
+                        $grouped[$key]['dpa_programs'][] = [
+                            'kode' => $kode,
+                            'nama' => $programName,
+                            'client_key' => $clientKey,
+                            'opd_id' => $opd_id,
+                            'tahun' => $node->tahun ?? $selectedYear,
+                            'pagu' => (int) ($node->pagu ?? 0),
+                            'pagu_tahunan' => $node->pagu_tahunan ?? null,
+                            'dokumen' => strtoupper((string) ($node->document_type ?? 'DPA')),
+                            'indikator' => array_values(array_filter($indik, fn($v) => ($v['nama_indikator'] ?? '') !== '')),
+                            'program_nama' => $programName,
+                            'level' => $level,
+                        ];
+                    };
+
+                    foreach ($dpaRows as $root) {
+                        // root program
+                        $addNodeAsDpaProgram($root, 'program');
+                        // children (kegiatan)
+                        foreach (($root->children ?? []) as $keg) {
+                            $addNodeAsDpaProgram($keg, 'kegiatan');
+                            foreach (($keg->children ?? []) as $sub) {
+                                $addNodeAsDpaProgram($sub, 'sub');
+                            }
+                        }
+                    }
+
+                    // attach RKPD (renja) data from renjaMap into rkpd_programs
+                    // Loop each dpa_program entry (program, kegiatan, sub_kegiatan levels)
+                    // and attach corresponding renja data
+                    foreach ($grouped as $gk => &$g) {
+                        $g['rkpd_programs'] = [];
+                        $opd_id = $g['opd_id'];
+                        
+                        // For each level in dpa_programs, try to find matching renja
+                        foreach (($g['dpa_programs'] ?? []) as $dpaItem) {
+                            $dpaKode = $dpaItem['kode'] ?? null;
+                            if (!$dpaKode) continue;
+                            
+                            // Map level to jenis for renjaMap lookup
+                            $dpaLevel = $dpaItem['level'] ?? 'program';
+                            $dpaJenis = match($dpaLevel) {
+                                'kegiatan' => 'kegiatan',
+                                'sub' => 'sub_kegiatan',
+                                default => 'program',
+                            };
+                            
+                            // Try to find renja match: first try exact jenis, then fallback to others
+                            $renja_found = null;
+                            
+                            // Primary: try exact jenis match
+                            $rkKey = implode('|', [$dpaJenis, $dpaKode, $opd_id]);
+                            if (isset($renjaMap[$rkKey])) {
+                                $renja_found = $renjaMap[$rkKey];
+                            } else {
+                                // Fallback: try other jenis (program, kegiatan, sub_kegiatan)
+                                foreach (['program', 'kegiatan', 'sub_kegiatan'] as $jenis) {
+                                    if ($jenis === $dpaJenis) continue; // already tried
+                                    $rkKey = implode('|', [$jenis, $dpaKode, $opd_id]);
+                                    if (isset($renjaMap[$rkKey])) {
+                                        $renja_found = $renjaMap[$rkKey];
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // Build rkpd entry from dpa + renja
+                            $inds = [];
+                            if ($renja_found) {
+                                foreach (($renja_found['indikator'] ?? []) as $ri) {
+                                    if (is_array($ri)) {
+                                        $inds[] = [
+                                            'nama_indikator' => (string) ($ri['nama_indikator'] ?? $ri['nama'] ?? ''),
+                                            'target_indikator' => $ri['target_indikator'] ?? $ri['target'] ?? null,
+                                            'satuan' => $ri['satuan'] ?? null,
+                                        ];
+                                    } elseif (is_object($ri)) {
+                                        $inds[] = [
+                                            'nama_indikator' => (string) ($ri->nama_indikator ?? $ri->nama ?? ''),
+                                            'target_indikator' => $ri->target_indikator ?? $ri->target ?? null,
+                                            'satuan' => $ri->satuan ?? null,
+                                        ];
+                                    } else {
+                                        $inds[] = [
+                                            'nama_indikator' => (string) $ri,
+                                            'target_indikator' => null,
+                                            'satuan' => null,
+                                        ];
+                                    }
+                                }
+                            }
+                            
+                            $programName = $dpaItem['nama'] ?? $dpaItem['program_nama'] ?? null;
+                            $cleanKode = trim((string) $dpaKode);
+                            $cleanName = $programName ? preg_replace('/\s+/', ' ', trim((string) $programName)) : '';
+                            $clientKey = strtoupper($cleanKode) . '|' . strtoupper($cleanName);
+
+                            $g['rkpd_programs'][] = [
+                                'kode' => $dpaKode,
+                                'nama' => $programName,
+                                'client_key' => $clientKey,
+                                'opd_id' => $opd_id,
+                                'tahun' => $selectedYear,
+                                'pagu' => (int) ($renja_found['pagu'] ?? 0),
+                                'pagu_tahunan' => $renja_found['pagu_tahunan'] ?? null,
+                                'dokumen' => $renja_found['dokumen'] ?? 'RENJA',
+                                'indikator' => array_values(array_filter($inds, fn($v) => ($v['nama_indikator'] ?? '') !== '')),
+                                'program_nama' => $programName,
+                            ];
+                        }
+                    }
+
+                    // convert grouped to sequential rows
+                    $outRows = [];
+                    foreach ($grouped as $g) {
+                        $outRows[] = $g;
+                    }
+
+                    // If no real rows found, provide a small synthetic sample so frontend can render layout.
+                    if (empty($outRows)) {
+                        $sampleOpdId = !empty($opdFilterIds) ? $opdFilterIds[0] : 0;
+                        $tableData = [
+                            [
+                                'no' => 1,
+                                'kode_rek' => '1.01.01',
+                                'program_nama' => 'Program Contoh A',
+                                'opd_id' => $sampleOpdId,
+                                'entitas' => null,
+                                'dpa_programs' => [
+                                    [
+                                        'kode' => '1.01.01',
+                                        'nama' => 'Program Contoh A',
+                                        'client_key' => strtoupper('1.01.01') . '|' . strtoupper('Program Contoh A'),
+                                        'opd_id' => $sampleOpdId,
+                                        'tahun' => $selectedYear,
+                                        'pagu' => 140000000,
+                                        'pagu_tahunan' => null,
+                                        'dokumen' => 'DPA',
+                                        'indikator' => ['Persentase cakupan layanan A'],
+                                        'program_nama' => 'Program Contoh A',
+                                        'level' => 'program',
+                                    ],
+                                ],
+                                'rkpd_programs' => [
+                                    [
+                                        'kode' => '1.01.01',
+                                        'nama' => 'Program Contoh A',
+                                        'client_key' => strtoupper('1.01.01') . '|' . strtoupper('Program Contoh A'),
+                                        'opd_id' => $sampleOpdId,
+                                        'tahun' => $selectedYear,
+                                        'pagu' => 150000000,
+                                        'pagu_tahunan' => null,
+                                        'dokumen' => 'RENJA',
+                                        'indikator' => ['Persentase cakupan layanan A'],
+                                        'program_nama' => 'Program Contoh A',
+                                        'level' => 'program',
+                                    ],
+                                ],
+                            ],
+                            [
+                                'no' => 2,
+                                'kode_rek' => '1.02.01',
+                                'program_nama' => 'Program Contoh B',
+                                'opd_id' => $sampleOpdId,
+                                'entitas' => null,
+                                'dpa_programs' => [
+                                    [
+                                        'kode' => '1.02.01',
+                                        'nama' => 'Program Contoh B',
+                                        'client_key' => strtoupper('1.02.01') . '|' . strtoupper('Program Contoh B'),
+                                        'opd_id' => $sampleOpdId,
+                                        'tahun' => $selectedYear,
+                                        'pagu' => 45000000,
+                                        'pagu_tahunan' => null,
+                                        'dokumen' => 'DPA',
+                                        'indikator' => ['Jumlah kegiatan yang terselesaikan'],
+                                        'program_nama' => 'Program Contoh B',
+                                        'level' => 'program',
+                                    ],
+                                ],
+                                'rkpd_programs' => [
+                                    [
+                                        'kode' => '1.02.01',
+                                        'nama' => 'Program Contoh B',
+                                        'client_key' => strtoupper('1.02.01') . '|' . strtoupper('Program Contoh B'),
+                                        'opd_id' => $sampleOpdId,
+                                        'tahun' => $selectedYear,
+                                        'pagu' => 50000000,
+                                        'pagu_tahunan' => null,
+                                        'dokumen' => 'RENJA',
+                                        'indikator' => ['Jumlah kegiatan yang terselesaikan'],
+                                        'program_nama' => 'Program Contoh B',
+                                        'level' => 'program',
+                                    ],
+                                ],
+                            ],
+                        ];
+                    } else {
+                        $tableData = $outRows;
+                    }
+
+                    // Attach realisasi data (all triwulans) to each row for frontend display
+                    foreach ($tableData as &$row) {
+                        $kode = $row['kode_rek'] ?? null;
+                        $opd_id = (int) ($row['opd_id'] ?? 0);
+                        if (!$kode) continue;
+                        
+                        // Build realisasi data keyed by triwulan
+                        $rowRealisasi = [];
+                        $key = implode('|', ['program', $kode, $opd_id]);
+                        if (isset($realisasiLookup[$key])) {
+                            $rowRealisasi = $realisasiLookup[$key]; // array keyed by tw (1,2,3,4)
+                        } else {
+                            // Fallback: try prefix-match against realisasiLookup keys
+                            $merged = [];
+                            foreach ($realisasiLookup as $lk => $lv) {
+                                $parts = explode('|', $lk);
+                                if (count($parts) < 3) continue;
+                                [$lkJenis, $lkKode, $lkOpd] = $parts;
+                                if ((int) $lkOpd !== (int) $opd_id) continue;
+                                // allow program to match kegiatan/sub_kegiatan prefixes
+                                if (!in_array($lkJenis, ['program','kegiatan','sub_kegiatan'], true)) continue;
+                                if (str_starts_with($lkKode, (string) $kode)) {
+                                    foreach ($lv as $tw => $payload) {
+                                        if (!isset($merged[$tw])) $merged[$tw] = $payload;
+                                        else {
+                                            $merged[$tw]['keuangan'] = ($merged[$tw]['keuangan'] ?? 0) + ($payload['keuangan'] ?? 0);
+                                            $merged[$tw]['fisik'] = ($merged[$tw]['fisik'] ?? 0) + ($payload['fisik'] ?? 0);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!empty($merged)) {
+                                $rowRealisasi = $merged;
+                            }
+                        }
+                        
+                            // Determine which triwulans to prepare: if a tw filter was provided, only compute that TW
+                            $twsToPrepare = is_numeric($twFilter) ? [ (int) $twFilter ] : [1,2,3,4];
+
+                            // Ensure selected TW keys exist and initialize other keys lazily
+                            foreach ($twsToPrepare as $tw) {
+                                if (!isset($rowRealisasi[$tw])) {
+                                    $rowRealisasi[$tw] = ['keuangan' => 0, 'fisik' => 0];
+                                }
+                            }
+
+                            // If fisik is zero for the selected TWs, try to compute from indikatorables only for those TWs
+                            $needsFisikFromIndikator = false;
+                            foreach ($twsToPrepare as $tw) {
+                                if (empty($rowRealisasi[$tw]['fisik'])) { $needsFisikFromIndikator = true; break; }
+                            }
+
+                            if ($needsFisikFromIndikator) {
+                                foreach ($twsToPrepare as $tw) {
+                                    $computed = $this->computeIndikatorFisikForKode($kode, $opd_id, $selectedYear, $tw);
+                                    if ($computed !== null) {
+                                        $rowRealisasi[$tw]['fisik'] = round($computed, 2);
+                                    }
+                                }
+                            }
+
+                        $row['realisasi_data'] = $rowRealisasi;
+                    }
+                    unset($row);
+                } catch (\Throwable $e) {
+                    Log::warning('resume.tabel7_failed', ['error' => $e->getMessage()]);
+                    $tableData = [];
+                }
+            }
+
             // Ensure fallback: attach indikator arrays to rkpd/dpa program items
             if ($tableData !== null) {
                 $tableData = $this->attachFallbackIndikatorsToTableData($tableData, $selectedYear);
@@ -301,6 +894,41 @@ class ResumeController extends Controller
 
             // temporary debug: log a sample of the tableData so we can inspect shape
             try {
+                // Additional temporary debug: search for specific OPD/kode and log full row
+                try {
+                    $searchOpd = 20;
+                    $searchKode = '5.03.01.2.01.0001';
+                    $found = null;
+                    if (is_array($tableData)) {
+                        foreach ($tableData as $r) {
+                            $opdId = isset($r['opd_id']) ? (int) $r['opd_id'] : (isset($r->opd_id) ? (int) $r->opd_id : null);
+                            if ($opdId !== $searchOpd) continue;
+                            // search RKPD programs
+                            $rkpdList = $r['rkpd_programs'] ?? ($r->rkpd_programs ?? []);
+                            foreach ($rkpdList as $p) {
+                                $kode = trim((string) (($p['kode'] ?? $p->kode ?? '') ?? ''));
+                                if ($kode === $searchKode) {
+                                    $found = ['row' => $r, 'program' => $p, 'via' => 'rkpd_programs'];
+                                    break 2;
+                                }
+                            }
+                            // search DPA programs as fallback
+                            $dpaList = $r['dpa_programs'] ?? ($r->dpa_programs ?? []);
+                            foreach ($dpaList as $p) {
+                                $kode = trim((string) (($p['kode'] ?? $p->kode ?? '') ?? ''));
+                                if ($kode === $searchKode) {
+                                    $found = ['row' => $r, 'program' => $p, 'via' => 'dpa_programs'];
+                                    break 2;
+                                }
+                            }
+                        }
+                    }
+
+                    Log::debug('resume.tableData.targetRow', ['search_opd' => $searchOpd, 'search_kode' => $searchKode, 'found' => $found]);
+                } catch (\Throwable $inner) {
+                    Log::warning('resume.tableData.targetRow.failed', ['error' => $inner->getMessage()]);
+                }
+
                 if ($tableData !== null) {
                     if (is_object($tableData) && method_exists($tableData, 'first')) {
                         $sample = $tableData->first();
@@ -326,6 +954,27 @@ class ResumeController extends Controller
             }
 
             $inertiaExtras = [];
+            // Provide OPD list when viewing hasil-pelaksanaan-rkpd so frontend can render OPD filter
+            if ($currentView === 'hasil-pelaksanaan-rkpd') {
+                try {
+                    $opds = Opd::query()->select(['id','nama'])->orderBy('nama')->get()->map(fn (Opd $o) => ['id' => $o->id, 'nama' => $o->nama])->values()->all();
+                    $inertiaExtras['opds'] = $opds;
+                } catch (\Throwable $e) {
+                    Log::warning('resume.opds_failed', ['error' => $e->getMessage()]);
+                }
+            }
+                // If request asked for tabel-8 duplication with a single opd, provide the full realisasi-like payload
+                try {
+                    $reqTable = $request->string('table')->toString();
+                    $reqOpd = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                    $sourceYear = $request->query('tahun') ? (int) $request->query('tahun') : 2026;
+                    if ($reqTable === 'tabel-8' && $reqOpd) {
+                        $komponenCtrl = new \App\Http\Controllers\KomponenAnggaranController();
+                            $inertiaExtras['realisasi_like_payload'] = $komponenCtrl->buildRealisasiPayloadForOpd($reqOpd, $sourceYear, 'realisasi', 'dpa', false);
+                    }
+                } catch (\Throwable $e) {
+                    Log::warning('resume.realisasi_like_payload_failed', ['error' => $e->getMessage()]);
+                }
             if ($currentView === 'rekap-permasalahan') {
                 try {
                     $inertiaExtras['debugCounts'] = [
@@ -337,6 +986,107 @@ class ResumeController extends Controller
                     ];
                 } catch (\Throwable $e) {
                     Log::warning('rekap-permasalahan.debugcounts_failed', ['error' => $e->getMessage()]);
+                }
+            }
+
+            // Log a lightweight request summary to help debug front-end gating
+            try {
+                Log::debug('resume.request.summary', [
+                    'view' => $currentView,
+                    'table' => $currentTable,
+                    'tableData_null' => $tableData === null,
+                    'tableData_count' => is_array($tableData) ? count($tableData) : (is_object($tableData) && method_exists($tableData, 'count') ? $tableData->count() : null),
+                ]);
+            } catch (\Throwable $e) {
+                // ignore logging errors
+            }
+            // Quick duplicate: allow copying DPA realisasi data into resume tabel-8 for an OPD
+            try {
+                $reqBasis = $request->string('basis')->toString();
+                $reqOpd = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                $reqTable = $request->string('table')->toString();
+                // Trigger duplication when explicitly requested by basis=perangkat-daerah
+                // or when viewing hasil-pelaksanaan-rkpd tabel-8 (page URL like ?view=hasil-pelaksanaan-rkpd&table=tabel-8)
+                if ($reqTable === 'tabel-8' && ($reqBasis === 'perangkat-daerah' || $currentView === 'hasil-pelaksanaan-rkpd')) {
+                    // use fixed source year 2026 as requested URL; if caller provides tahun param use it
+                    $sourceYear = $request->query('tahun') ? (int) $request->query('tahun') : 2026;
+                    // fetch programs and group by opd_id so we produce one row per OPD when opd_id not provided
+                    $programQuery = KomponenAnggaran::query()
+                        ->where('document_type', 'dpa')
+                        ->where('jenis', 'program')
+                        ->when($sourceYear, fn($q) => $q->where('tahun', $sourceYear))
+                        ->orderBy('kode');
+
+                    if ($reqOpd) {
+                        $programQuery->where('opd_id', $reqOpd);
+                    }
+
+                    $allPrograms = $programQuery->get();
+                    $grouped = $allPrograms->groupBy('opd_id');
+
+                    $tableData = [];
+                    $komponenCtrl = new \App\Http\Controllers\KomponenAnggaranController();
+                    foreach ($grouped as $opdId => $items) {
+                        try {
+                            $payload = $komponenCtrl->buildRealisasiPayloadForOpd((int) $opdId, $sourceYear, 'realisasi', 'dpa', false);
+                            $programs = $payload['data'] ?? [];
+                        } catch (\Throwable $e) {
+                            Log::warning('resume.duplicate_dpa_per_opd_failed', ['opd' => $opdId, 'error' => $e->getMessage()]);
+                            $programs = $items->map(function ($p) {
+                                return [
+                                    'kode' => $p->kode,
+                                    'nama' => $p->nama_komponen ?? $p->nama ?? '',
+                                    'opd_id' => $p->opd_id,
+                                    'tahun' => $p->tahun,
+                                    'pagu' => (int) ($p->pagu ?? 0),
+                                    'pagu_tahunan' => null,
+                                    'dokumen' => 'DPA',
+                                    'indikator' => (array) ($p->indikator->map(fn($i) => $i->nama_indikator ?? '-')->values()->all() ?? ['-']),
+                                    'program_nama' => $p->nama_komponen ?? $p->nama ?? '',
+                                    'level' => 'program',
+                                ];
+                            })->values()->all();
+                        }
+
+                        $opdName = Opd::query()->where('id', $opdId)->value('nama') ?? ('OPD '.($opdId ?? '0'));
+                        $tableData[] = [
+                            'no' => count($tableData) + 1,
+                            'entitas' => $opdName,
+                            'opd_id' => $opdId,
+                            'rkpd_programs' => [],
+                            'dpa_programs' => $programs,
+                            'renstra_programs' => [],
+                            'rpjmd_programs' => [],
+                        ];
+                    }
+                }
+            } catch (\Throwable $e) {
+                Log::warning('resume.duplicate_dpa_failed', ['error' => $e->getMessage()]);
+            }
+
+            // Ensure tableData is always an array to avoid `undefined` in frontend
+            if ($tableData === null) $tableData = [];
+
+            // If we have a realisasi_like_payload (from KomponenAnggaran helper) and
+            // tableData is empty for tabel-8, use masterProgramList as dpa_programs
+            // so the resume page displays a usable duplicate that can be edited.
+            if ($currentTable === 'tabel-8' && empty($tableData) && isset($inertiaExtras['realisasi_like_payload'])) {
+                try {
+                    $payload = $inertiaExtras['realisasi_like_payload'];
+                    $reqOpd = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                    $opdName = $reqOpd ? (Opd::query()->where('id', $reqOpd)->value('nama') ?? ('OPD '.($reqOpd))) : 'Preview OPD';
+                    $programs = $payload['masterProgramList'] ?? ($payload['data'] ?? []);
+                    $tableData = [[
+                        'no' => 1,
+                        'entitas' => $opdName,
+                        'opd_id' => $reqOpd,
+                        'rkpd_programs' => [],
+                        'dpa_programs' => $programs,
+                        'renstra_programs' => [],
+                        'rpjmd_programs' => [],
+                    ]];
+                } catch (\Throwable $e) {
+                    Log::warning('resume.apply_realisasi_like_failed', ['error' => $e->getMessage()]);
                 }
             }
 
@@ -352,12 +1102,66 @@ class ResumeController extends Controller
                 'availableYears' => $availableYears,
                 'tableMetricType' => $tableMetricType,
                 'tableData' => $tableData,
+                'tableData_debug' => [
+                    'count' => is_array($tableData) ? count($tableData) : (is_object($tableData) && method_exists($tableData, 'count') ? $tableData->count() : 0),
+                    'sample' => (function($td){
+                        try {
+                            if (empty($td)) return [];
+                            $arr = json_decode(json_encode(array_slice(is_array($td) ? $td : $td->toArray(), 0, 3)), true);
+                            return $arr;
+                        } catch (\Throwable $e) {
+                            return [];
+                        }
+                    })($tableData),
+                ],
             ], $inertiaExtras));
         }
 
         return Inertia::render('Resume/Index', [
             'currentView' => $currentView,
             'currentTable' => $currentTable,
+        ]);
+    }
+
+    /**
+     * Server-side Excel export endpoint. Expects JSON body with keys:
+     * - aoa: array of rows (array of arrays)
+     * - styles: object mapping "r,c" => { bg, color, isHeader }
+     * - cols: optional array of column widths
+     */
+    public function exportExcelServer(HttpRequest $request)
+    {
+        $payload = $request->all();
+        $rows = $payload['aoa'] ?? [];
+        $styles = $payload['styles'] ?? [];
+        $cols = $payload['cols'] ?? [];
+        $merges = $payload['merges'] ?? [];
+        $rowHeights = $payload['rowHeights'] ?? [];
+
+        $export = new RealisasiArrayExport($rows, $styles, $cols, $merges, $rowHeights);
+        return Excel::download($export, sprintf('realisasi_%s.xlsx', date('Ymd_His')));
+    }
+
+    public function attachments(Request $request): Response
+    {
+        $currentView = $request->string('view')->toString();
+        $currentTable = $request->string('table')->toString();
+        $opdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+        $year = $request->query('year') ? (int) $request->query('year') : null;
+
+        // If attachments are requested for dokumen monitoring, render a cloned Realisasi
+        // module (independent view) so /resume/attachments shows an independent copy.
+        if ($currentView === 'dokumen' && $currentTable === 'monitoring') {
+            // Delegate to the clone controller which prepares the same payload shape
+            $cloneCtrl = app(\App\Http\Controllers\RealisasiCloneController::class);
+            return $cloneCtrl->index(request());
+        }
+
+        return Inertia::render('Resume/Attachments', [
+            'currentView' => $currentView,
+            'currentTable' => $currentTable,
+            'opd_id' => $opdId,
+            'year' => $year,
         ]);
     }
 
@@ -517,6 +1321,139 @@ class ResumeController extends Controller
         }
 
         return $rows;
+    }
+
+    private function buildRealisasiLookupForResume(array $opdFilterIds, $tahun): array
+    {
+        $lookup = [];
+        $modelMap = [
+            'program' => \App\Models\Program::class,
+            'kegiatan' => \App\Models\Kegiatan::class,
+            'sub_kegiatan' => \App\Models\SubKegiatan::class,
+        ];
+
+        foreach ($modelMap as $jenis => $modelClass) {
+            $masterQuery = $modelClass::query()
+                ->select(['id', 'opd_id', 'kode_rek'])
+                ->where('document_type', 'dpa');
+
+            if (!empty($opdFilterIds)) {
+                $masterQuery->whereIn('opd_id', $opdFilterIds);
+            }
+
+            if ($tahun) {
+                $masterQuery->where('tahun', $tahun);
+            }
+
+            $masters = $masterQuery->get();
+            if ($masters->isEmpty()) continue;
+
+            $masterById = $masters->keyBy('id');
+            $masterIds = $masters->pluck('id')->values();
+
+            $realisasiQuery = \App\Models\Realisasi::query()
+                ->select(['id','realisaseable_id','triwulan','realisasi_keuangan','realisasi_fisik','tahun'])
+                ->where('realisaseable_type', $modelClass)
+                ->whereIn('realisaseable_id', $masterIds);
+
+            if ($tahun) $realisasiQuery->where('tahun', $tahun);
+
+            $realisasiRows = $realisasiQuery->get();
+
+            foreach ($realisasiRows as $row) {
+                $master = $masterById->get((int) $row->realisaseable_id);
+                if (!$master) continue;
+
+                $key = implode('|', [$jenis, trim((string) $master->kode_rek), (int) $master->opd_id]);
+                $tw = (int) ($row->triwulan ?? 0);
+                if ($tw < 1 || $tw > 4) continue;
+                if (!isset($lookup[$key])) $lookup[$key] = [];
+                $lookup[$key][$tw] = [
+                    'id' => (int) $row->id,
+                    'keuangan' => (float) ($row->realisasi_keuangan ?? 0),
+                    'fisik' => (float) ($row->realisasi_fisik ?? 0),
+                ];
+            }
+        }
+
+        return $lookup;
+    }
+
+    /**
+     * Compute average indikator-based physical realization for a kode_rek (prefix match)
+     * Searches Program, Kegiatan, SubKegiatan indikatorables for the given kode prefix and returns
+     * average realisasi value for the given triwulan (or null if none).
+     */
+    private function computeIndikatorFisikForKode(string $kodePrefix, int $opdId, ?int $tahun, int $triwulan): ?float
+    {
+        $results = [];
+        $bindings = [];
+
+        // Program
+        $programRows = DB::table('program')
+            ->select('program.id')
+            ->where('program.opd_id', $opdId)
+            ->where('program.tahun', $tahun)
+            ->where('program.kode_rek', 'like', $kodePrefix . '%')
+            ->pluck('id');
+
+        if ($programRows->isNotEmpty()) {
+            $q = DB::table('indikatorables as ia')
+                ->join('indikator as i', 'i.id', '=', 'ia.indikator_id')
+                ->whereIn('ia.indicatorable_id', $programRows->toArray())
+                ->where('ia.indicatorable_type', \App\Models\Program::class)
+                ->where('ia.tahun', $tahun)
+                ->where(function ($q) use ($triwulan) { $q->where('ia.triwulan', $triwulan)->orWhereNull('ia.triwulan'); })
+                ->whereNotNull('ia.realisasi')
+                ->select('ia.realisasi');
+
+            foreach ($q->get() as $r) $results[] = (float) $r->realisasi;
+        }
+
+        // Kegiatan
+        $kegRows = DB::table('kegiatan')
+            ->select('kegiatan.id')
+            ->where('kegiatan.opd_id', $opdId)
+            ->where('kegiatan.tahun', $tahun)
+            ->where('kegiatan.kode_rek', 'like', $kodePrefix . '%')
+            ->pluck('id');
+
+        if ($kegRows->isNotEmpty()) {
+            $q = DB::table('indikatorables as ia')
+                ->join('indikator as i', 'i.id', '=', 'ia.indikator_id')
+                ->whereIn('ia.indicatorable_id', $kegRows->toArray())
+                ->where('ia.indicatorable_type', \App\Models\Kegiatan::class)
+                ->where('ia.tahun', $tahun)
+                ->where(function ($q) use ($triwulan) { $q->where('ia.triwulan', $triwulan)->orWhereNull('ia.triwulan'); })
+                ->whereNotNull('ia.realisasi')
+                ->select('ia.realisasi');
+
+            foreach ($q->get() as $r) $results[] = (float) $r->realisasi;
+        }
+
+        // SubKegiatan
+        $subRows = DB::table('sub_kegiatan')
+            ->select('sub_kegiatan.id')
+            ->where('sub_kegiatan.opd_id', $opdId)
+            ->where('sub_kegiatan.tahun', $tahun)
+            ->where('sub_kegiatan.kode_rek', 'like', $kodePrefix . '%')
+            ->pluck('id');
+
+        if ($subRows->isNotEmpty()) {
+            $q = DB::table('indikatorables as ia')
+                ->join('indikator as i', 'i.id', '=', 'ia.indikator_id')
+                ->whereIn('ia.indicatorable_id', $subRows->toArray())
+                ->where('ia.indicatorable_type', \App\Models\SubKegiatan::class)
+                ->where('ia.tahun', $tahun)
+                ->where(function ($q) use ($triwulan) { $q->where('ia.triwulan', $triwulan)->orWhereNull('ia.triwulan'); })
+                ->whereNotNull('ia.realisasi')
+                ->select('ia.realisasi');
+
+            foreach ($q->get() as $r) $results[] = (float) $r->realisasi;
+        }
+
+        if (empty($results)) return null;
+        return array_sum($results) / count($results);
     }
 
     protected function getRekapPermasalahanByBidangUrusan(string $basis = 'perangkat-daerah', ?int $tw = null, ?string $bidang = null, ?int $tahun = null): array
@@ -2786,9 +3723,34 @@ class ResumeController extends Controller
                 'ia.nama_indikator',
             ]);
 
-        if (count($opdIds) > 0) $query->whereIn('ka.opd_id', array_keys($opdIds));
-        if (count($kodes) > 0) $query->whereIn('ka.kode_program', array_keys($kodes));
-        if (count($doks) > 0) $query->whereIn('ka.document_type', array_map('strtolower', array_keys($doks)));
+        if (count($opdIds) > 0) {
+            $query->whereIn('ka.opd_id', array_keys($opdIds));
+        }
+
+        if (count($kodes) > 0) {
+            $kodeKeys = array_values(array_map('strval', array_keys($kodes)));
+            $query->where(function ($q) use ($kodeKeys) {
+                $q->whereIn('ka.kode_program', $kodeKeys)
+                  ->orWhereIn('ka.kode', $kodeKeys);
+
+                // also allow prefix matches like '1.01' -> '1.01.01'
+                foreach ($kodeKeys as $kd) {
+                    $kd = trim((string) $kd);
+                    if ($kd === '') continue;
+                    $q->orWhere('ka.kode_program', 'like', $kd.'%');
+                    $q->orWhere('ka.kode', 'like', $kd.'%');
+                }
+            });
+        }
+
+        if (count($doks) > 0) {
+            $dokKeys = array_map('strtolower', array_keys($doks));
+            $query->where(function ($q) use ($dokKeys) {
+                foreach ($dokKeys as $dk) {
+                    $q->orWhereRaw('LOWER(ka.document_type) = ?', [$dk]);
+                }
+            });
+        }
         // Do not restrict tahun strictly to avoid missing matches; filter later
 
         $indikatorRows = $query->get();
@@ -2903,6 +3865,26 @@ class ResumeController extends Controller
             }
         }
         unset($row);
+
+        // diagnostic: log counts and small samples to help debug why indikator matches may be missing
+        try {
+            $sampleKeys = array_slice(array_keys($keys), 0, 12);
+            $mapSamples = [];
+            $i = 0;
+            foreach ($map as $mk => $vals) {
+                if ($i++ > 20) break;
+                $mapSamples[$mk] = count($vals);
+            }
+            Log::debug('resume.attachFallbackIndikators.debug', [
+                'requested_keys_count' => count($keys),
+                'indikator_rows_found' => isset($indikatorRows) ? $indikatorRows->count() : null,
+                'map_entries' => count($map),
+                'sample_requested_keys' => $sampleKeys,
+                'sample_map_counts' => $mapSamples,
+            ]);
+        } catch (\Throwable $e) {
+            // ignore logging errors
+        }
 
         return $rows;
     }

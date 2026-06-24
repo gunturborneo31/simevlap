@@ -4,7 +4,7 @@
       <Link
         v-for="item in resumeMenu"
         :key="item.label"
-        :href="route('resume.index', item.query)"
+        :href="item.href ? item.href : route('resume.index', item.query)"
         class="group rounded-2xl border border-emerald-100 bg-white/90 p-4 text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
       >
         <div :class="item.iconBg + ' mx-auto mb-2 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg'">
@@ -23,12 +23,33 @@
             <p class="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">Resume</p>
             <h2 class="text-2xl font-bold text-emerald-900">{{ currentViewTitle }}</h2>
           </div>
-          <Link
-            :href="route('resume.index')"
-            class="inline-flex items-center justify-center rounded-lg bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-100"
-          >
-            Kembali ke Menu Resume
-          </Link>
+          <div class="flex gap-3">
+            <Link
+              :href="route('resume.index')"
+              class="inline-flex items-center justify-center rounded-lg bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-100"
+            >
+              Kembali ke Menu Resume
+            </Link>
+
+            <Link
+              v-if="props.currentView === 'hasil-pelaksanaan-rkpd'"
+              :href="route('resume.index', { view: 'hasil-pelaksanaan-rkpd', table: 'tabel-7' })"
+              class="inline-flex items-center justify-center rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-800"
+            >
+              Buka Tabel 7
+            </Link>
+            <div v-if="props.opds && props.opds.length" class="inline-flex items-center">
+              <label class="mr-2 text-sm text-slate-600">OPD:</label>
+              <select
+                class="rounded-lg border px-3 py-2 text-sm"
+                :value="props.selectedOpd ?? ''"
+                @change="onOpdChange($event)"
+              >
+                <option value="">Semua OPD</option>
+                <option v-for="o in props.opds" :key="o.id" :value="o.id">{{ o.nama }}</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <p class="text-sm text-slate-500">
@@ -46,10 +67,10 @@
           ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-2'
           : 'grid-cols-1 md:grid-cols-2 xl:grid-cols-4'
       ]">
-        <Link
+        <a
           v-for="item in tableMenu"
           :key="item.label"
-          :href="route('resume.index', { view: props.currentView, table: item.value })"
+          :href="item.href ? item.href : (item.routeName ? route(item.routeName, item.routeParams) : route('resume.index', { view: props.currentView, table: item.value }))"
           :class="[
             'group rounded-2xl border bg-white/90 p-4 text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
             currentTable === item.value
@@ -63,7 +84,7 @@
             </svg>
           </div>
           <h3 class="text-lg font-bold text-emerald-900 transition-colors group-hover:text-emerald-700">{{ item.label }}</h3>
-        </Link>
+        </a>
       </section>
 
     </section>
@@ -74,6 +95,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 
 const props = defineProps({
   currentView: {
@@ -84,17 +106,38 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  opds: {
+    type: Array,
+    default: () => [],
+  },
+  selectedOpd: {
+    type: [Number, String],
+    default: null,
+  },
 });
 
-const resumeMenu = [
-  { label: 'Konsistensi RPJMD - RKPD', query: { view: 'konsistensi-rpjmd-rkpd' }, iconBg: 'bg-blue-500' },
-  { label: 'Konsistensi RKPD - APBD', query: { view: 'konsistensi-rkpd-apbd' }, iconBg: 'bg-teal-500' },
-  { label: 'Hasil Pelaksanaan RKPD', query: { view: 'hasil-pelaksanaan-rkpd' }, iconBg: 'bg-emerald-600' },
-  { label: 'Rekap Permasalahan', query: { view: 'rekap-permasalahan' }, iconBg: 'bg-amber-500' },
-  { label: 'Realisasi', query: { view: 'realisasi' }, iconBg: 'bg-yellow-600' },
-  { label: 'Kertas Kerja', query: { view: 'kertas-kerja' }, iconBg: 'bg-lime-600' },
-  { label: 'Dokumen (Renstra, Renja, DPA)', query: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-indigo-600' },
-];
+  const resumeMenu = (() => {
+  const items = [
+    { label: 'Konsistensi RPJMD - RKPD', query: { view: 'konsistensi-rpjmd-rkpd' }, iconBg: 'bg-blue-500' },
+    { label: 'Konsistensi RKPD - APBD', query: { view: 'konsistensi-rkpd-apbd' }, iconBg: 'bg-teal-500' },
+    { label: 'Hasil Pelaksanaan RKPD', query: { view: 'hasil-pelaksanaan-rkpd' }, iconBg: 'bg-emerald-600' },
+    { label: 'Rekap Permasalahan', query: { view: 'rekap-permasalahan' }, iconBg: 'bg-amber-500' },
+    { label: 'Realisasi', query: { view: 'realisasi' }, iconBg: 'bg-yellow-600' },
+    { label: 'Kertas Kerja', query: { view: 'kertas-kerja' }, iconBg: 'bg-lime-600' },
+    { label: 'Dokumen (Renstra, Renja, DPA)', query: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-indigo-600' },
+  ];
+
+  // Lampiran card opens the attachments page — ensure href is available at runtime
+  const lampiran = { label: 'Lampiran', routeName: 'resume.attachments', routeParams: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-slate-600' };
+  try {
+    lampiran.href = route(lampiran.routeName, lampiran.routeParams || {});
+  } catch (e) {
+    lampiran.href = '/resume/attachments?view=dokumen&table=monitoring';
+  }
+  items.push(lampiran);
+
+  return items;
+})();
 
 // View configuration dengan jumlah tabel dan warna yang berbeda
 const viewConfigs = {
@@ -113,8 +156,8 @@ const viewConfigs = {
   },
   'hasil-pelaksanaan-rkpd': {
     title: 'Hasil Pelaksanaan RKPD',
-    tables: 6,
-    colors: ['bg-blue-500', 'bg-teal-500', 'bg-emerald-600', 'bg-amber-500', 'bg-rose-500', 'bg-purple-500'],
+    tables: 8,
+    colors: ['bg-blue-500', 'bg-teal-500', 'bg-emerald-600', 'bg-amber-500', 'bg-rose-500', 'bg-purple-500', 'bg-lime-500', 'bg-lime-500'],
   },
   'rekap-permasalahan': {
     title: 'Rekap Permasalahan',
@@ -176,4 +219,16 @@ const currentViewTitle = computed(() => {
   const config = viewConfigs[props.currentView];
   return config?.title || '';
 });
+
+function onOpdChange(e) {
+  const v = e.target.value || null;
+  const query = { view: props.currentView };
+  if (props.currentTable) query.table = props.currentTable;
+  if (v) query.opd_id = v;
+  // preserve year if present in page props
+  const page = usePage();
+  const year = page.props.value.selectedYear ?? page.props.value.year ?? null;
+  if (year) query.year = year;
+  window.location.href = route('resume.index', query);
+}
 </script>

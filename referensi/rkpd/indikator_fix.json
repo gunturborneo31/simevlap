@@ -8137,8 +8137,8 @@
     {
         "kode_unit": "1.05.0.00.0.00.26.0000",
         "kode_uraian": "1.05.01.2.02.0003",
-        "uraian": "PelaksanaanPenatausahaandan\n\nPengujian\/VerifikasiKeuanganSKPD",
-        "indikator": "Jumlah Dokumen Penatausahaandan Pengujian \/ Verifikasi Keuangan SKPD",
+        "uraian": "Pelaksanaan Penatausahaan dan Pengujian / Verifikasi Keuangan SKPD",
+        "indikator": "Jumlah Dokumen Penatausahaan dan Pengujian / Verifikasi Keuangan SKPD",
         "TARGET": 1,
         "SATUAN": "Dokumen",
         "jenis_indikator": "SubKegiatan"
@@ -8749,8 +8749,8 @@
     {
         "kode_unit": "1.06.2.08.0.00.05.0000",
         "kode_uraian": "1.06.01.2.02.0003",
-        "uraian": "PelaksanaanPenatausahaandan\n\nPengujian\/VerifikasiKeuanganSKPD",
-        "indikator": "Jumlah Dokumen Penatausahaandan Pengujian \/ Verifikasi Keuangan SKPD",
+        "uraian": "Pelaksanaan Penatausahaan dan Pengujian / Verifikasi Keuangan SKPD",
+        "indikator": "Jumlah Dokumen Penatausahaan dan Pengujian \/ Verifikasi Keuangan SKPD",
         "TARGET": 12,
         "SATUAN": "Dokumen",
         "jenis_indikator": "SubKegiatan"
@@ -10906,8 +10906,8 @@
     {
         "kode_unit": "2.13.0.00.0.00.08.0000",
         "kode_uraian": "2.13.01.2.02.0003",
-        "uraian": "PelaksanaanPenatausahaandan\n\nPengujian\/VerifikasiKeuanganSKPD",
-        "indikator": "Jumlah Dokumen Penatausahaandan Pengujian \/ Verifikasi Keuangan SKPD",
+        "uraian": "Pelaksanaan Penatausahaan dan Pengujian / Verifikasi Keuangan SKPD",
+        "indikator": "Jumlah Dokumen Penatausahaan dan Pengujian \/ Verifikasi Keuangan SKPD",
         "TARGET": 12,
         "SATUAN": "Dokumen",
         "jenis_indikator": "SubKegiatan"
@@ -11447,8 +11447,8 @@
     {
         "kode_unit": "2.15.0.00.0.00.09.0000",
         "kode_uraian": "2.15.01.2.02.0003",
-        "uraian": "PelaksanaanPenatausahaandan\n\nPengujian\/VerifikasiKeuanganSKPD",
-        "indikator": "Jumlah Dokumen Penatausahaandan Pengujian \/ Verifikasi Keuangan SKPD",
+        "uraian": "Pelaksanaan Penatausahaan dan Pengujian / Verifikasi Keuangan SKPD",
+        "indikator": "Jumlah Dokumen Penatausahaan dan Pengujian \/ Verifikasi Keuangan SKPD",
         "TARGET": 75,
         "SATUAN": "Dokumen",
         "jenis_indikator": "SubKegiatan"
@@ -15356,8 +15356,8 @@
     {
         "kode_unit": "4.01.0.00.0.00.14.0004",
         "kode_uraian": "4.01.01.2.02.0003",
-        "uraian": "PelaksanaanPenatausahaandan\n\nPengujian\/VerifikasiKeuanganSKPD",
-        "indikator": "Jumlah Dokumen Penatausahaandan Pengujian \/ Verifikasi Keuangan SKPD",
+        "uraian": "Pelaksanaan Penatausahaan dan Pengujian / Verifikasi Keuangan SKPD",
+        "indikator": "Jumlah Dokumen Penatausahaan dan Pengujian \/ Verifikasi Keuangan SKPD",
         "TARGET": 12,
         "SATUAN": "Dokumen",
         "jenis_indikator": "SubKegiatan"
@@ -16299,8 +16299,8 @@
     {
         "kode_unit": "4.02.0.00.0.00.15.0000",
         "kode_uraian": "4.02.01.2.02.0003",
-        "uraian": "PelaksanaanPenatausahaandan\n\nPengujian\/VerifikasiKeuanganSKPD",
-        "indikator": "Jumlah Dokumen Penatausahaandan Pengujian \/ Verifikasi Keuangan SKPD",
+        "uraian": "Pelaksanaan Penatausahaan dan Pengujian / Verifikasi Keuangan SKPD",
+        "indikator": "Jumlah Dokumen Penatausahaan dan Pengujian \/ Verifikasi Keuangan SKPD",
         "TARGET": 4,
         "SATUAN": "Dokumen",
         "jenis_indikator": "SubKegiatan"
@@ -18747,8 +18747,8 @@
     {
         "kode_unit": "5.02.4.01.0.00.23.0000",
         "kode_uraian": "5.02.02.2.02.0010",
-        "uraian": "PenyusunanPetunjukTeknisAdministrasiKeuanganyangBerkaitandenganPenerimaandanPengeluaranKassertaPenatausahaandanPertanggungjawabanSubKegiatan",
-        "indikator": "Jumlah Petunjuk Teknis Administrasi Keuanganyang Berkaitandengan Penerimaandan Pengeluaran Kasserta Penatausahaandan Pertanggungjawaban Sub Kegiatan",
+        "uraian": "PenyusunanPetunjukTeknisAdministrasiKeuanganyangBerkaitandenganPenerimaandanPengeluaranKassertaPenatausahaan danPertanggungjawabanSubKegiatan",
+        "indikator": "Jumlah Petunjuk Teknis Administrasi Keuanganyang Berkaitandengan Penerimaandan Pengeluaran Kasserta Penatausahaan dan Pertanggungjawaban Sub Kegiatan",
         "TARGET": 1,
         "SATUAN": "Dokumen",
         "jenis_indikator": "SubKegiatan"

@@ -8,6 +8,10 @@
     ]"
   >
     <div ref="fullscreenContainerRef" class="bg-white rounded-2xl shadow-md p-6" :class="isFullscreen ? 'fixed inset-0 z-[9999] overflow-auto rounded-none' : ''">
+      <div v-if="isReadonly && resume_duplicate" class="mb-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-amber-800">
+        <strong>Duplikat Resume:</strong> tampilan ini menyalin isi halaman Realisasi untuk lampiran dan bersifat read-only.
+        <span v-if="resume_source" class="ml-2 text-sm text-amber-700">(sumber: {{ resume_source }})</span>
+      </div>
       <section v-if="isVerifikatorMode" class="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3">
         <Link
           v-for="item in verifikatorDocumentTypes"
@@ -202,7 +206,7 @@
               <th class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide sticky-col-kode-header">Kode</th>
               <th class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide sticky-col-uraian-header">Program / Kegiatan</th>
               <th v-if="!showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Pagu</th>
-              <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Pagu RENSTRA</th>
+              <th v-if="showRealisasiMode && includeRenstra" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Pagu RENSTRA</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Pagu RENJA</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Pagu DPA</th>
               <th
@@ -218,7 +222,7 @@
               <th class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide w-[220px] max-w-[220px]">Indikator</th>
               <th class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Sifat Indikator</th>
               <th v-if="!showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Target Indikator</th>
-              <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Target RENSTRA</th>
+              <th v-if="showRealisasiMode && includeRenstra" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Target RENSTRA</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Target RENJA</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Target DPA</th>
               <th
@@ -673,14 +677,27 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  resume_duplicate: {
+    type: Boolean,
+    default: false,
+  },
+  resume_source: {
+    type: String,
+    default: null,
+  },
   realisasiAnnotations: {
     type: Object,
     default: () => ({}),
+  },
+  includeRenstra: {
+    type: Boolean,
+    default: true,
   },
 });
 
 const pageMode = computed(() => props.pageMode || 'dokumen');
 const showRealisasiMode = computed(() => pageMode.value === 'realisasi' || pageMode.value === 'verifikator');
+const includeRenstra = computed(() => props.includeRenstra !== false);
 const isVerifikatorMode = computed(() => pageMode.value === 'verifikator');
 const isReadonly = computed(() => pageMode.value === 'dokumen' && props.readonly);
 const showDpaActions = computed(() => pageMode.value === 'dokumen' && !props.readonly);
@@ -2042,7 +2059,7 @@ function buildNoticeRow({ key, jenis, message }) {
     { value: message, class: 'px-3 py-2 font-semibold text-amber-700 border-b border-r border-gray-300' },
     ...(showRealisasiMode.value
       ? [
-          { value: '-', class: 'px-3 py-2 text-right text-gray-500 border-b border-r border-gray-300' },
+          ...(includeRenstra.value ? [ { value: '-', class: 'px-3 py-2 text-right text-gray-500 border-b border-r border-gray-300' } ] : []),
           { value: '-', class: 'px-3 py-2 text-right text-gray-500 border-b border-r border-gray-300' },
           { value: '-', class: 'px-3 py-2 text-right text-gray-500 border-b border-r border-gray-300' },
         ]
@@ -2067,7 +2084,7 @@ function buildNoticeRow({ key, jenis, message }) {
     { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
     ...(showRealisasiMode.value
       ? [
-          { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
+          ...(includeRenstra.value ? [ { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' } ] : []),
           { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
           { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
         ]
@@ -2149,7 +2166,7 @@ function renderRows(data, parentKey = '', parentProgram = null) {
           { value: komponen.nama_komponen, rowspan: indikator.length, skip: i !== 0, class: 'px-3 py-2 align-top font-bold border-b border-r border-gray-300 sticky-col-uraian-body' },
           ...(showRealisasiMode.value
             ? [
-                { type: 'pagu_source', source: 'renstra', komponen, rowspan: indikator.length, skip: i !== 0, class: 'px-3 py-2 align-top text-right whitespace-nowrap border-b border-r border-gray-300' },
+                ...(includeRenstra.value ? [{ type: 'pagu_source', source: 'renstra', komponen, rowspan: indikator.length, skip: i !== 0, class: 'px-3 py-2 align-top text-right whitespace-nowrap border-b border-r border-gray-300' }] : []),
                 { type: 'pagu_source', source: 'renja', komponen, rowspan: indikator.length, skip: i !== 0, class: 'px-3 py-2 align-top text-right whitespace-nowrap border-b border-r border-gray-300' },
                 { type: 'pagu_source', source: 'dpa', komponen, rowspan: indikator.length, skip: i !== 0, class: 'px-3 py-2 align-top text-right whitespace-nowrap border-b border-r border-gray-300' },
               ]
@@ -2178,7 +2195,7 @@ function renderRows(data, parentKey = '', parentProgram = null) {
           { value: formatSifatIndikator(ind.sifat_indikator), class: 'px-3 py-2 align-top text-left border-b border-r border-gray-300' },
           ...(showRealisasiMode.value
             ? [
-                { value: getTargetBySource(ind, 'renstra'), class: 'px-3 py-2 border-b border-r border-gray-300' },
+                ...(includeRenstra.value ? [{ value: getTargetBySource(ind, 'renstra'), class: 'px-3 py-2 border-b border-r border-gray-300' }] : []),
                 { value: getTargetBySource(ind, 'renja'), class: 'px-3 py-2 border-b border-r border-gray-300' },
                 { value: getTargetBySource(ind, 'dpa'), class: 'px-3 py-2 border-b border-r border-gray-300' },
               ]

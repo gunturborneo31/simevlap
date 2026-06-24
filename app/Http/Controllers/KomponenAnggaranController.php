@@ -161,7 +161,7 @@ class KomponenAnggaranController extends Controller
                 ->whereIn('opd_id', $opdFilterIds);
 
             $subKegiatanMasterQuery = SubKegiatan::query()
-                ->select(['id', 'opd_id', 'kode_rek', 'nama_rincian', 'pagu'])
+                ->select(['id', 'kegiatan_id', 'opd_id', 'kode_rek', 'nama_rincian', 'pagu'])
                 ->where('document_type', 'dpa')
                 ->whereIn('opd_id', $opdFilterIds);
 
@@ -178,15 +178,23 @@ class KomponenAnggaranController extends Controller
                 'nama' => $row->nama_rincian,
             ]);
 
-            $kegiatanReferensi = $kegiatanMasterQuery->orderBy('kode_rek')->get()->map(fn ($row) => [
+            $kegiatanCollection = $kegiatanMasterQuery->orderBy('kode_rek')->get();
+            $subKegiatanCollection = $subKegiatanMasterQuery->orderBy('kode_rek')->get();
+
+            // compute pagu per kegiatan from sub_kegiatan pagu
+            $paguByKegiatan = $subKegiatanCollection->groupBy('kegiatan_id')->map(fn($group) => (int) $group->sum('pagu'));
+
+            $kegiatanReferensi = $kegiatanCollection->map(fn ($row) => [
                 'id' => $row->id,
                 'opd_id' => $row->opd_id,
                 'kode' => $row->kode_rek,
                 'nama' => $row->nama_rincian,
+                'pagu' => (int) ($paguByKegiatan[$row->id] ?? 0),
             ]);
 
-            $subKegiatanReferensi = $subKegiatanMasterQuery->orderBy('kode_rek')->get()->map(fn ($row) => [
+            $subKegiatanReferensi = $subKegiatanCollection->map(fn ($row) => [
                 'id' => $row->id,
+                'kegiatan_id' => $row->kegiatan_id,
                 'opd_id' => $row->opd_id,
                 'kode' => $row->kode_rek,
                 'nama' => $row->nama_rincian,
@@ -209,6 +217,200 @@ class KomponenAnggaranController extends Controller
             'readonly' => request()->boolean('readonly'),
             'realisasiAnnotations' => $this->getRealisasiAnnotationsPayload($pageMode, $documentType, $opdId ? (int) $opdId : null, $tahun ? (int) $tahun : null),
         ]);
+    }
+
+    /**
+     * Build a payload similar to the realisasi DPA page but return as array
+     * so other controllers (ResumeController) can reuse the data shape.
+     *
+     * @param int|null $opdId
+     * @param int|null $tahun
+     * @param string $pageMode
+     * @param string $documentType
+     * @return array
+     */
+    public function buildRealisasiPayloadForOpd(?int $opdId, ?int $tahun = null, string $pageMode = 'realisasi', string $documentType = 'dpa', bool $includeRenstra = true): array
+    {
+        $opdFilterIds = $this->resolveOpdFilterIds($opdId);
+
+        $query = KomponenAnggaran::with([
+            'indikator',
+            'urusanRef:id,kode,nama',
+            'bidangUrusanRef:id,kode,nama',
+            'children.indikator',
+            'children.urusanRef:id,kode,nama',
+            'children.bidangUrusanRef:id,kode,nama',
+            'children.children.indikator',
+            'children.children.urusanRef:id,kode,nama',
+            'children.children.bidangUrusanRef:id,kode,nama',
+        ])
+            ->where('document_type', 'dpa')
+            ->whereNull('parent_id');
+
+        if ($opdId) {
+            $query->whereIn('opd_id', $opdFilterIds);
+        }
+        if ($tahun) {
+            $query->where('tahun', $tahun);
+        }
+
+        $data  = $query->orderBy('kode')->get();
+        $realisasiRefLookup = [];
+        $realisasiLookup = $this->buildRealisasiLookup($opdFilterIds, $tahun, $realisasiRefLookup);
+        $data = $this->mapKomponenWithReferenceNames($data, $realisasiLookup, $realisasiRefLookup);
+
+        if ($includeRenstra && in_array($pageMode, ['realisasi', 'verifikator'], true) && $documentType === 'dpa') {
+            $renjaQuery = KomponenAnggaran::with([
+                'indikator',
+                'urusanRef:id,kode,nama',
+                'bidangUrusanRef:id,kode,nama',
+                'children.indikator',
+                'children.urusanRef:id,kode,nama',
+                'children.bidangUrusanRef:id,kode,nama',
+                'children.children.indikator',
+                'children.children.urusanRef:id,kode,nama',
+                'children.children.bidangUrusanRef:id,kode,nama',
+            ])
+                ->where('document_type', 'renja')
+                ->whereNull('parent_id');
+
+            if ($opdId) {
+                $renjaQuery->whereIn('opd_id', $opdFilterIds);
+            }
+            if ($tahun) {
+                $renjaQuery->where('tahun', $tahun);
+            }
+
+            $renjaData = $this->mapKomponenWithReferenceNames($renjaQuery->orderBy('kode')->get());
+
+            $renstraQuery = KomponenAnggaran::with([
+                'indikator',
+                'urusanRef:id,kode,nama',
+                'bidangUrusanRef:id,kode,nama',
+                'children.indikator',
+                'children.urusanRef:id,kode,nama',
+                'children.bidangUrusanRef:id,kode,nama',
+                'children.children.indikator',
+                'children.children.urusanRef:id,kode,nama',
+                'children.children.bidangUrusanRef:id,kode,nama',
+            ])
+                ->where('document_type', 'renstra')
+                ->whereNull('parent_id');
+
+            if ($opdId) {
+                $renstraQuery->whereIn('opd_id', $opdFilterIds);
+            }
+
+            $renstraData = $this->mapKomponenWithReferenceNames($renstraQuery->orderBy('kode')->get());
+            $data = $this->mergeKomponenTreesForRealisasi($data, $renjaData, $renstraData);
+        }
+
+        $opdsQuery = Opd::where('is_active', true);
+        $opds  = $opdsQuery->orderBy('nama')->get(['id', 'nama', 'kode']);
+        $tahunList = range(date('Y') - 2, date('Y') + 2);
+
+        // master program list
+        $programQuery = KomponenAnggaran::where('jenis', 'program')
+            ->where('document_type', 'dpa')
+            ->whereNull('parent_id');
+
+        if ($opdId) {
+            $programQuery->whereIn('opd_id', $opdFilterIds);
+        }
+        if ($tahun) {
+            $programQuery->where('tahun', $tahun);
+        }
+
+        $masterProgramList = $programQuery
+            ->with(['indikator', 'bidangUrusanRef:id,kode,nama'])
+            ->orderBy('kode')
+            ->get()
+            ->map(fn($p) => [
+                'id'          => $p->id,
+                'kode'        => $p->kode,
+                'kode_program'=> $p->kode_program,
+                'nama'        => $p->nama_komponen,
+                'bidang'      => $p->bidangUrusanRef?->nama ?? $p->bidang_urusan,
+                'opd_id'      => $p->opd_id,
+                'indikator'   => $p->indikator->map(fn($i) => [
+                    'nama_indikator' => $this->prettifyIndikatorName((string) ($i->nama_indikator ?? '')),
+                    'sifat_indikator'=> $i->sifat_indikator,
+                    'target_indikator'=> $i->target_indikator,
+                    'satuan'         => $i->satuan,
+                ])->values()->all(),
+            ]);
+
+        $programReferensi = collect();
+        $kegiatanReferensi = collect();
+        $subKegiatanReferensi = collect();
+
+        if ($opdId) {
+            $programMasterQuery = Program::query()
+                ->select(['id', 'opd_id', 'kode_rek', 'nama_rincian'])
+                ->where('document_type', 'dpa')
+                ->whereIn('opd_id', $opdFilterIds);
+
+            $kegiatanMasterQuery = Kegiatan::query()
+                ->select(['id', 'opd_id', 'kode_rek', 'nama_rincian'])
+                ->where('document_type', 'dpa')
+                ->whereIn('opd_id', $opdFilterIds);
+
+            $subKegiatanMasterQuery = SubKegiatan::query()
+                ->select(['id', 'kegiatan_id', 'opd_id', 'kode_rek', 'nama_rincian', 'pagu'])
+                ->where('document_type', 'dpa')
+                ->whereIn('opd_id', $opdFilterIds);
+
+            if ($tahun) {
+                $programMasterQuery->where('tahun', $tahun);
+                $kegiatanMasterQuery->where('tahun', $tahun);
+                $subKegiatanMasterQuery->where('tahun', $tahun);
+            }
+
+            $programReferensi = $programMasterQuery->orderBy('kode_rek')->get()->map(fn ($row) => [
+                'id' => $row->id,
+                'opd_id' => $row->opd_id,
+                'kode' => $row->kode_rek,
+                'nama' => $row->nama_rincian,
+            ]);
+
+            $kegiatanCollection = $kegiatanMasterQuery->orderBy('kode_rek')->get();
+            $subKegiatanCollection = $subKegiatanMasterQuery->orderBy('kode_rek')->get();
+
+            // compute pagu per kegiatan from sub_kegiatan pagu
+            $paguByKegiatan = $subKegiatanCollection->groupBy('kegiatan_id')->map(fn($group) => (int) $group->sum('pagu'));
+
+            $kegiatanReferensi = $kegiatanCollection->map(fn ($row) => [
+                'id' => $row->id,
+                'opd_id' => $row->opd_id,
+                'kode' => $row->kode_rek,
+                'nama' => $row->nama_rincian,
+                'pagu' => (int) ($paguByKegiatan[$row->id] ?? 0),
+            ]);
+
+            $subKegiatanReferensi = $subKegiatanCollection->map(fn ($row) => [
+                'id' => $row->id,
+                'kegiatan_id' => $row->kegiatan_id,
+                'opd_id' => $row->opd_id,
+                'kode' => $row->kode_rek,
+                'nama' => $row->nama_rincian,
+                'pagu' => (int) ($row->pagu ?? 0),
+            ]);
+        }
+
+        return [
+            'data' => $data,
+            'opds' => $opds,
+            'tahunList' => $tahunList,
+            'masterProgramList' => $masterProgramList,
+            'masterReferensi' => [
+                'program' => $programReferensi,
+                'kegiatan' => $kegiatanReferensi,
+                'sub_kegiatan' => $subKegiatanReferensi,
+            ],
+            'pageMode' => $pageMode,
+            'documentType' => $documentType,
+            'realisasiAnnotations' => $this->getRealisasiAnnotationsPayload($pageMode, $documentType, $opdId ? (int) $opdId : null, $tahun ? (int) $tahun : null),
+        ];
     }
 
     public function upsertRealisasiAnnotation(\Illuminate\Http\Request $request): RedirectResponse
@@ -619,15 +821,86 @@ class KomponenAnggaranController extends Controller
             $row->bidang_urusan = $row->bidangUrusanRef?->nama ?? $row->bidang_urusan;
 
             $lookupKey = $this->makeRealisasiLookupKey($row->jenis, (string) $row->kode, (int) $row->opd_id);
-            $row->realisasi_tw = $realisasiLookup[$lookupKey] ?? [];
-            $row->realisasi_ref = $realisasiRefLookup[$lookupKey] ?? null;
+            $matched = $realisasiLookup[$lookupKey] ?? null;
+            $matchedRef = $realisasiRefLookup[$lookupKey] ?? null;
+
+            // Fallback: if exact key not found, try prefix-match against master kode_rek values
+            if ($matched === null || empty($matched)) {
+                $merged = [];
+                foreach ($realisasiLookup as $k => $v) {
+                    $parts = explode('|', $k);
+                    if (count($parts) < 3) continue;
+                    [$kJenis, $kKode, $kOpd] = $parts;
+                    // determine candidate types: program can match kegiatan/sub_kegiatan, kegiatan can match sub_kegiatan
+                    $candidates = [$row->jenis ?? ''];
+                    if (($row->jenis ?? '') === 'program') {
+                        $candidates = ['program', 'kegiatan', 'sub_kegiatan'];
+                    } elseif (($row->jenis ?? '') === 'kegiatan') {
+                        $candidates = ['kegiatan', 'sub_kegiatan'];
+                    }
+
+                    if (!in_array($kJenis, $candidates, true)) continue;
+                    if ((int) $kOpd !== (int) ($row->opd_id ?? 0)) continue;
+                    // if master kode_rek starts with the komponen kode, consider it a match
+                    if (str_starts_with($kKode, (string) $row->kode)) {
+                        foreach ($v as $tw => $payload) {
+                            if (!isset($merged[$tw])) $merged[$tw] = $payload;
+                            else {
+                                $merged[$tw]['keuangan'] = ($merged[$tw]['keuangan'] ?? 0) + ($payload['keuangan'] ?? 0);
+                                $merged[$tw]['fisik'] = ($merged[$tw]['fisik'] ?? 0) + ($payload['fisik'] ?? 0);
+                            }
+                        }
+                        // set reference if exists
+                        if (($realisasiRefLookup[$k] ?? null) && $matchedRef === null) {
+                            $matchedRef = $realisasiRefLookup[$k];
+                        }
+                    }
+                }
+
+                if (!empty($merged)) {
+                    $matched = $merged;
+                }
+            }
+
+            $row->realisasi_tw = $matched ?? [];
+            $row->realisasi_ref = $matchedRef ?? null;
 
             if ($row->relationLoaded('children') && $row->children) {
                 $row->setRelation('children', $this->mapKomponenWithReferenceNames($row->children, $realisasiLookup, $realisasiRefLookup));
             }
 
+            // Aggregate pagu from children (recursive) for program/kegiatan nodes.
+            try {
+                $aggregated = $this->aggregatePaguFromChildren($row);
+                if ($aggregated > 0) {
+                    $row->pagu = $aggregated;
+                }
+            } catch (\Throwable $e) {
+                // ignore aggregation errors and keep existing pagu
+            }
+
             return $row;
         });
+    }
+
+    private function aggregatePaguFromChildren($node): int
+    {
+        $sum = 0;
+
+        // if children relation loaded and not empty, sum recursively
+        if (isset($node->children) && $node->children) {
+            foreach ($node->children as $child) {
+                $childSum = $this->aggregatePaguFromChildren($child);
+                $sum += $childSum;
+            }
+        }
+
+        // if no children contributed, fallback to node's own pagu (if present)
+        if ($sum <= 0) {
+            return (int) ($node->pagu ?? 0);
+        }
+
+        return (int) $sum;
     }
 
     private function mergeKomponenTreesForRealisasi(Collection $dpaRows, Collection $renjaRows, ?Collection $renstraRows = null): Collection

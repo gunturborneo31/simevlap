@@ -2,10 +2,14 @@
   <AppLayout title="Resume Monitoring">
     <section class="space-y-6">
       <div class="rounded-2xl border border-emerald-100 bg-white/90 p-6 shadow-md">
-        <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div class="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
             <h2 v-if="viewTitle" class="text-2xl font-bold text-emerald-900">{{ viewTitle }}</h2>
             <p v-if="currentTableLabel" class="mt-1 text-sm font-semibold text-slate-500">{{ currentTableLabel }}</p>
+              <!-- DEBUG BANNER: tampilkan props singkat untuk verifikasi klien -->
+              <div class="mt-2 rounded px-3 py-2 text-xs text-slate-600 bg-amber-50 border border-amber-100">
+                Debug: view={{ currentView }} — table={{ currentTable }} — rows={{ (tableData && tableData.length) || 0 }} — activeBranch={{ activeBranch }}
+              </div>
           </div>
               <div class="flex flex-col gap-3 md:items-end">
             <Link
@@ -14,6 +18,14 @@
             >
               Kembali ke Daftar Tabel
             </Link>
+
+            <!-- Tombol Lampiran (paksa navigasi dengan anchor biasa) -->
+            <a
+              :href="route('resume.attachments', { view: currentView, table: currentTable, opd_id: selectedOpd, year: yearValue })"
+              class="inline-flex items-center justify-center rounded-lg bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-100 ml-2"
+            >
+              Lampiran
+            </a>
 
             
 
@@ -51,6 +63,30 @@
                 <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
               </select>
             </div>
+            <!-- OPD filter + Triwulan for tabel-7 -->
+            <div v-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-7'" class="mt-2 md:mt-0 md:ml-4 flex items-center gap-3">
+              <div>
+                <label class="text-xs text-slate-600 mr-2">OPD</label>
+                <select v-model="selectedOpd" @change="applyFilters" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+                  <option value="">Semua OPD</option>
+                  <option v-for="o in opds" :key="o.id" :value="o.id">{{ o.nama }}</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs text-slate-600 mr-2">Triwulan</label>
+                <div class="inline-flex items-center gap-1">
+                  <button v-for="tw in ['all',1,2,3,4]" :key="tw" type="button" @click="chooseTriwulan(tw)" :class="twValue === tw ? 'rounded-lg border px-3 py-2 text-xs font-semibold bg-emerald-500 text-white' : 'rounded-lg border px-3 py-2 text-xs font-semibold bg-white text-slate-600'">{{ tw === 'all' ? 'Semua' : 'TW ' + tw }}</button>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <button type="button" @click="toggleFullpage" :title="isFullpage ? 'Keluar Fullpage' : 'Tampilkan Fullpage'" class="ml-2 rounded-md px-3 py-2 text-xs font-semibold border bg-white text-slate-700 hover:bg-emerald-50">
+                  <span v-if="!isFullpage">Fullpage</span>
+                  <span v-else>Exit Fullpage</span>
+                </button>
+              </div>
+            </div>
             </div>
 
             
@@ -65,10 +101,10 @@
                 <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
                 <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Bidang Urusan / Perangkat Daerah</th>
                 <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Program/Kegiatan/Sub Kegiatan</th>
-                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">RKPD/Renja (Tahun {{ yearValue || 2026 }})</th>
-                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">APBD (Tahun {{ yearValue || 2026 }})</th>
-                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RKPD/Renja - APBD</th>
-                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RPJMD - RKPD/Renja</th>
+                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">{{ rkpdLabel }} (Tahun {{ yearValue || 2026 }})</th>
+                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">{{ apbdLabel }} (Tahun {{ yearValue || 2026 }})</th>
+                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi {{ rkpdLabel }} - {{ apbdLabel }}</th>
+                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RPJMD - {{ rkpdLabel }}</th>
               </tr>
               <tr class="bg-emerald-100">
                 <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Pagu Anggaran</th>
@@ -147,6 +183,40 @@
               <th class="border border-amber-200 px-3 py-3 text-left font-bold">Faktor Pendorong</th>
               <th class="border border-amber-200 px-3 py-3 text-left font-bold">Faktor Tindak Lanjut</th>
               <th class="border border-amber-200 px-3 py-3 text-left font-bold">OPD</th>
+            </tr>
+            <!-- Row 3: numbering for realisasi table -->
+            <tr class="bg-gray-700 text-white">
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(1)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(2)</td>
+
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(3)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(4)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(5)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(6)</td>
+
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(7)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(8)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(9)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(10)</td>
+
+              <!-- Realisasi TW columns numbering: dynamic based on twValue -->
+              <template v-if="twValue">
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(11)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(12)</td>
+              </template>
+              <template v-else>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(11)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(12)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(13)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(14)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(15)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(16)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(17)</td>
+                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(18)</td>
+              </template>
+
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(19)</td>
+              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(20)</td>
             </tr>
           </thead>
           <tbody>
@@ -268,22 +338,22 @@
               <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
                 <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
                 <td class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(row.entitas) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} RKPD/Renja`)">
+                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} ${rkpdLabel}`)">
                   <div class="font-semibold">{{ Number(row.rkpd_count || 0) }}</div>
                   <div class="text-xs text-slate-600 mt-1 break-words" v-if="getIndicatorsForRow(row, 'rkpd').length">
                     {{ getIndicatorsForRow(row, 'rkpd').slice(0,3).join(', ') }}<span v-if="getIndicatorsForRow(row, 'rkpd').length > 3">, ...</span>
                   </div>
                 </td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} APBD`)">
+                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} ${apbdLabel}`)">
                   <div class="font-semibold">{{ Number(row.dpa_count || 0) }}</div>
                   <div class="text-xs text-slate-600 mt-1 break-words" v-if="getIndicatorsForRow(row, 'dpa').length">
                     {{ getIndicatorsForRow(row, 'dpa').slice(0,3).join(', ') }}<span v-if="getIndicatorsForRow(row, 'dpa').length > 3">, ...</span>
                   </div>
                 </td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', 'RKPD/Renja', 'APBD', 'same')">
+                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'same')">
                   <span :class="(getSameCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-emerald-700' : 'text-slate-500'">{{ getSameCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', 'RKPD/Renja', 'APBD', 'diff')">
+                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'diff')">
                   <span :class="(getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-amber-700' : 'text-slate-500'">{{ getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
               </tr>
@@ -321,12 +391,12 @@
               <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
                 <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
                 <td class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(row.entitas) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} RKPD/Renja`)">{{ Number(row.rkpd_count || 0) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} APBD`)">{{ Number(row.dpa_count || 0) }}</td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', 'RKPD/Renja', 'APBD', 'same')">
+                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} ${rkpdLabel}`)">{{ Number(row.rkpd_count || 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} ${apbdLabel}`)">{{ Number(row.dpa_count || 0) }}</td>
+                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'same')">
                   <span :class="(getSameCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-emerald-700' : 'text-slate-500'">{{ getSameCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', 'RKPD/Renja', 'APBD', 'diff')">
+                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'diff')">
                   <span :class="(getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-amber-700' : 'text-slate-500'">{{ getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
               </tr>
@@ -364,12 +434,12 @@
               <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
                 <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
                 <td class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(row.entitas) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} RKPD/Renja`)">{{ Number(row.rkpd_count || 0) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} APBD`)">{{ Number(row.dpa_count || 0) }}</td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', 'RKPD/Renja', 'APBD', 'same')">
+                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} ${rkpdLabel}`)">{{ Number(row.rkpd_count || 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} ${apbdLabel}`)">{{ Number(row.dpa_count || 0) }}</td>
+                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'same')">
                   <span :class="(getSameCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-emerald-700' : 'text-slate-500'">{{ getSameCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
-                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', 'RKPD/Renja', 'APBD', 'diff')">
+                <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'diff')">
                   <span :class="(getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-amber-700' : 'text-slate-500'">{{ getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
               </tr>
@@ -436,7 +506,130 @@
           </table>
         </div>
 
-        <!-- tabel-5 uses the same layout as tabel-4 (copied) -->
+        <!-- tabel-8: Visual-only DPA (realisasi payload) -->
+        <div v-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-8' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
+          <div class="px-5 py-4 border-b border-emerald-100 bg-emerald-50">
+            <strong class="text-emerald-800">DEBUG: Visual-only tabel-8 (read-only DPA view)</strong>
+          </div>
+          <table class="w-full table-fixed border-collapse text-sm">
+            <thead>
+              <tr class="bg-emerald-50">
+                <th class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
+                <th class="border border-emerald-200 px-3 py-3 text-left font-bold">OPD</th>
+                <th class="border border-emerald-200 px-3 py-3 text-left font-bold">Kode Rek</th>
+                <th class="border border-emerald-200 px-3 py-3 text-left font-bold">Program / Kegiatan</th>
+                <th class="border border-emerald-200 px-3 py-3 text-right font-bold">Pagu (DPA)</th>
+                <th class="border border-emerald-200 px-3 py-3 text-left font-bold">Indikator</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="(group, gIdx) in tableData" :key="`dpa-group-${gIdx}`">
+                <template v-if="Array.isArray(group.dpa_programs) && group.dpa_programs.length > 0">
+                  <tr v-for="(prog, pIdx) in group.dpa_programs" :key="`prog-${gIdx}-${pIdx}`" :class="gIdx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
+                    <td v-if="pIdx === 0" :rowspan="group.dpa_programs.length" class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ group.no }}</td>
+                    <td v-if="pIdx === 0" :rowspan="group.dpa_programs.length" class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(group.entitas) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3">{{ prog.kode ?? prog.kode_program ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3">{{ prog.nama ?? prog.program_nama ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(prog.pagu ?? prog.pagu_tahunan ?? 0) }}</td>
+                    <td class="border border-emerald-200 px-3 py-3">{{ (prog.indikator || []).map(i => (i.nama_indikator || i.nama || i || '') ).filter(Boolean).slice(0,3).join(', ') }}<span v-if="(prog.indikator || []).length > 3">, ...</span></td>
+                  </tr>
+                </template>
+                <tr v-else :class="gIdx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
+                  <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ group.no }}</td>
+                  <td class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(group.entitas) }}</td>
+                  <td class="border border-emerald-200 px-3 py-3">-</td>
+                  <td class="border border-emerald-200 px-3 py-3">-</td>
+                  <td class="border border-emerald-200 px-3 py-3 text-right">-</td>
+                  <td class="border border-emerald-200 px-3 py-3">-</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- tabel-5: Hasil Pelaksanaan RKPD (dengan header RKPD / APBD / Realisasi / Capaian) -->
+        <div v-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-5' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
+          <table class="w-full table-fixed border-collapse text-sm">
+            <thead>
+              <tr class="bg-emerald-50">
+                <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Kode Rek</th>
+                <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Program / Kegiatan / Sub Kegiatan</th>
+                <th colspan="4" class="border border-emerald-200 px-3 py-3 text-center font-bold">RKPD</th>
+                <th colspan="4" class="border border-emerald-200 px-3 py-3 text-center font-bold">APBD</th>
+                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi</th>
+                <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian</th>
+              </tr>
+              <tr class="bg-emerald-100">
+                <!-- RKPD -->
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Indikator</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Target</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Satuan</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Pagu</th>
+
+                <!-- APBD -->
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Indikator</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Target</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Satuan</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Pagu</th>
+
+                <!-- Realisasi -->
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Kinerja</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Keuangan</th>
+
+                <!-- Capaian -->
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Kinerja</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center font-semibold">Keuangan</th>
+              </tr>
+              <tr class="bg-emerald-100">
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(1)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(2)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(3)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(4)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(5)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(6)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(7)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(8)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(9)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(10)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(11)</th>
+                <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(12)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="(row, idx) in tableData" :key="'group5-' + idx">
+                <template v-for="(line, lineIdx) in getProgramLines(row)" :key="'line5-' + idx + '-' + line.key">
+                  <template v-for="(indRow, indIdx) in getIndicatorRowsForLine(line, row)" :key="'ind5-' + idx + '-' + line.key + '-' + indIdx">
+                    <tr :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
+                      <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-2 text-center align-top">{{ row.no }}</td>
+                      <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-2 align-top">{{ formatEntityLabel(row.entitas) }}</td>
+                      <td v-if="indIdx === 0" :rowspan="getIndicatorRowsForLine(line, row).length" class="border border-emerald-200 px-3 py-2 align-top text-sm font-medium break-words">{{ formatReadableText(line.name) }}</td>
+
+                      <!-- RKPD -->
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-sm text-emerald-700 break-words">{{ formatReadableText(indRow.rkpd) ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.rkpd_target ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.satuan ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-right text-sm text-emerald-700">{{ formatRupiah(indRow.rkpd_pagu || 0) }}</td>
+
+                      <!-- APBD -->
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-sm text-emerald-700 break-words">{{ formatReadableText(indRow.dpa) ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.dpa_target ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-center text-sm text-emerald-700 break-words">{{ indRow.satuan_dpa ?? indRow.satuan ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 align-top text-right text-sm text-emerald-700">{{ formatRupiah(indRow.dpa_pagu || 0) }}</td>
+
+                      <!-- Realisasi -->
+                      <td class="border border-emerald-200 px-3 py-2 text-center align-top">{{ indRow.realisasi_kinerja ?? '-' }}</td>
+                      <td class="border border-emerald-200 px-3 py-2 text-center align-top">{{ indRow.realisasi_keuangan ?? '-' }}</td>
+
+                      <!-- Capaian -->
+                      <td :class="getCapaianClass(computeCapaianKinerja(indRow, row))" class="border border-emerald-200 px-3 py-2 text-center align-top">{{ computeCapaianKinerja(indRow, row) }}</td>
+                      <td :class="getCapaianClass(computeCapaianKeuangan(indRow, row))" class="border border-emerald-200 px-3 py-2 text-center align-top">{{ computeCapaianKeuangan(indRow, row) }}</td>
+                    </tr>
+                  </template>
+                </template>
+              </template>
+            </tbody>
+          </table>
+        </div>
 
       </div>
 
@@ -509,7 +702,7 @@
       </div>
 
       <!-- New: tabel-2 for hasil-pelaksanaan-rkpd view (Program Aksi Kepala Daerah - top 10) -->
-      <div v-else-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-2' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
+      <div v-else-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-2' && tableData" class="overflow-x-auto rounded-2xl   border border-emerald-100 bg-white/90 shadow-md">
         <table class="w-full table-fixed border-collapse text-sm">
           <thead>
             <tr class="bg-emerald-50">
@@ -547,6 +740,253 @@
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.rpjmd_target ?? row.target ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.rpjmd_satuan ?? row.satuan ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.rpjmd_capaian ?? row.indikator_capaian ?? '-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- New: tabel-7 for hasil-pelaksanaan-rkpd view (uses standard table styling) -->
+      <div v-else-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable !== 'tabel-7'" :class="isFullpage ? 'fixed inset-0 p-6 bg-white z-50 overflow-auto' : 'overflow-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md p-4 max-h-[65vh]'">
+        <table class="w-full min-w-[2600px] table-fixed border-collapse text-sm">
+          <thead>
+            <tr class="sticky top-0 z-50 bg-white" style="box-shadow: 0 3px 0 rgba(16,185,129,1);">
+              <th rowspan="2" class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-3 text-center font-bold bg-white">Kode Rek
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">1</span>
+              </th>
+              <th rowspan="2" class="relative border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-left font-bold bg-white min-w-[1260px]">Program / Kegiatan / Sub Kegiatan
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">2</span>
+              </th>
+
+              <th colspan="4" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">RENJA (Tahun {{ yearValue || selectedYear || 2026 }})</th>
+              <th colspan="4" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">DPA (Tahun {{ yearValue || selectedYear || 2026 }})</th>
+
+              <th colspan="2" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">Realisasi</th>
+              <th colspan="2" class="border border-emerald-200 border-b-4 border-emerald-400 px-3 py-3 text-center font-bold bg-white">Capaian</th>
+            </tr>
+
+            <tr class="sticky top-[48px] z-50 bg-white" style="box-shadow: 0 3px 0 rgba(16,185,129,1);">
+              <!-- RKPD -->
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Indikator
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">3</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Target
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">4</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Satuan
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">5</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Pagu
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">6</span>
+              </th>
+
+              <!-- APBD -->
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Indikator
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">7</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Target
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">8</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Satuan
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">9</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Pagu
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">10</span>
+              </th>
+
+              <!-- Realisasi -->
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Kinerja
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">11</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Keuangan
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">12</span>
+              </th>
+
+              <!-- Capaian -->
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Kinerja
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">13</span>
+              </th>
+              <th class="relative border border-emerald-200 border-b-2 border-emerald-300 px-3 py-2 text-center font-semibold bg-white">Keuangan
+                <span class="absolute right-2 top-1 text-[10px] font-semibold text-slate-700 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-slate-200">14</span>
+              </th>
+            </tr>
+            <!-- Row 3: Column numbering -->
+            <tr class="bg-emerald-50">
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(1)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(2)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(3)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(4)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(5)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(6)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(7)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(8)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(9)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(10)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(11)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(12)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(13)</td>
+              <td class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold">(14)</td>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-for="(row, idx) in tableData" :key="'t7-' + idx">
+              <!-- OPD row: show once before program lines (only when opd changes) -->
+              <tr v-if="shouldRenderOpdHeader(idx, row)" class="bg-orange-200">
+                <td :colspan="14" class="border border-emerald-200 px-3 py-2 text-sm font-semibold text-orange-800">{{ getOpdName(row.opd_id) }}</td>
+              </tr>
+              <template v-for="(line, lineIdx) in getProgramLines(row)" :key="'t7-line-' + idx + '-' + line.key">
+                <template v-for="(indRow, indIdx) in getIndicatorRowsForLine(line, row)" :key="'t7-ind-' + idx + '-' + line.key + '-' + indIdx">
+                    <tr :class="line.level === 'program' ? 'bg-emerald-100' : (line.level === 'kegiatan' ? 'bg-yellow-200' : 'bg-white')">
+                    <td v-if="lineIdx === 0 && indIdx === 0" :rowspan="getTotalDisplayRows(row)" class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.kode ?? row.kode_rek ?? '-' }}</td>
+                      <td v-if="indIdx === 0" :rowspan="getIndicatorRowsForLine(line, row).length" class="border border-emerald-200 px-3 py-3 align-top text-sm font-medium break-words">{{ formatReadableText(line.name) }}</td>
+
+                    <!-- RKPD -->
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-sm text-emerald-700 break-words whitespace-pre-line">{{ indRow.rkpd || '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-center text-sm text-emerald-700">{{ indRow.rkpd_target ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-center text-sm text-emerald-700">{{ indRow.rkpd_satuan ?? indRow.satuan ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-right text-sm text-emerald-700">{{ formatRupiah(indRow.rkpd_pagu || 0) }}</td>
+
+                    <!-- APBD -->
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-sm text-emerald-700 break-words whitespace-pre-line">{{ indRow.dpa || '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-center text-sm text-emerald-700">{{ indRow.dpa_target ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-center text-sm text-emerald-700">{{ indRow.dpa_satuan ?? indRow.satuan ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 align-top text-right text-sm text-emerald-700">{{ formatRupiah(indRow.dpa_pagu || 0) }}</td>
+
+                    <!-- Realisasi -->
+                    <td class="border border-emerald-200 px-3 py-3 text-center align-top">{{ indRow.realisasi_kinerja ?? row.realisasi_kinerja ?? '-' }}</td>
+                    <td class="border border-emerald-200 px-3 py-3 text-center align-top">{{ indRow.realisasi_keuangan ?? row.realisasi_keuangan ?? '-' }}</td>
+
+                    <!-- Capaian -->
+                    <td :class="getCapaianClass(computeCapaianKinerja(indRow, row))" class="border border-emerald-200 px-3 py-3 text-center align-top">{{ computeCapaianKinerja(indRow, row) }}</td>
+                    <td :class="getCapaianClass(computeCapaianKeuangan(indRow, row))" class="border border-emerald-200 px-3 py-3 text-center align-top">{{ computeCapaianKeuangan(indRow, row) }}</td>
+                  </tr>
+                </template>
+              </template>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Realisasi table for tabel-7: read-only view of realisasi keuangan dan fisik -->
+      <div
+        id="realisasi-export-root"
+        v-if="currentView === 'hasil-pelaksanaan-rkpd' && currentTable === 'tabel-7' && tableData"
+        class="mt-6 rounded-2xl border border-emerald-100 bg-white/90 shadow-md overflow-x-auto"
+      >
+        <div class="flex items-center justify-between px-6 pt-4">
+          <h3 class="text-lg font-bold text-white">Realisasi (Ringkasan)</h3>
+          <div class="flex gap-2">
+            <button type="button" class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm" @click="exportRealisasiPdf">Export PDF</button>
+            <button type="button" class="px-3 py-1 bg-green-600 text-white rounded-md text-sm" @click="exportRealisasiExcel">Export Excel (.xlsx)</button>
+            <button type="button" class="px-3 py-1 ml-2 bg-indigo-600 text-white rounded-md text-sm" @click="exportRealisasiExcelImage">Export Excel (Image)</button>
+          </div>
+        </div>
+        <table class="w-full border-collapse text-sm bg-gray-900 text-white">
+          <thead class="bg-gray-800 text-white">
+            <tr>
+              <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Kode Rek</th>
+              <th rowspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Program / Kegiatan / Sub Kegiatan</th>
+
+              <th colspan="4" class="border border-emerald-200 px-3 py-3 text-center font-bold">RENJA</th>
+              <th colspan="4" class="border border-emerald-200 px-3 py-3 text-center font-bold">DPA</th>
+
+              <th :colspan="realisasiCols" class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi (Triwulan)</th>
+              <th colspan="2" class="border border-emerald-200 px-3 py-3 text-center font-bold">Capaian</th>
+            </tr>
+
+            <tr class="bg-gray-800 text-white">
+              <!-- RENJA -->
+              <th class="border border-emerald-600 px-2 py-1 text-center font-semibold text-xs">Indikator</th>
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Target</th>
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Satuan</th>
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Pagu</th>
+
+              <!-- DPA -->
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Indikator</th>
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Target</th>
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Satuan</th>
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Pagu</th>
+
+              <!-- Realisasi TWs (Kinerja / Keuangan) -->
+              <template v-if="twValue">
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW{{ twValue }} Kinerja</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW{{ twValue }} Keu</th>
+              </template>
+              <template v-else>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW1 Kinerja</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW1 Keu</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW2 Kinerja</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW2 Keu</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW3 Kinerja</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW3 Keu</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW4 Kinerja</th>
+                <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">TW4 Keu</th>
+              </template>
+
+              <!-- Capaian -->
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Kinerja</th>
+              <th class="border border-emerald-200 px-2 py-1 text-center font-semibold text-xs">Keuangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-for="(row, idx) in sortedRealisasiTableData" :key="`realisasi-row-${idx}`">
+              <!-- Unit header row when OPD/unit changes -->
+              <tr v-if="shouldShowUnitHeaderInRealisasi(idx, row)" class="bg-orange-600 border-b-2 border-orange-700 text-white">
+                <td colspan="20" class="border border-orange-700 px-4 py-2 text-sm font-bold">
+                  {{ getOpdName(row.opd_id) }}
+                </td>
+              </tr>
+              <!-- Program row -->
+              <tr :class="getRowClasses(row, idx)">
+                <td class="border border-emerald-200 px-3 py-2 text-center font-semibold">{{ row.kode_rek ?? '-' }}</td>
+                <td class="border border-emerald-200 px-3 py-2 text-left">{{ row.program_nama ?? '-' }}</td>
+                <!-- RENJA: Indikator / Target / Satuan / Pagu -->
+                <td :class="(getIndicatorValue((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek, 'nama_indikator') === '-') ? 'border border-emerald-200 px-3 py-2 text-left text-xs bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-left text-xs'">
+                  {{ getIndicatorValue((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek, 'nama_indikator') }}
+                </td>
+                <td :class="(getIndicatorValue((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek, 'target_indikator') === '-') ? 'border border-emerald-200 px-3 py-2 text-right text-xs bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-right text-xs'">
+                  {{ getIndicatorValue((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek, 'target_indikator') }}
+                </td>
+                <td :class="(getIndicatorValue((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek, 'satuan') === '-') ? 'border border-emerald-200 px-3 py-2 text-center text-xs bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-center text-xs'">
+                  {{ getIndicatorValue((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek, 'satuan') }}
+                </td>
+                <td :class="((getPaguFromProgramArray((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek) || 0) === 0) ? 'border border-emerald-200 px-3 py-2 text-right text-sm bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-right text-sm'">
+                  {{ formatRupiah(getPaguFromProgramArray((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek)) }}
+                </td>
+
+                <!-- DPA: Indikator / Target / Satuan / Pagu -->
+                <td :class="(getIndicatorValue(row.dpa_programs, row.kode_rek, 'nama_indikator') === '-') ? 'border border-emerald-200 px-3 py-2 text-left text-xs bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-left text-xs'">
+                  {{ getIndicatorValue(row.dpa_programs, row.kode_rek, 'nama_indikator') }}
+                </td>
+                <td :class="(getIndicatorValue(row.dpa_programs, row.kode_rek, 'target_indikator') === '-') ? 'border border-emerald-200 px-3 py-2 text-right text-xs bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-right text-xs'">
+                  {{ getIndicatorValue(row.dpa_programs, row.kode_rek, 'target_indikator') }}
+                </td>
+                <td :class="(getIndicatorValue(row.dpa_programs, row.kode_rek, 'satuan') === '-') ? 'border border-emerald-200 px-3 py-2 text-center text-xs bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-center text-xs'">
+                  {{ getIndicatorValue(row.dpa_programs, row.kode_rek, 'satuan') }}
+                </td>
+                <td :class="((getPaguFromProgramArray(row.dpa_programs, row.kode_rek) || 0) === 0) ? 'border border-emerald-200 px-3 py-2 text-right text-sm bg-black text-white' : 'border border-emerald-200 px-3 py-2 text-right text-sm'">
+                  {{ formatRupiah(getPaguFromProgramArray(row.dpa_programs, row.kode_rek)) }}
+                </td>
+                <!-- Realisasi per TW: Kinerja / Keuangan (show only selected TW if provided) -->
+                <template v-if="twValue">
+                  <td class="border border-emerald-200 px-2 py-2 text-right text-xs">{{ row.realisasi_data?.[twValue]?.fisik ?? 0 }}</td>
+                  <td class="border border-emerald-200 px-2 py-2 text-right text-xs">{{ formatRupiah(row.realisasi_data?.[twValue]?.keuangan ?? 0) }}</td>
+                </template>
+                <template v-else>
+                  <template v-for="tw in [1,2,3,4]" :key="`tw-${tw}`">
+                    <td class="border border-emerald-200 px-2 py-2 text-right text-xs">{{ row.realisasi_data?.[tw]?.fisik ?? 0 }}</td>
+                    <td class="border border-emerald-200 px-2 py-2 text-right text-xs">{{ formatRupiah(row.realisasi_data?.[tw]?.keuangan ?? 0) }}</td>
+                  </template>
+                </template>
+
+              <!-- Capaian columns (computed using RENJA denominators) -->
+              <td :class="[ 'border border-emerald-200 px-2 py-2 text-right text-xs', renderCapaian(computeCapaianKinerja(null, row)).cls ]">{{ renderCapaian(computeCapaianKinerja(null, row)).text }}</td>
+              <td :class="[ 'border border-emerald-200 px-2 py-2 text-right text-xs', renderCapaian(computeCapaianKeuangan(null, row)).cls ]">{{ renderCapaian(computeCapaianKeuangan(null, row)).text }}</td>
+            </tr>
+            </template>
+              <tr v-if="!tableData || tableData.length === 0">
+              <td :colspan="totalCols" class="border border-emerald-200 px-3 py-8 text-center text-gray-400">
+                Belum ada data realisasi
+              </td>
             </tr>
           </tbody>
         </table>
@@ -657,9 +1097,9 @@
                 class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold text-emerald-700 transition-colors hover:bg-emerald-100/60 hover:text-emerald-900"
                 role="button"
                 tabindex="0"
-                @click="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', 'RKPD/Renja', 'same')"
-                @keydown.enter.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', 'RKPD/Renja', 'same')"
-                @keydown.space.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', 'RKPD/Renja', 'same')"
+                @click="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', rkpdLabel, 'same')"
+                @keydown.enter.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', rkpdLabel, 'same')"
+                @keydown.space.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', rkpdLabel, 'same')"
               >
                 {{ getSameCountByKeys(row, 'rpjmd_programs', 'rkpd_programs') }}
               </td>
@@ -667,9 +1107,9 @@
                 class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold text-emerald-700 transition-colors hover:bg-emerald-100/60 hover:text-emerald-900"
                 role="button"
                 tabindex="0"
-                @click="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', 'RKPD/Renja', 'diff')"
-                @keydown.enter.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', 'RKPD/Renja', 'diff')"
-                @keydown.space.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', 'RKPD/Renja', 'diff')"
+                @click="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', rkpdLabel, 'diff')"
+                @keydown.enter.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', rkpdLabel, 'diff')"
+                @keydown.space.prevent="openComparisonModal(row, 'rpjmd_programs', 'rkpd_programs', 'RPJMD', rkpdLabel, 'diff')"
               >
                 {{ getDifferentCountByKeys(row, 'rpjmd_programs', 'rkpd_programs') }}
               </td>
@@ -677,9 +1117,9 @@
                 class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold text-emerald-700 transition-colors hover:bg-emerald-100/60 hover:text-emerald-900"
                 role="button"
                 tabindex="0"
-                @click="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', 'RKPD/Renja', 'same')"
-                @keydown.enter.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', 'RKPD/Renja', 'same')"
-                @keydown.space.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', 'RKPD/Renja', 'same')"
+                @click="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', rkpdLabel, 'same')"
+                @keydown.enter.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', rkpdLabel, 'same')"
+                @keydown.space.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', rkpdLabel, 'same')"
               >
                 {{ getSameCountByKeys(row, 'renstra_programs', 'rkpd_programs') }}
               </td>
@@ -687,9 +1127,9 @@
                 class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold text-emerald-700 transition-colors hover:bg-emerald-100/60 hover:text-emerald-900"
                 role="button"
                 tabindex="0"
-                @click="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', 'RKPD/Renja', 'diff')"
-                @keydown.enter.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', 'RKPD/Renja', 'diff')"
-                @keydown.space.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', 'RKPD/Renja', 'diff')"
+                @click="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', rkpdLabel, 'diff')"
+                @keydown.enter.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', rkpdLabel, 'diff')"
+                @keydown.space.prevent="openComparisonModal(row, 'renstra_programs', 'rkpd_programs', 'Renstra', rkpdLabel, 'diff')"
               >
                 {{ getDifferentCountByKeys(row, 'renstra_programs', 'rkpd_programs') }}
               </td>
@@ -1014,6 +1454,14 @@ const props = defineProps({
     type: Number,
     default: null,
   },
+  opds: {
+    type: Array,
+    default: () => [],
+  },
+  selectedOpdId: {
+    type: [Number, String],
+    default: null,
+  },
   selectedBidang: {
     type: [String, Number],
     default: null,
@@ -1026,6 +1474,10 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  realisasi_like_payload: {
+    type: Object,
+    default: null,
+  },
   tableData: {
     type: Array,
     default: null,
@@ -1036,14 +1488,101 @@ const props = defineProps({
   },
 });
 
+// expose which branch is active for debugging
+const activeBranch = computed(() => {
+  if (!props.currentView || !props.currentTable) return 'index';
+  if (props.currentView === 'hasil-pelaksanaan-rkpd' && props.currentTable === 'tabel-5') return 'hasil-pelaksanaan-tabel-5';
+  if (props.currentView === 'hasil-pelaksanaan-rkpd' && props.currentTable === 'tabel-1') return 'hasil-pelaksanaan-tabel-1';
+  if (props.currentView === 'konsistensi-rkpd-apbd') return `konsistensi-rkpd-apbd-${props.currentTable}`;
+  if (props.currentView === 'konsistensi-rpjmd-rkpd') return `konsistensi-rpjmd-rkpd-${props.currentTable}`;
+  return `${props.currentView}-${props.currentTable}`;
+});
+
+// For some resume views/tables we want to alter visible labels
+const isRenjaDpaMode = computed(() => props.currentView === 'hasil-pelaksanaan-rkpd' && props.currentTable === 'tabel-7');
+const rkpdLabel = computed(() => isRenjaDpaMode.value ? 'Renja' : 'RKPD/Renja');
+const apbdLabel = computed(() => isRenjaDpaMode.value ? 'DPA' : 'APBD');
+
 // DEBUG: log first row to inspect indicators presence (temporary)
 if (typeof console !== 'undefined') {
   console.debug('resume.tableData.firstRow', props.tableData?.[0] ?? null);
 }
+async function ensureHtml2CanvasLoaded() {
+  if (window.html2canvas) return;
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('Failed to load html2canvas'));
+    document.head.appendChild(s);
+  });
+}
+
+async function exportRealisasiExcelImage() {
+  try {
+    await ensureHtml2CanvasLoaded();
+    const container = document.getElementById('realisasi-export-root');
+    if (!container) return alert('Elemen tabel realisasi tidak ditemukan');
+    const table = container.querySelector('table');
+    if (!table) return alert('Tabel realisasi tidak ditemukan');
+
+    const canvas = await window.html2canvas(table, { scale: 2, backgroundColor: null });
+    const dataUrl = canvas.toDataURL('image/png');
+
+    const html = `<!doctype html><html><head><meta charset="utf-8"></head><body><img src="${dataUrl}" style="display:block;max-width:100%;height:auto;"/></body></html>`;
+    const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+    const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xls`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error('Export Excel (Image) failed', e);
+    alert('Export Excel (Image) gagal: ' + (e?.message || e));
+  }
+}
+
+// effective tableData: prefer props.tableData; if empty and server provided a
+// `realisasi_like_payload` for tabel-8, use that payload to build rows grouped by OPD
+const tableData = computed(() => {
+  try {
+    if (Array.isArray(props.tableData) && props.tableData.length > 0) return props.tableData;
+    if (props.realisasi_like_payload && props.currentTable === 'tabel-8' && Array.isArray(props.realisasi_like_payload.data)) {
+      const grouped = {};
+      props.realisasi_like_payload.data.forEach((item) => {
+        const opd = item?.opd_id ?? 0;
+        if (!grouped[opd]) {
+          const opdName = (props.opds || []).find(o => Number(o.id) === Number(opd))?.nama ?? (`OPD ${opd}`);
+          grouped[opd] = {
+            no: Object.keys(grouped).length + 1,
+            entitas: opdName,
+            opd_id: opd,
+            rkpd_programs: [],
+            dpa_programs: [],
+            renstra_programs: [],
+            rpjmd_programs: [],
+          };
+        }
+        grouped[opd].dpa_programs.push(item);
+      });
+
+      return Object.values(grouped);
+    }
+  } catch (e) {
+    // fallback to props.tableData
+    return Array.isArray(props.tableData) ? props.tableData : [];
+  }
+  return Array.isArray(props.tableData) ? props.tableData : [];
+});
 
 const basisValue = ref(props.filterBasis);
 const yearValue = ref(props.selectedYear);
 const twValue = ref(props.selectedTw);
+const selectedOpd = ref(props.selectedOpdId ?? '');
 const showProgramModal = ref(false);
 const selectedPrograms = ref([]);
 const selectedProgramTitle = ref('List Program');
@@ -1056,6 +1595,19 @@ const selectedLeftLabel = ref('');
 const selectedRightLabel = ref('');
 const dokumenYears = [2026, 2027, 2028, 2029, 2030];
 const availableTws = [1, 2, 3, 4];
+
+const realisasiCols = computed(() => {
+  try {
+    return twValue && Number(twValue.value) ? 2 : 8;
+  } catch (e) {
+    return 8;
+  }
+});
+
+const totalCols = computed(() => {
+  // base: kode_rek + program (2) + RENJA(4) + DPA(4) + Capaian(2) = 12
+  return 12 + Number(realisasiCols.value || 8);
+});
 
 const DokumenCell = {
   props: {
@@ -1088,6 +1640,734 @@ const DokumenCell = {
   },
 };
 
+// fullpage mode flag and toggler
+const isFullpage = ref(false);
+// initialize from URL
+try {
+  const qpInit = new URLSearchParams(window.location.search || '');
+  const vInit = qpInit.get('fullpage');
+  isFullpage.value = (vInit === '1' || vInit === 'true');
+} catch (e) {
+  isFullpage.value = false;
+}
+
+function toggleFullpage() {
+  isFullpage.value = !isFullpage.value;
+  try {
+    const qp = new URLSearchParams(window.location.search || '');
+    if (isFullpage.value) qp.set('fullpage', '1'); else qp.delete('fullpage');
+    const newUrl = window.location.pathname + (String(qp) ? ('?' + String(qp)) : '');
+    window.history.replaceState({}, '', newUrl);
+  } catch (e) {
+    // ignore
+  }
+}
+
+function getOpdName(opdId) {
+  try {
+    const id = Number(opdId);
+    const found = (props.opds || []).find(o => Number(o.id) === id);
+    return found ? found.nama : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function shouldRenderOpdHeader(idx, row) {
+  if (!row || !row.opd_id) return false;
+  const prev = (props.tableData || [])[idx - 1];
+  if (!prev) return true;
+  return String(prev.opd_id) !== String(row.opd_id);
+}
+
+function shouldShowUnitHeaderInRealisasi(idx, row) {
+  // Show unit header when OPD/unit changes in realisasi table
+  if (!row || !row.opd_id) return false;
+  const prev = (props.tableData || [])[idx - 1];
+  if (!prev) return true; // First row always shows unit
+  return String(prev.opd_id) !== String(row.opd_id);
+}
+
+function getPaguFromProgramArray(programsArray, kode) {
+  // Find pagu from array that matches the kode, or return first item's pagu
+  if (!programsArray || programsArray.length === 0) {
+    console.log(`[getPagu] kode=${kode} - Empty array`);
+    return 0;
+  }
+  
+  // Try to find exact kode match
+  const match = programsArray.find(p => String(p?.kode).trim() === String(kode).trim());
+  if (match) {
+    console.log(`[getPagu] kode=${kode} - Found exact match: ${match.pagu}`);
+    return toNumberSafe(match.pagu) || 0;
+  }
+  
+  // Fallback to first item
+  const fallbackPagu = programsArray[0]?.pagu || 0;
+  console.log(`[getPagu] kode=${kode} - No exact match (array len=${programsArray.length}). Using fallback: ${fallbackPagu}`);
+  return toNumberSafe(fallbackPagu) || 0;
+}
+
+function sumRealisasiKeuangan(row) {
+  try {
+    const data = row?.realisasi_data || {};
+    const tw = (typeof twValue !== 'undefined' && twValue) ? Number(twValue.value || twValue) : null;
+    if (tw && data[tw]) {
+      return toNumberSafe(data[tw]?.keuangan) || 0;
+    }
+    return Object.keys(data).reduce((acc, k) => {
+      const v = toNumberSafe(data[k]?.keuangan) || 0;
+      return acc + v;
+    }, 0);
+  } catch (e) {
+    return 0;
+  }
+}
+
+function avgRealisasiFisik(row) {
+  try {
+    const data = row?.realisasi_data || {};
+    const tw = (typeof twValue !== 'undefined' && twValue) ? Number(twValue.value || twValue) : null;
+    if (tw && data[tw]) {
+      return toNumberSafe(data[tw]?.fisik) || 0;
+    }
+    const vals = Object.keys(data).map(k => toNumberSafe(data[k]?.fisik) || 0).filter(n => !isNaN(n));
+    if (!vals.length) return 0;
+    return Math.round(vals.reduce((a,b) => a+b, 0) / vals.length * 100) / 100;
+  } catch (e) {
+    return 0;
+  }
+}
+
+function getIndicatorValue(programsArray, kode, key) {
+  try {
+    if (!programsArray || programsArray.length === 0) return '-';
+    const match = programsArray.find(p => String(p?.kode).trim() === String(kode).trim());
+    const prog = match || programsArray[0];
+    const ind = (prog?.indikator && prog.indikator[0]) || null;
+    if (!ind) return '-';
+    const val = ind[key];
+    if (val === null || val === undefined) return '-';
+    return val;
+  } catch (e) {
+    return '-';
+  }
+}
+
+function toNumberSafe(val) {
+  if (val === null || val === undefined) return null;
+  const s = String(val).replace(/[,\s]/g, '');
+  const n = Number(s);
+  return isNaN(n) ? null : n;
+}
+
+function computeCapaianKinerja(indRow, row) {
+  try {
+    const tw = (typeof twValue !== 'undefined' && twValue) ? Number(twValue.value || twValue) : null;
+    let real = 0;
+    if (tw && row?.realisasi_data && row.realisasi_data[tw]) {
+      real = toNumberSafe(row.realisasi_data[tw].fisik) || 0;
+    } else {
+      real = avgRealisasiFisik(row);
+    }
+    real = toNumberSafe(real) || 0;
+
+    // prefer RENJA indicator target (indicator-level or program array), then RKPD, then DPA
+    let targetRaw = indRow?.renja_target ?? indRow?.rkpd_target ?? indRow?.target_indikator ?? null;
+    if (targetRaw === null || targetRaw === undefined || targetRaw === '-') {
+      targetRaw = getIndicatorValue((row.renstra_programs || row.rkpd_programs || row.renja_programs) || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []), row.kode_rek, 'target_indikator');
+    }
+    if (targetRaw === null || targetRaw === undefined || targetRaw === '-') {
+      targetRaw = getIndicatorValue(row.rkpd_programs, row.kode_rek, 'target_indikator');
+    }
+    const target = toNumberSafe(targetRaw);
+    if (target === null || target === 0) return '-';
+    const pct = (Number(real) / Number(target)) * 100;
+    if (!isFinite(pct)) return '-';
+    return `${Number(pct.toFixed(2))}%`;
+  } catch (e) {
+    return '-';
+  }
+}
+
+function computeCapaianKeuangan(indRow, row) {
+  try {
+    const tw = (typeof twValue !== 'undefined' && twValue) ? Number(twValue.value || twValue) : null;
+    let keu = 0;
+    if (tw && row?.realisasi_data && row.realisasi_data[tw]) {
+      keu = toNumberSafe(row.realisasi_data[tw].keuangan) || 0;
+    } else {
+      keu = sumRealisasiKeuangan(row);
+    }
+    keu = toNumberSafe(keu) || 0;
+
+    // prefer RENJA pagu if present (indicator-level or program array), then RKPD, then DPA
+    let pagu = toNumberSafe(indRow?.renja_pagu ?? indRow?.rkpd_pagu ?? indRow?.pagu ?? null);
+    if (!pagu) {
+      // try renstra_programs or renja in years
+      const renjaPrograms = row.renstra_programs || row.rkpd_programs || row.renja_programs || (row.years && row.years[yearValue.value] && row.years[yearValue.value].renja ? (row.years[yearValue.value].renja.programs || []) : []);
+      pagu = Number(getPaguFromProgramArray(renjaPrograms, row.kode_rek) || 0);
+    }
+    if (!pagu) {
+      pagu = Number(getPaguFromProgramArray(row.rkpd_programs, row.kode_rek) || 0);
+    }
+    if (pagu === 0) return '-';
+    const pct = (Number(keu) / pagu) * 100;
+    if (!isFinite(pct)) return '-';
+    return `${Number(pct.toFixed(2))}%`;
+  } catch (e) {
+    return '-';
+  }
+}
+
+function getCapaianClass(pctString) {
+  try {
+    if (!pctString || pctString === '-' || pctString === null) return '';
+    const s = String(pctString).replace('%', '').replace(/[,\s]/g, '');
+    const n = parseFloat(s);
+    if (isNaN(n)) return '';
+    if (n <= 50) return 'bg-red-600 text-white rounded px-1';
+    if (n > 50 && n <= 65) return 'bg-yellow-300 text-black rounded px-1';
+    if (n > 65 && n <= 75) return 'bg-orange-400 text-black rounded px-1';
+    if (n > 75 && n <= 90) return 'bg-green-600 text-white rounded px-1';
+    if (n > 90) return 'bg-blue-600 text-white rounded px-1';
+    return '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function renderCapaian(pctString) {
+  try {
+    if (!pctString || pctString === '-' || pctString === null) {
+      return { text: 'NA', cls: 'bg-gray-400 text-white rounded px-1' };
+    }
+    const cls = getCapaianClass(pctString) || '';
+    return { text: pctString, cls };
+  } catch (e) {
+    return { text: 'NA', cls: 'bg-gray-400 text-white rounded px-1' };
+  }
+}
+
+async function ensureHtml2PdfLoaded() {
+  if (window.html2pdf) return;
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js';
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('Failed to load html2pdf script'));
+    document.head.appendChild(s);
+  });
+}
+
+async function exportRealisasiPdf() {
+  try {
+    await ensureHtml2PdfLoaded();
+    const container = document.getElementById('realisasi-export-root') || document.getElementById('realisasi-table');
+    if (!container) {
+      alert('Elemen untuk diekspor tidak ditemukan.');
+      return;
+    }
+
+    // Clone and prepare wrapper to avoid CSS bleed and ensure full width
+    const clone = container.cloneNode(true);
+    const wrapper = document.createElement('div');
+    wrapper.style.width = '1200px';
+    wrapper.style.margin = '0 auto';
+    wrapper.style.padding = '16px';
+    wrapper.style.background = window.getComputedStyle(document.body).backgroundColor || '#ffffff';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
+
+    const opt = {
+      margin:       [10, 10, 10, 10],
+      filename:     `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, allowTaint: true, backgroundColor: null },
+      jsPDF:        { unit: 'pt', format: 'a4', orientation: 'landscape' }
+    };
+
+    // generate PDF and cleanup
+    await window.html2pdf().set(opt).from(wrapper).save();
+    document.body.removeChild(wrapper);
+  } catch (e) {
+    console.error('Export failed', e);
+    alert('Export gagal: ' + (e?.message || e));
+  }
+}
+
+async function ensureSheetJsLoaded() {
+  if (window.XLSX) return;
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('Failed to load SheetJS'));
+    document.head.appendChild(s);
+  });
+}
+
+function rgbToHex(rgb) {
+  if (!rgb) return null;
+  // Handle hex input like #rrggbb or #rgb
+  if (rgb[0] === '#') {
+    let hex = rgb.slice(1);
+    if (hex.length === 3) hex = hex.split('').map(ch => ch + ch).join('');
+    return ('FF' + hex).toUpperCase();
+  }
+  // rgba or rgb
+  const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-9.]+))?\)/);
+  if (!m) return null;
+  let r = Number(m[1]);
+  let g = Number(m[2]);
+  let b = Number(m[3]);
+  const a = typeof m[4] !== 'undefined' ? Number(m[4]) : 1;
+  // If transparent, return null
+  if (a === 0) return null;
+  // Blend alpha over white background to approximate resulting color in Excel
+  const blend = (channel) => Math.round((a * channel) + (1 - a) * 255);
+  if (a < 1) {
+    r = blend(r);
+    g = blend(g);
+    b = blend(b);
+  }
+  const hs = [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('').toUpperCase();
+  return ('FF' + hs);
+}
+
+function cssHex(rgb) {
+  if (!rgb) return null;
+  if (rgb[0] === '#') {
+    // ensure 6 chars
+    let hex = rgb.slice(1);
+    if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+    return mapToExcelColor('#' + hex.toUpperCase());
+  }
+  const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-9.]+))?\)/);
+  if (!m) return null;
+  let r = Number(m[1]), g = Number(m[2]), b = Number(m[3]);
+  const a = typeof m[4] !== 'undefined' ? Number(m[4]) : 1;
+  if (a < 1) {
+    // blend with white
+    r = Math.round(a * r + (1 - a) * 255);
+    g = Math.round(a * g + (1 - a) * 255);
+    b = Math.round(a * b + (1 - a) * 255);
+  }
+  return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+
+function getCapaianHexFromClass(classStr) {
+  if (!classStr) return null;
+  const s = String(classStr);
+  if (s.includes('bg-red-600') || s.includes('bg-red')) return '#FF0000';
+  if (s.includes('bg-yellow-300') || s.includes('bg-yellow')) return '#FFD700';
+  if (s.includes('bg-orange-400') || s.includes('bg-orange')) return '#FFA500';
+  if (s.includes('bg-green-600') || s.includes('bg-green')) return '#228B22';
+  if (s.includes('bg-blue-600') || s.includes('bg-blue')) return '#1E90FF';
+  return null;
+}
+
+function mapToExcelColor(hex) {
+  if (!hex) return hex;
+  // Normalize to #RRGGBB
+  let h = hex.replace(/^FF/, '');
+  if (h[0] !== '#') h = '#' + h;
+  if (h.length === 4) h = '#' + h[1] + h[1] + h[2] + h[2] + h[3] + h[3];
+  h = h.toUpperCase();
+  // Excel-like palette (common web-safe choices + important colors)
+  const palette = [
+    '#000000','#FFFFFF','#FF0000','#00FF00','#0000FF','#FFFF00','#FFA500','#00FFFF','#800080','#808080',
+    '#1E90FF','#228B22','#32CD32','#008000','#FFD700','#F0E68C','#D2691E','#A9A9A9','#2F4F4F','#ADD8E6'
+  ];
+  const toRgb = hx => {
+    const hh = hx.replace('#','');
+    return [parseInt(hh.slice(0,2),16), parseInt(hh.slice(2,4),16), parseInt(hh.slice(4,6),16)];
+  };
+  const t = toRgb(h);
+  let best = palette[0];
+  let bestDist = Infinity;
+  for (const p of palette) {
+    const q = toRgb(p);
+    const dist = (t[0]-q[0])**2 + (t[1]-q[1])**2 + (t[2]-q[2])**2;
+    if (dist < bestDist) { bestDist = dist; best = p; }
+  }
+  return best;
+}
+
+function hexToXlsxRgb(hex) {
+  if (!hex) return null;
+  // normalize #RRGGBB or RRGGBB to FFRRGGBB
+  let h = hex.replace(/^FF/, '').replace('#', '');
+  if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  h = h.toUpperCase();
+  return 'FF' + h;
+}
+
+async function exportRealisasiExcel() {
+  try {
+    await ensureSheetJsLoaded();
+    const container = document.getElementById('realisasi-export-root');
+    if (!container) {
+      alert('Elemen tabel realisasi tidak ditemukan');
+      return;
+    }
+    const table = container.querySelector('table');
+    if (!table) {
+      alert('Tabel realisasi tidak ditemukan');
+      return;
+    }
+
+    // Build data array and capture cell styles, merges and row heights
+    const rows = Array.from(table.querySelectorAll('tr'));
+    const aoa = [];
+    const styles = {};
+    const merges = [];
+    const rowHeights = {};
+    for (let r = 0; r < rows.length; r++) {
+      const cells = Array.from(rows[r].querySelectorAll('th,td'));
+      if (cells.length === 0) continue;
+      const rowArr = [];
+      let cIndex = 0;
+      for (let c = 0; c < cells.length; c++) {
+        const cell = cells[c];
+        const colspan = Number(cell.getAttribute('colspan') || 1);
+        const rowspan = Number(cell.getAttribute('rowspan') || 1);
+        const text = cell.innerText.trim();
+        // place text at current cIndex
+        rowArr[cIndex] = text;
+        const comp = window.getComputedStyle(cell);
+        const classBased = getCapaianHexFromClass(cell.className || cell.classList?.value);
+        const isHeader = (cell.tagName && cell.tagName.toLowerCase() === 'th') || !!cell.closest('thead');
+        const rowEl = rows[r];
+        // default color resolution
+        let bg = classBased || rgbToHex(comp.backgroundColor) || null;
+        let color = rgbToHex(comp.color) || null;
+
+        // enforce exact mapping
+        if (isHeader) {
+          bg = '#FF0000'; color = '#FFFFFF';
+        } else if ((cell.innerText || '').trim() === '-' || (cell.innerText || '').trim() === '') {
+          bg = '#000000'; color = '#FFFFFF';
+        } else if (rowEl && (String(rowEl.className).includes('bg-orange') || String(rowEl.className).includes('bg-orange-600'))) {
+          bg = '#FFA500'; color = '#000000';
+        } else if (rowEl && (String(rowEl.className).includes('bg-emerald') || String(rowEl.className).includes('bg-green'))) {
+          bg = '#228B22'; color = '#FFFFFF';
+        } else if (rowEl && String(rowEl.className).includes('bg-yellow')) {
+          bg = '#FFD700'; color = '#000000';
+        }
+
+        styles[`${r},${cIndex}`] = { bg, color, className: cell.className, isHeader };
+        if (colspan > 1 || rowspan > 1) {
+          merges.push({ s: { r: r, c: cIndex }, e: { r: r + (rowspan - 1), c: cIndex + (colspan - 1) } });
+        }
+        cIndex += colspan;
+      }
+      aoa.push(rowArr);
+      // capture row height in points (px -> pt = px * 0.75)
+      try { const rect = rows[r].getBoundingClientRect(); const px = rect.height || 20; rowHeights[r] = Math.max(12, Math.round(px * 0.75)); } catch (e) {}
+    }
+
+    const ws = window.XLSX.utils.aoa_to_sheet(aoa);
+
+    // Apply styles per captured styles map and enable wrapText
+    const colMaxLen = {};
+    Object.keys(styles).forEach(k => {
+      const [r,c] = k.split(',').map(n => Number(n));
+      const cellRef = window.XLSX.utils.encode_cell({ r, c });
+      const cell = ws[cellRef];
+      if (!cell) return;
+      const st = styles[k];
+      cell.s = cell.s || {};
+      // header override: force gray background and bold black font
+      if (st.isHeader) {
+        const headerHex = '#D1D5DB'; // light gray
+        const xh = hexToXlsxRgb(headerHex);
+        if (xh) cell.s.fill = { patternType: 'solid', fgColor: { rgb: xh } };
+        cell.s.font = cell.s.font || {};
+        cell.s.font.bold = true;
+        cell.s.font.color = { rgb: hexToXlsxRgb('#000000') };
+      } else {
+        // fill with solid pattern (convert captured color to XLSX RGB)
+        if (st.bg) {
+          const mapped = mapToExcelColor(st.bg) || st.bg;
+          const xrgb = hexToXlsxRgb(mapped);
+          if (xrgb) cell.s.fill = { patternType: 'solid', fgColor: { rgb: xrgb } };
+        }
+        if (st.color) {
+          const mappedF = mapToExcelColor(st.color) || st.color;
+          const xfont = hexToXlsxRgb(mappedF);
+          if (xfont) {
+            cell.s.font = cell.s.font || {};
+            cell.s.font.color = { rgb: xfont };
+          }
+        }
+      }
+      // wrap text
+      cell.s.alignment = Object.assign({}, cell.s.alignment || {}, { wrapText: true, vertical: 'center' });
+      // compute max length per column for width
+      const val = String(cell.v || '');
+      colMaxLen[c] = Math.max(colMaxLen[c] || 0, val.length);
+    });
+
+    // Ensure all cells have wrapText (for cells without explicit styles)
+    Object.keys(ws).forEach(k => {
+      if (k[0] === '!') return;
+      const c = ws[k];
+      c.s = c.s || {};
+      c.s.alignment = Object.assign({}, c.s.alignment || {}, { wrapText: true, vertical: 'center' });
+    });
+
+    // set reasonable column widths based on max content length
+    const maxCols = Math.max(...Object.keys(colMaxLen).map(n => Number(n)), 0);
+    const cols = [];
+    for (let ci = 0; ci <= maxCols; ci++) {
+      const len = colMaxLen[ci] || 10;
+      // wch = approx characters width; clamp between 10 and 60
+      const wch = Math.min(60, Math.max(10, Math.ceil(len * 1.1)));
+      cols.push({ wch });
+    }
+    if (cols.length) ws['!cols'] = cols;
+
+    // Try server-side export first for best Excel fidelity
+    try {
+      const aoaPayload = aoa;
+      const colsPayload = (cols && cols.length) ? cols.map(c => c.wch || 15) : [];
+      const payload = { aoa: aoaPayload, styles: styles, cols: colsPayload, merges: merges, rowHeights: rowHeights };
+      const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+      const res = await fetch('/resume/export-server', {
+        method: 'POST',
+        headers: Object.assign({ 'Content-Type': 'application/json' }, csrf ? { 'X-CSRF-TOKEN': csrf } : {}),
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Server export failed');
+      const blob = await res.blob();
+      const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xlsx`;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fname;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      return;
+    } catch (e) {
+      console.warn('Server export failed, falling back to client SheetJS export', e);
+    }
+
+    // Fallback: build workbook client-side using SheetJS
+    const wb = window.XLSX.utils.book_new();
+    window.XLSX.utils.book_append_sheet(wb, ws, 'Realisasi');
+    const wbout = window.XLSX.write(wb, { bookType: 'xlsx', type: 'array', cellStyles: true });
+    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+    const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xlsx`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error('Export Excel failed', e);
+    alert('Export Excel gagal: ' + (e?.message || e));
+  }
+}
+
+function inlineComputedStylesToClone(el) {
+  const clone = el.cloneNode(true);
+  const cells = clone.querySelectorAll('th,td');
+  cells.forEach(cell => {
+    const orig = el.querySelector(getNodeSelector(cell, clone));
+    const comp = window.getComputedStyle(orig || cell);
+    const styles = [];
+    if (comp.backgroundColor && comp.backgroundColor !== 'rgba(0, 0, 0, 0)' && comp.backgroundColor !== 'transparent') styles.push(`background-color: ${comp.backgroundColor}`);
+    if (comp.color) styles.push(`color: ${comp.color}`);
+    if (comp.fontWeight) styles.push(`font-weight: ${comp.fontWeight}`);
+    if (comp.textAlign) styles.push(`text-align: ${comp.textAlign}`);
+    if (comp.verticalAlign) styles.push(`vertical-align: ${comp.verticalAlign}`);
+    if (comp.whiteSpace) styles.push(`white-space: ${comp.whiteSpace}`);
+    if (comp.fontSize) styles.push(`font-size: ${comp.fontSize}`);
+    cell.setAttribute('style', styles.join('; '));
+  });
+  return clone;
+}
+
+function getNodeSelector(node, within) {
+  // Try to find equivalent node in original by matching text and position
+  // Fallback: use tagName and index
+  const tag = node.tagName;
+  const all = Array.from(within.querySelectorAll(tag));
+  const idx = all.indexOf(node);
+  return `${tag}:nth-of-type(${idx + 1})`;
+}
+
+function exportRealisasiExcelHtml() {
+  try {
+    const container = document.getElementById('realisasi-export-root');
+    if (!container) return alert('Elemen tabel realisasi tidak ditemukan');
+    const table = container.querySelector('table');
+    if (!table) return alert('Tabel realisasi tidak ditemukan');
+    // Clone table and inline computed styles for fidelity
+    const cloned = table.cloneNode(true);
+
+    // Determine logical column count and compute widths
+    const rows = Array.from(table.querySelectorAll('tr'));
+    let maxCols = 0;
+    const colWidths = [];
+    rows.forEach(row => {
+      const cells = Array.from(row.querySelectorAll('th,td'));
+      let colIndex = 0;
+      cells.forEach(cell => {
+        const colspan = Number(cell.getAttribute('colspan') || 1);
+        const rect = cell.getBoundingClientRect();
+        const widthPerCol = rect.width / colspan;
+        for (let k = 0; k < colspan; k++) {
+          colWidths[colIndex + k] = Math.max(colWidths[colIndex + k] || 0, widthPerCol || 50);
+        }
+        colIndex += colspan;
+      });
+      maxCols = Math.max(maxCols, colIndex);
+    });
+
+    // Insert colgroup into cloned table to fix column widths
+    if (colWidths.length) {
+      const colgroup = document.createElement('colgroup');
+      for (let i = 0; i < colWidths.length; i++) {
+        const col = document.createElement('col');
+        // set width in pixels
+        col.style.width = Math.max(50, Math.round(colWidths[i])) + 'px';
+        colgroup.appendChild(col);
+      }
+      const firstChild = cloned.querySelector('table') ? cloned.querySelector('table') : cloned;
+      // If cloned is table element already, prepend colgroup
+      if (cloned.tagName && cloned.tagName.toLowerCase() === 'table') {
+        cloned.insertBefore(colgroup, cloned.firstChild);
+      } else {
+        const t = cloned.querySelector('table') || cloned;
+        t.insertBefore(colgroup, t.firstChild);
+      }
+    }
+
+    // Inline styles per cell (including borders)
+    const origCells = Array.from(table.querySelectorAll('th,td'));
+    const cloneCells = Array.from(cloned.querySelectorAll('th,td'));
+    function getEffectiveComputedStyle(el, prop) {
+      if (!el) return null;
+      // check element, its first child, then ancestors up to table
+      const nodes = [];
+      nodes.push(el);
+      if (el.firstElementChild) nodes.push(el.firstElementChild);
+      let p = el.parentElement;
+      while (p && p !== table && nodes.length < 10) { nodes.push(p); p = p.parentElement; }
+      for (const n of nodes) {
+        try {
+          const val = window.getComputedStyle(n)[prop];
+          if (!val) continue;
+          if (prop.toLowerCase().includes('color')) {
+            if (val !== 'transparent' && val !== 'rgba(0, 0, 0, 0)') return val;
+          } else {
+            if (val !== '0px' && val !== 'none' && val !== '') return val;
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
+      return null;
+    }
+    for (let i = 0; i < origCells.length; i++) {
+      const orig = origCells[i];
+      const cc = cloneCells[i];
+      const inline = [];
+      // prefer class-based mapping for capaian cells
+      const classBased = getCapaianHexFromClass(orig.className || orig.classList?.value);
+      const isHeaderCell = (orig.tagName && orig.tagName.toLowerCase() === 'th') || !!orig.closest('thead');
+      const rowEl = orig.closest('tr');
+      if (isHeaderCell) {
+        inline.push(`background-color: #FF0000`);
+        inline.push('font-weight: bold');
+        inline.push('color: #FFFFFF');
+      } else if ((orig.innerText || '').trim() === '-' || (orig.innerText || '').trim() === '') {
+        inline.push(`background-color: #000000`);
+        inline.push('color: #FFFFFF');
+      } else if (rowEl && (String(rowEl.className).includes('bg-orange') || String(rowEl.className).includes('bg-orange-600'))) {
+        inline.push(`background-color: #FFA500`);
+        inline.push('color: #000000');
+      } else if (rowEl && (String(rowEl.className).includes('bg-emerald') || String(rowEl.className).includes('bg-green'))) {
+        inline.push(`background-color: #228B22`);
+        inline.push('color: #FFFFFF');
+      } else if (rowEl && String(rowEl.className).includes('bg-yellow')) {
+        inline.push(`background-color: #FFD700`);
+        inline.push('color: #000000');
+      } else {
+        const bgRaw = classBased || getEffectiveComputedStyle(orig, 'backgroundColor');
+        if (bgRaw && bgRaw !== 'transparent' && bgRaw !== 'rgba(0, 0, 0, 0)') {
+          const hex = classBased ? classBased : (cssHex(bgRaw) || bgRaw);
+          inline.push(`background-color: ${hex}`);
+        }
+      }
+      const colorRaw = getEffectiveComputedStyle(orig, 'color') || getEffectiveComputedStyle(orig, 'foregroundColor');
+      if (colorRaw) {
+        const hexc = cssHex(colorRaw) || colorRaw;
+        inline.push(`color: ${hexc}`);
+      }
+      const fw = getEffectiveComputedStyle(orig, 'fontWeight'); if (fw) inline.push(`font-weight: ${fw}`);
+      const ta = getEffectiveComputedStyle(orig, 'textAlign'); if (ta) inline.push(`text-align: ${ta}`);
+      const va = getEffectiveComputedStyle(orig, 'verticalAlign'); if (va) inline.push(`vertical-align: ${va}`);
+      // border: check effective border widths and colors
+      const bWidth = getEffectiveComputedStyle(orig, 'borderTopWidth') || getEffectiveComputedStyle(orig, 'borderWidth') || '1px';
+      const bStyle = getEffectiveComputedStyle(orig, 'borderTopStyle') || 'solid';
+      const bColorRaw = getEffectiveComputedStyle(orig, 'borderTopColor') || getEffectiveComputedStyle(orig, 'borderColor') || '#000';
+      const bColor = cssHex(bColorRaw) || bColorRaw;
+      inline.push(`border: ${bWidth} ${bStyle} ${bColor}`);
+      inline.push('white-space: normal; word-wrap: break-word');
+      const fs = getEffectiveComputedStyle(orig, 'fontSize'); if (fs) inline.push(`font-size: ${fs}`);
+      const ff = getEffectiveComputedStyle(orig, 'fontFamily'); if (ff) inline.push(`font-family: ${ff}`);
+      const pd = getEffectiveComputedStyle(orig, 'padding'); if (pd) inline.push(`padding: ${pd}`);
+      cc.setAttribute('style', inline.join('; '));
+    }
+
+    const tableWidth = Math.round(table.getBoundingClientRect().width || 800);
+    const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>table{border-collapse:collapse; width: ${tableWidth}px;} th,td{border-collapse:collapse;}</style></head><body>${cloned.outerHTML}</body></html>`;
+    const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+    const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xls`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error('Export Excel (HTML) failed', e);
+    alert('Export Excel (HTML) gagal: ' + (e?.message || e));
+  }
+}
+
+function getPrimaryLevel(row) {
+  try {
+    const dp = row?.dpa_programs || [];
+    if (dp.length && dp[0]?.level) return dp[0].level;
+    const rk = row?.rkpd_programs || [];
+    if (rk.length && rk[0]?.level) return rk[0].level;
+    return 'program';
+  } catch (e) {
+    return 'program';
+  }
+}
+
+function getRowClasses(row, idx) {
+  const baseStrip = (idx % 2 === 0) ? 'bg-gray-900' : 'bg-gray-800';
+  const level = getPrimaryLevel(row);
+  let levelClass = '';
+  if (level === 'program') levelClass = 'bg-green-600 text-white';
+  else if (level === 'kegiatan') levelClass = 'bg-yellow-200 text-black';
+  else if (level === 'sub') levelClass = 'bg-white text-black';
+  return `${levelClass} border border-emerald-200`;
+}
+
 const entityHeaderLabel = computed(() => {
   return basisValue.value === 'perangkat-daerah' ? 'Perangkat Daerah' : 'Bidang Urusan';
 });
@@ -1112,6 +2392,24 @@ const isDokumenView = computed(() => props.currentView === 'dokumen' && props.cu
 
 const isIndikatorMode = computed(() => {
   return props.tableMetricType === 'indikator';
+});
+
+const sortedRealisasiTableData = computed(() => {
+  try {
+    const data = Array.isArray(props.tableData) ? props.tableData.slice() : (props.tableData ? [props.tableData] : []);
+    data.sort((a, b) => {
+      const ai = Number(a?.opd_id || 0);
+      const bi = Number(b?.opd_id || 0);
+      if (ai !== bi) return ai - bi;
+      const ak = String(a?.kode_rek ?? a?.kode ?? '').trim();
+      const bk = String(b?.kode_rek ?? b?.kode ?? '').trim();
+      if (ak === bk) return 0;
+      return ak.localeCompare(bk, undefined, { numeric: true, sensitivity: 'base' });
+    });
+    return data;
+  } catch (e) {
+    return props.tableData || [];
+  }
 });
 
 const metricLabel = computed(() => {
@@ -1147,6 +2445,36 @@ const groupedByBidang = computed(() => {
     if (!map[key]) map[key] = [];
     map[key].push(r);
   });
+  // Build pagu maps for Renstra (Renja), RKPD and DPA so we can show pagu per-indicator
+  const renstraPaguMap = new Map();
+  (row?.renstra_programs || []).forEach((p) => {
+    const pagu = toNumber(p?.pagu || p?.pagu_tahunan || p?.anggaran || 0);
+    const names = extractIndicatorNamesGlobal(p);
+    names.forEach((n) => {
+      const kk = normalize(n);
+      renstraPaguMap.set(kk, (renstraPaguMap.get(kk) || 0) + pagu);
+    });
+  });
+
+  const rkpdPaguMap = new Map();
+  (row?.rkpd_programs || []).forEach((p) => {
+    const pagu = toNumber(p?.pagu || p?.pagu_tahunan || p?.anggaran || 0);
+    const names = extractIndicatorNamesGlobal(p);
+    names.forEach((n) => {
+      const kk = normalize(n);
+      rkpdPaguMap.set(kk, (rkpdPaguMap.get(kk) || 0) + pagu);
+    });
+  });
+
+  const dpaPaguMap = new Map();
+  (row?.dpa_programs || []).forEach((p) => {
+    const pagu = toNumber(p?.pagu || p?.pagu_tahunan || p?.anggaran || 0);
+    const names = extractIndicatorNamesGlobal(p);
+    names.forEach((n) => {
+      const kk = normalize(n);
+      dpaPaguMap.set(kk, (dpaPaguMap.get(kk) || 0) + pagu);
+    });
+  });
 
   const groups = [];
   let programCounter = 0;
@@ -1181,6 +2509,8 @@ const applyFilters = () => {
       basis: basisValue.value,
       year: yearValue.value,
       tw: twValue.value,
+      triwulan: twValue.value,
+      opd_id: selectedOpd.value || undefined,
     },
     {
       preserveScroll: true,
@@ -1291,9 +2621,12 @@ const extractIndicatorNamesGlobal = (item) => {
 
 const buildProgramKey = (program) => {
   if (isIndikatorMode.value) {
-    // Untuk indikator, ID antar sumber berbeda (indikator vs indikator_anggaran),
-    // jadi persamaan ditentukan dari nama indikator yang dinormalisasi.
     return normalizeComparableText(program?.nama);
+  }
+
+  // Prefer explicit client_key when server provides it (already normalized/uppercased)
+  if (program?.client_key) {
+    return String(program.client_key).toUpperCase();
   }
 
   return `${normalizeText(program?.kode)}|${normalizeText(program?.nama)}`;
@@ -1494,9 +2827,27 @@ const getRawIndicatorsForProgram = (row, type, key) => {
   (list || []).forEach((p) => {
     if (!p) return;
     const k = buildProgramKey(p) || '';
-    if (k !== key) return;
-    const names = extractIndicatorNames(p);
-    names.forEach(n => items.push(n));
+
+    // Exact match first
+    if (k === key) {
+      const names = extractIndicatorNames(p);
+      names.forEach(n => items.push(n));
+      return;
+    }
+
+    // Try relaxed matching by comparing kode portion (before '|') and using prefix rules.
+    const extractKode = (full) => String(full || '').split('|')[0] || '';
+    const kodeK = extractKode(k);
+    const kodeKey = extractKode(key);
+
+    if (kodeK && kodeKey) {
+      // consider same base program or sub-program mapping
+      if (kodeK === kodeKey || kodeK.startsWith(kodeKey) || kodeKey.startsWith(kodeK)) {
+        const names = extractIndicatorNames(p);
+        names.forEach(n => items.push(n));
+        return;
+      }
+    }
   });
 
   return Array.from(new Set(items.map(s => String(s || '').trim()))).filter(Boolean);
@@ -1542,6 +2893,7 @@ const getProgramLines = (row) => {
       map.set(key, {
         key,
         name: (p?.nama ?? p?.program_nama ?? p?.nama_program ?? '').trim() || (p?.program_nama ?? p?.nama ?? '') || '-',
+        level: p?.level ?? 'program',
         rpjmdIndicators: [],
         renstraIndicators: [],
         rkpdIndicators: [],
@@ -1598,6 +2950,7 @@ const getProgramLines = (row) => {
   const lines = Array.from(map.values()).map((e) => ({
     key: e.key,
     name: e.name || '-',
+    level: e.level || 'program',
     rpjmdIndicators: Array.from(new Set(e.rpjmdIndicators.map(s => String(s || '').trim()))).filter(Boolean),
     renstraIndicators: Array.from(new Set(e.renstraIndicators.map(s => String(s || '').trim()))).filter(Boolean),
     rkpdIndicators: Array.from(new Set(e.rkpdIndicators.map(s => String(s || '').trim()))).filter(Boolean),
@@ -1665,9 +3018,24 @@ function getIndicatorRowsForLine(line, row) {
   const rpjmdList = collect(line?.rpjmdIndicators);
   const renstraList = collect(line?.renstraIndicators);
 
+  // Collect Renja indicators for the selected year when in Renja-DPA (tabel-7) mode
+  const renjaList = (() => {
+    try {
+      if (!isRenjaDpaMode.value) return [];
+      const year = yearValue.value;
+      const programs = Array.isArray(row?.rkpd_programs) ? row.rkpd_programs.filter(p => String((p?.dokumen || '')).toUpperCase() === 'RENJA') : [];
+      const filtered = programs.filter(p => (year ? Number(p?.tahun) === Number(year) : true));
+      return filtered.flatMap(p => extractIndicatorNamesGlobal(p));
+    } catch (e) {
+      return [];
+    }
+  })();
+
   // Build maps from normalized indicator text -> original text
   const rkpdMap = new Map();
   rkpdList.forEach(i => rkpdMap.set(normalize(i), i));
+  const renjaMap = new Map();
+  renjaList.forEach(i => renjaMap.set(normalize(i), i));
   const dpaMap = new Map();
   dpaList.forEach(i => dpaMap.set(normalize(i), i));
 
@@ -1702,6 +3070,84 @@ function getIndicatorRowsForLine(line, row) {
     });
   });
 
+
+  // Build Renja-specific target map (prefer renja program entries for the selected year)
+  const renjaTargetMap = new Map();
+  try {
+    if (isRenjaDpaMode.value) {
+      const year = yearValue.value;
+      (row?.rkpd_programs || []).filter(p => String((p?.dokumen || '')).toUpperCase() === 'RENJA' && (year ? Number(p?.tahun) === Number(year) : true)).forEach((p) => {
+        const names = extractIndicatorNamesGlobal(p);
+        names.forEach((n) => {
+          const k = normalize(n);
+          if (!renjaTargetMap.has(k)) {
+            let t = p?.target ?? p?.indikator_target ?? p?.target_indikator ?? null;
+            if ((t === null || t === undefined) && Array.isArray(p?.indikator)) {
+              for (let el of p.indikator) {
+                if (!el) continue;
+                const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
+                if (elName && normalize(elName) === k) {
+                  t = el.target_indikator ?? el.target ?? t;
+                  break;
+                }
+              }
+            }
+            renjaTargetMap.set(k, t ?? null);
+          }
+        });
+      });
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  const rkpdSatuanMap = new Map();
+  (row?.rkpd_programs || []).forEach((p) => {
+    const names = extractIndicatorNamesGlobal(p);
+    names.forEach((n) => {
+      const kk = normalize(n);
+      // prefer explicit fields
+      let s = p?.satuan ?? p?.indikator_satuan ?? null;
+      if ((s === null || s === undefined) && Array.isArray(p?.indikator)) {
+        for (let el of p.indikator) {
+          if (!el) continue;
+          const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
+          if (elName && normalize(elName) === kk) {
+            s = el.satuan ?? el.satuan_indikator ?? s;
+            break;
+          }
+        }
+      }
+      rkpdSatuanMap.set(kk, s ?? null);
+    });
+  });
+  // Renja satuan map
+  const renjaSatuanMap = new Map();
+  try {
+    if (isRenjaDpaMode.value) {
+      const year = yearValue.value;
+      (row?.rkpd_programs || []).filter(p => String((p?.dokumen || '')).toUpperCase() === 'RENJA' && (year ? Number(p?.tahun) === Number(year) : true)).forEach((p) => {
+        const names = extractIndicatorNamesGlobal(p);
+        names.forEach((n) => {
+          const kk = normalize(n);
+          let s = p?.satuan ?? p?.indikator_satuan ?? null;
+          if ((s === null || s === undefined) && Array.isArray(p?.indikator)) {
+            for (let el of p.indikator) {
+              if (!el) continue;
+              const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
+              if (elName && normalize(elName) === kk) {
+                s = el.satuan ?? el.satuan_indikator ?? s;
+                break;
+              }
+            }
+          }
+          renjaSatuanMap.set(kk, s ?? null);
+        });
+      });
+    }
+  } catch (e) {}
+
+
   const dpaTargetMap = new Map();
   (row?.dpa_programs || []).forEach((p) => {
     const names = extractIndicatorNamesGlobal(p);
@@ -1727,6 +3173,81 @@ function getIndicatorRowsForLine(line, row) {
       }
     });
   });
+ 
+  const dpaSatuanMap = new Map();
+  (row?.dpa_programs || []).forEach((p) => {
+    const names = extractIndicatorNamesGlobal(p);
+    names.forEach((n) => {
+      const kk = normalize(n);
+      let s = p?.satuan ?? p?.indikator_satuan ?? null;
+      if ((s === null || s === undefined) && Array.isArray(p?.indikator)) {
+        for (let el of p.indikator) {
+          if (!el) continue;
+          const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
+          if (elName && normalize(elName) === kk) {
+            s = el.satuan ?? el.satuan_indikator ?? s;
+            break;
+          }
+        }
+      }
+      dpaSatuanMap.set(kk, s ?? null);
+    });
+  });
+      // Build per-indicator pagu maps (try several field names and per-indikator fallbacks)
+      const renstraPaguMap = new Map();
+      const rkpdPaguMap = new Map();
+      const dpaPaguMap = new Map();
+
+      const buildPaguFor = (list, store) => {
+        (list || []).forEach((p) => {
+          const names = extractIndicatorNamesGlobal(p);
+          // resolve pagu: prefer p.pagu, then sum of p.pagu_tahunan (array or object), then p.anggaran
+          let pagu = p?.pagu ?? null;
+          if ((pagu === null || pagu === undefined) && p?.pagu_tahunan) {
+            if (Array.isArray(p.pagu_tahunan)) {
+              pagu = p.pagu_tahunan.reduce((acc, v) => acc + (Number(v) || 0), 0);
+            } else if (typeof p.pagu_tahunan === 'object') {
+              pagu = Object.values(p.pagu_tahunan).reduce((acc, v) => acc + (Number(v) || 0), 0);
+            }
+          }
+          if ((pagu === null || pagu === undefined) && (p?.anggaran !== undefined)) pagu = p.anggaran;
+          if ((pagu === null || pagu === undefined) && p?.indikator) {
+            if (Array.isArray(p.indikator)) {
+              for (let el of p.indikator) {
+                if (!el) continue;
+                const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
+                if (!elName) continue;
+                const cand = el.pagu ?? el.pagu_indikator ?? el.pagu_tahunan ?? el.anggaran ?? null;
+                if (cand !== undefined && cand !== null) { pagu = cand; break; }
+              }
+            } else if (typeof p.indikator === 'object') {
+              // single object mapping
+              Object.values(p.indikator).forEach((el) => {
+                if (pagu !== null && pagu !== undefined) return;
+                if (!el) return;
+                const cand = el.pagu ?? el.pagu_indikator ?? el.pagu_tahunan ?? el.anggaran ?? null;
+                if (cand !== undefined && cand !== null) { pagu = cand; }
+              });
+            }
+          }
+          const amount = toNumber(pagu || 0);
+          names.forEach((n) => {
+            const kk = normalize(n);
+            store.set(kk, (store.get(kk) || 0) + amount);
+          });
+        });
+      };
+
+      buildPaguFor(row?.renstra_programs || [], renstraPaguMap);
+      // Renja-specific pagu map (take from rkpd_programs entries where dokumen === 'RENJA')
+      const renjaPaguMap = new Map();
+      try {
+        const year = yearValue.value;
+        const renjaListPrograms = Array.isArray(row?.rkpd_programs) ? row.rkpd_programs.filter(p => String((p?.dokumen||'')).toUpperCase() === 'RENJA' && (year ? Number(p?.tahun) === Number(year) : true)) : [];
+        buildPaguFor(renjaListPrograms || [], renjaPaguMap);
+      } catch (e) {}
+        buildPaguFor(row?.rkpd_programs || [], rkpdPaguMap);
+        buildPaguFor(row?.dpa_programs || [], dpaPaguMap);
   const rpjmdMap = new Map();
   rpjmdList.forEach(i => rpjmdMap.set(normalize(i), i));
   const renstraMap = new Map();
@@ -1747,10 +3268,17 @@ function getIndicatorRowsForLine(line, row) {
   }
 
   return keys.map((k) => ({
-    rkpd: rkpdMap.get(k) || '',
+    // Prefer Renja/Renstra indicators for the RKPD column when available,
+    // otherwise fallback to RKPD or RPJMD indicators.
+    rkpd: (isRenjaDpaMode.value ? (renjaMap.get(k) || renstraMap.get(k) || rkpdMap.get(k) || rpjmdMap.get(k)) : (renstraMap.get(k) || rkpdMap.get(k) || rpjmdMap.get(k))) || '',
     dpa: dpaMap.get(k) || '',
-    rkpd_target: rkpdTargetMap.has(k) ? rkpdTargetMap.get(k) : null,
+    rkpd_target: (isRenjaDpaMode.value ? (renjaTargetMap.has(k) ? renjaTargetMap.get(k) : (rkpdTargetMap.has(k) ? rkpdTargetMap.get(k) : null)) : (rkpdTargetMap.has(k) ? rkpdTargetMap.get(k) : null)),
     dpa_target: dpaTargetMap.has(k) ? dpaTargetMap.get(k) : null,
+    rkpd_satuan: (isRenjaDpaMode.value ? (renjaSatuanMap.has(k) ? renjaSatuanMap.get(k) : (rkpdSatuanMap.has(k) ? rkpdSatuanMap.get(k) : null)) : (rkpdSatuanMap.has(k) ? rkpdSatuanMap.get(k) : null)),
+    dpa_satuan: dpaSatuanMap.has(k) ? dpaSatuanMap.get(k) : null,
+    // pagu: prefer Renstra (Renja) pagu -> RKPD pagu -> DPA pagu
+    rkpd_pagu: (isRenjaDpaMode.value ? (renjaPaguMap.get(k) || renstraPaguMap.get(k) || rkpdPaguMap.get(k) || dpaPaguMap.get(k)) : (renstraPaguMap.get(k) || rkpdPaguMap.get(k) || dpaPaguMap.get(k))) || 0,
+    dpa_pagu: dpaPaguMap.get(k) || 0,
   }));
 }
 
@@ -1761,6 +3289,12 @@ function getTotalDisplayRows(row) {
     total += getIndicatorRowsForLine(l, row).length;
   });
   return Math.max(total, 1);
+}
+
+// chooseTriwulan uses the applyFilters above
+function chooseTriwulan(tw) {
+  twValue.value = tw;
+  applyFilters();
 }
 
 function determineIndicatorStatus(indRow) {
