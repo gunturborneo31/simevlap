@@ -108,7 +108,7 @@
               title="Simpan perubahan pagu dan target indikator"
             >Simpan</button>
             <button
-              v-if="showRealisasiMode"
+              v-if="showRealisasiMode && !isReadonly"
               @click="saveAllRealisasi"
               :disabled="!hasRealisasiChanges || isSavingRealisasi"
               class="px-4 py-2 rounded-lg bg-sky-700 text-white font-bold hover:bg-sky-800 transition whitespace-nowrap shrink-0"
@@ -185,6 +185,20 @@
             <span v-else>&#x2715; Keluar</span>
           </button>
         </div>
+        <div v-if="showRealisasiMode" class="flex items-center gap-2">
+          <button
+            type="button"
+            @click="exportDpaExcel"
+            :disabled="isExportingExcel"
+            class="px-3 py-1.5 rounded-lg border border-emerald-300 bg-emerald-50 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >{{ isExportingExcel ? 'Menyiapkan...' : 'Unduh Excel' }}</button>
+          <button
+            type="button"
+            @click="exportDpaPdf"
+            :disabled="isExportingPdf"
+            class="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-xs font-semibold text-red-800 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >{{ isExportingPdf ? 'Menyiapkan...' : 'Unduh PDF' }}</button>
+        </div>
       </div>
 
       <input
@@ -234,6 +248,20 @@
                 Realisasi Fisik TW {{ tw }}
               </th>
               <th class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Satuan Indikator</th>
+              <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide min-w-[170px]">
+                Tingkat Capaian Anggaran (%)
+                <div class="text-[10px] font-medium normal-case tracking-normal text-gray-500">Realisasi Uang per Tahun</div>
+              </th>
+              <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide min-w-[170px]">
+                Tingkat Capaian Kinerja (%)
+                <div class="text-[10px] font-medium normal-case tracking-normal text-gray-500">Realisasi Fisik per Tahun</div>
+              </th>
+              <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide min-w-[170px]">
+                Predikat Uang
+              </th>
+              <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide min-w-[170px]">
+                Predikat Fisik
+              </th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Faktor Penghambat</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Faktor Pendorong</th>
               <th v-if="showRealisasiMode" class="px-4 py-3 text-gray-700 font-bold uppercase text-center tracking-wide">Faktor Tindak Lanjut</th>
@@ -245,6 +273,23 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
+            <tr v-if="showRealisasiMode" class="bg-emerald-50 border-b border-emerald-200">
+              <td colspan="5" class="px-4 py-3 text-sm font-bold text-emerald-900 uppercase tracking-wide">
+                TOTAL {{ selectedOpdLabel || '-' }}
+              </td>
+              <td v-if="includeRenstra" class="px-4 py-3 text-right font-semibold text-emerald-900">{{ formatRupiah(summaryTotals.pagu_renstra) }}</td>
+              <td class="px-4 py-3 text-right font-semibold text-emerald-900">{{ formatRupiah(summaryTotals.pagu_renja) }}</td>
+              <td class="px-4 py-3 text-right font-semibold text-emerald-900">{{ formatRupiah(summaryTotals.pagu_dpa) }}</td>
+              <td class="px-4 py-3 text-right font-semibold text-emerald-900">{{ formatRupiah(summaryTotals.tw1) }}</td>
+              <td class="px-4 py-3 text-right font-semibold text-emerald-900">{{ formatRupiah(summaryTotals.tw2) }}</td>
+              <td class="px-4 py-3 text-right font-semibold text-emerald-900">{{ formatRupiah(summaryTotals.tw3) }}</td>
+              <td class="px-4 py-3 text-right font-semibold text-emerald-900">{{ formatRupiah(summaryTotals.tw4) }}</td>
+              <td :colspan="summaryBeforeCapaianColspan" class="px-4 py-3"></td>
+              <td class="px-4 py-3 text-right font-semibold text-black">{{ formatPercent(summaryCapaianAnggaranPct) }}</td>
+              <td class="px-4 py-3"></td>
+              <td :class="['px-4 py-3 text-center font-semibold', getPredikatCellClassByValue(summaryCapaianAnggaranPct)]">{{ getPredikatLabel(summaryCapaianAnggaranPct) }}</td>
+              <td :colspan="summaryAfterPredikatUangColspan" class="px-4 py-3"></td>
+            </tr>
             <template v-for="row in renderRows(data)" :key="row.key">
               <tr
                 :data-find-key="row.key"
@@ -260,6 +305,7 @@
                     :rowspan="col.rowspan || undefined"
                     :class="[
                       col.class,
+                      getDynamicColClass(col),
                       [
                         'indikator_action',
                         'indikator_nama',
@@ -344,12 +390,14 @@
                     </span>
                     <template v-else-if="col.type === 'realisasi_keuangan_input'">
                       <input
-                        v-if="!isVerifikatorMode && isEditableKomponen(col.komponen)"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        :value="getRealisasiTwValue(col.komponen, col.tw, 'keuangan')"
-                        @input="e => onRealisasiTwInput(col.komponen.id, col.tw, 'keuangan', e.target.value)"
+                        v-if="!isReadonly && !isVerifikatorMode && isEditableKomponen(col.komponen)"
+                        type="text"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        :value="getRealisasiKeuanganInputDisplay(col.komponen, col.tw)"
+                        @input="e => onRealisasiKeuanganInput(col.komponen.id, col.tw, e.target.value)"
+                        @keydown="onPaguKeydown"
+                        @paste.prevent="onRealisasiKeuanganPaste($event, col.komponen.id, col.tw)"
                         @blur="saveRealisasiTw(col.komponen, col.tw)"
                         class="w-full text-right bg-white border border-sky-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-400"
                       />
@@ -367,7 +415,7 @@
                       placeholder="Target"
                     />
                     <input
-                      v-else-if="col.type === 'realisasi_fisik_input' && !isVerifikatorMode"
+                      v-else-if="col.type === 'realisasi_fisik_input' && !isVerifikatorMode && !isReadonly"
                       type="number"
                       step="0.01"
                       min="0"
@@ -382,12 +430,24 @@
                     >
                       {{ getRealisasiTwValue(col.komponen, col.tw, 'fisik') }}
                     </span>
+                    <span v-else-if="col.type === 'capaian_anggaran_tahun'" class="font-semibold text-black tabular-nums">
+                      {{ formatPercent(computeCapaianAnggaranTahunPct(col.komponen)) }}
+                    </span>
+                    <span v-else-if="col.type === 'capaian_kinerja_tahun'" class="font-semibold text-black tabular-nums">
+                      {{ formatPercent(computeCapaianKinerjaTahunPct(col.komponen, col.indikatorTarget)) }}
+                    </span>
+                    <span v-else-if="col.type === 'predikat_uang'" class="font-semibold">
+                      {{ getPredikatLabel(computeCapaianAnggaranTahunPct(col.komponen)) }}
+                    </span>
+                    <span v-else-if="col.type === 'predikat_fisik'" class="font-semibold">
+                      {{ getPredikatLabel(computeCapaianKinerjaTahunPct(col.komponen, col.indikatorTarget)) }}
+                    </span>
                     <div v-else-if="col.type === 'program_factor'" class="space-y-2">
                       <div class="rounded-md border border-emerald-200 bg-white px-2 py-1 min-h-[42px] break-words whitespace-normal text-xs">
                         {{ getRealisasiFactorValue(col.programContext, col.factorField) || '-' }}
                       </div>
                       <button
-                        v-if="col.programContext && !isVerifikatorMode"
+                        v-if="col.programContext && !isVerifikatorMode && !isReadonly"
                         type="button"
                         class="rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
                         @click="editRealisasiFactor(col.programContext, col.factorField)"
@@ -397,7 +457,7 @@
                     </div>
                     <div v-else-if="col.type === 'indikator_evidence'" class="space-y-2 text-xs">
                       <button
-                        v-if="col.programContext && col.indicatorMeta && !isVerifikatorMode"
+                        v-if="col.programContext && col.indicatorMeta && !isVerifikatorMode && !isReadonly"
                         type="button"
                         class="rounded-md bg-emerald-600 px-2 py-1 text-xs font-semibold text-white hover:bg-emerald-700"
                         @click="openUploadRealisasiEvidence(col.programContext, col.indicatorMeta)"
@@ -699,7 +759,7 @@ const pageMode = computed(() => props.pageMode || 'dokumen');
 const showRealisasiMode = computed(() => pageMode.value === 'realisasi' || pageMode.value === 'verifikator');
 const includeRenstra = computed(() => props.includeRenstra !== false);
 const isVerifikatorMode = computed(() => pageMode.value === 'verifikator');
-const isReadonly = computed(() => pageMode.value === 'dokumen' && props.readonly);
+const isReadonly = computed(() => Boolean(props.readonly));
 const showDpaActions = computed(() => pageMode.value === 'dokumen' && !props.readonly);
 const verifikatorDocumentTypes = [
   { label: 'IKK', value: 'ikk' },
@@ -740,6 +800,7 @@ const triwulanOptions = [
   { value: 4, label: 'TW 4' },
 ];
 const selectedTriwulan = ref([{ value: 'all', label: 'Semua' }]);
+const isBootstrappingFilters = ref(true);
 const tableFontSize = ref(12);
 const editedRealisasiKeuangan = reactive({});
 const editedRealisasiFisik = reactive({});
@@ -747,11 +808,21 @@ const verifierNotes = reactive({});
 const evidenceFileInput = ref(null);
 const pendingEvidencePayload = ref(null);
 const isSavingRealisasi = ref(false);
+const isExportingPdf = ref(false);
+const isExportingExcel = ref(false);
+
+function normalizeNodeList(items) {
+  if (Array.isArray(items)) return items;
+  if (items && typeof items === 'object') return Object.values(items);
+  return [];
+}
+
+const data = computed(() => normalizeNodeList(props.data));
 
 const tableColspan = computed(() => {
   const twCount = showRealisasiMode.value ? 4 : 0;
   const verifierCols = showRealisasiMode.value && isVerifikatorMode.value ? 3 : 0;
-  const base = (showRealisasiMode.value ? 18 : 10) + verifierCols + (showDpaActions.value ? 3 : 0) + (twCount * 2);
+  const base = (showRealisasiMode.value ? 22 : 10) + verifierCols + (showDpaActions.value ? 3 : 0) + (twCount * 2);
   return base;
 });
 
@@ -999,9 +1070,10 @@ function onTargetInput(indikatorId, value) {
 }
 
 function collectIndikatorReferences(items, bucket = []) {
-  if (!Array.isArray(items)) return bucket;
+  const list = normalizeNodeList(items);
+  if (!list.length) return bucket;
 
-  items.forEach((item) => {
+  list.forEach((item) => {
     const indikatorList = Array.isArray(item?.indikator) ? item.indikator : [];
     indikatorList.forEach((ind) => {
       const nama = String(ind?.nama_indikator ?? '').trim();
@@ -1019,8 +1091,9 @@ function collectIndikatorReferences(items, bucket = []) {
       });
     });
 
-    if (Array.isArray(item?.children) && item.children.length) {
-      collectIndikatorReferences(item.children, bucket);
+    const children = normalizeNodeList(item?.children);
+    if (children.length) {
+      collectIndikatorReferences(children, bucket);
     }
   });
 
@@ -1028,7 +1101,7 @@ function collectIndikatorReferences(items, bucket = []) {
 }
 
 const indikatorReferencePool = computed(() => {
-  const refs = collectIndikatorReferences(props.data || []);
+  const refs = collectIndikatorReferences(data.value);
   const map = new Map();
   refs.forEach((item) => {
     const key = [item.nama_indikator, item.satuan, item.sifat_indikator, item.target_indikator].join('|');
@@ -1101,9 +1174,10 @@ const existingMasterCodeSets = computed(() => {
   };
 
   function visit(items) {
-    if (!Array.isArray(items)) return;
+    const list = normalizeNodeList(items);
+    if (!list.length) return;
 
-    items.forEach((item) => {
+    list.forEach((item) => {
       const jenis = String(item?.jenis || '');
       const kode = String(item?.kode || '').trim();
 
@@ -1111,13 +1185,14 @@ const existingMasterCodeSets = computed(() => {
         bucket[jenis].add(kode);
       }
 
-      if (Array.isArray(item?.children) && item.children.length) {
-        visit(item.children);
+      const children = normalizeNodeList(item?.children);
+      if (children.length) {
+        visit(children);
       }
     });
   }
 
-  visit(props.data || []);
+  visit(data.value);
 
   return bucket;
 });
@@ -1444,12 +1519,16 @@ function getRealisasiTwValue(komponen, tw, field) {
 
 function computeRealisasiKeuanganSum(komponen, tw) {
   if (!komponen) return 0;
-  // if component has children, sum recursively
+  const ownValue = Number(getRealisasiTwValue(komponen, tw, 'keuangan') || 0);
+
+  // If component has children, prefer recursive sum.
+  // Fallback to own value when children do not carry realisasi values.
   if (Array.isArray(komponen.children) && komponen.children.length) {
-    return komponen.children.reduce((acc, child) => acc + computeRealisasiKeuanganSum(child, tw), 0);
+    const childrenTotal = komponen.children.reduce((acc, child) => acc + computeRealisasiKeuanganSum(child, tw), 0);
+    return childrenTotal > 0 ? childrenTotal : ownValue;
   }
 
-  return getRealisasiTwValue(komponen, tw, 'keuangan') || 0;
+  return ownValue;
 }
 
 function computeDefaultFisik(komponen, tw, indikatorTarget) {
@@ -1495,6 +1574,8 @@ function isEditableKomponen(komponen) {
 }
 
 function onRealisasiTwInput(komponenId, tw, field, value) {
+  if (isReadonly.value) return;
+
   const key = realisasiEditKey(komponenId, tw);
   const parsed = value === '' ? '' : Number(value);
   const safe = parsed === '' || Number.isNaN(parsed) ? '' : parsed;
@@ -1507,6 +1588,30 @@ function onRealisasiTwInput(komponenId, tw, field, value) {
   editedRealisasiFisik[key] = safe;
 }
 
+function getRealisasiKeuanganInputDisplay(komponen, tw) {
+  const key = realisasiEditKey(komponen?.id, tw);
+  const edited = editedRealisasiKeuangan[key];
+  const source = edited !== undefined ? String(edited) : String(Math.trunc(Number(getRealisasiTwValue(komponen, tw, 'keuangan') || 0)));
+  if (!source) return '';
+
+  return formatRupiah(parseInt(source, 10) || 0);
+}
+
+function onRealisasiKeuanganInput(komponenId, tw, value) {
+  if (isReadonly.value) return;
+
+  const key = realisasiEditKey(komponenId, tw);
+  editedRealisasiKeuangan[key] = onlyDigits(value);
+}
+
+function onRealisasiKeuanganPaste(event, komponenId, tw) {
+  if (isReadonly.value) return;
+
+  const pasted = event.clipboardData?.getData('text') ?? '';
+  const key = realisasiEditKey(komponenId, tw);
+  editedRealisasiKeuangan[key] = onlyDigits(pasted);
+}
+
 function toNumberOr(defaultValue, value) {
   if (value === '' || value === null || value === undefined) return Number(defaultValue ?? 0) || 0;
   const n = Number(value);
@@ -1514,6 +1619,11 @@ function toNumberOr(defaultValue, value) {
 }
 
 function saveRealisasiTw(komponen, tw, options = {}) {
+  if (isReadonly.value) {
+    if (typeof options?.onFinish === 'function') options.onFinish();
+    return;
+  }
+
   const { redirectAfterSave = true, onFinish } = options;
   const key = realisasiEditKey(komponen.id, tw);
   // proceed when there is a fisik edit OR an editable keuangan edit (sub_kegiatan)
@@ -1592,8 +1702,8 @@ function saveRealisasiTw(komponen, tw, options = {}) {
 }
 
 function collectRealisasiChanges(items, bucket = []) {
-  (items || []).forEach((item) => {
-    const children = Array.isArray(item?.children) ? item.children : [];
+  normalizeNodeList(items).forEach((item) => {
+    const children = normalizeNodeList(item?.children);
 
       [1,2,3,4].forEach((tw) => {
         const key = realisasiEditKey(item.id, tw);
@@ -1611,11 +1721,15 @@ function collectRealisasiChanges(items, bucket = []) {
 }
 
 function saveAllRealisasi() {
+  if (isReadonly.value) {
+    return;
+  }
+
   if (isSavingRealisasi.value || !hasRealisasiChanges.value) {
     return;
   }
 
-  const queue = collectRealisasiChanges(props.data);
+  const queue = collectRealisasiChanges(data.value);
   if (!queue.length) {
     return;
   }
@@ -1671,12 +1785,87 @@ onMounted(() => {
   } else {
     selectedTriwulan.value = [triwulanOptions[0]];
   }
+
+  nextTick(() => {
+    isBootstrappingFilters.value = false;
+  });
 });
 
 // masterProgramList diterima dari server (sudah difilter berdasarkan OPD & tahun)
 const masterProgramList = computed(() => props.masterProgramList || []);
 
 const selectedOpdLabel = computed(() => selectedOpd.value?.nama ?? '');
+
+const summaryBeforeCapaianColspan = computed(() => {
+  // Kolom setelah "Realisasi TW 4" hingga sebelum "Tingkat Capaian Anggaran (%)".
+  const targetCols = includeRenstra.value ? 3 : 2;
+  return 2 + targetCols + 4 + 1;
+});
+
+const summaryAfterPredikatUangColspan = computed(() => {
+  // Kolom setelah "Predikat Uang".
+  const verifCols = isVerifikatorMode.value ? 3 : 0;
+  return 1 + 4 + verifCols;
+});
+
+const summaryTotals = computed(() => {
+  const totals = {
+    pagu_renstra: 0,
+    pagu_renja: 0,
+    pagu_dpa: 0,
+    tw1: 0,
+    tw2: 0,
+    tw3: 0,
+    tw4: 0,
+  };
+
+  function walk(items) {
+    normalizeNodeList(items).forEach((item) => {
+      const children = normalizeNodeList(item?.children);
+
+      if (children.length) {
+        walk(children);
+        return;
+      }
+
+      if (item?.jenis !== 'sub_kegiatan') {
+        return;
+      }
+
+      totals.pagu_renstra += Number(item?.pagu_renstra ?? 0) || 0;
+      totals.pagu_renja += Number(item?.pagu_renja ?? 0) || 0;
+      totals.pagu_dpa += Number(item?.pagu_dpa ?? item?.pagu ?? 0) || 0;
+      totals.tw1 += Number(getRealisasiTwValue(item, 1, 'keuangan') || 0);
+      totals.tw2 += Number(getRealisasiTwValue(item, 2, 'keuangan') || 0);
+      totals.tw3 += Number(getRealisasiTwValue(item, 3, 'keuangan') || 0);
+      totals.tw4 += Number(getRealisasiTwValue(item, 4, 'keuangan') || 0);
+    });
+  }
+
+  walk(data.value);
+
+  // For legacy data where realisasi is saved at program/kegiatan level,
+  // compute TW totals from top-level nodes using recursive fallback logic.
+  const topLevel = normalizeNodeList(data.value);
+  totals.tw1 = topLevel.reduce((acc, item) => acc + Number(computeRealisasiKeuanganSum(item, 1) || 0), 0);
+  totals.tw2 = topLevel.reduce((acc, item) => acc + Number(computeRealisasiKeuanganSum(item, 2) || 0), 0);
+  totals.tw3 = topLevel.reduce((acc, item) => acc + Number(computeRealisasiKeuanganSum(item, 3) || 0), 0);
+  totals.tw4 = topLevel.reduce((acc, item) => acc + Number(computeRealisasiKeuanganSum(item, 4) || 0), 0);
+
+  return totals;
+});
+
+const summaryCapaianAnggaranPct = computed(() => {
+  const paguDpa = Number(summaryTotals.value.pagu_dpa || 0);
+  if (paguDpa <= 0) return 0;
+
+  const totalRealisasi = Number(summaryTotals.value.tw1 || 0)
+    + Number(summaryTotals.value.tw2 || 0)
+    + Number(summaryTotals.value.tw3 || 0)
+    + Number(summaryTotals.value.tw4 || 0);
+
+  return (totalRealisasi / paguDpa) * 100;
+});
 
 const selectedProgram = computed(() =>
   masterProgramList.value.find(p => p.id === form.value.program_id) || null
@@ -1697,6 +1886,111 @@ function findKomponenById(items, targetId) {
   }
 
   return null;
+}
+
+function computeYearlyRealisasiKeuangan(komponen) {
+  return [1, 2, 3, 4].reduce((acc, tw) => acc + Number(computeRealisasiKeuanganSum(komponen, tw) || 0), 0);
+}
+
+function computeYearlyRealisasiFisik(komponen) {
+  if (!komponen) return 0;
+
+  const children = Array.isArray(komponen.children) ? komponen.children : [];
+  if (children.length) {
+    let weighted = 0;
+    let totalWeight = 0;
+
+    children.forEach((child) => {
+      const childTarget = Number(computeTargetFromKomponen(child) || 0);
+      const childFisik = computeYearlyRealisasiFisik(child);
+      if (childTarget > 0) {
+        weighted += childFisik * childTarget;
+        totalWeight += childTarget;
+      }
+    });
+
+    if (totalWeight > 0) {
+      return weighted / totalWeight;
+    }
+  }
+
+  const fisikValues = [1, 2, 3, 4].map((tw) => Number(getRealisasiTwValue(komponen, tw, 'fisik') || 0));
+  return Math.max(...fisikValues, 0);
+}
+
+function computeCapaianAnggaranTahunPct(komponen) {
+  const pagu = Number(getEffectivePaguBySource(komponen, 'dpa') || 0);
+  if (pagu <= 0) return 0;
+
+  const realisasiTahun = computeYearlyRealisasiKeuangan(komponen);
+  return (realisasiTahun / pagu) * 100;
+}
+
+function computeCapaianKinerjaTahunPct(komponen, indikatorTarget = null) {
+  const target = Number((indikatorTarget ?? computeTargetFromKomponen(komponen)) || 0);
+  if (target <= 0) return 0;
+
+  const realisasiTahun = computeYearlyRealisasiFisik(komponen);
+  return (realisasiTahun / target) * 100;
+}
+
+function formatPercent(value) {
+  const num = Number(value ?? 0);
+  if (!Number.isFinite(num)) return '0,00%';
+  return `${num.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`;
+}
+
+function normalizePercent(value) {
+  const num = Number(value ?? 0);
+  if (!Number.isFinite(num)) return 0;
+  return Math.max(0, num);
+}
+
+function getPredikatInfo(value) {
+  const k = normalizePercent(value);
+
+  if (k <= 50) return { code: 'SR', label: 'Sangat Rendah', color: 'red' };
+  if (k <= 65) return { code: 'R', label: 'Rendah', color: 'yellow' };
+  if (k <= 75) return { code: 'S', label: 'Sedang', color: 'orange' };
+  if (k <= 90) return { code: 'T', label: 'Tinggi', color: 'green' };
+  return { code: 'ST', label: 'Sangat Tinggi', color: 'blue' };
+}
+
+function getPredikatLabel(value) {
+  const info = getPredikatInfo(value);
+  return info.code;
+}
+
+function getPredikatBadgeClass(value) {
+  const info = getPredikatInfo(value);
+  if (info.color === 'red') return 'border-red-200 bg-red-100 text-red-700';
+  if (info.color === 'yellow') return 'border-yellow-200 bg-yellow-100 text-yellow-800';
+  if (info.color === 'orange') return 'border-orange-200 bg-orange-100 text-orange-700';
+  if (info.color === 'green') return 'border-green-200 bg-green-100 text-green-700';
+  return 'border-blue-200 bg-blue-100 text-blue-700';
+}
+
+function getPredikatCellClassByValue(value) {
+  const info = getPredikatInfo(value);
+  if (info.color === 'red') return 'bg-red-100 text-red-800';
+  if (info.color === 'yellow') return 'bg-yellow-100 text-yellow-800';
+  if (info.color === 'orange') return 'bg-orange-100 text-orange-800';
+  if (info.color === 'green') return 'bg-green-100 text-green-800';
+  return 'bg-blue-100 text-blue-800';
+}
+
+function getDynamicColClass(col) {
+  if (!col) return '';
+
+  if (col.type === 'predikat_uang') {
+    return getPredikatCellClassByValue(computeCapaianAnggaranTahunPct(col.komponen));
+  }
+
+  if (col.type === 'predikat_fisik') {
+    return getPredikatCellClassByValue(computeCapaianKinerjaTahunPct(col.komponen, col.indikatorTarget));
+  }
+
+  return '';
 }
 
 const editingParentKode = computed(() => {
@@ -1807,11 +2101,38 @@ function onProgramChange() {
 
 // Fetch data ulang jika filter berubah
 watch([selectedOpd, selectedTahun, selectedTriwulan], ([opd, tahun]) => {
+  if (isBootstrappingFilters.value) {
+    return;
+  }
+
+  const triwulan = getTriwulanQueryValue();
+
+  // Keep resume readonly pages on /resume; don't jump to /realisasi.
+  if (isReadonly.value) {
+    const url = new URL(window.location.href);
+    const query = {
+      view: url.searchParams.get('view') || 'realisasi',
+      table: url.searchParams.get('table') || 'dpa-readonly',
+      document_type: props.documentType || 'dpa',
+      page_mode: pageMode.value || 'realisasi',
+      opd_id: opd?.id || undefined,
+      tahun: tahun || undefined,
+      triwulan,
+    };
+
+    router.get(route('resume.index'), query, {
+      preserveState: true,
+      preserveScroll: true,
+      replace: true,
+    });
+    return;
+  }
+
   const targetRoute = showRealisasiMode.value ? route('realisasi.index') : route('anggaran.index');
   router.get(targetRoute, {
     opd_id: opd?.id || undefined,
     tahun: tahun || undefined,
-    triwulan: getTriwulanQueryValue(),
+    triwulan,
     page_mode: pageMode.value,
     document_type: props.documentType,
     readonly: props.readonly && showDpaActions.value ? 1 : undefined,
@@ -1841,6 +2162,141 @@ function formatSifatIndikator(value) {
   if (normalized === 'negatif') return 'Negatif';
   if (normalized === 'akumulatif') return 'Akumulatif';
   return '-';
+}
+
+function sanitizeFileNamePart(value) {
+  return String(value ?? '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'semua-opd';
+}
+
+function getExportBaseFileName() {
+  const opdPart = sanitizeFileNamePart(selectedOpdLabel.value || 'semua-opd');
+  const tahunPart = String(selectedTahun.value || new Date().getFullYear());
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+  return `realisasi-dpa-${opdPart}-${tahunPart}-${stamp}`;
+}
+
+async function ensureHtml2PdfLoaded() {
+  if (window.html2pdf) return;
+
+  await new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    script.onload = resolve;
+    script.onerror = () => reject(new Error('Gagal memuat library PDF.'));
+    document.head.appendChild(script);
+  });
+}
+
+async function ensureSheetJsLoaded() {
+  if (window.XLSX) return;
+
+  await new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    script.onload = resolve;
+    script.onerror = () => reject(new Error('Gagal memuat library Excel.'));
+    document.head.appendChild(script);
+  });
+}
+
+function cloneTableForExport() {
+  const table = tableWrapRef.value?.querySelector('table');
+  if (!table) return null;
+
+  const clone = table.cloneNode(true);
+  clone.querySelectorAll('input, textarea, select').forEach((el) => {
+    const replacement = document.createElement('span');
+    if (el.tagName === 'SELECT') {
+      replacement.textContent = el.options?.[el.selectedIndex]?.text ?? '';
+    } else {
+      replacement.textContent = el.value ?? '';
+    }
+    el.replaceWith(replacement);
+  });
+
+  return clone;
+}
+
+async function exportDpaPdf() {
+  if (isExportingPdf.value) return;
+
+  try {
+    isExportingPdf.value = true;
+    await ensureHtml2PdfLoaded();
+
+    const tableClone = cloneTableForExport();
+    if (!tableClone) {
+      window.alert('Tabel tidak ditemukan untuk diekspor.');
+      return;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.style.background = '#ffffff';
+    wrapper.style.padding = '12px';
+    wrapper.style.width = '1600px';
+
+    const title = document.createElement('div');
+    title.style.fontWeight = '700';
+    title.style.fontSize = '14px';
+    title.style.marginBottom = '8px';
+    title.textContent = `Realisasi DPA - ${selectedOpdLabel.value || 'Semua OPD'} - Tahun ${selectedTahun.value || '-'}`;
+
+    wrapper.appendChild(title);
+    wrapper.appendChild(tableClone);
+    document.body.appendChild(wrapper);
+
+    await window.html2pdf()
+      .set({
+        margin: [8, 8, 8, 8],
+        filename: `${getExportBaseFileName()}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+      })
+      .from(wrapper)
+      .save();
+
+    document.body.removeChild(wrapper);
+  } catch (error) {
+    window.alert(`Gagal mengunduh PDF: ${error?.message || error}`);
+  } finally {
+    isExportingPdf.value = false;
+  }
+}
+
+async function exportDpaExcel() {
+  if (isExportingExcel.value) return;
+
+  try {
+    isExportingExcel.value = true;
+    await ensureSheetJsLoaded();
+
+    const tableClone = cloneTableForExport();
+    if (!tableClone) {
+      window.alert('Tabel tidak ditemukan untuk diekspor.');
+      return;
+    }
+
+    const holder = document.createElement('div');
+    holder.style.position = 'fixed';
+    holder.style.left = '-99999px';
+    holder.style.top = '0';
+    holder.appendChild(tableClone);
+    document.body.appendChild(holder);
+
+    const workbook = window.XLSX.utils.table_to_book(tableClone, { sheet: 'Realisasi DPA', raw: true });
+    window.XLSX.writeFile(workbook, `${getExportBaseFileName()}.xlsx`);
+
+    document.body.removeChild(holder);
+  } catch (error) {
+    window.alert(`Gagal mengunduh Excel: ${error?.message || error}`);
+  } finally {
+    isExportingExcel.value = false;
+  }
 }
 
 function normalizeSifatIndikator(value) {
@@ -2105,6 +2561,10 @@ function buildNoticeRow({ key, jenis, message }) {
       { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
       { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
       { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
+      { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
+      { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
+      { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
+      { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' },
       { value: '-', class: 'px-3 py-2 text-gray-500 border-b border-r border-gray-300' }
     );
 
@@ -2134,8 +2594,9 @@ function buildNoticeRow({ key, jenis, message }) {
 
 function renderRows(data, parentKey = '', parentProgram = null) {
   const rows = [];
-  if (!data) return rows;
-  data.forEach((komponen) => {
+  const list = normalizeNodeList(data);
+  if (!list.length) return rows;
+  list.forEach((komponen) => {
     const activeProgram = komponen.jenis === 'program' ? komponen : parentProgram;
     const programContext = getProgramContextFromKomponen(activeProgram);
 
@@ -2216,6 +2677,28 @@ function renderRows(data, parentKey = '', parentProgram = null) {
           { value: ind.satuan, class: 'px-3 py-2 align-top border-b border-r border-gray-300' },
           ...(showRealisasiMode.value
             ? [
+                {
+                  type: 'capaian_anggaran_tahun',
+                  komponen,
+                  class: 'px-3 py-2 align-top text-right border-b border-r border-gray-300 min-w-[170px]'
+                },
+                {
+                  type: 'capaian_kinerja_tahun',
+                  komponen,
+                  indikatorTarget: ind.target_dpa ?? ind.target_indikator ?? null,
+                  class: 'px-3 py-2 align-top text-right border-b border-r border-gray-300 min-w-[170px]'
+                },
+                {
+                  type: 'predikat_uang',
+                  komponen,
+                  class: 'px-3 py-2 align-top text-center border-b border-r border-gray-300 min-w-[170px]'
+                },
+                {
+                  type: 'predikat_fisik',
+                  komponen,
+                  indikatorTarget: ind.target_dpa ?? ind.target_indikator ?? null,
+                  class: 'px-3 py-2 align-top text-center border-b border-r border-gray-300 min-w-[170px]'
+                },
                 ...(komponen.jenis === 'program'
                   ? [
                     {
@@ -2296,7 +2779,7 @@ function renderRows(data, parentKey = '', parentProgram = null) {
       });
     });
 
-    const children = Array.isArray(komponen.children) ? komponen.children : [];
+    const children = normalizeNodeList(komponen.children);
 
     if (komponen.jenis === 'program') {
       const kegiatanRows = children.filter((child) => child.jenis === 'kegiatan');

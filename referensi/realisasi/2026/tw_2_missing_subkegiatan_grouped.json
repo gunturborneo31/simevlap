@@ -1,0 +1,1533 @@
+{
+    "generated_at": "2026-07-21T03:42:11+00:00",
+    "source_file": "C:\\Users\\kamin\\Documents\\Project\\simevlap\\scripts/../referensi/realisasi/2026/tw_2.json",
+    "tahun": 2026,
+    "document_type": "dpa",
+    "missing_group_count": 66,
+    "missing_row_count": 201,
+    "summary_by_opd": [
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "count_missing_groups": 11,
+            "count_missing_rows": 24,
+            "sum_missing_realisasi": 590553525
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "count_missing_groups": 10,
+            "count_missing_rows": 22,
+            "sum_missing_realisasi": 7911324062
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "count_missing_groups": 8,
+            "count_missing_rows": 23,
+            "sum_missing_realisasi": 1560008100
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "count_missing_groups": 8,
+            "count_missing_rows": 16,
+            "sum_missing_realisasi": 1495076854
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "count_missing_groups": 7,
+            "count_missing_rows": 19,
+            "sum_missing_realisasi": 1186540682
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "count_missing_groups": 7,
+            "count_missing_rows": 18,
+            "sum_missing_realisasi": 1334273346
+        },
+        {
+            "kode_opd": "4.01.2.16.2.10.14.0001",
+            "opd_id": 29,
+            "nama_skpd": "Bagian Pemerintahan",
+            "count_missing_groups": 6,
+            "count_missing_rows": 23,
+            "sum_missing_realisasi": 1222247666
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0008",
+            "opd_id": 34,
+            "nama_skpd": "Bagian Pengadaan Barang Dan Jasa",
+            "count_missing_groups": 5,
+            "count_missing_rows": 12,
+            "sum_missing_realisasi": 535283000
+        },
+        {
+            "kode_opd": "1.02.2.14.0.00.02.0000",
+            "opd_id": 2,
+            "nama_skpd": "Dinas Kesehatan, Pengendalian Penduduk dan KB",
+            "count_missing_groups": 3,
+            "count_missing_rows": 23,
+            "sum_missing_realisasi": 75000000
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0004",
+            "opd_id": 35,
+            "nama_skpd": "Bagian Umum",
+            "count_missing_groups": 1,
+            "count_missing_rows": 21,
+            "sum_missing_realisasi": 2136205250
+        }
+    ],
+    "groups": [
+        {
+            "kode_opd": "1.02.2.14.0.00.02.0000",
+            "opd_id": 2,
+            "nama_skpd": "Dinas Kesehatan, Pengendalian Penduduk dan KB",
+            "kode_sub_kegiatan": "1.02.01.2.07.0006",
+            "row_count": 3,
+            "sum_anggaran_2026": 0,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                707,
+                708,
+                777
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.004.00123",
+                "5.1.02.01.004.00250",
+                "5.2.02.01.003.00006"
+            ],
+            "sample_uraian": [
+                "Belanja Peralatan dan Mesin-Alat Kantor dan Rumah Tangga-Alat Rumah Tangga-Alat Rumah Tangga Lainnya (Home Use)",
+                "Belanja Peralatan dan Mesin-Alat Laboratorium-Unit Alat Laboratorium-Alat Laboratorium Kimia",
+                "Belanja Modal Mesin Bor"
+            ]
+        },
+        {
+            "kode_opd": "1.02.2.14.0.00.02.0000",
+            "opd_id": 2,
+            "nama_skpd": "Dinas Kesehatan, Pengendalian Penduduk dan KB",
+            "kode_sub_kegiatan": "1.02.02.2.01.0014",
+            "row_count": 19,
+            "sum_anggaran_2026": 1691436413,
+            "sum_realisasi": 75000000,
+            "sample_row_indices": [
+                643,
+                644,
+                677,
+                680,
+                727
+            ],
+            "sample_kode_rekening": [
+                "4.1.02.01.001.00001",
+                "4.1.02.01.001.00003",
+                "5.1.02.01.001.00014",
+                "5.1.02.01.001.00020",
+                "5.1.02.02.001.00081"
+            ],
+            "sample_uraian": [
+                "Retribusi Pelayanan Kesehatan di Puskesmas",
+                "Retribusi Pelayanan Kesehatan di Puskesmas Pembantu",
+                "Belanja Suku Cadang-Suku Cadang Alat Besar"
+            ]
+        },
+        {
+            "kode_opd": "1.02.2.14.0.00.02.0000",
+            "opd_id": 2,
+            "nama_skpd": "Dinas Kesehatan, Pengendalian Penduduk dan KB",
+            "kode_sub_kegiatan": "1.02.02.2.02.0032",
+            "row_count": 1,
+            "sum_anggaran_2026": 1007210145,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                645
+            ],
+            "sample_kode_rekening": [
+                "4.1.02.01.001.00005"
+            ],
+            "sample_uraian": [
+                "Retribusi Pelayanan Kesehatan di Rumah Sakit Umum Daerah"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.06.0001",
+            "row_count": 1,
+            "sum_anggaran_2026": 20396220,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                359
+            ],
+            "sample_kode_rekening": [
+                "5.2.02.05.001.00005"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Alat Kantor Lainnya"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 4,
+            "sum_anggaran_2026": 86071425,
+            "sum_realisasi": 1832126,
+            "sample_row_indices": [
+                346,
+                362,
+                364,
+                365
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025",
+                "5.2.02.06.001.00002",
+                "5.2.02.10.002.00003",
+                "5.2.02.10.002.00004"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",
+                "Belanja Modal Peralatan Studio Video dan Film",
+                "Belanja Modal Peralatan Personal Computer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 4,
+            "sum_anggaran_2026": 30699970,
+            "sum_realisasi": 1717497,
+            "sample_row_indices": [
+                345,
+                347,
+                348,
+                349
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029",
+                "5.1.02.01.001.00035"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 31825000,
+            "sum_realisasi": 9075000,
+            "sample_row_indices": [
+                350
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.07.0006",
+            "row_count": 1,
+            "sum_anggaran_2026": 16403175,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                361
+            ],
+            "sample_kode_rekening": [
+                "5.2.02.05.002.00006"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Alat Rumah Tangga Lainnya (Home Use)"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.08.0004",
+            "row_count": 1,
+            "sum_anggaran_2026": 0,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                366
+            ],
+            "sample_kode_rekening": [
+                "5.2.05.01.001.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Buku Umum"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 2,
+            "sum_anggaran_2026": 102900000,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                351,
+                357
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.03.006.00005"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Pemeliharaan Aset Tidak Berwujud-Software"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.01.2.09.0002",
+            "row_count": 1,
+            "sum_anggaran_2026": 1539888000,
+            "sum_realisasi": 577928902,
+            "sample_row_indices": [
+                358
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.04.001.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Perjalanan Dinas Biasa"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.02.2.01.0001",
+            "row_count": 2,
+            "sum_anggaran_2026": 153875284,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                363,
+                367
+            ],
+            "sample_kode_rekening": [
+                "5.2.02.10.001.00002",
+                "5.2.06.01.001.00005"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Personal Computer",
+                "Belanja Modal Aset Tidak Berwujud-Software"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.02.2.01.0002",
+            "row_count": 1,
+            "sum_anggaran_2026": 1500000000,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                368
+            ],
+            "sample_kode_rekening": [
+                "5.2.06.01.001.00006"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Aset Tidak Berwujud-Kajian"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0002",
+            "opd_id": 31,
+            "nama_skpd": "Bagian Hukum",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 6,
+            "sum_anggaran_2026": 874249400,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                352,
+                353,
+                354,
+                355,
+                356
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00004",
+                "5.1.02.02.001.00029",
+                "5.1.02.02.001.00078",
+                "5.1.02.02.012.00003",
+                "5.1.02.02.015.00005"
+            ],
+            "sample_uraian": [
+                "Honorarium Tim Pelaksana Kegiatan dan Sekretariat Tim Pelaksana Kegiatan",
+                "Belanja Jasa Tenaga Ahli",
+                "Belanja Sewa Jasa Internet"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.06.0001",
+            "row_count": 1,
+            "sum_anggaran_2026": 92534400,
+            "sum_realisasi": 13043800,
+            "sample_row_indices": [
+                380
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00061"
+            ],
+            "sample_uraian": [
+                "Belanja Tagihan Listrik"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 17629135,
+            "sum_realisasi": 7485371,
+            "sample_row_indices": [
+                370,
+                391
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025",
+                "5.2.02.10.002.00003"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",
+                "Belanja Modal Peralatan Personal Computer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 3,
+            "sum_anggaran_2026": 80469603,
+            "sum_realisasi": 10542000,
+            "sample_row_indices": [
+                369,
+                371,
+                372
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 52228000,
+            "sum_realisasi": 11100000,
+            "sample_row_indices": [
+                374
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.07.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 0,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                381
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.003.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Sewa Tanah Bangunan Perumahan/Gedung Tempat Tinggal"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.08.0002",
+            "row_count": 1,
+            "sum_anggaran_2026": 46092600,
+            "sum_realisasi": 11951932,
+            "sample_row_indices": [
+                379
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00060"
+            ],
+            "sample_uraian": [
+                "Belanja Tagihan Air"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 2,
+            "sum_anggaran_2026": 319090000,
+            "sum_realisasi": 2040000,
+            "sample_row_indices": [
+                376,
+                386
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.04.001.00003"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Perjalanan Dinas Dalam Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.01.2.09.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 2214834500,
+            "sum_realisasi": 251970459,
+            "sample_row_indices": [
+                385,
+                387
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.04.001.00001",
+                "5.1.02.04.002.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Perjalanan Dinas Biasa",
+                "Belanja Perjalanan Dinas Biasa Luar Negeri"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.02.2.01.0001",
+            "row_count": 1,
+            "sum_anggaran_2026": 0,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                390
+            ],
+            "sample_kode_rekening": [
+                "5.2.02.10.001.00002"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Personal Computer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0003",
+            "opd_id": 30,
+            "nama_skpd": "Bagian Kesejahteraan Rakyat",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 8,
+            "sum_anggaran_2026": 28487250000,
+            "sum_realisasi": 7603190500,
+            "sample_row_indices": [
+                373,
+                375,
+                377,
+                378,
+                382
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00039",
+                "5.1.02.01.001.00053",
+                "5.1.02.02.001.00004",
+                "5.1.02.02.001.00007",
+                "5.1.02.02.004.00049"
+            ],
+            "sample_uraian": [
+                "Belanja Barang untuk Dijual/Diserahkan kepada Masyarakat",
+                "Belanja Makanan dan Minuman Jamuan Tamu",
+                "Honorarium Tim Pelaksana Kegiatan dan Sekretariat Tim Pelaksana Kegiatan"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0004",
+            "opd_id": 35,
+            "nama_skpd": "Bagian Umum",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 21,
+            "sum_anggaran_2026": 7548395371,
+            "sum_realisasi": 2136205250,
+            "sample_row_indices": [
+                521,
+                525,
+                535,
+                536,
+                538
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00001",
+                "5.1.02.01.001.00013",
+                "5.1.02.01.001.00040",
+                "5.1.02.01.001.00043",
+                "5.1.02.01.001.00053"
+            ],
+            "sample_uraian": [
+                "Belanja Bahan-Bahan Bangunan dan Konstruksi",
+                "Belanja Suku Cadang-Suku Cadang Alat Angkutan",
+                "Belanja Barang untuk Dijual/Diserahkan kepada Pihak Ketiga/Pihak Lain"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0001",
+            "row_count": 1,
+            "sum_anggaran_2026": 0,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                476
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00031"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Listrik"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 36421998,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                472,
+                488
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025",
+                "5.1.02.03.002.00134"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",
+                "Belanja Pemeliharaan Alat Studio, Komunikasi, dan Pemancar-Alat Studio-Peralatan Studio Gambar"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 6,
+            "sum_anggaran_2026": 693390220,
+            "sum_realisasi": 13710000,
+            "sample_row_indices": [
+                471,
+                473,
+                474,
+                475,
+                477
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029",
+                "5.1.02.01.001.00030",
+                "5.1.02.01.001.00035"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 2,
+            "sum_anggaran_2026": 5096088000,
+            "sum_realisasi": 570149598,
+            "sample_row_indices": [
+                479,
+                482
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052",
+                "5.1.02.02.001.00055"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat",
+                "Belanja Jasa Iklan/Reklame, Film, dan Pemotretan"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.01.2.07.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 0,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                485
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.005.00009"
+            ],
+            "sample_uraian": [
+                "Belanja Sewa Bangunan Gedung Tempat Pertemuan"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 5,
+            "sum_anggaran_2026": 427960000,
+            "sum_realisasi": 73370000,
+            "sample_row_indices": [
+                480,
+                489,
+                490,
+                492,
+                493
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.03.002.00405",
+                "5.1.02.03.006.00005",
+                "5.1.02.04.001.00003",
+                "5.1.02.04.001.00004"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Pemeliharaan Komputer-Komputer Unit-Personal Computer",
+                "Belanja Pemeliharaan Aset Tidak Berwujud-Software"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 5,
+            "sum_anggaran_2026": 199498439,
+            "sum_realisasi": 43659912,
+            "sample_row_indices": [
+                481,
+                483,
+                484,
+                486,
+                487
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00038",
+                "5.1.02.02.001.00063",
+                "5.1.02.02.001.00078",
+                "5.1.02.02.015.00002",
+                "5.1.02.02.015.00005"
+            ],
+            "sample_uraian": [
+                "Belanja Jasa Tata Rias",
+                "Belanja Kawat/Faksimili/Internet/TV Berlangganan",
+                "Belanja Sewa Jasa Internet"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0005",
+            "opd_id": 36,
+            "nama_skpd": "Bagian Protokol dan Komunikasi Pimpinan",
+            "kode_sub_kegiatan": "4.01.03.2.03.0003",
+            "row_count": 1,
+            "sum_anggaran_2026": 2219155000,
+            "sum_realisasi": 859118590,
+            "sample_row_indices": [
+                491
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.04.001.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Perjalanan Dinas Biasa"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0008",
+            "opd_id": 34,
+            "nama_skpd": "Bagian Pengadaan Barang Dan Jasa",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 139227865,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                434,
+                444
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025",
+                "5.1.02.02.004.00410"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",
+                "Belanja Sewa Peralatan Jaringan"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0008",
+            "opd_id": 34,
+            "nama_skpd": "Bagian Pengadaan Barang Dan Jasa",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 4,
+            "sum_anggaran_2026": 208448661,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                433,
+                435,
+                436,
+                437
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029",
+                "5.1.02.01.001.00035"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0008",
+            "opd_id": 34,
+            "nama_skpd": "Bagian Pengadaan Barang Dan Jasa",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 305648000,
+            "sum_realisasi": 7416000,
+            "sample_row_indices": [
+                438
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0008",
+            "opd_id": 34,
+            "nama_skpd": "Bagian Pengadaan Barang Dan Jasa",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 4,
+            "sum_anggaran_2026": 663990000,
+            "sum_realisasi": 41000000,
+            "sample_row_indices": [
+                439,
+                448,
+                450,
+                451
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.03.002.00405",
+                "5.1.02.04.001.00003",
+                "5.1.02.04.001.00004"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Pemeliharaan Komputer-Komputer Unit-Personal Computer",
+                "Belanja Perjalanan Dinas Dalam Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0008",
+            "opd_id": 34,
+            "nama_skpd": "Bagian Pengadaan Barang Dan Jasa",
+            "kode_sub_kegiatan": "4.01.01.2.09.0002",
+            "row_count": 1,
+            "sum_anggaran_2026": 736504000,
+            "sum_realisasi": 486867000,
+            "sample_row_indices": [
+                449
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.04.001.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Perjalanan Dinas Biasa"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 51332180,
+            "sum_realisasi": 9168928,
+            "sample_row_indices": [
+                330,
+                343
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025",
+                "5.2.02.10.002.00003"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",
+                "Belanja Modal Peralatan Personal Computer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 4,
+            "sum_anggaran_2026": 4140901613,
+            "sum_realisasi": 749217926,
+            "sample_row_indices": [
+                329,
+                331,
+                332,
+                338
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029",
+                "5.1.02.04.001.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 327130000,
+            "sum_realisasi": 27360000,
+            "sample_row_indices": [
+                333
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 3,
+            "sum_anggaran_2026": 413700000,
+            "sum_realisasi": 52425000,
+            "sample_row_indices": [
+                334,
+                337,
+                341
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.03.006.00005",
+                "5.1.02.04.001.00005"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Pemeliharaan Aset Tidak Berwujud-Software",
+                "Belanja Perjalanan Dinas Paket Meeting Luar Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.01.2.09.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 1511400000,
+            "sum_realisasi": 154405000,
+            "sample_row_indices": [
+                339,
+                340
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.04.001.00003",
+                "5.1.02.04.001.00004"
+            ],
+            "sample_uraian": [
+                "Belanja Perjalanan Dinas Dalam Kota",
+                "Belanja Perjalanan Dinas Paket Meeting Dalam Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.02.2.01.0001",
+            "row_count": 2,
+            "sum_anggaran_2026": 86517713,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                342,
+                344
+            ],
+            "sample_kode_rekening": [
+                "5.2.02.10.001.00002",
+                "5.2.06.01.001.00005"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Personal Computer",
+                "Belanja Modal Aset Tidak Berwujud-Software"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 1,
+            "sum_anggaran_2026": 108000000,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                335
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00004"
+            ],
+            "sample_uraian": [
+                "Honorarium Tim Pelaksana Kegiatan dan Sekretariat Tim Pelaksana Kegiatan"
+            ]
+        },
+        {
+            "kode_opd": "4.01.0.00.0.00.14.0010",
+            "opd_id": 33,
+            "nama_skpd": "Bagian Administrasi Pembangunan",
+            "kode_sub_kegiatan": "4.01.03.2.03.0003",
+            "row_count": 1,
+            "sum_anggaran_2026": 2916567400,
+            "sum_realisasi": 502500000,
+            "sample_row_indices": [
+                336
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00029"
+            ],
+            "sample_uraian": [
+                "Belanja Jasa Tenaga Ahli"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "kode_sub_kegiatan": "4.01.01.2.06.0001",
+            "row_count": 2,
+            "sum_anggaran_2026": 125000000,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                462,
+                465
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.004.00117",
+                "5.1.02.03.004.00100"
+            ],
+            "sample_uraian": [
+                "Belanja Sewa Alat Kantor Lainnya",
+                "Belanja Pemeliharaan Instalasi-Instalasi Pembangkit Listrik-Instalasi Pembangkit Listrik Tenaga Surya (PLTS)"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 3,
+            "sum_anggaran_2026": 14570112,
+            "sum_realisasi": 9847470,
+            "sample_row_indices": [
+                453,
+                456,
+                457
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025",
+                "5.1.02.01.001.00032",
+                "5.1.02.01.001.00034"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Perlengkapan Dinas",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Perlengkapan Pendukung Olahraga"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 4,
+            "sum_anggaran_2026": 71119517,
+            "sum_realisasi": 18922232,
+            "sample_row_indices": [
+                452,
+                454,
+                455,
+                458
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029",
+                "5.1.02.01.001.00035"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 223605000,
+            "sum_realisasi": 14960000,
+            "sample_row_indices": [
+                459
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 3,
+            "sum_anggaran_2026": 311850000,
+            "sum_realisasi": 33003000,
+            "sample_row_indices": [
+                460,
+                468,
+                469
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.04.001.00004",
+                "5.1.02.04.001.00005"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Perjalanan Dinas Paket Meeting Dalam Kota",
+                "Belanja Perjalanan Dinas Paket Meeting Luar Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "kode_sub_kegiatan": "4.01.01.2.09.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 1813996000,
+            "sum_realisasi": 877674936,
+            "sample_row_indices": [
+                466,
+                467
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.04.001.00001",
+                "5.1.02.04.001.00003"
+            ],
+            "sample_uraian": [
+                "Belanja Perjalanan Dinas Biasa",
+                "Belanja Perjalanan Dinas Dalam Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0006",
+            "opd_id": 32,
+            "nama_skpd": "Bagian Perekonomian dan Sumber Daya Alam",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 4,
+            "sum_anggaran_2026": 21011573350,
+            "sum_realisasi": 232133044,
+            "sample_row_indices": [
+                461,
+                463,
+                464,
+                470
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.004.00037",
+                "5.1.02.02.009.00012",
+                "5.1.02.02.012.00003",
+                "5.1.02.05.002.00001"
+            ],
+            "sample_uraian": [
+                "Belanja Sewa Kendaraan Bermotor Angkutan Barang",
+                "Belanja Jasa Konsultansi Berorientasi Layanan-Jasa Studi Penelitian dan Bantuan Teknik",
+                "Belanja Bimbingan Teknis"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 40051641,
+            "sum_realisasi": 13873329,
+            "sample_row_indices": [
+                393,
+                407
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025",
+                "5.2.02.10.002.00003"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",
+                "Belanja Modal Peralatan Personal Computer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 3,
+            "sum_anggaran_2026": 50016971,
+            "sum_realisasi": 7605730,
+            "sample_row_indices": [
+                392,
+                394,
+                395
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 177011400,
+            "sum_realisasi": 65490000,
+            "sample_row_indices": [
+                396
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 3,
+            "sum_anggaran_2026": 311496000,
+            "sum_realisasi": 138750000,
+            "sample_row_indices": [
+                403,
+                404,
+                405
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.04.001.00003",
+                "5.1.02.04.001.00004",
+                "5.1.02.04.001.00005"
+            ],
+            "sample_uraian": [
+                "Belanja Perjalanan Dinas Dalam Kota",
+                "Belanja Perjalanan Dinas Paket Meeting Dalam Kota",
+                "Belanja Perjalanan Dinas Paket Meeting Luar Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "kode_sub_kegiatan": "4.01.01.2.09.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 1548403000,
+            "sum_realisasi": 747116689,
+            "sample_row_indices": [
+                397,
+                402
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.04.001.00001"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Perjalanan Dinas Biasa"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "kode_sub_kegiatan": "4.01.02.2.01.0001",
+            "row_count": 3,
+            "sum_anggaran_2026": 869901288,
+            "sum_realisasi": 152475898,
+            "sample_row_indices": [
+                406,
+                408,
+                409
+            ],
+            "sample_kode_rekening": [
+                "5.2.02.10.001.00002",
+                "5.2.06.01.001.00005",
+                "5.2.06.01.001.00006"
+            ],
+            "sample_uraian": [
+                "Belanja Modal Personal Computer",
+                "Belanja Modal Aset Tidak Berwujud-Software",
+                "Belanja Modal Aset Tidak Berwujud-Kajian"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.0.00.14.0007",
+            "opd_id": 45,
+            "nama_skpd": "Bagian Organisasi",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 4,
+            "sum_anggaran_2026": 666839000,
+            "sum_realisasi": 208961700,
+            "sample_row_indices": [
+                398,
+                399,
+                400,
+                401
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00048",
+                "5.1.02.02.009.00013",
+                "5.1.02.02.009.00014",
+                "5.1.02.02.012.00003"
+            ],
+            "sample_uraian": [
+                "Belanja Jasa Kontribusi Asosiasi",
+                "Belanja Jasa Konsultansi Berorientasi Layanan-Jasa Konsultansi Manajemen",
+                "Belanja Jasa Konsultansi Berorientasi Layanan-Jasa Khusus"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.2.10.14.0001",
+            "opd_id": 29,
+            "nama_skpd": "Bagian Pemerintahan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0002",
+            "row_count": 1,
+            "sum_anggaran_2026": 75715142,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                411
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00025"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.2.10.14.0001",
+            "opd_id": 29,
+            "nama_skpd": "Bagian Pemerintahan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0004",
+            "row_count": 5,
+            "sum_anggaran_2026": 193457549,
+            "sum_realisasi": 0,
+            "sample_row_indices": [
+                410,
+                412,
+                413,
+                414,
+                415
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00024",
+                "5.1.02.01.001.00027",
+                "5.1.02.01.001.00029",
+                "5.1.02.01.001.00030",
+                "5.1.02.01.001.00035"
+            ],
+            "sample_uraian": [
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",
+                "Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.2.10.14.0001",
+            "opd_id": 29,
+            "nama_skpd": "Bagian Pemerintahan",
+            "kode_sub_kegiatan": "4.01.01.2.06.0009",
+            "row_count": 1,
+            "sum_anggaran_2026": 186280000,
+            "sum_realisasi": 68575000,
+            "sample_row_indices": [
+                417
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00052"
+            ],
+            "sample_uraian": [
+                "Belanja Makanan dan Minuman Rapat"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.2.10.14.0001",
+            "opd_id": 29,
+            "nama_skpd": "Bagian Pemerintahan",
+            "kode_sub_kegiatan": "4.01.01.2.09.0001",
+            "row_count": 2,
+            "sum_anggaran_2026": 596170000,
+            "sum_realisasi": 184150000,
+            "sample_row_indices": [
+                423,
+                432
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.02.001.00003",
+                "5.1.02.04.001.00004"
+            ],
+            "sample_uraian": [
+                "Honorarium Narasumber atau Pembahas, Moderator, Pembawa Acara, dan Panitia",
+                "Belanja Perjalanan Dinas Paket Meeting Dalam Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.2.10.14.0001",
+            "opd_id": 29,
+            "nama_skpd": "Bagian Pemerintahan",
+            "kode_sub_kegiatan": "4.01.01.2.09.0002",
+            "row_count": 2,
+            "sum_anggaran_2026": 392520000,
+            "sum_realisasi": 102120000,
+            "sample_row_indices": [
+                419,
+                431
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00064",
+                "5.1.02.04.001.00003"
+            ],
+            "sample_uraian": [
+                "Belanja Pakaian Dinas Lapangan (PDL)",
+                "Belanja Perjalanan Dinas Dalam Kota"
+            ]
+        },
+        {
+            "kode_opd": "4.01.2.16.2.10.14.0001",
+            "opd_id": 29,
+            "nama_skpd": "Bagian Pemerintahan",
+            "kode_sub_kegiatan": "4.01.03.2.03.0001",
+            "row_count": 12,
+            "sum_anggaran_2026": 1813231415,
+            "sum_realisasi": 867402666,
+            "sample_row_indices": [
+                416,
+                418,
+                420,
+                421,
+                422
+            ],
+            "sample_kode_rekening": [
+                "5.1.02.01.001.00043",
+                "5.1.02.01.001.00053",
+                "5.1.02.01.001.00074",
+                "5.1.02.01.001.00075",
+                "5.1.02.01.001.00076"
+            ],
+            "sample_uraian": [
+                "Belanja Natura dan Pakan-Natura",
+                "Belanja Makanan dan Minuman Jamuan Tamu",
+                "Belanja Pakaian Adat Daerah"
+            ]
+        }
+    ]
+}

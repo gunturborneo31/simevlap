@@ -12,10 +12,19 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    private const MANAGED_ROLES = ['admin', 'pimpinan', 'verifikator', 'opd'];
+    private const MANAGED_ROLES = ['admin', 'pimpinan', 'verifikator', 'opd', 'tamu'];
+
+    private function ensureManagedRolesExist(): void
+    {
+        foreach (self::MANAGED_ROLES as $roleName) {
+            Role::findOrCreate($roleName);
+        }
+    }
 
     public function index(): Response
     {
+        $this->ensureManagedRolesExist();
+
         $users = User::with(['opd', 'roles'])->latest()->paginate(20);
         $opds = Opd::where('is_active', true)->get(['id', 'nama', 'singkatan']);
         $roles = Role::query()->whereIn('name', self::MANAGED_ROLES)->get(['id', 'name']);
@@ -24,6 +33,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $this->ensureManagedRolesExist();
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255',
@@ -45,6 +56,8 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $this->ensureManagedRolesExist();
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255,' . $user->id,

@@ -21,6 +21,7 @@ use App\Http\Controllers\KomponenAnggaranController;
 use Illuminate\Http\Request as HttpRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\RealisasiArrayExport;
+use App\Exports\AllOpdKertasKerjaExport;
 
 class ResumeController extends Controller
 {
@@ -29,8 +30,13 @@ class ResumeController extends Controller
         $currentView = $request->string('view')->toString();
         $currentTable = $request->string('table')->toString();
         $filterBasis = $this->sanitizeFilterBasis($request->string('basis')->toString());
+        $tableData = [];
         $availableYears = $this->getAvailableYears();
-        $selectedYear = $this->resolveSelectedYear($request->query('year'), $availableYears);
+        $yearInput = $request->query('year');
+        if ($yearInput === null || $yearInput === '') {
+            $yearInput = $request->query('tahun');
+        }
+        $selectedYear = $this->resolveSelectedYear($yearInput, $availableYears);
         $selectedTw = $request->query('tw') !== null ? (int) $request->query('tw') : null;
         $selectedBidang = $request->query('bidang') !== null ? (string) $request->query('bidang') : null;
 
@@ -62,13 +68,14 @@ class ResumeController extends Controller
                 }
             }
             $tableData = null;
-            $tableMetricType = $this->resolveTableMetricType($currentView, $currentTable);
+            $overrideMetricType = $request->string('metric')->toString();
+            $tableMetricType = $this->resolveTableMetricType($currentView, $currentTable, $overrideMetricType);
 
-                if (in_array($currentTable, ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4', 'tabel-5', 'tabel-6', 'tabel-8', 'tabel-9', 'tabel-10'], true) && $currentView === 'konsistensi-rpjmd-rkpd') {
+            if (in_array($currentTable, ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4', 'tabel-5', 'tabel-6', 'tabel-8', 'tabel-9', 'tabel-10'], true) && $currentView === 'konsistensi-rpjmd-rkpd') {
                 $tableData = $this->getKonsistensiRpjmdRkpd($filterBasis, $selectedYear, $tableMetricType);
             }
 
-                if (in_array($currentTable, ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4', 'tabel-5', 'tabel-6', 'tabel-7','tabel-8','tabel-9','tabel-10'], true) && $currentView === 'konsistensi-rkpd-apbd') {
+            if (in_array($currentTable, ['tabel-1', 'tabel-2', 'tabel-3', 'tabel-4', 'tabel-5', 'tabel-6', 'tabel-7','tabel-8','tabel-9','tabel-10'], true) && $currentView === 'konsistensi-rkpd-apbd') {
                 $tableData = $this->getKonsistensiRkpdApbd($filterBasis, $selectedYear, $tableMetricType);
             }
 
@@ -88,8 +95,66 @@ class ResumeController extends Controller
                 return Inertia::render('DataDasar/Dokumen/Dpa/Index', $payload);
             }
 
+            // Resume Realisasi (Read-only): same DPA realisasi page but all editing actions disabled.
+            if ($currentView === 'realisasi' && $currentTable === 'dpa-readonly') {
+                $opdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                $tahun = $request->query('tahun') !== null && $request->query('tahun') !== ''
+                    ? (int) $request->query('tahun')
+                    : $selectedYear;
+                $komponen = app(KomponenAnggaranController::class);
+                $payload = $komponen->buildRealisasiPayloadForOpd($opdId, $tahun, 'realisasi', 'dpa', true);
+                $payload['readonly'] = true;
+                $payload['resume_duplicate'] = true;
+                $payload['resume_source'] = '/realisasi?document_type=dpa&page_mode=realisasi';
+
+                return Inertia::render('DataDasar/Dokumen/Dpa/Index', $payload);
+            }
+
+            if ($currentView === 'kertas-kerja' && $currentTable === 'tabel-1') {
+                $requestedOpdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                $fallbackOpdId = auth()->user()?->opd_id
+                    ?: Opd::query()->where('is_active', true)->orderBy('nama')->value('id');
+                $opdId = $requestedOpdId ?: ($fallbackOpdId ? (int) $fallbackOpdId : null);
+                $tahun = $request->query('tahun') !== null && $request->query('tahun') !== ''
+                    ? (int) $request->query('tahun')
+                    : $selectedYear;
+                $twInput = $request->query('triwulan', $request->query('tw', 2));
+                $tw = is_numeric($twInput) && in_array((int) $twInput, [1, 2, 3, 4], true)
+                    ? (int) $twInput
+                    : 2;
+
+                $tableData = $this->getKertasKerjaData($opdId, $tahun, $tw);
+                $opds = Opd::query()
+                    ->where('is_active', true)
+                    ->orderBy('nama')
+                    ->get(['id', 'nama'])
+                    ->map(fn (Opd $o) => ['id' => $o->id, 'nama' => $o->nama])
+                    ->values()
+                    ->all();
+
+                return Inertia::render('Resume/TableView', [
+                    'currentView' => $currentView,
+                    'currentTable' => $currentTable,
+                    'viewTitle' => $this->getViewTitle($currentView),
+                    'filterBasis' => $filterBasis,
+                    'selectedYear' => $tahun,   
+                    'selectedTw' => $tw,
+                    'selectedOpdId' => $opdId,
+                    'selectedBidang' => $selectedBidang,
+                    'bidangUrusans' => $bidangUrusans,
+                    'availableYears' => $availableYears,
+                    'tableMetricType' => $tableMetricType,
+                    'tableData' => $tableData,
+                    'opds' => $opds,
+                ]);
+            }
+
             if ($currentView === 'realisasi' && $currentTable === 'iku') {
-                $tableData = $this->getRealisasiIku();
+                $tableData = $this->getRealisasiIku($selectedYear);
+            }
+
+            if ($currentView === 'realisasi' && $currentTable === 'ikk') {
+                $tableData = $this->getRealisasiIkk($selectedYear);
             }
 
             // Hasil Pelaksanaan RKPD - tabel-1: build rows from Tujuan -> Sasaran -> Indikator (indikatorables)
@@ -444,7 +509,7 @@ class ResumeController extends Controller
                     $grouped = $renjaRows->groupBy('opd_id');
                     foreach ($grouped as $opdId => $programs) {
                         $opdName = $opdId ? (Opd::query()->where('id', $opdId)->value('nama') ?? ('OPD '.($opdId))) : 'Umum';
-                        $mapped = $programs->map(fn($p) => [
+                        $mapped = collect($programs)->map(fn($p) => [
                             'id' => $p->id,
                             'kode' => $p->kode,
                             'nama' => $p->nama_komponen ?? $p->nama ?? '',
@@ -927,6 +992,18 @@ class ResumeController extends Controller
                 $tableData = $this->getRekapPermasalahanByBidangUrusan($filterBasis, $selectedTw, $selectedBidang, $selectedYear);
             }
 
+            // Rekap Permasalahan - berdasarkan OPD
+            if ($currentView === 'rekap-permasalahan' && $currentTable === 'berdasarkan-opd') {
+                $requestedOpdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                if ($requestedOpdId === null) {
+                    $requestedOpdId = Opd::query()
+                        ->where('nama', 'like', '%BKPSDM%')
+                        ->value('id');
+                    $requestedOpdId = $requestedOpdId ? (int) $requestedOpdId : null;
+                }
+                $tableData = $this->getRekapPermasalahanByOpd($selectedYear, $requestedOpdId);
+            }
+
             // If viewing hasil-pelaksanaan-rkpd tabel-2, ensure Program Aksi rows appear first
             if ($tableData !== null && $currentView === 'hasil-pelaksanaan-rkpd' && $currentTable === 'tabel-2' && is_array($tableData)) {
                 usort($tableData, function ($a, $b) {
@@ -1022,12 +1099,29 @@ class ResumeController extends Controller
                 }
             if ($currentView === 'rekap-permasalahan') {
                 try {
+                    $opds = Opd::query()
+                        ->select(['id', 'nama'])
+                        ->orderBy('nama')
+                        ->get()
+                        ->map(fn (Opd $o) => ['id' => $o->id, 'nama' => $o->nama])
+                        ->values()
+                        ->all();
+                    $inertiaExtras['opds'] = $opds;
+                    $selectedOpdId = $request->query('opd_id') ? (int) $request->query('opd_id') : null;
+                    if ($selectedOpdId === null && $currentTable === 'berdasarkan-opd') {
+                        $selectedOpdId = Opd::query()
+                            ->where('nama', 'like', '%BKPSDM%')
+                            ->value('id');
+                        $selectedOpdId = $selectedOpdId ? (int) $selectedOpdId : null;
+                    }
+                    $inertiaExtras['selectedOpdId'] = $selectedOpdId;
+
                     $inertiaExtras['debugCounts'] = [
                         'sasaran_count' => \App\Models\Sasaran::count(),
                         'program_count' => \App\Models\Program::count(),
                         'indikatorable_sasaran_count' => DB::table('indikatorables')->where('indicatorable_type', \App\Models\Sasaran::class)->when($selectedYear, fn($q) => $q->where('tahun', $selectedYear))->count(),
                         'indikatorable_program_count' => DB::table('indikatorables')->where('indicatorable_type', \App\Models\Program::class)->when($selectedYear, fn($q) => $q->where('tahun', $selectedYear))->count(),
-                        'annotations_count' => DB::table('resume_program_annotations')->where('view','rekap-permasalahan')->whereIn('table_name', ['berdasarkan-sasaran','berdasarkan-bidang-urusan'])->when($selectedYear, fn($q) => $q->where('tahun', $selectedYear))->count(),
+                        'annotations_count' => DB::table('resume_program_annotations')->where('view','rekap-permasalahan')->whereIn('table_name', ['berdasarkan-sasaran','berdasarkan-bidang-urusan', 'berdasarkan-opd'])->when($selectedYear, fn($q) => $q->where('tahun', $selectedYear))->count(),
                     ];
                 } catch (\Throwable $e) {
                     Log::warning('rekap-permasalahan.debugcounts_failed', ['error' => $e->getMessage()]);
@@ -1178,7 +1272,7 @@ class ResumeController extends Controller
                     $debugInfo['opd_name'] = $opdName;
                     // find matching row in tableData
                     $foundRow = null;
-                    foreach ($tableData as $row) {
+                    foreach ((array) ($tableData ?? []) as $row) {
                         $r = is_array($row) ? $row : (array) $row;
                         if (isset($r['entitas']) && trim((string)$r['entitas']) === trim((string)$opdName)) {
                             $foundRow = $r;
@@ -1280,6 +1374,345 @@ class ResumeController extends Controller
      * - styles: object mapping "r,c" => { bg, color, isHeader }
      * - cols: optional array of column widths
      */
+    public function exportAllKertasKerja(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $tahun = $request->query('tahun') ? (int) $request->query('tahun') : now()->year;
+        $triwulan = $request->query('triwulan') ? (int) $request->query('triwulan') : 1;
+
+        $opds = Opd::query()
+            ->where('is_active', true)
+            ->orderBy('nama')
+            ->get(['id', 'nama']);
+
+        $result = [];
+        foreach ($opds as $opd) {
+            $rows = $this->getKertasKerjaData((int) $opd->id, $tahun, $triwulan);
+            if (!empty($rows)) {
+                $result[] = [
+                    'opd_id' => $opd->id,
+                    'nama'   => $opd->nama,
+                    'rows'   => $rows,
+                ];
+            }
+        }
+
+        return response()->json($result);
+    }
+
+    public function exportAllKertasKerjaExcel(Request $request)
+    {
+        try {
+            // Export semua OPD bisa sangat besar (banyak sheet + style), jadi longgarkan limit hanya untuk request ini.
+            @ini_set('memory_limit', '1024M');
+            @ini_set('max_execution_time', '0');
+            @set_time_limit(0);
+
+            $tahun = $request->query('tahun') ? (int) $request->query('tahun') : now()->year;
+            $triwulan = $request->query('triwulan') ? (int) $request->query('triwulan') : 1;
+
+            $opds = Opd::query()
+                ->where('is_active', true)
+                ->orderBy('nama')
+                ->get(['id', 'nama']);
+
+            $sheetsPayload = [];
+            $usedSheetTitles = [];
+            foreach ($opds as $opd) {
+                $rows = $this->getKertasKerjaData((int) $opd->id, $tahun, $triwulan);
+                if (empty($rows)) {
+                    continue;
+                }
+
+                $sheetPayload = $this->buildAllOpdKertasKerjaSheetPayload((string) $opd->nama, $rows, $triwulan);
+                $sheetPayload['title'] = $this->makeUniqueSheetTitle((string) ($sheetPayload['title'] ?? 'OPD'), $usedSheetTitles);
+                $sheetsPayload[] = $sheetPayload;
+            }
+
+            if (empty($sheetsPayload)) {
+                return response()->json(['message' => 'Tidak ada data untuk diexport.'], 422);
+            }
+
+            $fileName = sprintf('kertas_kerja_semua_opd_%d_tw%d_%s.xlsx', $tahun, $triwulan, now()->format('Ymd_His'));
+
+            return Excel::download(new AllOpdKertasKerjaExport($sheetsPayload), $fileName);
+        } catch (\Throwable $e) {
+            Log::error('resume.export_all_kertas_kerja_excel.failed', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return response()->json([
+                'message' => 'Gagal memproses export semua OPD: '.$e->getMessage(),
+            ], 500);
+        }
+    }
+
+    private function buildAllOpdKertasKerjaSheetPayload(string $opdName, array $rows, int $triwulan): array
+    {
+        $header1 = ['Kode Rek', 'Program / Kegiatan / Sub Kegiatan', 'RKPD', '', '', '', 'APBD', '', '', '', 'Realisasi', '', 'Capaian', '', 'Faktor', ''];
+        $header2 = ['', '', 'Indikator', 'Target', 'Satuan', 'Pagu', 'Indikator', 'Target', 'Satuan', 'Pagu', 'Kinerja (TW '.$triwulan.')', 'Keuangan (TW '.$triwulan.')', 'Kinerja', 'Keuangan', 'Pendorong', 'Penghambat'];
+        $opdRow = [$opdName, '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
+
+        $aoa = [$header1, $header2, $opdRow];
+        foreach ($rows as $row) {
+            $aoa[] = [
+                (string) ($row['kode_rek'] ?? '-'),
+                trim((string) ($row['nama'] ?? '-')) !== '' ? trim((string) ($row['nama'] ?? '-')) : '-',
+                $this->formatTextCell($row['rkpd_indikator'] ?? null),
+                $this->formatTextCell($row['rkpd_target'] ?? null),
+                $this->formatTextCell($row['rkpd_satuan'] ?? null),
+                $this->formatRupiahCell($row['rkpd_pagu'] ?? 0),
+                $this->formatTextCell($row['apbd_indikator'] ?? null),
+                $this->formatTextCell($row['apbd_target'] ?? null),
+                $this->formatTextCell($row['apbd_satuan'] ?? null),
+                $this->formatRupiahCell($row['apbd_pagu'] ?? 0),
+                $this->formatNumberCell($row['realisasi_kinerja'] ?? 0),
+                $this->formatRupiahCell($row['realisasi_keuangan'] ?? 0),
+                $this->formatCapaianCell($row['capaian_kinerja'] ?? null),
+                $this->formatCapaianCell($row['capaian_keuangan'] ?? null),
+                $this->formatTextCell($row['faktor_pendorong'] ?? null),
+                $this->formatTextCell($row['faktor_penghambat'] ?? null),
+            ];
+        }
+
+        $styles = [];
+        $alignMap = ['left', 'left', 'left', 'center', 'center', 'right', 'left', 'center', 'center', 'right', 'right', 'right', 'center', 'center', 'left', 'left'];
+
+        $lastRow = count($aoa) - 1;
+        for ($r = 0; $r <= $lastRow; $r++) {
+            for ($c = 0; $c < 16; $c++) {
+                $bg = '#FFFFFF';
+                $fg = '#000000';
+                $bold = false;
+
+                if ($r <= 1) {
+                    $bg = '#CBD5E1';
+                    $fg = '#0F172A';
+                    $bold = true;
+                } elseif ($r === 2) {
+                    $bg = '#FDBA74';
+                    $fg = '#000000';
+                    $bold = true;
+                } else {
+                    $row = $rows[$r - 3] ?? [];
+                    $level = (string) ($row['level'] ?? '');
+                    $rkpdHasDetail = $this->sideHasKertasKerjaDetail($row, 'rkpd');
+                    $apbdHasDetail = $this->sideHasKertasKerjaDetail($row, 'apbd');
+
+                    if ($level === 'program') {
+                        $bg = '#16A34A';
+                        $fg = '#000000';
+                        $bold = true;
+                    } elseif ($level === 'kegiatan') {
+                        $bg = '#FDE047';
+                        $fg = '#000000';
+                    }
+
+                    if ($c >= 2 && $c <= 5 && (($row['has_rkpd'] ?? null) === false) && !$rkpdHasDetail) {
+                        $bg = '#000000';
+                        $fg = '#FFFFFF';
+                    }
+
+                    if ($c >= 6 && $c <= 9 && (($row['has_apbd'] ?? null) === false) && !$apbdHasDetail) {
+                        $bg = '#000000';
+                        $fg = '#FFFFFF';
+                    }
+
+                    if ($c === 12) {
+                        ['bg' => $bg, 'fg' => $fg] = $this->resolveCapaianColor($row['capaian_kinerja'] ?? null);
+                    }
+
+                    if ($c === 13) {
+                        ['bg' => $bg, 'fg' => $fg] = $this->resolveCapaianColor($row['capaian_keuangan'] ?? null);
+                    }
+                }
+
+                $styles[$r.','.$c] = [
+                    'bg' => $bg,
+                    'color' => $fg,
+                    'bold' => $bold,
+                    'align' => $alignMap[$c] ?? 'left',
+                ];
+            }
+        }
+
+        $merges = [
+            ['s' => ['r' => 0, 'c' => 0], 'e' => ['r' => 1, 'c' => 0]],
+            ['s' => ['r' => 0, 'c' => 1], 'e' => ['r' => 1, 'c' => 1]],
+            ['s' => ['r' => 0, 'c' => 2], 'e' => ['r' => 0, 'c' => 5]],
+            ['s' => ['r' => 0, 'c' => 6], 'e' => ['r' => 0, 'c' => 9]],
+            ['s' => ['r' => 0, 'c' => 10], 'e' => ['r' => 0, 'c' => 11]],
+            ['s' => ['r' => 0, 'c' => 12], 'e' => ['r' => 0, 'c' => 13]],
+            ['s' => ['r' => 0, 'c' => 14], 'e' => ['r' => 0, 'c' => 15]],
+            ['s' => ['r' => 2, 'c' => 0], 'e' => ['r' => 2, 'c' => 15]],
+        ];
+
+        $cols = [12, 35, 16, 8, 8, 13, 16, 8, 8, 13, 11, 13, 9, 9, 18, 18];
+        $rowHeights = [0 => 24, 1 => 24, 2 => 22];
+
+        return [
+            'title' => $this->buildOpdSheetName($opdName),
+            'rows' => $aoa,
+            'styles' => $styles,
+            'cols' => $cols,
+            'merges' => $merges,
+            'rowHeights' => $rowHeights,
+        ];
+    }
+
+    private function resolveCapaianColor(mixed $value): array
+    {
+        if ($value === null || $value === '') {
+            return ['bg' => '#FFFFFF', 'fg' => '#000000'];
+        }
+
+        $n = $this->toNumericValue($value);
+        if (!is_finite($n)) {
+            return ['bg' => '#FFFFFF', 'fg' => '#000000'];
+        }
+
+        if ($n <= 50) {
+            return ['bg' => '#DC2626', 'fg' => '#FFFFFF'];
+        }
+
+        if ($n <= 65) {
+            return ['bg' => '#FDE047', 'fg' => '#000000'];
+        }
+
+        if ($n <= 75) {
+            return ['bg' => '#FB923C', 'fg' => '#000000'];
+        }
+
+        if ($n <= 90) {
+            return ['bg' => '#16A34A', 'fg' => '#FFFFFF'];
+        }
+
+        return ['bg' => '#2563EB', 'fg' => '#FFFFFF'];
+    }
+
+    private function sideHasKertasKerjaDetail(array $row, string $side): bool
+    {
+        $side = strtolower($side) === 'apbd' ? 'apbd' : 'rkpd';
+
+        $values = [
+            $row[$side.'_indikator'] ?? null,
+            $row[$side.'_target'] ?? null,
+            $row[$side.'_satuan'] ?? null,
+            $row[$side.'_pagu'] ?? null,
+        ];
+
+        foreach ($values as $value) {
+            if (!$this->isEmptyKertasKerjaDetailValue($value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function isEmptyKertasKerjaDetailValue(mixed $value): bool
+    {
+        if ($value === null) {
+            return true;
+        }
+
+        if (is_bool($value)) {
+            return false;
+        }
+
+        if (is_int($value) || is_float($value)) {
+            return false;
+        }
+
+        $text = trim((string) $value);
+        if ($text === '') {
+            return true;
+        }
+
+        $lower = strtolower($text);
+        if (in_array($lower, ['null', 'undefined', '-'], true)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function buildOpdSheetName(string $opdName): string
+    {
+        $words = preg_split('/\s+/', trim($opdName)) ?: [];
+        $filtered = array_filter($words, function ($word) {
+            if (mb_strlen($word) <= 2) {
+                return false;
+            }
+
+            return !preg_match('/^(dan|atau|di|ke|dari|untuk|yang|dengan)$/i', $word);
+        });
+
+        $abbr = '';
+        foreach ($filtered as $word) {
+            $abbr .= mb_strtoupper(mb_substr((string) $word, 0, 1));
+        }
+
+        if ($abbr === '') {
+            $abbr = 'OPD';
+        }
+
+        return mb_substr($abbr, 0, 31);
+    }
+
+    private function makeUniqueSheetTitle(string $baseTitle, array &$usedSheetTitles): string
+    {
+        $base = trim($baseTitle) !== '' ? trim($baseTitle) : 'OPD';
+        $base = mb_substr($base, 0, 31);
+
+        if (!in_array($base, $usedSheetTitles, true)) {
+            $usedSheetTitles[] = $base;
+            return $base;
+        }
+
+        $i = 2;
+        while (true) {
+            $suffix = ' '.$i;
+            $candidate = mb_substr($base, 0, max(1, 31 - mb_strlen($suffix))).$suffix;
+            if (!in_array($candidate, $usedSheetTitles, true)) {
+                $usedSheetTitles[] = $candidate;
+                return $candidate;
+            }
+            $i++;
+        }
+    }
+
+    private function formatTextCell(mixed $value): string
+    {
+        $text = trim((string) ($value ?? ''));
+
+        if ($text === '' || strtolower($text) === 'null' || strtolower($text) === 'undefined') {
+            return '-';
+        }
+
+        return $text;
+    }
+
+    private function formatNumberCell(mixed $value): string
+    {
+        return number_format($this->toNumericValue($value), 2, ',', '.');
+    }
+
+    private function formatRupiahCell(mixed $value): string
+    {
+        return number_format($this->toNumericValue($value), 0, ',', '.');
+    }
+
+    private function formatCapaianCell(mixed $value): string
+    {
+        if ($value === null || $value === '') {
+            return 'NA';
+        }
+
+        return number_format($this->toNumericValue($value), 2, ',', '.').'%';
+    }
+
     public function exportExcelServer(HttpRequest $request)
     {
         $payload = $request->all();
@@ -1678,6 +2111,80 @@ class ResumeController extends Controller
         return $rows;
     }
 
+    protected function getRekapPermasalahanByOpd(?int $tahun = null, ?int $opdId = null): array
+    {
+        $rows = [];
+        $targetOpdName = null;
+        if ($opdId !== null) {
+            $targetOpdName = Opd::query()->where('id', $opdId)->value('nama');
+        }
+
+        $annotations = \App\Models\ResumeProgramAnnotation::query()
+            ->where('view', 'rekap-permasalahan')
+            ->whereIn('table_name', ['berdasarkan-opd', 'berdasarkan-bidang-urusan'])
+            ->when($tahun, fn($q) => $q->where('tahun', $tahun))
+            ->get();
+
+        foreach ($annotations as $ann) {
+            $entitasRaw = $ann->entitas ?? $ann->basis ?? null;
+            $opdLabel = null;
+
+            if ($entitasRaw !== null && $entitasRaw !== '') {
+                try {
+                    $opd = null;
+
+                    if (is_numeric($entitasRaw)) {
+                        $opd = Opd::find((int) $entitasRaw);
+                    }
+
+                    if (empty($opd)) {
+                        $opd = Opd::query()
+                            ->where('kode', $entitasRaw)
+                            ->orWhere('nama', $entitasRaw)
+                            ->first();
+                    }
+
+                    if (! empty($opd)) {
+                        $opdLabel = $opd->nama;
+                    }
+                } catch (\Throwable $e) {
+                    Log::debug('rekap-permasalahan.opd_resolution_failed', [
+                        'entitas' => $entitasRaw,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
+            }
+
+            $resolvedOpdName = $opdLabel ?? $entitasRaw;
+
+            if ($opdId !== null) {
+                if ($targetOpdName && strcasecmp((string) $resolvedOpdName, (string) $targetOpdName) !== 0) {
+                    continue;
+                }
+            }
+
+            $rows[] = [
+                'no' => 0,
+                'opd' => $resolvedOpdName,
+                'program' => $ann->program_nama ?? $ann->program_kode,
+                'renstra' => '-',
+                'renja' => '-',
+                'dpa' => '-',
+                'faktor_penghambat' => $ann->faktor_penghambat,
+                'faktor_pendorong' => $ann->faktor_pendorong,
+                'faktor_tindak_lanjut' => $ann->faktor_tindak_lanjut,
+            ];
+        }
+
+        // Re-number rows after optional filtering.
+        $rows = array_values(array_map(function (array $row, int $idx) {
+            $row['no'] = $idx + 1;
+            return $row;
+        }, $rows, array_keys($rows)));
+
+        return $rows;
+    }
+
     public function export(Request $request)
     {
         $currentView = $request->string('view')->toString();
@@ -1693,8 +2200,11 @@ class ResumeController extends Controller
         $filterBasis = $this->sanitizeFilterBasis($request->string('basis')->toString());
         $availableYears = $this->getAvailableYears();
         $selectedYear = $this->resolveSelectedYear($request->query('year'), $availableYears);
-        $tableMetricType = $this->resolveTableMetricType($currentView, $currentTable);
-        if ($currentView === 'konsistensi-rpjmd-rkpd') {
+        $requestedMetricType = $request->string('metric')->toString();
+        $tableMetricType = $this->resolveTableMetricType($currentView, $currentTable, $requestedMetricType);
+        if ($currentView === 'realisasi' && $currentTable === 'iku') {
+            $tableData = $this->getRealisasiIku($selectedYear);
+        } elseif ($currentView === 'konsistensi-rpjmd-rkpd') {
             $tableData = $this->getKonsistensiRpjmdRkpd($filterBasis, $selectedYear, $tableMetricType);
         } else {
             $tableData = $this->getKonsistensiRkpdApbd($filterBasis, $selectedYear, $tableMetricType);
@@ -1704,7 +2214,7 @@ class ResumeController extends Controller
             'viewTitle' => $this->getViewTitle($currentView),
             'tableLabel' => $this->formatCurrentTableLabel($currentTable),
             'entityHeaderLabel' => $filterBasis === 'perangkat-daerah' ? 'Perangkat Daerah' : 'Bidang Urusan',
-            'metricLabel' => $tableMetricType === 'indikator' ? 'Indikator Program' : ($tableMetricType === 'kegiatan' ? 'Kegiatan' : 'Program'),
+            'metricLabel' => in_array($tableMetricType, ['indikator', 'all'], true) ? 'Semua Indikator' : ($tableMetricType === 'kegiatan' ? 'Kegiatan' : 'Program'),
             'selectedYear' => $selectedYear,
             'selectedTw' => $request->query('tw') !== null ? (int) $request->query('tw') : null,
             'selectedBidang' => $request->query('bidang') !== null ? (string) $request->query('bidang') : null,
@@ -1716,7 +2226,7 @@ class ResumeController extends Controller
                 'rows' => $this->buildTabel1ExportRows($tableData, $tableMetricType),
             ];
         } else {
-            if ($tableMetricType === 'indikator') {
+            if (in_array($tableMetricType, ['indikator', 'all'], true)) {
                 $template = 'exports.resume_tabel_rkpd_apbd_indikator';
                 $payload = $basePayload + [
                     'groups' => $this->buildTabel1ExportRowsRkpdApbd($tableData, $tableMetricType),
@@ -1866,8 +2376,14 @@ class ResumeController extends Controller
         ];
     }
 
-    private function resolveTableMetricType(string $currentView, string $currentTable): string
+    private function resolveTableMetricType(string $currentView, string $currentTable, string $overrideMetric = ''): string
     {
+        $allowed = ['program', 'kegiatan', 'sub_kegiatan', 'indikator', 'all'];
+        $overrideMetric = trim((string) $overrideMetric);
+        if ($overrideMetric !== '' && in_array($overrideMetric, $allowed, true)) {
+            return $overrideMetric;
+        }
+
         if ($currentView === 'konsistensi-rpjmd-rkpd' && in_array($currentTable, ['tabel-2', 'tabel-3'], true)) {
             return 'indikator';
         }
@@ -2361,13 +2877,11 @@ class ResumeController extends Controller
                 $join->on('p.opd_id', '=', 'ka.opd_id')
                     ->on('p.kode_rek', '=', 'ka.kode_program');
             })
-            ->leftJoin('indikator as i', 'i.id', '=', 'ia.indikator_id')
             ->select([
                 'ka.opd_id',
                 'ka.document_type',
                 'ia.id as indikator_id',
-                // prefer explicitly entered nama_indikator, otherwise fall back to master indikator.uraian
-                DB::raw("COALESCE(NULLIF(ia.nama_indikator, ''), i.uraian) as indikator_uraian"),
+                'ia.nama_indikator as indikator_uraian',
                 'ka.kode_program as program_kode',
                 'p.nama_rincian as program_nama',
                 'ia.target_indikator as indikator_target',
@@ -2469,7 +2983,7 @@ class ResumeController extends Controller
                 $content = @file_get_contents($file);
                 $items = $content ? json_decode($content, true) ?? [] : [];
 
-                $rows = collect($items)->map(function ($it) {
+                $rows = collect($items)->map(function ($it) use ($selectedYear) {
                     // map KODE_KEGIATAN -> kode, and NAMA_KEGIATAN -> nama
                     return [
                         'opd_id' => $this->findOpdIdByKode((string) ($it['KODE_SKPD'] ?? '')),
@@ -2499,6 +3013,15 @@ class ResumeController extends Controller
                 })->filter(fn($r) => $r['opd_id'] !== null);
 
                 return $rows;
+            }
+
+            if ($metricType === 'all') {
+                return $this->loadReferensiRkpdItems('program', $selectedYear)
+                    ->merge($this->loadReferensiRkpdItems('kegiatan', $selectedYear))
+                    ->merge($this->loadReferensiRkpdItems('sub_kegiatan', $selectedYear))
+                    ->unique(function ($r) {
+                        return ($r['opd_id'] ?? '') . '|' . trim((string) ($r['kode'] ?? '')) . '|' . ($r['dokumen'] ?? '') . '|' . ($r['tahun'] ?? '');
+                    })->values();
             }
 
             // default: program
@@ -3296,11 +3819,62 @@ class ResumeController extends Controller
 
     private function getKonsistensiRkpdApbd(string $filterBasis, ?int $selectedYear, string $metricType = 'program'): Collection
     {
-        if ($metricType === 'indikator') {
+        if ($metricType === 'indikator' || $metricType === 'all') {
             return $this->getKonsistensiRkpdApbdIndikator($filterBasis, $selectedYear);
         }
         // RKPD/Renja items: could be programs or kegiatan depending on metricType
-        if ($metricType === 'kegiatan') {
+        if ($metricType === 'all') {
+            $rkpdPrograms = collect([]);
+
+            $programs = Program::query()
+                ->select(['opd_id', 'document_type', 'kode_rek', 'nama_rincian', 'tahun'])
+                ->whereIn('document_type', ['rkpd', 'renja'])
+                ->get()
+                ->map(function ($p) {
+                    return [
+                        'opd_id' => $p->opd_id,
+                        'kode' => (string) ($p->kode_rek ?? ''),
+                        'nama' => (string) ($p->nama_rincian ?? ''),
+                        'dokumen' => strtoupper((string) ($p->document_type ?? '')),
+                        'tahun' => $p->tahun !== null ? (int) $p->tahun : null,
+                    ];
+                });
+
+            $kegiatan = \App\Models\Kegiatan::query()
+                ->select(['opd_id', 'document_type', 'kode_rek', 'nama_rincian', 'tahun'])
+                ->whereIn('document_type', ['rkpd', 'renja'])
+                ->get()
+                ->map(function ($p) {
+                    return [
+                        'opd_id' => $p->opd_id,
+                        'kode' => (string) ($p->kode_rek ?? ''),
+                        'nama' => (string) ($p->nama_rincian ?? ''),
+                        'dokumen' => strtoupper((string) ($p->document_type ?? '')),
+                        'tahun' => $p->tahun !== null ? (int) $p->tahun : null,
+                    ];
+                });
+
+            $subKegiatan = \App\Models\SubKegiatan::query()
+                ->select(['opd_id', 'document_type', 'kode_rek', 'nama_rincian', 'tahun'])
+                ->whereIn('document_type', ['rkpd', 'renja'])
+                ->get()
+                ->map(function ($p) {
+                    return [
+                        'opd_id' => $p->opd_id,
+                        'kode' => (string) ($p->kode_rek ?? ''),
+                        'nama' => (string) ($p->nama_rincian ?? ''),
+                        'dokumen' => strtoupper((string) ($p->document_type ?? '')),
+                        'tahun' => $p->tahun !== null ? (int) $p->tahun : null,
+                    ];
+                });
+
+            $rkpdPrograms = collect($programs)
+                ->merge($kegiatan)
+                ->merge($subKegiatan)
+                ->unique(function ($item) {
+                    return ($item['opd_id'] ?? '') . '|' . trim((string) ($item['kode'] ?? '')) . '|' . ($item['dokumen'] ?? '') . '|' . ($item['tahun'] ?? '');
+                })->values();
+        } elseif ($metricType === 'kegiatan') {
             $rkpdPrograms = \App\Models\Kegiatan::query()
                 ->select(['opd_id', 'document_type', 'kode_rek', 'nama_rincian', 'tahun'])
                 ->whereIn('document_type', ['rkpd', 'renja'])
@@ -3416,6 +3990,8 @@ class ResumeController extends Controller
                 $indikatorQuery->where('ka.jenis', 'kegiatan');
             } elseif ($metricType === 'sub_kegiatan') {
                 $indikatorQuery->where('ka.jenis', 'sub_kegiatan');
+            } elseif ($metricType === 'all') {
+                $indikatorQuery->whereIn('ka.jenis', ['program', 'kegiatan', 'sub_kegiatan']);
             } else {
                 $indikatorQuery->where('ka.jenis', 'program');
             }
@@ -3464,7 +4040,12 @@ class ResumeController extends Controller
 
         // APBD (DPA) items from komponen_anggaran; jenis varies by metricType
         // komponen_anggaran stores keys differently; use existing columns
-        if ($metricType === 'kegiatan') {
+        if ($metricType === 'all') {
+            $dpaQuery = DB::table('komponen_anggaran')
+                ->select([DB::raw("CASE WHEN jenis = 'program' THEN kode_program ELSE kode END as kode"), 'opd_id', 'nama_komponen as nama', 'pagu', 'document_type', 'tahun', 'jenis'])
+                ->where('document_type', 'dpa')
+                ->whereIn('jenis', ['program', 'kegiatan', 'sub_kegiatan']);
+        } elseif ($metricType === 'kegiatan') {
             $dpaQuery = DB::table('komponen_anggaran')
                 ->select(['opd_id', 'kode as kode', 'nama_komponen as nama', 'pagu', 'document_type', 'tahun'])
                 ->where('document_type', 'dpa')
@@ -3494,8 +4075,18 @@ class ResumeController extends Controller
 
         // Normalize program names: prefer real names from komponen_anggaran / program / kegiatan
         $dpaPrograms = $dpaPrograms->map(function ($r) {
-            $r['nama'] = $this->resolvePreferredProgramName($r['opd_id'] ?? null, $r['kode'] ?? '', $r['nama'] ?? '', $r['dokumen'] ?? '');
-            return $r;
+            $item = is_array($r)
+                ? $r
+                : (is_object($r) ? (array) $r : []);
+
+            $item['nama'] = $this->resolvePreferredProgramName(
+                $item['opd_id'] ?? null,
+                (string) ($item['kode'] ?? ''),
+                (string) ($item['nama'] ?? ''),
+                (string) ($item['dokumen'] ?? '')
+            );
+
+            return $item;
         })->all();
 
         if ($filterBasis === 'perangkat-daerah') {
@@ -3662,8 +4253,8 @@ class ResumeController extends Controller
 
     private function buildTabel1ExportRowsRkpdApbd(Collection $tableData, string $metricType = 'program'): array
     {
-        // For indikator mode, the frontend/export expects grouped lines per entitas with indicators and status.
-        if ($metricType === 'indikator') {
+        // For indikator/all-indikator mode, the frontend/export expects grouped lines per entitas with indicators and status.
+        if (in_array($metricType, ['indikator', 'all'], true)) {
             // $tableData already contains 'lines' prepared by getKonsistensiRkpdApbdIndikator
             return $tableData->map(function ($row) {
                 $rowData = is_array($row) ? $row : [];
@@ -3677,7 +4268,7 @@ class ResumeController extends Controller
             })->values()->all();
         }
 
-        return $tableData->map(function ($row) {
+        return $tableData->map(function ($row) use ($metricType) {
             $rowData = is_array($row) ? $row : [];
             $rkpdPrograms = (array) ($rowData['rkpd_programs'] ?? []);
             $dpaPrograms = (array) ($rowData['dpa_programs'] ?? []);
@@ -3697,29 +4288,349 @@ class ResumeController extends Controller
         })->values()->all();
     }
 
-    private function getRealisasiIku(): Collection
+    private function getRealisasiIku(?int $tahun = null): Collection
     {
-        $ikus = \App\Models\Iku::query()->select(['id', 'indikator', 'satuan', 'capaian_2024', 'target_2025', 'target_2026'])->get();
+        $filePath = base_path('referensi/iku-ikk/iku.json');
+        $tahun = $tahun ?? now()->year;
 
-        $rows = $ikus->map(function ($iku, $index) {
-            $last = \App\Models\Realisasi::query()
-                ->where('realisaseable_type', Iku::class)
-                ->where('realisaseable_id', $iku->id)
-                ->orderByDesc('tahun')
-                ->first();
+        if (is_file($filePath)) {
+            $rawJson = (string) file_get_contents($filePath);
+            // Tolerate UTF-8 BOM to avoid silent fallback to legacy DB data.
+            $rawJson = preg_replace('/^\xEF\xBB\xBF/', '', $rawJson) ?? $rawJson;
+            $decoded = json_decode($rawJson, true);
+            if (is_array($decoded)) {
+                return collect($decoded)
+                    ->values()
+                    ->map(function (array $row, int $index) use ($tahun) {
+                        // Section row
+                        if (!empty($row['is_section'])) {
+                            return [
+                                'is_section'   => true,
+                                'section_no'   => $row['section_no'] ?? '',
+                                'label'        => $row['label'] ?? '',
+                            ];
+                        }
+                        // Data row
+                        $targetVal = $row[(string) $tahun] ?? $row[array_key_last(array_filter(array_keys($row), fn($k) => is_numeric($k)))] ?? null;
+                        $capaian   = $row['capaian'] ?? null;
+                        return [
+                            'no'               => $row['No'] ?? ($index + 1),
+                            'indikator'        => (string) ($row['Indikator'] ?? ''),
+                            'target_rkpd'      => $targetVal,
+                            'realisasi'        => $row['realisasi'] ?? null,
+                            'capaian'          => is_numeric($capaian) ? (float) $capaian : null,
+                            'faktor_pendorong' => (string) ($row['faktor_pendorong'] ?? ''),
+                            'faktor_penghambat'=> (string) ($row['faktor_penghambat'] ?? ''),
+                            'keterangan'       => (string) ($row['keterangan'] ?? ''),
+                        ];
+                    });
+            }
 
-            return [
-                'no' => $index + 1,
-                'indikator' => (string) ($iku->indikator ?? ''),
-                'satuan' => (string) ($iku->satuan ?? ''),
-                'target_2026' => $iku->target_2026 ?? null,
-                'realisasi_tahun' => $last ? (int) $last->tahun : null,
-                'realisasi_fisik' => $last ? $last->realisasi_fisik : null,
-                'realisasi_keuangan' => $last ? $last->realisasi_keuangan : null,
+            Log::warning('resume.iku_json_parse_failed', [
+                'file' => $filePath,
+                'json_error' => json_last_error_msg(),
+            ]);
+        }
+
+        // Fallback: legacy DB without section/realisasi data
+        return \App\Models\Iku::query()
+            ->select(['id', 'indikator', 'capaian_2024', 'target_2025', 'target_2026'])
+            ->orderBy('id')
+            ->get()
+            ->map(function ($iku, $index) use ($tahun) {
+                return [
+                    'no'               => $index + 1,
+                    'indikator'        => (string) ($iku->indikator ?? ''),
+                    'target_rkpd'      => $iku->{'target_'.$tahun} ?? null,
+                    'realisasi'        => null,
+                    'capaian'          => null,
+                    'faktor_pendorong' => '',
+                    'faktor_penghambat'=> '',
+                    'keterangan'       => '',
+                ];
+            });
+    }
+
+    private function getRealisasiIkk(?int $tahun = null): Collection
+    {
+        $filePath = base_path('referensi/ikk/ikk.json');
+        if (!is_file($filePath)) {
+            $filePath = base_path('referensi/iku-ikk/ikk.json');
+        }
+        $realisasiFilePath = base_path('referensi/ikk/realisasi ikk.json');
+        $tahun = $tahun ?? now()->year;
+        $yearKey = (string) $tahun;
+        $realisasiYear = ((int) $tahun) - 1;
+
+        if (!is_file($filePath)) {
+            return collect();
+        }
+
+        $rawJson = (string) file_get_contents($filePath);
+        $rawJson = preg_replace('/^\xEF\xBB\xBF/', '', $rawJson) ?? $rawJson;
+        $decoded = json_decode($rawJson, true);
+
+        if (!is_array($decoded)) {
+            Log::warning('resume.ikk_json_parse_failed', [
+                'file' => $filePath,
+                'json_error' => json_last_error_msg(),
+            ]);
+
+            return collect();
+        }
+
+        $normalizeText = static function (?string $value): string {
+            $text = mb_strtolower((string) $value);
+            $text = preg_replace('/\([^\)]*\)/', ' ', $text) ?? $text;
+            $text = str_replace(['/', '-', ',', '.', ':', ';'], ' ', $text);
+
+            // Normalisasi typo/sinonim ringan agar matching indikator lebih toleran.
+            $replacements = [
+                'jumblah' => 'jumlah',
+                'persentasi' => 'persentase',
+                'perternakan' => 'peternakan',
+                'pengukuruan' => 'pengukuran',
+                'pemerdayaan' => 'pemberdayaan',
+                'kelurahan' => 'kelurahan',
+                'rumah sakit' => 'rumahsakit',
+                'satuan penduduk' => 'penduduk',
+                'cakupan pelayanan kesehatan rujukan pasien masyarakat miskin' => 'pelayanan kesehatan rujukan pasien masyarakat miskin',
             ];
-        });
+            $text = strtr($text, $replacements);
 
-        return $rows;
+            $text = preg_replace('/\s+/', ' ', $text) ?? $text;
+            return trim($text);
+        };
+
+        $expandIndicatorAlias = static function (string $value): string {
+            $text = mb_strtolower($value);
+            $text = preg_replace('/\s+/', ' ', $text) ?? $text;
+            $text = str_replace('apk', 'angka partisipasi kasar', $text);
+            $text = str_replace('apm', 'angka partisipasi murni', $text);
+            $text = str_replace('aps', 'angka partisipasi sekolah', $text);
+            $text = str_replace('mts', 'smp mts', $text);
+            return trim($text);
+        };
+
+        $buildSimilarityKeys = static function (?string $value) use ($normalizeText, $expandIndicatorAlias): array {
+            $base = $normalizeText((string) $value);
+            $expanded = $normalizeText($expandIndicatorAlias($base));
+            $canonical = preg_replace('/\b(tingkat|persentase|rasio|angka|cakupan|jumlah|nilai|per|pada|dan|yang|dengan|terhadap|dari|untuk|tahun|kinerja|pelayanan)\b/u', ' ', $expanded);
+            $canonical = $normalizeText((string) $canonical);
+
+            return array_values(array_unique(array_filter([$base, $expanded, $canonical], fn ($v) => (string) $v !== '')));
+        };
+
+        $realisasiMap = collect();
+        $realisasiEntries = collect();
+        if (is_file($realisasiFilePath)) {
+            $rawRealisasi = (string) file_get_contents($realisasiFilePath);
+            $rawRealisasi = preg_replace('/^\xEF\xBB\xBF/', '', $rawRealisasi) ?? $rawRealisasi;
+            $decodedRealisasi = json_decode($rawRealisasi, true);
+
+            if (is_array($decodedRealisasi)) {
+                $entries = collect($decodedRealisasi)
+                    ->filter(fn ($item) => is_array($item))
+                    ->filter(fn ($item) => !empty($item['Indikator Tujuan / Sasaran']))
+                    ->map(function (array $item) use ($normalizeText) {
+                        $indikator = (string) ($item['Indikator Tujuan / Sasaran'] ?? '');
+                        $key = $normalizeText($indikator);
+
+                        return [
+                            'raw' => $indikator,
+                            'key' => $key,
+                            'realisasi' => $item['Capaian 2025'] ?? null,
+                        ];
+                    })
+                    ->filter(fn (array $item) => $item['key'] !== '');
+
+                $realisasiEntries = $entries->values();
+                $realisasiMap = $entries
+                    ->groupBy('key')
+                    ->map(function ($items) {
+                        $firstNonNull = collect($items)->first(fn ($item) => $item['realisasi'] !== null && $item['realisasi'] !== '');
+                        return $firstNonNull['realisasi'] ?? ($items[0]['realisasi'] ?? null);
+                    });
+            } else {
+                Log::warning('resume.ikk_realisasi_json_parse_failed', [
+                    'file' => $realisasiFilePath,
+                    'json_error' => json_last_error_msg(),
+                ]);
+            }
+        } else {
+            Log::warning('resume.ikk_realisasi_json_missing', [
+                'file' => $realisasiFilePath,
+            ]);
+        }
+
+        return collect($decoded)
+            ->values()
+            ->map(function (array $row, int $index) use ($yearKey, $realisasiMap, $realisasiEntries, $normalizeText, $expandIndicatorAlias, $buildSimilarityKeys) {
+                $yearValue = static function (array $source, string $year): mixed {
+                    foreach ($source as $key => $value) {
+                        if (trim((string) $key) === $year) {
+                            return $value;
+                        }
+                    }
+
+                    return null;
+                };
+
+                $target = $yearValue($row, $yearKey);
+                $indikatorLabel = (string) ($row['INDIKATOR KINERJA'] ?? '');
+                $indikatorKey = $normalizeText($indikatorLabel);
+                $indikatorSimilarityKeys = $buildSimilarityKeys($indikatorLabel);
+                $realisasi = $realisasiMap->get($indikatorKey);
+
+                if (($realisasi === null || $realisasi === '') && $indikatorKey !== '') {
+                    $expandedKey = $normalizeText($expandIndicatorAlias($indikatorKey));
+                    if ($expandedKey !== '' && $expandedKey !== $indikatorKey) {
+                        $realisasi = $realisasiMap->get($expandedKey);
+                    }
+                }
+
+                if (($realisasi === null || $realisasi === '') && $indikatorKey !== '' && $realisasiEntries->isNotEmpty()) {
+                    // Fallback 1: substring/prefix match untuk kasus nama induk-anak.
+                    $containsCandidate = $realisasiEntries
+                        ->first(function (array $candidate) use ($indikatorKey) {
+                            $candidateKey = (string) ($candidate['key'] ?? '');
+                            if ($candidateKey === '') return false;
+
+                            return str_contains($candidateKey, $indikatorKey)
+                                || str_contains($indikatorKey, $candidateKey)
+                                || str_starts_with($candidateKey, $indikatorKey)
+                                || str_starts_with($indikatorKey, $candidateKey);
+                        });
+
+                    if (is_array($containsCandidate) && array_key_exists('realisasi', $containsCandidate)) {
+                        $realisasi = $containsCandidate['realisasi'];
+                    }
+                }
+
+                if (($realisasi === null || $realisasi === '') && $indikatorKey !== '' && $realisasiEntries->isNotEmpty()) {
+                    $masterTokens = array_values(array_filter(explode(' ', $indikatorKey)));
+                    $masterTokenCount = count($masterTokens);
+
+                    $best = $realisasiEntries
+                        ->map(function (array $candidate) use ($indikatorKey, $masterTokens) {
+                            $candidateKey = (string) ($candidate['key'] ?? '');
+                            if ($candidateKey === '') {
+                                return ['score' => 0, 'realisasi' => null];
+                            }
+
+                            similar_text($indikatorKey, $candidateKey, $pct);
+                            $textScore = ((float) $pct) / 100;
+
+                            $candidateTokens = array_values(array_filter(explode(' ', $candidateKey)));
+                            $intersection = count(array_intersect($masterTokens, $candidateTokens));
+                            $union = count(array_unique(array_merge($masterTokens, $candidateTokens)));
+                            $tokenScore = $union > 0 ? ($intersection / $union) : 0;
+
+                            $score = ($textScore * 0.7) + ($tokenScore * 0.3);
+
+                            return [
+                                'score' => $score,
+                                'realisasi' => $candidate['realisasi'] ?? null,
+                            ];
+                        })
+                        ->sortByDesc('score')
+                        ->first();
+
+                    // Ambang dinamis: indikator panjang bisa lebih longgar, indikator pendek tetap ketat.
+                    $threshold = $masterTokenCount >= 6 ? 0.54 : ($masterTokenCount >= 4 ? 0.58 : 0.62);
+                    if (($best['score'] ?? 0) >= $threshold) {
+                        $realisasi = $best['realisasi'] ?? null;
+                    }
+                }
+
+                // Alias fallback terakhir untuk istilah yang berbeda tetapi merujuk indikator yang sama.
+                if ($realisasi === null || $realisasi === '') {
+                    $aliasCandidates = [
+                        'apk paud' => ['pendidikan anak usia dini paud', 'angka partisipasi sekolah paud'],
+                        'apk sd mi' => ['angka partisipasi sekolah sd mi', 'apm sd mi'],
+                        'apk smp mts' => ['angka partisipasi sekolah smp mts', 'apm smp mts'],
+                        'rasio posyandu per satuan balita' => ['rasio posyandu per satuan balita', 'rasio posyandu per balita'],
+                        'persentase balita gizi buruk' => ['persentase balita gizi buruk'],
+                        'angka kematian ibu per 100 000 kelahiran hidup' => ['angka kematian ibu per 1000 kelahiran hidup', 'angka kematian ibu'],
+                        'angka kematian bayi akb per 1000 kelahiran hidup' => ['angka kematian bayi akb per 1000 kelahiran hidup', 'angka kematian bayi'],
+                    ];
+
+                    $keyForAlias = $normalizeText($expandIndicatorAlias($indikatorKey));
+                    foreach ($aliasCandidates as $masterAlias => $candidateAliases) {
+                        $masterAliasNorm = $normalizeText($masterAlias);
+                        if ($masterAliasNorm !== $keyForAlias) {
+                            continue;
+                        }
+
+                        foreach ($candidateAliases as $candidateAlias) {
+                            $candidateNorm = $normalizeText($candidateAlias);
+                            $hit = $realisasiMap->get($candidateNorm);
+                            if ($hit === null || $hit === '') {
+                                $entry = $realisasiEntries->first(function (array $e) use ($candidateNorm) {
+                                    $k = (string) ($e['key'] ?? '');
+                                    return $k !== '' && (str_contains($k, $candidateNorm) || str_contains($candidateNorm, $k));
+                                });
+                                $hit = $entry['realisasi'] ?? null;
+                            }
+
+                            if ($hit !== null && $hit !== '') {
+                                $realisasi = $hit;
+                                break 2;
+                            }
+                        }
+                    }
+                }
+
+                $toNumeric = static function (mixed $value): ?float {
+                    if ($value === null || $value === '') {
+                        return null;
+                    }
+
+                    if (is_numeric($value)) {
+                        return (float) $value;
+                    }
+
+                    $raw = trim((string) $value);
+                    if ($raw === '') {
+                        return null;
+                    }
+
+                    $normalized = str_replace(' ', '', $raw);
+                    $hasComma = str_contains($normalized, ',');
+                    $hasDot = str_contains($normalized, '.');
+
+                    if ($hasComma && $hasDot) {
+                        // Format umum ID: 1.234,56 -> 1234.56
+                        $normalized = str_replace('.', '', $normalized);
+                        $normalized = str_replace(',', '.', $normalized);
+                    } elseif ($hasComma) {
+                        // 12,5 -> 12.5
+                        $normalized = str_replace(',', '.', $normalized);
+                    }
+
+                    return is_numeric($normalized) ? (float) $normalized : null;
+                };
+
+                // Guardrail: realisasi numerik tidak boleh melebihi target numerik.
+                $targetNumeric = $toNumeric($target);
+                $realisasiNumeric = $toNumeric($realisasi);
+                if ($targetNumeric !== null && $realisasiNumeric !== null && $realisasiNumeric > $targetNumeric) {
+                    $realisasi = $targetNumeric;
+                }
+
+                return [
+                    'no' => $row['NO'] ?? ($index + 1),
+                    'aspek' => (string) ($row['ASPEK'] ?? ''),
+                    'fokus' => (string) ($row['FOKUS'] ?? ''),
+                    'urusan' => (string) ($row['URUSAN'] ?? ''),
+                    'indikator' => $indikatorLabel,
+                    'kondisi_awal' => $row['Kondisi Kinerja pada awal periode RPJMD (2020)'] ?? null,
+                    'target_tahun' => $target,
+                    'target_rkpd' => $target,
+                    'realisasi' => $realisasi,
+                    'tahun' => $yearKey,
+                ];
+            });
     }
 
     private function appendProgram(array &$aggregateBucket, string $listKey, Program $program): void
@@ -3773,13 +4684,260 @@ class ResumeController extends Controller
         return [
             'kode' => (string) ($indikatorRow->indikator_id ?? '-'),
             'nama' => (string) ($indikatorRow->indikator_uraian ?? '-'),
+            'nama_indikator' => (string) ($indikatorRow->indikator_uraian ?? '-'),
+            'indikator_nama' => (string) ($indikatorRow->indikator_uraian ?? '-'),
             'program_kode' => (string) ($indikatorRow->program_kode ?? ''),
             'program_nama' => (string) ($indikatorRow->program_nama ?? ''),
             'target' => $indikatorRow->indikator_target ?? null,
+            'target_indikator' => $indikatorRow->indikator_target ?? null,
+            'indikator_target' => $indikatorRow->indikator_target ?? null,
             'dokumen' => strtoupper((string) ($indikatorRow->document_type ?? '-')),
             'tahun' => $tahun,
             'jenis' => (string) ($indikatorRow->indikator_jenis ?? '-'),
         ];
+    }
+
+    private function getKertasKerjaData(?int $opdId, ?int $tahun, int $triwulan): array
+    {
+        $komponen = app(KomponenAnggaranController::class);
+        $payload = $komponen->buildRealisasiPayloadForOpd($opdId, $tahun, 'realisasi', 'dpa', true, false);
+        $nodes = $payload['data'] ?? [];
+        if ($nodes instanceof Collection) {
+            $nodes = $nodes->all();
+        }
+
+        $renjaExists = $this->buildKertasKerjaExistenceMap('renja', $opdId, $tahun);
+        $dpaExists = $this->buildKertasKerjaExistenceMap('dpa', $opdId, $tahun);
+
+        $opdName = null;
+        if ($opdId) {
+            $opdName = Opd::query()->where('id', $opdId)->value('nama');
+        }
+
+        $factorRows = DB::table('resume_program_annotations')
+            ->select(['entitas', 'tahun', 'program_kode', 'faktor_pendorong', 'faktor_penghambat'])
+            ->where('view', 'realisasi')
+            ->where('table_name', 'dpa-readonly')
+            ->when($opdName, fn ($q) => $q->where('entitas', $opdName))
+            ->when($tahun, fn ($q) => $q->where('tahun', $tahun))
+            ->get();
+
+        $factorMap = [];
+        foreach ($factorRows as $item) {
+            $programKode = trim((string) ($item->program_kode ?? ''));
+            $tahunKey = (int) ($item->tahun ?? 0);
+
+            $factorPayload = [
+                'faktor_pendorong' => $item->faktor_pendorong,
+                'faktor_penghambat' => $item->faktor_penghambat,
+            ];
+
+            $globalKey = strtoupper(implode('|', [$tahunKey, $programKode]));
+            $factorMap[$globalKey] = $factorPayload;
+
+            if ($opdId) {
+                $scopedKey = strtoupper(implode('|', [(int) $opdId, $tahunKey, $programKode]));
+                $factorMap[$scopedKey] = $factorPayload;
+            }
+        }
+
+        $rows = [];
+        $no = 1;
+        $this->appendKertasKerjaRows($nodes, $rows, $no, $triwulan, $renjaExists, $dpaExists, $factorMap, $tahun);
+
+        return $rows;
+    }
+
+    private function buildKertasKerjaExistenceMap(string $documentType, ?int $opdId, ?int $tahun): array
+    {
+        $rows = DB::table('komponen_anggaran')
+            ->select(['opd_id', 'jenis', 'kode'])
+            ->where('document_type', $documentType)
+            ->when($opdId, fn ($q) => $q->where('opd_id', $opdId))
+            ->when($tahun, fn ($q) => $q->where('tahun', $tahun))
+            ->get();
+
+        $map = [];
+        foreach ($rows as $row) {
+            $key = strtoupper(implode('|', [
+                (int) ($row->opd_id ?? 0),
+                trim((string) ($row->jenis ?? '')),
+                trim((string) ($row->kode ?? '')),
+            ]));
+            $map[$key] = true;
+        }
+
+        return $map;
+    }
+
+    private function appendKertasKerjaRows(
+        array $nodes,
+        array &$rows,
+        int &$no,
+        int $triwulan,
+        array $renjaExists,
+        array $dpaExists,
+        array $factorMap,
+        ?int $tahun,
+        ?string $activeProgramKode = null
+    ): void {
+        foreach ($nodes as $node) {
+            $item = is_array($node)
+                ? $node
+                : (is_object($node) ? json_decode(json_encode($node), true) : []);
+            if (empty($item)) {
+                continue;
+            }
+
+            $children = $item['children'] ?? [];
+            if ($children instanceof Collection) {
+                $children = $children->all();
+            }
+            if (!is_array($children)) {
+                $children = [];
+            }
+
+            $opdNodeId = (int) ($item['opd_id'] ?? 0);
+            $jenis = trim((string) ($item['jenis'] ?? ''));
+            $kode = trim((string) ($item['kode'] ?? ''));
+            $programKode = $activeProgramKode;
+            if ($jenis === 'program' && $kode !== '') {
+                $programKode = $kode;
+            }
+
+            $indicator = null;
+            $indikatorList = $item['indikator'] ?? [];
+            if (is_array($indikatorList) && count($indikatorList) > 0) {
+                $rawIndicator = $indikatorList[0];
+                if (is_array($rawIndicator)) {
+                    $indicator = $rawIndicator;
+                } elseif (is_object($rawIndicator)) {
+                    $indicator = json_decode(json_encode($rawIndicator), true);
+                } elseif ($rawIndicator !== null) {
+                    $indicator = ['nama_indikator' => (string) $rawIndicator];
+                }
+            }
+
+            $rkpdTargetRaw = $indicator['target_renja'] ?? ($indicator['target_indikator'] ?? null);
+            $apbdTargetRaw = $indicator['target_dpa'] ?? ($indicator['target_indikator'] ?? null);
+            $rkpdTargetNum = $this->toNumericValue($rkpdTargetRaw);
+            $apbdTargetNum = $this->toNumericValue($apbdTargetRaw);
+
+            $realisasiTw = $item['realisasi_tw'] ?? [];
+            if (is_object($realisasiTw)) {
+                $realisasiTw = json_decode(json_encode($realisasiTw), true);
+            }
+            $realisasiTw = is_array($realisasiTw) ? $realisasiTw : [];
+            $twValue = $realisasiTw[$triwulan] ?? ($realisasiTw[(string) $triwulan] ?? []);
+            if (is_object($twValue)) {
+                $twValue = json_decode(json_encode($twValue), true);
+            }
+            $twValue = is_array($twValue) ? $twValue : [];
+
+            $realisasiKinerja = (float) ($twValue['fisik'] ?? 0);
+            $realisasiKeuangan = (float) ($twValue['keuangan'] ?? 0);
+            $paguRkpd = (float) ($item['pagu_renja'] ?? 0);
+            $paguApbd = (float) ($item['pagu_dpa'] ?? ($item['pagu'] ?? 0));
+
+            $targetForCapaian = $apbdTargetNum > 0 ? $apbdTargetNum : $rkpdTargetNum;
+
+            // Aturan khusus TW2: jika realisasi fisik belum terisi, isi otomatis dari 50% target
+            // dengan perlakuan ganjil/genap sesuai kebutuhan bisnis.
+            if ($triwulan === 2 && $realisasiKinerja <= 0 && $targetForCapaian > 0) {
+                $realisasiKinerja = $this->calculateKertasKerjaTw2Fisik($targetForCapaian);
+            }
+
+            $capaianKinerja = $targetForCapaian > 0
+                ? round(($realisasiKinerja / $targetForCapaian) * 100, 2)
+                : null;
+            $capaianKeuangan = $paguApbd > 0
+                ? round(($realisasiKeuangan / $paguApbd) * 100, 2)
+                : null;
+
+            $existenceKey = strtoupper(implode('|', [$opdNodeId, $jenis, $kode]));
+            $factorKeyScoped = strtoupper(implode('|', [$opdNodeId, (int) ($tahun ?? 0), trim((string) ($programKode ?? ''))]));
+            $factorKeyGlobal = strtoupper(implode('|', [(int) ($tahun ?? 0), trim((string) ($programKode ?? ''))]));
+            $factors = $factorMap[$factorKeyScoped] ?? ($factorMap[$factorKeyGlobal] ?? []);
+
+            $hasRkpd = isset($renjaExists[$existenceKey]);
+            $hasApbd = isset($dpaExists[$existenceKey]);
+
+            if ($hasRkpd || $hasApbd) {
+                $rows[] = [
+                    'no' => $no++,
+                    'level' => $jenis,
+                    'kode_rek' => $kode,
+                    'nama' => (string) ($item['nama_komponen'] ?? '-'),
+                    'rkpd_indikator' => (string) ($indicator['nama_indikator'] ?? '-'),
+                    'rkpd_target' => $rkpdTargetRaw,
+                    'rkpd_satuan' => (string) ($indicator['satuan'] ?? '-'),
+                    'rkpd_pagu' => $paguRkpd,
+                    'apbd_indikator' => (string) ($indicator['nama_indikator'] ?? '-'),
+                    'apbd_target' => $apbdTargetRaw,
+                    'apbd_satuan' => (string) ($indicator['satuan'] ?? '-'),
+                    'apbd_pagu' => $paguApbd,
+                    'realisasi_kinerja' => $realisasiKinerja,
+                    'realisasi_keuangan' => $realisasiKeuangan,
+                    'capaian_kinerja' => $capaianKinerja,
+                    'capaian_keuangan' => $capaianKeuangan,
+                    'faktor_pendorong' => $factors['faktor_pendorong'] ?? null,
+                    'faktor_penghambat' => $factors['faktor_penghambat'] ?? null,
+                    'has_rkpd' => $hasRkpd,
+                    'has_apbd' => $hasApbd,
+                ];
+            }
+
+            if (!empty($children)) {
+                $this->appendKertasKerjaRows($children, $rows, $no, $triwulan, $renjaExists, $dpaExists, $factorMap, $tahun, $programKode);
+            }
+        }
+    }
+
+    private function toNumericValue(mixed $value): float
+    {
+        if ($value === null) {
+            return 0;
+        }
+        if (is_numeric($value)) {
+            return (float) $value;
+        }
+
+        $clean = preg_replace('/[^0-9\-.,]/', '', (string) $value);
+        if ($clean === null || $clean === '') {
+            return 0;
+        }
+
+        $clean = str_replace('.', '', $clean);
+        $clean = str_replace(',', '.', $clean);
+
+        return is_numeric($clean) ? (float) $clean : 0;
+    }
+
+    private function calculateKertasKerjaTw2Fisik(float $target): float
+    {
+        if ($target <= 0) {
+            return 0;
+        }
+
+        $roundedTarget = round($target);
+        $isIntegerTarget = abs($target - $roundedTarget) < 0.000001;
+
+        // Jika target bukan integer, gunakan 50% langsung agar tetap proporsional.
+        if (! $isIntegerTarget) {
+            return round($target * 0.5, 2);
+        }
+
+        $targetInt = (int) $roundedTarget;
+
+        if ($targetInt === 1) {
+            return 0.5;
+        }
+
+        if ($targetInt % 2 === 0) {
+            return (float) ($targetInt / 2);
+        }
+
+        return (float) floor($targetInt / 2);
     }
 
     private function sanitizeFilterBasis(string $basis): string

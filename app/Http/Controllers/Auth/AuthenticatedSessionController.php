@@ -27,6 +27,10 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('resume.index'));
         }
 
+        if ($request->user()?->hasRole('tamu')) {
+            return redirect()->intended(route('resume.index'));
+        }
+
         if ($request->user()?->hasRole('opd')) {
             return redirect()->intended(route('dashboard'));
         }

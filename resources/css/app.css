@@ -1,1 +1,44 @@
 @import 'tailwindcss';
+
+/* Resume 2: meniru gaya Resume SIMEVLAP v1 (assets/style.js) */
+@layer components {
+    .r2-btn-menu {
+        @apply flex h-[100px] flex-col items-center justify-center gap-1 rounded-2xl border border-gray-300 bg-white px-4 py-3 text-center text-xl text-gray-900 drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)] transition-colors;
+    }
+
+    .r2-btn-menu:hover {
+        @apply bg-gradient-to-br from-[#4bb442] to-[#2c705d] text-white;
+    }
+
+    .r2-btn-primary {
+        @apply inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-[#4bb442] to-[#2c705d] px-4 py-2 text-sm font-black text-white focus:ring-4 focus:outline-none;
+    }
+
+    .r2-select {
+        @apply block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-[#3F994D] focus:ring-[#3F994D];
+    }
+
+    .r2-table {
+        @apply w-full border-collapse text-sm;
+    }
+
+    .r2-table thead {
+        @apply bg-gradient-to-br from-[#4bb442] to-[#2c705d] text-white;
+    }
+
+    .r2-table th {
+        @apply border border-white px-1.5 py-1 text-center font-bold;
+    }
+
+    .r2-table td {
+        @apply border border-gray-400 px-[5px] py-1.5 text-center align-top;
+    }
+
+    .r2-table tbody {
+        @apply bg-white;
+    }
+
+    .r2-click {
+        @apply cursor-pointer hover:bg-green-200;
+    }
+}

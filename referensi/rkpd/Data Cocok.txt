@@ -1,0 +1,169 @@
+Data Cocok
+
+Badan Kepegawaian dan Pengembangan Sumber Daya Manusia
+TXT: 21.442.339.289,00
+APP: 21.442.339.289,00
+Badan Kesatuan Bangsa dan Politik
+TXT: 14.991.869.792,00
+APP: 14.991.869.792,00
+Badan Pengelola Perbatasan Daerah
+TXT: 10.113.334.870,00
+APP: 10.113.334.870,00
+Dinas Kependudukan dan Pencatatan Sipil
+TXT: 15.256.977.521,00
+APP: 15.256.977.521,00
+Dinas Pariwisata, Pemuda dan Olahraga
+TXT: 33.048.966.695,00
+APP: 33.048.966.695,00
+Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung
+TXT: 229.259.724.702,00
+APP: 229.259.724.702,00
+Dinas Pendidikan dan Kebudayaan
+TXT: 377.171.212.592,00
+APP: 377.171.212.592,00
+Dinas Perhubungan
+TXT: 41.761.329.874,00
+APP: 41.761.329.874,00
+Inspektorat
+TXT: 20.218.196.197,00
+APP: 20.218.196.197,00
+Kecamatan Long Apari
+TXT: 8.914.258.907,00
+APP: 8.914.258.907,00
+Satuan Polisi Pamong Praja
+TXT: 30.820.582.201,00
+APP: 30.820.582.201,00
+Sekretariat DPRD
+TXT: 64.221.281.093,00
+APP: 64.221.281.093,00
+
+Data Tidak Cocok
+
+Badan Penanggulangan Bencana Daerah
+TXT: 18.295.146.161,00
+APP: 5.075.038.251,00
+Selisih: -13.220.107.910,00
+Badan Pendapatan Daerah
+TXT: 16.817.003.788,00
+APP: 15.566.426.740,00
+Selisih: -1.250.577.048,00
+Badan Pengelola Keuangan dan Aset Daerah
+TXT: 131.382.543.688,99
+APP: 114.272.197.660,00
+Selisih: -17.110.346.028,99
+Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah
+TXT: 49.121.089.093,23
+APP: 49.121.089.092,00
+Selisih: -1,23
+Bagian Administrasi Pembangunan
+TXT: 4.175.620.336,00
+APP: 9.922.395.892,00
+Selisih: 5.746.775.556,00
+Bagian Hukum
+TXT: 6.236.929.653,00
+APP: 4.282.497.682,00
+Selisih: -1.954.431.971,00
+Bagian Kesejahteraan Rakyat
+TXT: 35.133.272.285,00
+APP: 31.079.441.275,00
+Selisih: -4.053.831.010,00
+Bagian Organisasi
+TXT: 6.299.689.988,00
+APP: 4.315.176.350,00
+Selisih: -1.984.513.638,00
+Bagian Pemerintahan
+TXT: 6.999.999.182,00
+APP: 4.633.561.106,00
+Selisih: -2.366.438.076,00
+Bagian Pengadaan Barang Dan Jasa
+TXT: 6.408.336.176,00
+APP: 4.930.744.526,00
+Selisih: -1.477.591.650,00
+Bagian Perekonomian dan Sumber Daya Alam
+TXT: 16.339.642.091,00
+APP: 24.290.565.867,00
+Selisih: 7.950.923.776,00
+Bagian Protokol dan Komunikasi Pimpinan
+TXT: 9.890.475.014,00
+APP: 8.708.498.807,00
+Selisih: -1.181.976.207,00
+Bagian Umum
+TXT: 83.923.859.927,00
+APP: 113.256.772.909,00
+Selisih: 29.332.912.982,00
+Dinas Kesehatan, Pengendalian Penduduk dan KB
+TXT: 162.655.185.684,00
+APP: 168.092.125.974,00
+Selisih: 5.436.940.290,00
+Dinas Ketahanan Pangan dan Pertanian
+TXT: 42.747.438.929,60
+APP: 42.747.438.929,00
+Selisih: -0,60
+Dinas Komunikasi dan Informatika, Statistik, dan Persandian
+TXT: 41.740.169.526,93
+APP: 41.740.169.526,00
+Selisih: -0,93
+Dinas Lingkungan Hidup
+TXT: 19.935.119.111,00
+APP: 19.408.374.051,00
+Selisih: -526.745.060,00
+Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman
+TXT: 799.129.414.857,00
+APP: 1.047.078.210.337,00
+Selisih: 247.948.795.480,00
+Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu
+TXT: 9.253.186.734,50
+APP: 9.253.186.732,00
+Selisih: -2,50
+Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak
+TXT: 28.983.473.102,15
+APP: 28.983.049.100,00
+Selisih: -424.002,15
+Kecamatan Laham
+TXT: 7.401.945.182,00
+APP: 0,00
+Selisih: -7.401.945.182,00
+Kecamatan Long Bagun
+TXT: 8.878.312.200,00
+APP: 904.434.781,00
+Selisih: -7.973.877.419,00
+Kecamatan Long Hubung
+TXT: 7.675.383.986,00
+APP: 197.460.000,00
+Selisih: -7.477.923.986,00
+Kecamatan Long Pahangai
+TXT: 9.264.246.125,00
+APP: 85.143.525,00
+Selisih: -9.179.102.600,00
+Puskesmas Laham
+TXT: 2.319.709.872,00
+APP: 0,00
+Selisih: -2.319.709.872,00
+Puskesmas Long Apari
+TXT: 2.459.053.827,00
+APP: 1.314.871.091,00
+Selisih: -1.144.182.736,00
+Puskesmas Long Bagun
+TXT: 4.266.551.600,00
+APP: 0,00
+Selisih: -4.266.551.600,00
+Puskesmas Long Hubung
+TXT: 2.133.168.500,00
+APP: 0,00
+Selisih: -2.133.168.500,00
+Puskesmas Long Pahangai
+TXT: 1.949.867.197,00
+APP: 0,00
+Selisih: -1.949.867.197,00
+Puskesmas Memahak Besar
+TXT: 1.891.973.792,00
+APP: 0,00
+Selisih: -1.891.973.792,00
+Rumah Sakit Pratama Gerbang Sehat Mahakam Ulu
+TXT: 20.023.365.379,00
+APP: 0,00
+Selisih: -20.023.365.379,00
+Rumah Sakit Pratama Nawacita Datah Dave
+TXT: 9.298.753.278,60
+APP: 4.122.069.199,00
+Selisih: -5.176.684.079,60

@@ -229,9 +229,9 @@ class KomponenAnggaranController extends Controller
      * @param string $documentType
      * @return array
      */
-    public function buildRealisasiPayloadForOpd(?int $opdId, ?int $tahun = null, string $pageMode = 'realisasi', string $documentType = 'dpa', bool $includeRenstra = true): array
+    public function buildRealisasiPayloadForOpd(?int $opdId, ?int $tahun = null, string $pageMode = 'realisasi', string $documentType = 'dpa', bool $includeRenstra = true, bool $expandRelatedOpds = true): array
     {
-        $opdFilterIds = $this->resolveOpdFilterIds($opdId);
+        $opdFilterIds = $this->resolveOpdFilterIds($opdId, $expandRelatedOpds);
 
         $query = KomponenAnggaran::with([
             'indikator',
@@ -1352,7 +1352,7 @@ class KomponenAnggaranController extends Controller
         return mb_substr($text, 0, $max);
     }
 
-    private function resolveOpdFilterIds($opdId): array
+    private function resolveOpdFilterIds($opdId, bool $expandRelatedOpds = true): array
     {
         if (!$opdId) {
             return [];
@@ -1362,6 +1362,10 @@ class KomponenAnggaranController extends Controller
 
         if (!$selected) {
             return [(int) $opdId];
+        }
+
+        if (!$expandRelatedOpds) {
+            return [$selected->id];
         }
 
         $parentPrefixMap = [

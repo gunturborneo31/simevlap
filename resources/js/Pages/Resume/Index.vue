@@ -97,6 +97,10 @@ import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
+const page = usePage();
+const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
+const isTamu = computed(() => userRoles.value.includes('tamu'));
+
 const props = defineProps({
   currentView: {
     type: String,
@@ -116,18 +120,26 @@ const props = defineProps({
   },
 });
 
-  const resumeMenu = (() => {
+const resumeMenu = computed(() => {
+  if (isTamu.value) {
+    return [
+      { label: 'Realisasi IKU', query: { view: 'realisasi', table: 'iku' }, iconBg: 'bg-blue-500' },
+      { label: 'Realisasi IKK', query: { view: 'realisasi', table: 'ikk' }, iconBg: 'bg-teal-500' },
+      { label: 'Realisasi', query: { view: 'realisasi', table: 'dpa-readonly', page_mode: 'realisasi', document_type: 'dpa', tw: 2, triwulan: 2 }, iconBg: 'bg-emerald-600' },
+      { label: 'Rekap Permasalahan', query: { view: 'rekap-permasalahan' }, iconBg: 'bg-amber-500' },
+      { label: 'Kertas Kerja', query: { view: 'kertas-kerja', table: 'tabel-1', page_mode: 'realisasi', document_type: 'dpa', tw: 2, triwulan: 2 }, iconBg: 'bg-slate-700' },
+    ];
+  }
+
   const items = [
     { label: 'Konsistensi RPJMD - RKPD', query: { view: 'konsistensi-rpjmd-rkpd' }, iconBg: 'bg-blue-500' },
     { label: 'Konsistensi RKPD - APBD', query: { view: 'konsistensi-rkpd-apbd' }, iconBg: 'bg-teal-500' },
     { label: 'Hasil Pelaksanaan RKPD', query: { view: 'hasil-pelaksanaan-rkpd' }, iconBg: 'bg-emerald-600' },
     { label: 'Rekap Permasalahan', query: { view: 'rekap-permasalahan' }, iconBg: 'bg-amber-500' },
-    // { label: 'Realisasi', query: { view: 'realisasi' }, iconBg: 'bg-yellow-600' },
-    // { label: 'Kertas Kerja', query: { view: 'kertas-kerja' }, iconBg: 'bg-lime-600' },
     { label: 'Dokumen (Renstra, Renja, DPA)', query: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-indigo-600' },
+    { label: 'Kertas Kerja', query: { view: 'kertas-kerja', table: 'tabel-1', page_mode: 'realisasi', document_type: 'dpa', tw: 2, triwulan: 2 }, iconBg: 'bg-slate-700' },
   ];
 
-  // Lampiran card opens the attachments page — ensure href is available at runtime
   const lampiran = { label: '-', routeName: 'resume.attachments', routeParams: { view: 'dokumen', table: 'monitoring' }, iconBg: 'bg-slate-600' };
   try {
     lampiran.href = route(lampiran.routeName, lampiran.routeParams || {});
@@ -137,8 +149,7 @@ const props = defineProps({
   items.push(lampiran);
 
   return items;
-}
-)();
+});
 
 // View configuration dengan jumlah tabel dan warna yang berbeda
 const viewConfigs = {
@@ -160,9 +171,16 @@ const viewConfigs = {
     tables: 8,
     colors: ['bg-blue-500', 'bg-teal-500', 'bg-emerald-600', 'bg-amber-500', 'bg-rose-500', 'bg-purple-500', 'bg-lime-500', 'bg-lime-500'],
   },
+  'kertas-kerja': {
+    title: 'Kertas Kerja',
+    items: [
+      { label: 'Tabel Kertas Kerja', value: 'tabel-1', iconBg: 'bg-slate-700' },
+    ],
+  },
   'rekap-permasalahan': {
     title: 'Rekap Permasalahan',
     items: [
+      { label: 'Berdasarkan OPD', value: 'berdasarkan-opd', iconBg: 'bg-emerald-600' },
       { label: 'Berdasarkan Sasaran', value: 'berdasarkan-sasaran', iconBg: 'bg-blue-500' },
       { label: 'Berdasarkan Bidang Urusan', value: 'berdasarkan-bidang-urusan', iconBg: 'bg-amber-500' },
     ],
@@ -172,6 +190,7 @@ const viewConfigs = {
     items: [
       { label: 'IKU', value: 'iku', iconBg: 'bg-blue-500' },
       { label: 'IKK', value: 'ikk', iconBg: 'bg-teal-500' },
+      { label: 'REALISASI', value: 'dpa-readonly', iconBg: 'bg-emerald-600' },
       { label: 'RPJMD', value: 'rpjmd', iconBg: 'bg-emerald-600' },
       { label: 'RKPD', value: 'rkpd', iconBg: 'bg-amber-500' },
       { label: 'APBD', value: 'apbd', iconBg: 'bg-yellow-600' },
@@ -195,7 +214,67 @@ const generateTableMenu = (viewKey) => {
   
   // Jika ada items custom, gunakan itu
   if (config.items) {
-    return config.items;
+    let items = [...config.items];
+
+    if (viewKey === 'realisasi') {
+      items = items.map((item) => {
+        if (item.value !== 'dpa-readonly') {
+          return item;
+        }
+
+        let href;
+        try {
+          href = route('resume.index', {
+            view: 'realisasi',
+            table: 'dpa-readonly',
+            page_mode: 'realisasi',
+            document_type: 'dpa',
+            tw: 2,
+            triwulan: 2,
+          });
+        } catch (e) {
+          href = '/resume?view=realisasi&table=dpa-readonly&page_mode=realisasi&document_type=dpa&tw=2&triwulan=2';
+        }
+
+        return {
+          ...item,
+          href,
+        };
+      });
+    }
+
+    if (viewKey === 'kertas-kerja') {
+      items = items.map((item) => {
+        if (item.value !== 'tabel-1') {
+          return item;
+        }
+
+        let href;
+        try {
+          href = route('resume.index', {
+            view: 'kertas-kerja',
+            table: 'tabel-1',
+            page_mode: 'realisasi',
+            document_type: 'dpa',
+            tw: 2,
+            triwulan: 2,
+          });
+        } catch (e) {
+          href = '/resume?view=kertas-kerja&table=tabel-1&page_mode=realisasi&document_type=dpa&tw=2&triwulan=2';
+        }
+
+        return {
+          ...item,
+          href,
+        };
+      });
+    }
+
+    if (isTamu.value && viewKey === 'realisasi') {
+      return items.filter((item) => ['iku', 'ikk', 'dpa-readonly'].includes(item.value));
+    }
+
+    return items;
   }
   
   // Otherwise, generate numbered tables
@@ -225,9 +304,20 @@ function onOpdChange(e) {
   const v = e.target.value || null;
   const query = { view: props.currentView };
   if (props.currentTable) query.table = props.currentTable;
+  if (props.currentView === 'kertas-kerja') {
+    query.page_mode = 'realisasi';
+    query.document_type = 'dpa';
+    query.tw = 2;
+    query.triwulan = 2;
+  }
+  if (props.currentView === 'realisasi' && props.currentTable === 'dpa-readonly') {
+    query.page_mode = 'realisasi';
+    query.document_type = 'dpa';
+    query.tw = 2;
+    query.triwulan = 2;
+  }
   if (v) query.opd_id = v;
   // preserve year if present in page props
-  const page = usePage();
   const year = page.props.value.selectedYear ?? page.props.value.year ?? null;
   if (year) query.year = year;
   window.location.href = route('resume.index', query);

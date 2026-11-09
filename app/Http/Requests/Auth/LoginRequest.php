@@ -37,9 +37,10 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         $login = $this->normalizedLogin();
+        $resolvedLogin = $this->resolveLoginAlias($login);
 
         $user = User::query()
-            ->where('email', $login)
+            ->where('email', $resolvedLogin)
             ->first();
 
         if ($user && ! $user->is_active) {
@@ -51,7 +52,7 @@ class LoginRequest extends FormRequest
         }
 
         $credentials = [
-            'email' => $login,
+            'email' => $resolvedLogin,
             'password' => $this->string('password')->toString(),
         ];
 
@@ -105,11 +106,17 @@ class LoginRequest extends FormRequest
 
     private function normalizedLogin(): string
     {
-        $login = Str::lower(trim($this->string('email')->toString()));
+        return Str::lower(trim($this->string('email')->toString()));
+    }
 
-        // Support legacy alias so old users can still login using "tamu".
+    private function resolveLoginAlias(string $login): string
+    {
+        // Prefer akun tamu asli. Alias legacy ke pimpinan hanya dipakai jika akun tamu belum ada.
         if ($login === 'tamu') {
-            return 'pimpinan';
+            $hasTamu = User::query()->where('email', 'tamu')->exists();
+            if (! $hasTamu) {
+                return 'pimpinan';
+            }
         }
 
         return $login;

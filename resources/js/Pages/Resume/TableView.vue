@@ -19,13 +19,24 @@
               Kembali ke Daftar Tabel
             </Link>
 
-            <!-- Tombol Lampiran (paksa navigasi dengan anchor biasa) -->
-            <a
-              :href="route('resume.attachments', { view: currentView, table: currentTable, opd_id: selectedOpd, year: yearValue })"
-              class="inline-flex items-center justify-center rounded-lg bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-100 ml-2"
+            <button
+              v-if="currentView === 'kertas-kerja' && currentTable === 'tabel-1'"
+              type="button"
+              @click="exportKertasKerjaExcel()"
+              class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700"
             >
-              Lampiran
-            </a>
+              Download Excel
+            </button>
+            <button
+              v-if="currentView === 'kertas-kerja' && currentTable === 'tabel-1'"
+              type="button"
+              @click="exportAllOpdsExcel()"
+              :disabled="exportingAllOpds"
+              class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-60 disabled:cursor-wait"
+            >
+              <span v-if="exportingAllOpds" class="mr-2 animate-spin">⏳</span>
+              {{ exportingAllOpds ? 'Memuat data...' : 'Download Semua OPD' }}
+            </button>
 
             
 
@@ -43,13 +54,6 @@
               >
                 Download Excel
               </a>
-              <button
-                type="button"
-                @click="exportRealisasiExcel"
-                class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 ml-2"
-              >
-                Export Excel (Client)
-              </button>
             </div>
 
             <!-- Basis filter: Perangkat Daerah / Bidang Urusan -->
@@ -63,11 +67,40 @@
             </div>
 
             <!-- Year filter: show for hasil-pelaksanaan-rkpd and konsistensi-rkpd-apbd tabel-1..tabel-10 -->
-            <div v-if="(currentView === 'hasil-pelaksanaan-rkpd' && currentTable && currentTable.startsWith('tabel')) || (currentView === 'konsistensi-rkpd-apbd' && ['tabel-1','tabel-2','tabel-3','tabel-4','tabel-5','tabel-6','tabel-7','tabel-8','tabel-9','tabel-10'].includes(currentTable))" class="mt-2 md:mt-0 md:ml-4">
+            <div v-if="(currentView === 'hasil-pelaksanaan-rkpd' && currentTable && currentTable.startsWith('tabel')) || (currentView === 'konsistensi-rkpd-apbd' && ['tabel-1','tabel-2','tabel-3','tabel-4','tabel-5','tabel-6','tabel-7','tabel-8','tabel-9','tabel-10'].includes(currentTable)) || currentView === 'kertas-kerja'" class="mt-2 md:mt-0 md:ml-4">
               <label class="text-xs text-slate-600 mr-2">Tahun</label>
               <select v-model="yearValue" @change="applyFilters" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
                 <option :value="null">Semua</option>
                 <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
+              </select>
+            </div>
+            <div v-if="metricSelectorVisible" class="mt-2 md:mt-0 md:ml-4">
+              <label class="text-xs text-slate-600 mr-2">Granularitas</label>
+              <select v-model="metricTypeValue" @change="applyFilters" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+                <option v-for="option in metricOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
+              </select>
+            </div>
+            <div v-if="currentView === 'kertas-kerja'" class="mt-2 md:mt-0 md:ml-4 flex items-center gap-3">
+              <div>
+                <label class="text-xs text-slate-600 mr-2">OPD</label>
+                <select v-model="selectedOpd" @change="applyFilters" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+                  <option value="">Semua OPD</option>
+                  <option v-for="o in opds" :key="o.id" :value="o.id">{{ o.nama }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs text-slate-600 mr-2">Triwulan Realisasi</label>
+                <select v-model="twValue" @change="applyFilters" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+                  <option v-for="tw in [1,2,3,4]" :key="`kk-tw-${tw}`" :value="tw">TW {{ tw }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div v-if="currentView === 'rekap-permasalahan' && currentTable === 'berdasarkan-opd' && opds.length" class="mt-2 md:mt-0 md:ml-4">
+              <label class="text-xs text-slate-600 mr-2">Filter OPD</label>
+              <select v-model="selectedOpd" @change="applyFilters" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+                <option value="">Semua OPD</option>
+                <option v-for="o in opds" :key="o.id" :value="o.id">{{ o.nama }}</option>
               </select>
             </div>
             <!-- OPD filter + Triwulan for tabel-7 -->
@@ -202,35 +235,13 @@
               <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(6)</td>
 
               <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(7)</td>
-              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(8)</td>
-              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(9)</td>
-              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(10)</td>
-
-              <!-- Realisasi TW columns numbering: dynamic based on twValue -->
-              <template v-if="twValue">
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(11)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(12)</td>
-              </template>
-              <template v-else>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(11)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(12)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(13)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(14)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(15)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(16)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(17)</td>
-                <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(18)</td>
-              </template>
-
-              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(19)</td>
-              <td class="border border-emerald-200 px-2 py-1 text-center text-xs font-semibold">(20)</td>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(row, idx) in tableData" :key="`rekap-${idx}`" :class="idx % 2 === 0 ? 'bg-white' : 'bg-amber-50'">
               <td class="border border-amber-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
               <td class="border border-amber-200 px-3 py-3">{{ row.sasaran ?? '-' }}</td>
-              <td class="border border-amber-200 px-3 py-3">{{ row.opd ? (row.opd + ' — ' + (row.program ?? '-')) : (row.program ?? '-') }}</td>
+              <td class="border border-amber-200 px-3 py-3">{{ row.program ?? '-' }}</td>
               <td class="border border-amber-200 px-3 py-3">{{ row.faktor_penghambat ?? '-' }}</td>
               <td class="border border-amber-200 px-3 py-3">{{ row.faktor_pendorong ?? '-' }}</td>
               <td class="border border-amber-200 px-3 py-3">{{ row.faktor_tindak_lanjut ?? '-' }}</td>
@@ -266,6 +277,36 @@
                   <td class="border border-amber-200 px-3 py-3">{{ row.faktor_pendorong ?? '-' }}</td>
                   <td class="border border-amber-200 px-3 py-3">{{ row.faktor_tindak_lanjut ?? '-' }}</td>
                   <td class="border border-amber-200 px-3 py-3">{{ row.opd ?? '-' }}</td>
+                </tr>
+              </template>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Rekap Permasalahan - Berdasarkan OPD -->
+      <div v-if="currentView === 'rekap-permasalahan' && currentTable === 'berdasarkan-opd' && tableData" class="overflow-x-auto rounded-2xl border border-amber-100 bg-white/90 shadow-md">
+        <table class="min-w-[1100px] w-full border-collapse text-sm">
+          <thead class="bg-amber-50">
+            <tr>
+              <th class="border border-amber-200 px-3 py-3 text-center font-bold">No</th>
+              <th class="border border-amber-200 px-3 py-3 text-left font-bold">OPD</th>
+              <th class="border border-amber-200 px-3 py-3 text-left font-bold">Program</th>
+              <th class="border border-amber-200 px-3 py-3 text-left font-bold">Faktor Penghambat</th>
+              <th class="border border-amber-200 px-3 py-3 text-left font-bold">Faktor Pendorong</th>
+              <th class="border border-amber-200 px-3 py-3 text-left font-bold">Faktor Tindak Lanjut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-for="(group) in groupedByOpd" :key="`group-opd-${group.opd}`">
+              <template v-for="(row, idx) in group.programs" :key="`g-opd-${group.opd}-${idx}`">
+                <tr :class="row._global_index % 2 === 0 ? 'bg-amber-50' : 'bg-white'">
+                  <td v-if="idx === 0" :rowspan="group.programs.length" class="border border-amber-200 px-3 py-3 text-center font-semibold">{{ group.group_index }}</td>
+                  <td v-if="idx === 0" :rowspan="group.programs.length" class="border border-amber-200 px-3 py-3 font-medium">{{ group.opd ?? '-' }}</td>
+                  <td class="border border-amber-200 px-3 py-3">{{ row.program ?? '-' }}</td>
+                  <td class="border border-amber-200 px-3 py-3">{{ row.faktor_penghambat ?? '-' }}</td>
+                  <td class="border border-amber-200 px-3 py-3">{{ row.faktor_pendorong ?? '-' }}</td>
+                  <td class="border border-amber-200 px-3 py-3">{{ row.faktor_tindak_lanjut ?? '-' }}</td>
                 </tr>
               </template>
             </template>
@@ -309,6 +350,84 @@
                   <DokumenCell :cell="row.years?.[year]?.dpa" />
                 </td>
               </template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        id="kertas-kerja-export-root"
+        v-else-if="currentView === 'kertas-kerja' && currentTable === 'tabel-1' && tableData"
+        class="overflow-x-auto rounded-2xl border border-slate-200 bg-white/95 shadow-md"
+      >
+        <table class="min-w-[2200px] w-full border-collapse text-sm text-center">
+          <thead>
+            <tr class="bg-slate-300 text-slate-900">
+              <th rowspan="2" class="border border-black px-2 py-2 font-bold">Kode Rek</th>
+              <th rowspan="2" class="border border-black px-2 py-2 font-bold min-w-[420px]">Program / Kegiatan / Sub Kegiatan</th>
+              <th colspan="4" class="border border-black px-2 py-2 font-bold">RKPD</th>
+              <th colspan="4" class="border border-black px-2 py-2 font-bold">APBD</th>
+              <th colspan="2" class="border border-black px-2 py-2 font-bold">Realisasi</th>
+              <th colspan="2" class="border border-black px-2 py-2 font-bold">Capaian</th>
+              <th colspan="2" class="border border-black px-2 py-2 font-bold">Faktor</th>
+            </tr>
+            <tr class="bg-slate-300 text-slate-900">
+              <th class="border border-black px-2 py-2 font-bold">Indikator</th>
+              <th class="border border-black px-2 py-2 font-bold">Target</th>
+              <th class="border border-black px-2 py-2 font-bold">Satuan</th>
+              <th class="border border-black px-2 py-2 font-bold">Pagu</th>
+              <th class="border border-black px-2 py-2 font-bold">Indikator</th>
+              <th class="border border-black px-2 py-2 font-bold">Target</th>
+              <th class="border border-black px-2 py-2 font-bold">Satuan</th>
+              <th class="border border-black px-2 py-2 font-bold">Pagu</th>
+              <th class="border border-black px-2 py-2 font-bold">Kinerja (TW {{ twValue || 2 }})</th>
+              <th class="border border-black px-2 py-2 font-bold">Keuangan (TW {{ twValue || 2 }})</th>
+              <th class="border border-black px-2 py-2 font-bold">Kinerja</th>
+              <th class="border border-black px-2 py-2 font-bold">Keuangan</th>
+              <th class="border border-black px-2 py-2 font-bold">Pendorong</th>
+              <th class="border border-black px-2 py-2 font-bold">Penghambat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-orange-300 text-black font-bold">
+              <td colspan="5" class="border border-black px-2 py-2 text-left">
+                {{ kertasKerjaOpdLabel }}
+              </td>
+              <td class="border border-black px-2 py-2 text-right">
+                {{ formatRupiah(kertasKerjaTotals.rkpd) }}
+              </td>
+              <td colspan="3" class="border border-black px-2 py-2"></td>
+              <td class="border border-black px-2 py-2 text-right">
+                {{ formatRupiah(kertasKerjaTotals.apbd) }}
+              </td>
+              <td colspan="6" class="border border-black px-2 py-2"></td>
+            </tr>
+            <tr
+              v-for="(row, idx) in tableData"
+              :key="`kertas-kerja-${idx}`"
+              :class="kertasKerjaRowClass(row, idx)"
+            >
+              <td class="border border-black px-2 py-2 text-left font-semibold">{{ row.kode_rek || '-' }}</td>
+              <td class="border border-black px-2 py-2 text-left" :style="kertasKerjaIndentStyle(row)">{{ kertasKerjaName(row) }}</td>
+
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_rkpd), 'text-left')">{{ kertasKerjaValue(row.rkpd_indikator) }}</td>
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_rkpd))">{{ kertasKerjaValue(row.rkpd_target) }}</td>
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_rkpd))">{{ kertasKerjaValue(row.rkpd_satuan) }}</td>
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_rkpd), 'text-right')">{{ formatRupiah(row.rkpd_pagu || 0) }}</td>
+
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_apbd), 'text-left')">{{ kertasKerjaValue(row.apbd_indikator) }}</td>
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_apbd))">{{ kertasKerjaValue(row.apbd_target) }}</td>
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_apbd))">{{ kertasKerjaValue(row.apbd_satuan) }}</td>
+              <td :class="kertasKerjaCellClass(kertasKerjaIsMissing(row.has_apbd), 'text-right')">{{ formatRupiah(row.apbd_pagu || 0) }}</td>
+
+              <td class="border border-black px-2 py-2 text-center">{{ kertasKerjaNumber(row.realisasi_kinerja) }}</td>
+              <td class="border border-black px-2 py-2 text-right">{{ formatRupiah(row.realisasi_keuangan || 0) }}</td>
+              <td :class="['border border-black px-2 py-2 text-center', kertasKerjaCapaianClass(row.capaian_kinerja)]">{{ kertasKerjaCapaianText(row.capaian_kinerja) }}</td>
+              <td :class="['border border-black px-2 py-2 text-center', kertasKerjaCapaianClass(row.capaian_keuangan)]">{{ kertasKerjaCapaianText(row.capaian_keuangan) }}</td>
+              <td class="border border-black px-2 py-2 text-left">{{ kertasKerjaValue(row.faktor_pendorong) }}</td>
+              <td class="border border-black px-2 py-2 text-left">{{ kertasKerjaValue(row.faktor_penghambat) }}</td>
+            </tr>
+            <tr v-if="!Array.isArray(tableData) || tableData.length === 0">
+              <td colspan="16" class="border border-black px-2 py-8 text-slate-600">Tidak ada data Kertas Kerja.</td>
             </tr>
           </tbody>
         </table>
@@ -374,10 +493,10 @@
                 <th colspan="2" class="min-w-[220px] border border-emerald-200 px-3 py-3 text-center font-bold">Konsistensi RKPD/Renja - APBD</th>
               </tr>
               <tr class="bg-emerald-100">
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }}</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }}</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }} Yang Sama</th>
-                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah {{ metricLabel }} Yang Tidak Sama</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah Indikator RKPD/Renja</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah Indikator APBD</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah Indikator Yang Sama</th>
+                <th class="border border-emerald-200 px-3 py-2 text-center text-sm font-semibold text-emerald-700">Jumlah Indikator Yang Tidak Sama</th>
               </tr>
               <tr class="bg-emerald-100">
                 <th class="border border-emerald-200 px-3 py-1 text-center text-xs font-semibold text-emerald-700">(1)</th>
@@ -392,13 +511,13 @@
               <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
                 <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
                 <td class="border border-emerald-200 px-3 py-3 font-medium">{{ formatEntityLabel(row.entitas) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'rkpd_programs', `List ${metricLabel} ${rkpdLabel}`)">{{ Number(row.rkpd_count || 0) }}</td>
-                <td class="border border-emerald-200 px-3 py-3 text-center cursor-pointer text-emerald-800 font-semibold" @click="openLineContent(row, 'dpa_programs', `List ${metricLabel} ${apbdLabel}`)">{{ Number(row.dpa_count || 0) }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ getIndicatorCountForRow(row, 'rkpd_programs') }}</td>
+                <td class="border border-emerald-200 px-3 py-3 text-center">{{ getIndicatorCountForRow(row, 'dpa_programs') }}</td>
                 <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'same')">
-                  <span :class="(getSameCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-emerald-700' : 'text-slate-500'">{{ getSameCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
+                  <span :class="(getSameIndicatorCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-emerald-700' : 'text-slate-500'">{{ getSameIndicatorCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
                 <td class="cursor-pointer border border-emerald-200 px-3 py-3 text-center font-semibold" role="button" tabindex="0" @click="openComparisonModal(row, 'rkpd_programs', 'dpa_programs', rkpdLabel, apbdLabel, 'diff')">
-                  <span :class="(getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-amber-700' : 'text-slate-500'">{{ getDifferentCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
+                  <span :class="(getDifferentIndicatorCountByKeys(row, 'rkpd_programs','dpa_programs')>0) ? 'text-amber-700' : 'text-slate-500'">{{ getDifferentIndicatorCountByKeys(row, 'rkpd_programs','dpa_programs') }}</span>
                 </td>
               </tr>
             </tbody>
@@ -687,28 +806,78 @@
 
       </div>
 
-      <div v-else-if="currentView === 'realisasi' && currentTable === 'iku' && tableData" class="overflow-x-auto rounded-2xl border border-emerald-100 bg-white/90 shadow-md">
-        <table class="w-full table-fixed border-collapse text-sm">
+      <div v-else-if="currentView === 'realisasi' && currentTable === 'iku' && tableData" class="overflow-x-auto rounded-lg border border-slate-300 bg-white shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
+        <table class="min-w-[1220px] w-full border-collapse text-[14px] text-black">
           <thead>
-            <tr class="bg-emerald-50">
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">No</th>
-              <th class="border border-emerald-200 px-3 py-3 text-left font-bold">Indikator</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Satuan</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Target 2030</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Realisasi Tahun</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Fisik</th>
-              <th class="border border-emerald-200 px-3 py-3 text-center font-bold">Keuangan</th>
+            <tr class="bg-[#e5e7eb] text-black">
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[50px]">No</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold min-w-[460px]">Indikator</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[120px]">Target RKPD {{ yearValue || selectedYear || 2026 }}</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[130px]">Realisasi Tahun 2025</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[130px]">Capaian Tahun {{ yearValue || selectedYear || 2026 }} (%)</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[130px]">Faktor Pendorong</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[130px]">Faktor Penghambat</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(row, idx) in tableData" :key="idx" :class="idx % 2 === 0 ? 'bg-white' : 'bg-emerald-50'">
-              <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no }}</td>
-              <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.satuan }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.target_2030 }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_tahun ?? '-' }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_fisik ?? '-' }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_keuangan ?? '-' }}</td>
+            <template v-for="(row, idx) in tableData" :key="idx">
+              <!-- Section row -->
+              <tr v-if="row.is_section" class="bg-[#facc15] text-black font-bold">
+                <td class="border border-black px-3 py-2.5 text-center">{{ row.section_no }}</td>
+                <td class="border border-black px-3 py-2.5 text-left" colspan="6">{{ row.label }}</td>
+              </tr>
+              <!-- Data row -->
+              <tr v-else class="bg-white text-black">
+                <td class="border border-black px-3 py-2.5 text-center align-top">{{ row.no }}</td>
+                <td class="border border-black px-3 py-2.5 text-left align-top">{{ row.indikator }}</td>
+                <td class="border border-black px-3 py-2.5 text-center">{{ row.target_rkpd ?? '-' }}</td>
+                <td class="border border-black px-3 py-2.5 text-center text-red-600">{{ row.realisasi ?? '-' }}</td>
+                <td
+                  class="border border-black px-3 py-2.5 text-center font-bold"
+                  :style="ikuCapaianStyle(row.capaian)"
+                >{{ ikuCapaianText(row.capaian) }}</td>
+                <td class="border border-black px-3 py-2.5 text-center">{{ row.faktor_pendorong || '-' }}</td>
+                <td class="border border-black px-3 py-2.5 text-center">{{ row.faktor_penghambat || '-' }}</td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <div v-else-if="currentView === 'realisasi' && currentTable === 'ikk' && tableData" class="overflow-x-auto rounded-lg border border-slate-300 bg-white shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
+        <table class="min-w-[1600px] w-full border-collapse text-[14px] text-black">
+          <thead>
+            <tr class="bg-[#e5e7eb] text-black">
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[60px]">No</th>
+              <th class="border border-black px-3 py-2.5 text-left font-bold min-w-[860px]">Aspek / Fokus / Urusan / Indikator Kinerja</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[170px]">Kondisi Awal (2020)</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[160px]">Target RKPD {{ yearValue || selectedYear || 2026 }}</th>
+              <th class="border border-black px-3 py-2.5 text-center font-bold w-[170px]">Realisasi {{ (yearValue || selectedYear || 2026) - 1 }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(row, idx) in groupedIkkRows"
+              :key="`ikk-${idx}-${row.type}-${row.aspek || ''}-${row.fokus || ''}-${row.urusan || ''}-${row.indikator || ''}`"
+              :class="row.type === 'urusan' ? 'bg-[#08a53a] text-white' : (row.type === 'fokus' ? 'bg-[#fde047] text-black' : 'bg-white text-black')"
+            >
+              <td class="border border-black px-3 py-2.5 text-center align-top font-semibold">
+                {{ row.type === 'indikator' ? (row.no ?? '-') : '' }}
+              </td>
+              <td class="border border-black px-3 py-2.5 align-top">
+                <div v-if="row.type === 'urusan'" class="font-semibold uppercase tracking-wide">
+                  {{ row.urusan || '-' }}
+                </div>
+                <div v-else-if="row.type === 'fokus'" class="font-medium">
+                  {{ row.fokus || '-' }}
+                </div>
+                <div v-else class="leading-relaxed">
+                  {{ row.indikator || '-' }}
+                </div>
+              </td>
+              <td class="border border-black px-3 py-2.5 text-center">{{ row.type === 'indikator' ? (row.kondisi_awal ?? '-') : '-' }}</td>
+              <td class="border border-black px-3 py-2.5 text-center font-semibold">{{ row.type === 'indikator' ? (row.target_rkpd ?? row.target_tahun ?? '-') : '-' }}</td>
+              <td class="border border-black px-3 py-2.5 text-center" :class="row.type === 'indikator' ? 'text-red-600' : ''">{{ row.type === 'indikator' ? (row.realisasi ?? '-') : '-' }}</td>
             </tr>
           </tbody>
         </table>
@@ -903,9 +1072,9 @@
               <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no ?? idx + 1 }}</td>
               <td class="border border-emerald-200 px-3 py-3">{{ row.nama || row.program || row.kode || '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.rkpd_target ?? row.target) || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ getPreferredIndicatorTarget(row) }}</td>
               <td class="border border-emerald-200 px-3 py-3">{{ (row.dpa_indikator ?? row.dpa_nama_indikator ?? row.dpa?.[0]?.nama_indikator) || '-' }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.dpa_target ?? row.dpa?.[0]?.target_indikator) || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ getPreferredIndicatorTarget({ ...row, source: 'dpa' }) }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.pagu ?? row.dpa_pagu ?? 0) }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_fisik ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.realisasi_keu ?? 0) }}</td>
@@ -940,7 +1109,7 @@
               <td class="border border-emerald-200 px-3 py-3 text-center font-semibold">{{ row.no ?? idx + 1 }}</td>
               <td class="border border-emerald-200 px-3 py-3">{{ row.nama || row.program || row.kode || '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3">{{ getPreferredIndicatorLabel(row) }}</td>
-              <td class="border border-emerald-200 px-3 py-3 text-center">{{ (row.target ?? row.target_indikator) || '-' }}</td>
+              <td class="border border-emerald-200 px-3 py-3 text-center">{{ getPreferredIndicatorTarget(row) }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.satuan ?? '-' }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-right">{{ formatRupiah(row.pagu ?? row.dpa_pagu ?? 0) }}</td>
               <td class="border border-emerald-200 px-3 py-3 text-center">{{ row.realisasi_fisik ?? '-' }}</td>
@@ -1642,7 +1811,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link, router } from '@inertiajs/vue3';
-import { computed, h, ref } from 'vue';
+import { computed, h, ref, watch } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
   currentView: {
@@ -1800,6 +1970,47 @@ const basisValue = ref(props.filterBasis);
 const yearValue = ref(props.selectedYear);
 const twValue = ref(props.selectedTw);
 const selectedOpd = ref(props.selectedOpdId ?? '');
+const kertasKerjaOpdLabel = computed(() => {
+  if (!selectedOpd.value) {
+    return 'Semua OPD';
+  }
+
+  const found = (props.opds || []).find((o) => Number(o.id) === Number(selectedOpd.value));
+  if (found?.nama) {
+    return found.nama;
+  }
+
+  return `OPD ${selectedOpd.value}`;
+});
+const metricTypeValue = ref(props.tableMetricType === 'indikator' ? 'all' : (props.tableMetricType || 'program'));
+const kertasKerjaSummaryLevel = computed(() => {
+  if (props.tableMetricType === 'kegiatan') return 'kegiatan';
+  if (props.tableMetricType === 'sub_kegiatan') return 'sub_kegiatan';
+  return 'program';
+});
+const kertasKerjaSummaryRows = computed(() => {
+  const rows = Array.isArray(tableData.value) ? tableData.value : [];
+  const summaryRows = rows.filter((row) => (row?.level || '') === kertasKerjaSummaryLevel.value);
+
+  return summaryRows.length > 0 ? summaryRows : rows;
+});
+const kertasKerjaTotals = computed(() => {
+  return kertasKerjaSummaryRows.value.reduce((totals, row) => {
+    totals.rkpd += Number(row?.rkpd_pagu || 0);
+    totals.apbd += Number(row?.apbd_pagu || 0);
+    return totals;
+  }, { rkpd: 0, apbd: 0 });
+});
+const metricOptions = [
+  { value: 'program', label: 'Program' },
+  { value: 'kegiatan', label: 'Kegiatan' },
+  { value: 'sub_kegiatan', label: 'Sub Kegiatan' },
+  { value: 'all', label: 'Semua Indikator' },
+];
+const metricSelectorVisible = computed(() => {
+  return props.currentView === 'konsistensi-rkpd-apbd' && ['tabel-1','tabel-2','tabel-3','tabel-4','tabel-5','tabel-6','tabel-8','tabel-9'].includes(props.currentTable);
+});
+
 const showProgramModal = ref(false);
 const selectedPrograms = ref([]);
 const selectedProgramTitle = ref('List Program');
@@ -1962,8 +2173,29 @@ function getIndicatorValue(programsArray, kode, key) {
     const match = programsArray.find(p => String(p?.kode).trim() === String(kode).trim());
     const prog = match || programsArray[0];
     const ind = (prog?.indikator && prog.indikator[0]) || null;
-    if (!ind) return '-';
-    const val = ind[key];
+    if (!ind) {
+      const candidate = prog?.[key];
+      if (candidate !== null && candidate !== undefined) return candidate;
+      if (key === 'target_indikator') return prog?.target_indikator ?? prog?.indikator_target ?? prog?.target ?? '-';
+      if (key === 'target') return prog?.target ?? prog?.target_indikator ?? prog?.indikator_target ?? '-';
+      if (key === 'nama_indikator') return prog?.nama_indikator ?? prog?.nama ?? prog?.indikator ?? '-';
+      if (key === 'satuan') return prog?.satuan ?? prog?.satuan_indikator ?? prog?.indikator_satuan ?? '-';
+      return '-';
+    }
+
+    let val = ind[key];
+    if ((val === null || val === undefined) && key === 'target_indikator') {
+      val = ind.target_indikator ?? ind.indikator_target ?? ind.target ?? null;
+    }
+    if ((val === null || val === undefined) && key === 'target') {
+      val = ind.target ?? ind.target_indikator ?? ind.indikator_target ?? null;
+    }
+    if ((val === null || val === undefined) && key === 'nama_indikator') {
+      val = ind.nama_indikator ?? ind.nama ?? ind.indikator ?? null;
+    }
+    if ((val === null || val === undefined) && key === 'satuan') {
+      val = ind.satuan ?? ind.satuan_indikator ?? ind.indikator_satuan ?? null;
+    }
     if (val === null || val === undefined) return '-';
     return val;
   } catch (e) {
@@ -2054,6 +2286,26 @@ function getCapaianClass(pctString) {
   }
 }
 
+/**
+ * IKU capaian helpers — uses template color thresholds:
+ * <75 → orange (#ffc000), 75–95 → green (#92d050), >95 → blue (#00b0f0), null → plain
+ */
+function ikuCapaianStyle(capaian) {
+  if (capaian === null || capaian === undefined || capaian === '') return {};
+  const n = parseFloat(capaian);
+  if (isNaN(n)) return {};
+  if (n < 75) return { backgroundColor: '#facc15', color: '#000000' };
+  if (n <= 90) return { backgroundColor: '#84cc16', color: '#000000' };
+  return { backgroundColor: '#00aaff', color: '#000000' };
+}
+
+function ikuCapaianText(capaian) {
+  if (capaian === null || capaian === undefined || capaian === '') return '-';
+  const n = parseFloat(capaian);
+  if (isNaN(n)) return String(capaian);
+  return n.toFixed(2) + '%';
+}
+
 function renderCapaian(pctString) {
   try {
     if (!pctString || pctString === '-' || pctString === null) {
@@ -2079,6 +2331,60 @@ function getPreferredIndicatorLabel(row, kode) {
     return row?.renstra_indikator ?? row?.rpjmd_indikator ?? row?.rkpd_indikator ?? row?.indikator_program ?? row?.indikator ?? row?.nama_indikator ?? '-';
   } catch (e) {
     return row?.indikator ?? '-';
+  }
+}
+
+function getPreferredIndicatorTarget(row, kode, source) {
+  try {
+    if (!source && row?.source) {
+      source = row.source;
+    }
+
+    const getProgramsBySource = () => {
+      if (source === 'dpa') {
+        return row?.dpa_programs || row?.dpa || [];
+      }
+      if (source === 'rkpd') {
+        return row?.rkpd_programs || [];
+      }
+      if (source === 'renja') {
+        const renjaPrograms = Array.isArray(row?.renja_programs) ? row.renja_programs : [];
+        if (renjaPrograms.length > 0) return renjaPrograms;
+        return Array.isArray(row?.rkpd_programs)
+          ? row.rkpd_programs.filter((p) => String((p?.dokumen || '')).toUpperCase() === 'RENJA')
+          : [];
+      }
+      return row?.renstra_programs || row?.rkpd_programs || row?.renja_programs || row?.dpa_programs || row?.dpa || [];
+    };
+
+    const programs = getProgramsBySource();
+    const programCode = kode || row?.kode_rek || row?.kode || '';
+
+    if (Array.isArray(programs) && programs.length > 0) {
+      const normalizedKey = programCode;
+      const preferred = getProgramIndicatorTarget(programs.find(p => String(p?.kode).trim() === String(normalizedKey).trim()) || programs[0], normalize(normalizedKey) || undefined);
+      if (preferred !== null && preferred !== undefined && String(preferred).trim() !== '') return String(preferred);
+
+      // Fallback: use first program item target if indicator-specific target is not found
+      const firstProgram = programs[0];
+      const fallbackTarget = getFirstProgramIndicatorTarget(firstProgram);
+      if (fallbackTarget !== null && fallbackTarget !== undefined && String(fallbackTarget).trim() !== '') return String(fallbackTarget);
+    }
+
+    if (source === 'dpa' && Array.isArray(row?.dpa) && row.dpa.length > 0) {
+      const target = row.dpa[0]?.target_indikator ?? row.dpa[0]?.indikator_target ?? row.dpa[0]?.target;
+      if (target !== null && target !== undefined && String(target).trim() !== '') return String(target);
+    }
+
+    if (row?.dpa_target !== null && row?.dpa_target !== undefined && String(row.dpa_target).trim() !== '') return String(row.dpa_target);
+    if (row?.rkpd_target !== null && row?.rkpd_target !== undefined && String(row.rkpd_target).trim() !== '') return String(row.rkpd_target);
+    if (row?.renja_target !== null && row?.renja_target !== undefined && String(row.renja_target).trim() !== '') return String(row.renja_target);
+    if (row?.target_indikator !== null && row?.target_indikator !== undefined && String(row.target_indikator).trim() !== '') return String(row.target_indikator);
+    if (row?.target !== null && row?.target !== undefined && String(row.target).trim() !== '') return String(row.target);
+
+    return '-';
+  } catch (e) {
+    return row?.target_indikator ?? row?.target ?? '-';
   }
 }
 
@@ -2236,17 +2542,21 @@ function hexToXlsxRgb(hex) {
   return 'FF' + h;
 }
 
-async function exportRealisasiExcel() {
+async function exportRealisasiExcel(options = {}) {
   try {
+    const containerId = options?.containerId || 'realisasi-export-root';
+    const exactFormat = options?.exactFormat === true;
+    const sheetName = String(options?.sheetName || 'Realisasi').trim() || 'Realisasi';
+
     await ensureSheetJsLoaded();
-    const container = document.getElementById('realisasi-export-root');
+    const container = document.getElementById(containerId);
     if (!container) {
-      alert('Elemen tabel realisasi tidak ditemukan');
+      alert('Elemen tabel ekspor tidak ditemukan');
       return;
     }
     const table = container.querySelector('table');
     if (!table) {
-      alert('Tabel realisasi tidak ditemukan');
+      alert('Tabel ekspor tidak ditemukan');
       return;
     }
 
@@ -2272,21 +2582,37 @@ async function exportRealisasiExcel() {
         const classBased = getCapaianHexFromClass(cell.className || cell.classList?.value);
         const isHeader = (cell.tagName && cell.tagName.toLowerCase() === 'th') || !!cell.closest('thead');
         const rowEl = rows[r];
+        const rowCells = Array.from((cell.parentElement?.children || [])).filter((n) => ['TH', 'TD'].includes(String(n.tagName || '').toUpperCase()));
+        const rowCellIndex = rowCells.indexOf(cell);
+        const isKertasKerjaIndicatorCol = containerId === 'kertas-kerja-export-root' && !!cell.closest('tbody') && (rowCellIndex === 2 || rowCellIndex === 6);
+        const cellText = (cell.innerText || '').trim();
         // default color resolution
         let bg = classBased || rgbToHex(comp.backgroundColor) || null;
         let color = rgbToHex(comp.color) || null;
 
-        // enforce exact mapping
-        if (isHeader) {
-          bg = '#FF0000'; color = '#FFFFFF';
-        } else if ((cell.innerText || '').trim() === '-' || (cell.innerText || '').trim() === '') {
-          bg = '#000000'; color = '#FFFFFF';
-        } else if (rowEl && (String(rowEl.className).includes('bg-orange') || String(rowEl.className).includes('bg-orange-600'))) {
-          bg = '#FFA500'; color = '#000000';
-        } else if (rowEl && (String(rowEl.className).includes('bg-emerald') || String(rowEl.className).includes('bg-green'))) {
-          bg = '#228B22'; color = '#FFFFFF';
-        } else if (rowEl && String(rowEl.className).includes('bg-yellow')) {
-          bg = '#FFD700'; color = '#000000';
+        // Kertas Kerja export rule:
+        // empty indicator cells must keep row default color (not black highlight).
+        if (exactFormat && isKertasKerjaIndicatorCol && (cellText === '' || cellText === '-')) {
+          const rowComp = rowEl ? window.getComputedStyle(rowEl) : null;
+          const rowBg = rowComp ? rgbToHex(rowComp.backgroundColor) : null;
+          const rowColor = rowComp ? rgbToHex(rowComp.color) : null;
+          bg = (rowBg && rowBg !== '#000000') ? rowBg : null;
+          color = rowColor || color;
+        }
+
+        // Keep previous mapping for legacy exports, but allow strict visual export for Kertas Kerja.
+        if (!exactFormat) {
+          if (isHeader) {
+            bg = '#FF0000'; color = '#FFFFFF';
+          } else if ((cell.innerText || '').trim() === '-' || (cell.innerText || '').trim() === '') {
+            bg = '#000000'; color = '#FFFFFF';
+          } else if (rowEl && (String(rowEl.className).includes('bg-orange') || String(rowEl.className).includes('bg-orange-600'))) {
+            bg = '#FFA500'; color = '#000000';
+          } else if (rowEl && (String(rowEl.className).includes('bg-emerald') || String(rowEl.className).includes('bg-green'))) {
+            bg = '#228B22'; color = '#FFFFFF';
+          } else if (rowEl && String(rowEl.className).includes('bg-yellow')) {
+            bg = '#FFD700'; color = '#000000';
+          }
         }
 
         styles[`${r},${cIndex}`] = { bg, color, className: cell.className, isHeader };
@@ -2302,6 +2628,10 @@ async function exportRealisasiExcel() {
 
     const ws = window.XLSX.utils.aoa_to_sheet(aoa);
 
+    if (merges.length) {
+      ws['!merges'] = merges;
+    }
+
     // Apply styles per captured styles map and enable wrapText
     const colMaxLen = {};
     Object.keys(styles).forEach(k => {
@@ -2311,8 +2641,8 @@ async function exportRealisasiExcel() {
       if (!cell) return;
       const st = styles[k];
       cell.s = cell.s || {};
-      // header override: force gray background and bold black font
-      if (st.isHeader) {
+      // For strict export, keep captured style as-is.
+      if (st.isHeader && !exactFormat) {
         const headerHex = '#D1D5DB'; // light gray
         const xh = hexToXlsxRgb(headerHex);
         if (xh) cell.s.fill = { patternType: 'solid', fgColor: { rgb: xh } };
@@ -2360,37 +2690,45 @@ async function exportRealisasiExcel() {
       cols.push({ wch });
     }
     if (cols.length) ws['!cols'] = cols;
+    if (Object.keys(rowHeights).length) {
+      ws['!rows'] = Object.keys(rowHeights)
+        .map((k) => Number(k))
+        .sort((a, b) => a - b)
+        .map((r) => ({ hpt: rowHeights[r] }));
+    }
 
-    // Try server-side export first for best Excel fidelity
-    try {
-      const aoaPayload = aoa;
-      const colsPayload = (cols && cols.length) ? cols.map(c => c.wch || 15) : [];
-      const payload = { aoa: aoaPayload, styles: styles, cols: colsPayload, merges: merges, rowHeights: rowHeights };
-      const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-      const res = await fetch('/resume/export-server', {
-        method: 'POST',
-        headers: Object.assign({ 'Content-Type': 'application/json' }, csrf ? { 'X-CSRF-TOKEN': csrf } : {}),
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error('Server export failed');
-      const blob = await res.blob();
-      const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xlsx`;
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fname;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      return;
-    } catch (e) {
-      console.warn('Server export failed, falling back to client SheetJS export', e);
+    // Try server-side export first for legacy mode. Exact mode exports directly from client.
+    if (!exactFormat) {
+      try {
+        const aoaPayload = aoa;
+        const colsPayload = (cols && cols.length) ? cols.map(c => c.wch || 15) : [];
+        const payload = { aoa: aoaPayload, styles: styles, cols: colsPayload, merges: merges, rowHeights: rowHeights };
+        const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        const res = await fetch('/resume/export-server', {
+          method: 'POST',
+          headers: Object.assign({ 'Content-Type': 'application/json' }, csrf ? { 'X-CSRF-TOKEN': csrf } : {}),
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('Server export failed');
+        const blob = await res.blob();
+        const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xlsx`;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fname;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        return;
+      } catch (e) {
+        console.warn('Server export failed, falling back to client SheetJS export', e);
+      }
     }
 
     // Fallback: build workbook client-side using SheetJS
     const wb = window.XLSX.utils.book_new();
-    window.XLSX.utils.book_append_sheet(wb, ws, 'Realisasi');
+    window.XLSX.utils.book_append_sheet(wb, ws, sheetName);
     const wbout = window.XLSX.write(wb, { bookType: 'xlsx', type: 'array', cellStyles: true });
     const blob = new Blob([wbout], { type: 'application/octet-stream' });
     const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xlsx`;
@@ -2436,12 +2774,337 @@ function getNodeSelector(node, within) {
   return `${tag}:nth-of-type(${idx + 1})`;
 }
 
-function exportRealisasiExcelHtml() {
+function exportKertasKerjaExcel() {
   try {
-    const container = document.getElementById('realisasi-export-root');
-    if (!container) return alert('Elemen tabel realisasi tidak ditemukan');
+    const container = document.getElementById('kertas-kerja-export-root');
+    if (!container) return alert('Elemen tabel tidak ditemukan');
     const table = container.querySelector('table');
-    if (!table) return alert('Tabel realisasi tidak ditemukan');
+    if (!table) return alert('Tabel tidak ditemukan');
+
+    // Clone table
+    const cloned = table.cloneNode(true);
+
+    // -----------------------------------------------------------------------
+    // Map Tailwind class names to plain hex colors.
+    // getComputedStyle() returns oklch() in modern browsers which Excel cannot
+    // parse, so we read classes directly and map them to hex.
+    // -----------------------------------------------------------------------
+    const BG_MAP = {
+      'bg-green-600':  '#16a34a',
+      'bg-yellow-300': '#fde047',
+      'bg-orange-300': '#fdba74',
+      'bg-orange-400': '#fb923c',
+      'bg-orange-200': '#fed7aa',
+      'bg-red-600':    '#dc2626',
+      'bg-blue-600':   '#2563eb',
+      'bg-gray-400':   '#9ca3af',
+      'bg-slate-300':  '#cbd5e1',
+      'bg-slate-50':   '#f8fafc',
+      'bg-black':      '#000000',
+      'bg-white':      '#ffffff',
+    };
+    const COLOR_MAP = {
+      'text-white':     '#ffffff',
+      'text-black':     '#000000',
+      'text-slate-900': '#0f172a',
+      'text-slate-600': '#475569',
+    };
+
+    // Resolve effective background by walking up the DOM, reading class tokens.
+    const resolveBackground = (el) => {
+      let e = el;
+      while (e && e.tagName !== 'TABLE') {
+        const cls = e.className ? String(e.className) : '';
+        for (const [token, hex] of Object.entries(BG_MAP)) {
+          if (cls.includes(token)) return hex;
+        }
+        e = e.parentElement;
+      }
+      return '#FFFFFF';
+    };
+
+    // Resolve effective text color by walking up the DOM.
+    const resolveColor = (el) => {
+      let e = el;
+      while (e && e.tagName !== 'TABLE') {
+        const cls = e.className ? String(e.className) : '';
+        for (const [token, hex] of Object.entries(COLOR_MAP)) {
+          if (cls.includes(token)) return hex;
+        }
+        e = e.parentElement;
+      }
+      return '#000000';
+    };
+
+    // Compute column widths from real DOM
+    const origRows = Array.from(table.querySelectorAll('tr'));
+    const colWidths = [];
+    origRows.forEach(row => {
+      const cells = Array.from(row.querySelectorAll('th,td'));
+      let ci = 0;
+      cells.forEach(cell => {
+        const span = Number(cell.getAttribute('colspan') || 1);
+        const w = cell.getBoundingClientRect().width / span;
+        for (let k = 0; k < span; k++) {
+          colWidths[ci + k] = Math.max(colWidths[ci + k] || 0, w || 80);
+        }
+        ci += span;
+      });
+    });
+
+    // Build colgroup for column widths
+    if (colWidths.length) {
+      const colgroup = document.createElement('colgroup');
+      colWidths.forEach(w => {
+        const col = document.createElement('col');
+        col.style.width = `${Math.max(40, Math.round(w))}px`;
+        colgroup.appendChild(col);
+      });
+      cloned.insertBefore(colgroup, cloned.firstChild);
+    }
+
+    // Apply row heights (remove class, keep height)
+    const origAllRows = Array.from(table.querySelectorAll('tr'));
+    const cloneAllRows = Array.from(cloned.querySelectorAll('tr'));
+    origAllRows.forEach((origRow, ri) => {
+      const cr = cloneAllRows[ri];
+      if (!cr) return;
+      const h = origRow.getBoundingClientRect().height;
+      cr.removeAttribute('class');
+      if (h > 0) cr.style.height = `${Math.round(h)}px`;
+    });
+
+    // Resolve font-weight from class or computed (avoids numeric oklch issue)
+    const resolveFontWeight = (el) => {
+      const cls = el.className ? String(el.className) : '';
+      if (cls.includes('font-bold')) return 'bold';
+      if (cls.includes('font-semibold')) return '600';
+      // Also check parent row
+      const tr = el.closest('tr');
+      if (tr) {
+        const trCls = tr.className ? String(tr.className) : '';
+        if (trCls.includes('font-bold')) return 'bold';
+        if (trCls.includes('font-semibold')) return '600';
+      }
+      return 'normal';
+    };
+
+    // Resolve text-align from class
+    const resolveAlign = (el) => {
+      const cls = el.className ? String(el.className) : '';
+      if (cls.includes('text-right')) return 'right';
+      if (cls.includes('text-center')) return 'center';
+      if (cls.includes('text-left')) return 'left';
+      const tag = el.tagName?.toLowerCase();
+      if (tag === 'th') return 'center';
+      return 'left';
+    };
+
+    // Inline styles on each cell
+    const origCells = Array.from(table.querySelectorAll('th,td'));
+    const cloneCells = Array.from(cloned.querySelectorAll('th,td'));
+    origCells.forEach((orig, i) => {
+      const cc = cloneCells[i];
+      if (!cc) return;
+      const bg = resolveBackground(orig);
+      const color = resolveColor(orig);
+      const fontWeight = resolveFontWeight(orig);
+      const textAlign = resolveAlign(orig);
+      const isHeader = orig.tagName?.toLowerCase() === 'th';
+      const styles = [
+        `background-color: ${bg}`,
+        `color: ${color}`,
+        `font-weight: ${fontWeight}`,
+        `font-size: ${isHeader ? '11px' : '11px'}`,
+        `font-family: Arial, sans-serif`,
+        `text-align: ${textAlign}`,
+        `vertical-align: middle`,
+        `padding: 4px 6px`,
+        `border: 1px solid #000000`,
+        `white-space: normal`,
+        `word-wrap: break-word`,
+      ];
+      cc.setAttribute('style', styles.join('; '));
+      cc.removeAttribute('class');
+    });
+
+    // --- OPD name & abbreviation (must be before html construction) ---
+    const opdName = kertasKerjaOpdLabel.value || 'semua_opd';
+    const opdSlug = opdName.toLowerCase().replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, '');
+    const opdAbbr = opdName
+      .split(/\s+/)
+      .filter(w => w.length > 2 && !/^(dan|atau|atau|di|ke|dari|untuk|yang|dengan)$/i.test(w))
+      .map(w => w[0].toUpperCase())
+      .join('')
+      .slice(0, 31);
+
+    const tableWidth = Math.round(table.getBoundingClientRect().width || 1400);
+    const html = [
+      '<!doctype html>',
+      '<html xmlns:x="urn:schemas-microsoft-com:office:excel">',
+      '<head><meta charset="utf-8">',
+      '<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>',
+      `<x:Name>${opdAbbr || 'KertasKerja'}</x:Name>`,
+      '<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>',
+      '</x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml>',
+      `<style>table{border-collapse:collapse;width:${tableWidth}px;}`,
+      `th,td{border-collapse:collapse;}`,
+      '</style></head><body>',
+      cloned.outerHTML,
+      '</body></html>',
+    ].join('');
+
+    const fname = `kertas_kerja_${opdSlug}.xls`;
+    const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error('Export Kertas Kerja gagal', e);
+    alert('Export Excel gagal: ' + (e?.message || e));
+  }
+}
+
+const exportingAllOpds = ref(false);
+
+async function exportAllOpdsExcel() {
+  if (exportingAllOpds.value) return;
+  exportingAllOpds.value = true;
+  try {
+    const tahun    = yearValue.value || new Date().getFullYear();
+    const triwulan = twValue.value || 1;
+    const response = await axios.get('/resume/kertas-kerja/all-opds/export', {
+      params: { tahun, triwulan },
+      responseType: 'blob',
+    });
+
+    const disposition = response.headers?.['content-disposition'] || '';
+    const matched = disposition.match(/filename\*=UTF-8''([^;]+)|filename="?([^";]+)"?/i);
+    const filename = decodeURIComponent(matched?.[1] || matched?.[2] || 'kertas_kerja_semua_opd.xlsx');
+
+    const blob = new Blob(
+      [response.data],
+      { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
+    );
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error('Export semua OPD gagal', e);
+    let errorMessage = e?.message || 'Terjadi kesalahan saat export.';
+    try {
+      const data = e?.response?.data;
+      if (data instanceof Blob) {
+        const text = await data.text();
+        if (text) {
+          const parsed = JSON.parse(text);
+          if (parsed?.message) {
+            errorMessage = parsed.message;
+          }
+        }
+      } else if (typeof data === 'object' && data?.message) {
+        errorMessage = data.message;
+      }
+    } catch (parseErr) {
+      // fallback to default message
+    }
+    alert('Export gagal: ' + errorMessage);
+  } finally {
+    exportingAllOpds.value = false;
+  }
+}
+function inlineExactStylesForExcel(originalTable, clonedTable) {
+  const originalElements = [originalTable, ...Array.from(originalTable.querySelectorAll('*'))];
+  const clonedElements = [clonedTable, ...Array.from(clonedTable.querySelectorAll('*'))];
+  const count = Math.min(originalElements.length, clonedElements.length);
+
+  const styleProps = [
+    'backgroundColor',
+    'color',
+    'fontWeight',
+    'fontStyle',
+    'fontSize',
+    'fontFamily',
+    'lineHeight',
+    'letterSpacing',
+    'textTransform',
+    'textAlign',
+    'verticalAlign',
+    'whiteSpace',
+    'paddingTop',
+    'paddingRight',
+    'paddingBottom',
+    'paddingLeft',
+    'borderTopWidth',
+    'borderTopStyle',
+    'borderTopColor',
+    'borderRightWidth',
+    'borderRightStyle',
+    'borderRightColor',
+    'borderBottomWidth',
+    'borderBottomStyle',
+    'borderBottomColor',
+    'borderLeftWidth',
+    'borderLeftStyle',
+    'borderLeftColor',
+    'width',
+    'height',
+  ];
+
+  const toCssDecl = (prop, value) => {
+    const cssName = prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
+    return `${cssName}: ${value}`;
+  };
+
+  for (let i = 0; i < count; i++) {
+    const source = originalElements[i];
+    const target = clonedElements[i];
+    const comp = window.getComputedStyle(source);
+    const inline = [];
+
+    styleProps.forEach((prop) => {
+      const val = comp[prop];
+      if (!val) return;
+      inline.push(toCssDecl(prop, val));
+    });
+
+    inline.push('box-sizing: border-box');
+    target.setAttribute('style', inline.join('; '));
+    target.removeAttribute('class');
+  }
+
+  const sourceRows = Array.from(originalTable.querySelectorAll('tr'));
+  const targetRows = Array.from(clonedTable.querySelectorAll('tr'));
+  targetRows.forEach((row, idx) => {
+    const sourceRow = sourceRows[idx];
+    if (!sourceRow) return;
+    const h = sourceRow.getBoundingClientRect().height;
+    if (h > 0) {
+      row.style.height = `${Math.round(h)}px`;
+    }
+  });
+}
+
+function exportRealisasiExcelHtml(options = {}) {
+  try {
+    const containerId = options?.containerId || 'realisasi-export-root';
+    const filePrefix = String(options?.filePrefix || props.currentView || 'export').trim() || 'export';
+    const exactFormat = options?.exactFormat === true;
+
+    const container = document.getElementById(containerId);
+    if (!container) return alert('Elemen tabel ekspor tidak ditemukan');
+    const table = container.querySelector('table');
+    if (!table) return alert('Tabel ekspor tidak ditemukan');
     // Clone table and inline computed styles for fidelity
     const cloned = table.cloneNode(true);
 
@@ -2483,9 +3146,12 @@ function exportRealisasiExcelHtml() {
       }
     }
 
-    // Inline styles per cell (including borders)
-    const origCells = Array.from(table.querySelectorAll('th,td'));
-    const cloneCells = Array.from(cloned.querySelectorAll('th,td'));
+    if (exactFormat) {
+      inlineExactStylesForExcel(table, cloned);
+    } else {
+      // Inline styles per cell (including borders)
+      const origCells = Array.from(table.querySelectorAll('th,td'));
+      const cloneCells = Array.from(cloned.querySelectorAll('th,td'));
     function getEffectiveComputedStyle(el, prop) {
       if (!el) return null;
       // check element, its first child, then ancestors up to table
@@ -2509,41 +3175,61 @@ function exportRealisasiExcelHtml() {
       }
       return null;
     }
-    for (let i = 0; i < origCells.length; i++) {
-      const orig = origCells[i];
-      const cc = cloneCells[i];
-      const inline = [];
+      for (let i = 0; i < origCells.length; i++) {
+        const orig = origCells[i];
+        const cc = cloneCells[i];
+        const inline = [];
       // prefer class-based mapping for capaian cells
       const classBased = getCapaianHexFromClass(orig.className || orig.classList?.value);
       const isHeaderCell = (orig.tagName && orig.tagName.toLowerCase() === 'th') || !!orig.closest('thead');
       const rowEl = orig.closest('tr');
-      if (isHeaderCell) {
+      const rowCells = Array.from((orig.parentElement?.children || [])).filter((n) => ['TH', 'TD'].includes(String(n.tagName || '').toUpperCase()));
+      const rowCellIndex = rowCells.indexOf(orig);
+      const isKertasKerjaIndicatorCol = containerId === 'kertas-kerja-export-root' && !!orig.closest('tbody') && (rowCellIndex === 2 || rowCellIndex === 6);
+      const cellText = (orig.innerText || '').trim();
+      const useRowDefaultForIndicator = exactFormat && isKertasKerjaIndicatorCol && (cellText === '' || cellText === '-');
+
+      if (useRowDefaultForIndicator) {
+        const rowComp = rowEl ? window.getComputedStyle(rowEl) : null;
+        const rowBg = rowComp ? (cssHex(rowComp.backgroundColor) || rowComp.backgroundColor) : null;
+        const rowColor = rowComp ? (cssHex(rowComp.color) || rowComp.color) : null;
+        if (rowBg && rowBg !== 'transparent' && rowBg !== 'rgba(0, 0, 0, 0)' && rowBg !== '#000000') {
+          inline.push(`background-color: ${rowBg}`);
+        }
+        if (rowColor) {
+          inline.push(`color: ${rowColor}`);
+        }
+      }
+
+      if (!exactFormat && isHeaderCell) {
         inline.push(`background-color: #FF0000`);
         inline.push('font-weight: bold');
         inline.push('color: #FFFFFF');
-      } else if ((orig.innerText || '').trim() === '-' || (orig.innerText || '').trim() === '') {
+      } else if (!exactFormat && ((orig.innerText || '').trim() === '-' || (orig.innerText || '').trim() === '')) {
         inline.push(`background-color: #000000`);
         inline.push('color: #FFFFFF');
-      } else if (rowEl && (String(rowEl.className).includes('bg-orange') || String(rowEl.className).includes('bg-orange-600'))) {
+      } else if (!exactFormat && rowEl && (String(rowEl.className).includes('bg-orange') || String(rowEl.className).includes('bg-orange-600'))) {
         inline.push(`background-color: #FFA500`);
         inline.push('color: #000000');
-      } else if (rowEl && (String(rowEl.className).includes('bg-emerald') || String(rowEl.className).includes('bg-green'))) {
+      } else if (!exactFormat && rowEl && (String(rowEl.className).includes('bg-emerald') || String(rowEl.className).includes('bg-green'))) {
         inline.push(`background-color: #228B22`);
         inline.push('color: #FFFFFF');
-      } else if (rowEl && String(rowEl.className).includes('bg-yellow')) {
+      } else if (!exactFormat && rowEl && String(rowEl.className).includes('bg-yellow')) {
         inline.push(`background-color: #FFD700`);
         inline.push('color: #000000');
-      } else {
+      } else if (!useRowDefaultForIndicator) {
         const bgRaw = classBased || getEffectiveComputedStyle(orig, 'backgroundColor');
         if (bgRaw && bgRaw !== 'transparent' && bgRaw !== 'rgba(0, 0, 0, 0)') {
           const hex = classBased ? classBased : (cssHex(bgRaw) || bgRaw);
           inline.push(`background-color: ${hex}`);
         }
       }
-      const colorRaw = getEffectiveComputedStyle(orig, 'color') || getEffectiveComputedStyle(orig, 'foregroundColor');
-      if (colorRaw) {
-        const hexc = cssHex(colorRaw) || colorRaw;
-        inline.push(`color: ${hexc}`);
+      if (!useRowDefaultForIndicator) {
+        const colorRaw = getEffectiveComputedStyle(orig, 'color') || getEffectiveComputedStyle(orig, 'foregroundColor');
+        if (colorRaw) {
+          const hexc = cssHex(colorRaw) || colorRaw;
+          inline.push(`color: ${hexc}`);
+        }
       }
       const fw = getEffectiveComputedStyle(orig, 'fontWeight'); if (fw) inline.push(`font-weight: ${fw}`);
       const ta = getEffectiveComputedStyle(orig, 'textAlign'); if (ta) inline.push(`text-align: ${ta}`);
@@ -2558,13 +3244,14 @@ function exportRealisasiExcelHtml() {
       const fs = getEffectiveComputedStyle(orig, 'fontSize'); if (fs) inline.push(`font-size: ${fs}`);
       const ff = getEffectiveComputedStyle(orig, 'fontFamily'); if (ff) inline.push(`font-family: ${ff}`);
       const pd = getEffectiveComputedStyle(orig, 'padding'); if (pd) inline.push(`padding: ${pd}`);
-      cc.setAttribute('style', inline.join('; '));
+        cc.setAttribute('style', inline.join('; '));
+      }
     }
 
     const tableWidth = Math.round(table.getBoundingClientRect().width || 800);
     const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>table{border-collapse:collapse; width: ${tableWidth}px;} th,td{border-collapse:collapse;}</style></head><body>${cloned.outerHTML}</body></html>`;
     const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
-    const fname = `${props.currentView || 'export'}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xls`;
+    const fname = `${filePrefix}_${props.currentTable || 'table'}_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.xls`;
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -2626,7 +3313,7 @@ const isDokumenView = computed(() => props.currentView === 'dokumen' && props.cu
 const isIndikatorMode = computed(() => {
   // treat `tabel-4` in `konsistensi-rkpd-apbd` as indikator mode even when
   // `tableMetricType` wasn't explicitly set by the server.
-  if (props.tableMetricType === 'indikator') return true;
+  if (props.tableMetricType === 'indikator' || props.tableMetricType === 'all') return true;
   if (props.currentView === 'konsistensi-rkpd-apbd' && props.currentTable === 'tabel-4') return true;
   return false;
 });
@@ -2650,6 +3337,7 @@ const sortedRealisasiTableData = computed(() => {
 });
 
 const metricLabel = computed(() => {
+  if (props.tableMetricType === 'all') return 'Semua Indikator';
   if (props.tableMetricType === 'indikator') return 'Indikator Program';
   if (props.tableMetricType === 'kegiatan') return 'Kegiatan';
   if (props.tableMetricType === 'sub_kegiatan') return 'Sub Kegiatan';
@@ -2657,6 +3345,8 @@ const metricLabel = computed(() => {
 });
 
 const metricLabelLower = computed(() => {
+  if (props.tableMetricType === 'all') return 'semua indikator';
+  if (props.tableMetricType === 'indikator') return 'indikator program';
   if (isIndikatorMode.value) return 'indikator program';
   if (props.tableMetricType === 'kegiatan') return 'kegiatan';
   if (props.tableMetricType === 'sub_kegiatan') return 'sub kegiatan';
@@ -2670,60 +3360,125 @@ const shouldShowExportButtons = computed(() => {
 });
 
 const showTargetColumns = computed(() => {
-  // Hide RKPD/DPA target columns only when viewing tabel-4 on konsistensi-rkpd-apbd
-  return !(props.currentView === 'konsistensi-rkpd-apbd' && props.currentTable === 'tabel-4');
+  // Always display target columns when comparing RKPD/Renja and APBD indicators,
+  // so indicator description and target remain separated in the UI.
+  return true;
 });
 
 const groupedByBidang = computed(() => {
   if (!Array.isArray(props.tableData)) return [];
-  const map = {};
-  props.tableData.forEach((r) => {
-    const key = r.bidang ?? r.entitas ?? 'Lainnya';
-    if (!map[key]) map[key] = [];
-    map[key].push(r);
-  });
-  // Build pagu maps for Renstra (Renja), RKPD and DPA so we can show pagu per-indicator
-  const renstraPaguMap = new Map();
-  (row?.renstra_programs || []).forEach((p) => {
-    const pagu = toNumber(p?.pagu || p?.pagu_tahunan || p?.anggaran || 0);
-    const names = extractIndicatorNamesGlobal(p);
-    names.forEach((n) => {
-      const kk = normalize(n);
-      renstraPaguMap.set(kk, (renstraPaguMap.get(kk) || 0) + pagu);
-    });
-  });
-
-  const rkpdPaguMap = new Map();
-  (row?.rkpd_programs || []).forEach((p) => {
-    const pagu = toNumber(p?.pagu || p?.pagu_tahunan || p?.anggaran || 0);
-    const names = extractIndicatorNamesGlobal(p);
-    names.forEach((n) => {
-      const kk = normalize(n);
-      rkpdPaguMap.set(kk, (rkpdPaguMap.get(kk) || 0) + pagu);
-    });
-  });
-
-  const dpaPaguMap = new Map();
-  (row?.dpa_programs || []).forEach((p) => {
-    const pagu = toNumber(p?.pagu || p?.pagu_tahunan || p?.anggaran || 0);
-    const names = extractIndicatorNamesGlobal(p);
-    names.forEach((n) => {
-      const kk = normalize(n);
-      dpaPaguMap.set(kk, (dpaPaguMap.get(kk) || 0) + pagu);
-    });
+  const grouped = {};
+  props.tableData.forEach((item) => {
+    const key = item?.bidang ?? item?.entitas ?? 'Lainnya';
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(item);
   });
 
   const groups = [];
-  let programCounter = 0;
-  Object.keys(map).forEach((k, gi) => {
-    const progs = map[k].map((row) => {
-      programCounter += 1;
-      return { ...row, _global_index: programCounter };
+  let globalIndex = 0;
+  Object.keys(grouped).forEach((bidang, groupIndex) => {
+    const programs = grouped[bidang].map((item) => {
+      globalIndex += 1;
+      return { ...item, _global_index: globalIndex };
     });
-    groups.push({ bidang: k, programs: progs, group_index: gi + 1 });
+
+    groups.push({
+      bidang,
+      programs,
+      group_index: groupIndex + 1,
+    });
   });
 
   return groups;
+});
+
+const groupedByOpd = computed(() => {
+  if (!Array.isArray(props.tableData)) return [];
+  const grouped = {};
+  props.tableData.forEach((item) => {
+    const key = item?.opd ?? item?.entitas ?? 'Lainnya';
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(item);
+  });
+
+  const groups = [];
+  let globalIndex = 0;
+  Object.keys(grouped).forEach((opd, groupIndex) => {
+    const programs = grouped[opd].map((item) => {
+      globalIndex += 1;
+      return { ...item, _global_index: globalIndex };
+    });
+
+    groups.push({
+      opd,
+      programs,
+      group_index: groupIndex + 1,
+    });
+  });
+
+  return groups;
+});
+
+const groupedIkkRows = computed(() => {
+  if (!(props.currentView === 'realisasi' && props.currentTable === 'ikk')) {
+    return Array.isArray(props.tableData) ? props.tableData : [];
+  }
+
+  if (!Array.isArray(props.tableData)) return [];
+
+  const byUrusan = new Map();
+  props.tableData.forEach((item) => {
+    const urusan = String(item?.urusan ?? '-').trim() || '-';
+    const fokus = String(item?.fokus ?? '-').trim() || '-';
+    const aspek = String(item?.aspek ?? '-').trim() || '-';
+
+    if (!byUrusan.has(urusan)) {
+      byUrusan.set(urusan, {
+        urusan,
+        aspek,
+        fokusMap: new Map(),
+      });
+    }
+
+    const urusanBucket = byUrusan.get(urusan);
+    if (!urusanBucket.fokusMap.has(fokus)) {
+      urusanBucket.fokusMap.set(fokus, {
+        fokus,
+        aspek,
+        rows: [],
+      });
+    }
+
+    urusanBucket.fokusMap.get(fokus).rows.push(item);
+  });
+
+  const result = [];
+  byUrusan.forEach((uBucket) => {
+    result.push({
+      type: 'urusan',
+      urusan: uBucket.urusan,
+      fokus: null,
+      indikator: null,
+    });
+
+    uBucket.fokusMap.forEach((fBucket) => {
+      result.push({
+        type: 'fokus',
+        urusan: uBucket.urusan,
+        fokus: fBucket.fokus,
+        indikator: null,
+      });
+
+      fBucket.rows.forEach((row) => {
+        result.push({
+          ...row,
+          type: 'indikator',
+        });
+      });
+    });
+  });
+
+  return result;
 });
 
 const buildExportUrl = (format) => {
@@ -2732,6 +3487,7 @@ const buildExportUrl = (format) => {
     table: props.currentTable,
     basis: basisValue.value,
     year: yearValue.value,
+    metric: metricTypeValue.value,
     tw: twValue.value,
     format,
   });
@@ -2745,6 +3501,7 @@ const applyFilters = () => {
       table: props.currentTable,
       basis: basisValue.value,
       year: yearValue.value,
+      metric: metricTypeValue.value,
       tw: twValue.value,
       triwulan: twValue.value,
       opd_id: selectedOpd.value || undefined,
@@ -2945,6 +3702,60 @@ const toNumber = (value) => {
 const formatRupiah = (value) => {
   const amount = Math.round(toNumber(value));
   return amount.toLocaleString('id-ID');
+};
+
+const kertasKerjaValue = (value) => {
+  const text = String(value ?? '').trim();
+  return text === '' || text === 'null' || text === 'undefined' ? '-' : text;
+};
+
+const kertasKerjaNumber = (value) => {
+  const num = Number(toNumber(value));
+  if (!Number.isFinite(num)) return '0';
+  return num.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+};
+
+const kertasKerjaPercent = (value) => {
+  if (value === null || value === undefined || value === '') return '-';
+  const num = Number(toNumber(value));
+  if (!Number.isFinite(num)) return '-';
+  return `${num.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`;
+};
+
+const kertasKerjaCapaianClass = (value) => {
+  const pct = kertasKerjaPercent(value);
+  return getCapaianClass(pct);
+};
+
+const kertasKerjaCapaianText = (value) => {
+  const pct = kertasKerjaPercent(value);
+  return pct === '-' ? 'NA' : pct;
+};
+
+const kertasKerjaIsMissing = (value) => value === false;
+
+const kertasKerjaCellClass = (isMissing, extra = '') => {
+  const base = 'border border-black px-2 py-2';
+  if (isMissing) {
+    return `${base} bg-white text-black ${extra}`.trim();
+  }
+  return `${base} ${extra}`.trim();
+};
+
+const kertasKerjaName = (row) => {
+  const label = String(row?.nama ?? '-').trim() || '-';
+  return label;
+};
+
+const kertasKerjaIndentStyle = (row) => {
+  return {};
+};
+
+const kertasKerjaRowClass = (row, idx) => {
+  if (row?.level === 'program') return 'bg-green-600 text-black font-semibold';
+  if (row?.level === 'kegiatan') return 'bg-yellow-300';
+  if (row?.level === 'sub_kegiatan') return 'bg-white';
+  return idx % 2 === 0 ? 'bg-white' : 'bg-slate-50';
 };
 
 const formatReadableText = (value) => {
@@ -3315,6 +4126,109 @@ function getIndicatorRowsForLine(line, row) {
   const dpaMap = new Map();
   dpaList.forEach(i => dpaMap.set(normalize(i), i));
 
+  const getProgramIndicatorTarget = (program, key) => {
+    if (!program) return null;
+    let t = program?.target ?? program?.indikator_target ?? program?.target_indikator ?? null;
+
+    const indikatorItems = Array.isArray(program?.indikator)
+      ? program.indikator
+      : (program?.indikator && typeof program.indikator === 'object')
+        ? Object.values(program.indikator)
+        : null;
+
+    if ((t === null || t === undefined) && indikatorItems) {
+      for (const el of indikatorItems) {
+        if (!el) continue;
+        const elName = (typeof el === 'string')
+          ? String(el).trim()
+          : (el.nama_indikator ?? el.nama ?? el.indikator ?? '');
+        if (key && elName && normalize(elName) === key) {
+          t = el.target_indikator ?? el.target ?? el.indikator_target ?? t;
+          break;
+        }
+        if (!key) {
+          const candidate = el.target_indikator ?? el.target ?? el.indikator_target ?? null;
+          if (candidate !== null && candidate !== undefined) {
+            t = candidate;
+            break;
+          }
+        }
+      }
+    }
+
+    if ((t === null || t === undefined) && program?.indikator_targets && typeof program.indikator_targets === 'object') {
+      const mapped = program.indikator_targets[key]
+        ?? program.indikator_targets[normalizeComparableText(key)]
+        ?? Object.entries(program.indikator_targets).reduce((acc, [name, val]) => acc ?? (normalizeComparableText(name) === normalizeComparableText(key) ? val : null), null);
+      if (mapped !== undefined && mapped !== null) {
+        t = mapped;
+      } else if (!key) {
+        for (const value of Object.values(program.indikator_targets)) {
+          if (value !== null && value !== undefined) {
+            t = value;
+            break;
+          }
+        }
+      }
+    }
+
+    return t ?? null;
+  };
+
+  const getProgramIndicatorSatuan = (program, key) => {
+    if (!program) return null;
+    let s = program?.satuan ?? program?.indikator_satuan ?? null;
+
+    const indikatorItems = Array.isArray(program?.indikator)
+      ? program.indikator
+      : (program?.indikator && typeof program.indikator === 'object')
+        ? Object.values(program.indikator)
+        : null;
+
+    if ((s === null || s === undefined) && indikatorItems) {
+      for (const el of indikatorItems) {
+        if (!el) continue;
+        const elName = (typeof el === 'string')
+          ? String(el).trim()
+          : (el.nama_indikator ?? el.nama ?? el.indikator ?? '');
+        if (elName && normalize(elName) === key) {
+          s = el.satuan ?? el.satuan_indikator ?? s;
+          break;
+        }
+      }
+    }
+
+    return s ?? null;
+  };
+
+  const getFirstProgramIndicatorTarget = (program) => {
+    if (!program) return null;
+    const firstTarget = program?.target ?? program?.indikator_target ?? program?.target_indikator ?? null;
+    if (firstTarget !== null && firstTarget !== undefined) return firstTarget;
+
+    const indikatorItems = Array.isArray(program?.indikator)
+      ? program.indikator
+      : (program?.indikator && typeof program.indikator === 'object')
+        ? Object.values(program.indikator)
+        : null;
+
+    if (indikatorItems) {
+      for (const el of indikatorItems) {
+        if (!el) continue;
+        const candidate = el.target_indikator ?? el.target ?? el.indikator_target ?? null;
+        if (candidate !== null && candidate !== undefined) return candidate;
+      }
+    }
+
+    if (program?.indikator_targets && typeof program.indikator_targets === 'object') {
+      for (const value of Object.values(program.indikator_targets)) {
+        if (value !== null && value !== undefined) return value;
+      }
+    }
+
+    return null;
+  };
+
   // Also collect per-indicator targets from the original program items (if available)
   const rkpdTargetMap = new Map();
   (row?.rkpd_programs || []).forEach((p) => {
@@ -3322,26 +4236,8 @@ function getIndicatorRowsForLine(line, row) {
     names.forEach((n) => {
       const k = normalize(n);
       if (!rkpdTargetMap.has(k)) {
-        // prefer common keys: try several possible field names
-        let t = p?.target ?? p?.indikator_target ?? p?.target_indikator ?? null;
-        // if indikator array contains objects with targets, try to find matching name
-        if ((t === null || t === undefined) && Array.isArray(p?.indikator)) {
-          for (let el of p.indikator) {
-            if (!el) continue;
-            const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
-            if (elName && normalize(elName) === k) {
-              t = el.target_indikator ?? el.target ?? t;
-              break;
-            }
-          }
-        }
-        // also accept a mapping object `indikator_targets` keyed by name
-        if ((t === null || t === undefined) && p?.indikator_targets && typeof p.indikator_targets === 'object') {
-          const mapped = p.indikator_targets[k] ?? p.indikator_targets[elName] ?? null;
-          if (mapped !== undefined) t = mapped;
-        }
-
-        rkpdTargetMap.set(k, t ?? null);
+        const t = getProgramIndicatorTarget(p, k);
+        rkpdTargetMap.set(k, t);
       }
     });
   });
@@ -3357,18 +4253,8 @@ function getIndicatorRowsForLine(line, row) {
         names.forEach((n) => {
           const k = normalize(n);
           if (!renjaTargetMap.has(k)) {
-            let t = p?.target ?? p?.indikator_target ?? p?.target_indikator ?? null;
-            if ((t === null || t === undefined) && Array.isArray(p?.indikator)) {
-              for (let el of p.indikator) {
-                if (!el) continue;
-                const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
-                if (elName && normalize(elName) === k) {
-                  t = el.target_indikator ?? el.target ?? t;
-                  break;
-                }
-              }
-            }
-            renjaTargetMap.set(k, t ?? null);
+            const t = getProgramIndicatorTarget(p, k);
+            renjaTargetMap.set(k, t);
           }
         });
       });
@@ -3430,22 +4316,8 @@ function getIndicatorRowsForLine(line, row) {
     names.forEach((n) => {
       const k = normalize(n);
       if (!dpaTargetMap.has(k)) {
-        let t = p?.target ?? p?.indikator_target ?? p?.target_indikator ?? null;
-        if ((t === null || t === undefined) && Array.isArray(p?.indikator)) {
-          for (let el of p.indikator) {
-            if (!el) continue;
-            const elName = (typeof el === 'string') ? String(el).trim() : (el.nama_indikator ?? el.nama ?? '');
-            if (elName && normalize(elName) === k) {
-              t = el.target_indikator ?? el.target ?? t;
-              break;
-            }
-          }
-        }
-        if ((t === null || t === undefined) && p?.indikator_targets && typeof p.indikator_targets === 'object') {
-          const mapped = p.indikator_targets[k] ?? null;
-          if (mapped !== undefined) t = mapped;
-        }
-        dpaTargetMap.set(k, t ?? null);
+        const t = getProgramIndicatorTarget(p, k);
+        dpaTargetMap.set(k, t);
       }
     });
   });
@@ -3766,12 +4638,60 @@ const getLeftDisplayedCount = (row, leftKey) => {
   return getComparableTotalByKey(row, leftKey);
 };
 
-const getDifferentCountByKeys = (row, leftKey, rightKey) => {
-  const sameCount = getSameCountByKeys(row, leftKey, rightKey);
-  const leftDisplayedCount = getLeftDisplayedCount(row, leftKey);
+const extractIndicatorsFromPrograms = (programs) => {
+  const names = new Set();
+  (programs || []).forEach((program) => {
+    extractIndicatorNamesGlobal(program).forEach((name) => {
+      const normalized = normalizeComparableText(name);
+      if (normalized) names.add(normalized);
+    });
+  });
+  return Array.from(names);
+};
 
-  // Paksa konsistensi aritmetika tabel: Sama + Tidak Sama = Total kolom kiri.
-  return Math.max(leftDisplayedCount - sameCount, 0);
+const compareIndicatorLists = (leftPrograms, rightPrograms) => {
+  const left = new Set(extractIndicatorsFromPrograms(leftPrograms));
+  const right = new Set(extractIndicatorsFromPrograms(rightPrograms));
+
+  const same = [];
+  const leftOnly = [];
+  const rightOnly = [];
+
+  left.forEach((item) => {
+    if (right.has(item)) {
+      same.push(item);
+    } else {
+      leftOnly.push(item);
+    }
+  });
+
+  right.forEach((item) => {
+    if (!left.has(item)) {
+      rightOnly.push(item);
+    }
+  });
+
+  return { same, leftOnly, rightOnly };
+};
+
+const getIndicatorCountForRow = (row, key) => {
+  return extractIndicatorsFromPrograms(row?.[key] ?? []).length;
+};
+
+const getSameIndicatorCountByKeys = (row, leftKey, rightKey) => {
+  return compareIndicatorLists(row?.[leftKey], row?.[rightKey]).same.length;
+};
+
+const getDifferentIndicatorCountByKeys = (row, leftKey, rightKey) => {
+  const comparison = compareIndicatorLists(row?.[leftKey], row?.[rightKey]);
+  return comparison.leftOnly.length + comparison.rightOnly.length;
+};
+
+const getDifferentCountByKeys = (row, leftKey, rightKey) => {
+  const comparison = compareProgramLists(row?.[leftKey], row?.[rightKey]);
+
+  // Use symmetric difference so "Tidak Sama" reflects items present in only one side.
+  return comparison.leftOnlyPrograms.length + comparison.rightOnlyPrograms.length;
 };
 
 const formatEntityLabel = (value) => {
@@ -3793,6 +4713,18 @@ const currentTableLabel = computed(() => {
 
   if (props.currentTable.startsWith('tabel-')) {
     return props.currentTable.replace('tabel-', 'Tabel ');
+  }
+
+  if (props.currentTable === 'berdasarkan-sasaran') {
+    return 'Berdasarkan Sasaran';
+  }
+
+  if (props.currentTable === 'berdasarkan-bidang-urusan') {
+    return 'Berdasarkan Bidang Urusan';
+  }
+
+  if (props.currentTable === 'berdasarkan-opd') {
+    return 'Berdasarkan OPD';
   }
 
   return props.currentTable;

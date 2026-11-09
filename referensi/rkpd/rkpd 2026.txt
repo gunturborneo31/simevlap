@@ -1,0 +1,44 @@
+Dinas Pendidikan dan Kebudayaan	377.171.212.592,00
+Dinas Kesehatan, Pengendalian Penduduk dan KB	162.655.185.684,00
+Puskesmas Long Apari	2.459.053.827,00
+Puskesmas Long Pahangai	1.949.867.197,00
+Puskesmas Long Bagun	4.266.551.600,00
+Puskesmas Laham	2.319.709.872,00
+Puskesmas Long Hubung	2.133.168.500,00
+Puskesmas Memahak Besar	1.891.973.792,00
+Rumah Sakit Pratama Gerbang Sehat Mahakam Ulu	20.023.365.379,00
+Rumah Sakit Pratama Nawacita Datah Dave	9.298.753.278,60
+Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman	799.129.414.857,00
+Satuan Polisi Pamong Praja	30.820.582.201,00
+Badan Penanggulangan Bencana Daerah	18.295.146.161,00
+Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak	28.983.473.102,15
+Dinas Lingkungan Hidup	19.935.119.111,00
+Dinas Kependudukan dan Pencatatan Sipil	15.256.977.521,00
+Dinas Pemberdayaan Masyarakat dan Pemerintahan Kampung	229.259.724.702,00
+Dinas Perhubungan	41.761.329.874,00
+Dinas Komunikasi dan Informatika, Statistik, dan Persandian	41.740.169.526,93
+Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu	9.253.186.734,50
+Dinas Pariwisata, Pemuda dan Olahraga	33.048.966.695,00
+Dinas Ketahanan Pangan dan Pertanian	42.747.438.929,60
+Bagian Hukum	6.236.929.653,00
+Bagian Kesejahteraan Rakyat	35.133.272.285,00
+Bagian Umum	83.923.859.927,00
+Bagian Protokol dan Komunikasi Pimpinan	9.890.475.014,00
+Bagian Pengadaan Barang Dan Jasa	6.408.336.176,00
+Bagian Administrasi Pembangunan	4.175.620.336,00
+Bagian Perekonomian dan Sumber Daya Alam	16.339.642.091,00
+Bagian Organisasi	6.299.689.988,00
+Bagian Pemerintahan	6.999.999.182,00
+Sekretariat DPRD	64.221.281.093,00
+Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah	49.121.089.093,23
+Badan Pendapatan Daerah	16.817.003.788,00
+Badan Pengelola Keuangan dan Aset Daerah	131.382.543.688,99
+Badan Kepegawaian dan Pengembangan Sumber Daya Manusia	21.442.339.289,00
+Badan Pengelola Perbatasan Daerah	10.113.334.870,00
+Inspektorat	20.218.196.197,00
+Kecamatan Long Apari	8.914.258.907,00
+Kecamatan Long Pahangai	9.264.246.125,00
+Kecamatan Long Bagun	8.878.312.200,00
+Kecamatan Laham	7.401.945.182,00
+Kecamatan Long Hubung	7.675.383.986,00
+Badan Kesatuan Bangsa dan Politik	14.991.869.792,00

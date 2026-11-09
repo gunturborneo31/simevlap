@@ -9,6 +9,7 @@ use App\Http\Controllers\KepmenController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\RealisasiController;
 use App\Http\Controllers\RenstraController;
+use App\Http\Controllers\Resume2Controller;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikatorController;
@@ -121,7 +122,7 @@ Route::get('/__debug/relasi/program-aksi', [DataDasarController::class, 'debugRe
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'guest.resume.only'])->group(function () {
         // Toggle prioritas program
         Route::post('/data-dasar/program/{program}/prioritas', [DataDasarController::class, 'togglePrioritas'])
             ->middleware('role:superadmin|admin|verifikator')
@@ -190,8 +191,17 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/realisasi/{realisasi}', [RealisasiController::class, 'destroy'])->name('realisasi.destroy');
     });
 
+    // Resume 2: duplikat tampilan Resume SIMEVLAP v1 (sementara memakai data dummy)
+    Route::prefix('resume2')->name('resume2.')->controller(Resume2Controller::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{section}', 'section')->name('section');
+        Route::get('/{section}/{tabel}', 'table')->where('tabel', 'tabel-[0-9]+')->name('table');
+    });
+
     Route::get('/resume', [ResumeController::class, 'index'])->name('resume.index');
     Route::post('/resume/export-server', [ResumeController::class, 'exportExcelServer'])->name('resume.export.server');
+    Route::get('/resume/kertas-kerja/all-opds', [ResumeController::class, 'exportAllKertasKerja'])->name('resume.kertas-kerja.all-opds');
+    Route::get('/resume/kertas-kerja/all-opds/export', [ResumeController::class, 'exportAllKertasKerjaExcel'])->name('resume.kertas-kerja.all-opds.export');
     // Temporary debug route to inspect clone payload (returns JSON)
     Route::get('/debug/realisasi-clone', [\App\Http\Controllers\RealisasiCloneDebugController::class, 'index'])->name('debug.realisasi.clone');
     Route::get('/resume/attachments', [ResumeController::class, 'attachments'])->name('resume.attachments');

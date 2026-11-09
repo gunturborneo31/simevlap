@@ -1,0 +1,108 @@
+[
+    {
+        "is_section": true,
+        "section_no": "I",
+        "label": "Indikator Kinerja Tujuan"
+    },
+    {
+        "No": 1,
+        "Indikator": "Indeks Gini",
+        "2023": 0.274,
+        "2024": 0.26,
+        "2026": 0.236,
+        "realisasi": 0.296,
+        "capaian": 66.94,
+        "keterangan": "Realisasi 2023",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    },
+    {
+        "No": 2,
+        "Indikator": "Indeks Kualitas Lingkungan Hidup",
+        "2023": 83.67,
+        "2024": 84.94,
+        "2026": 87.47,
+        "realisasi": 86.62,
+        "capaian": 96.51,
+        "keterangan": "Realisasi 2023",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    },
+    {
+        "No": 3,
+        "Indikator": "Laju Pertumbuhan Ekonomi (%)",
+        "2023": 1.71,
+        "2024": 2.39,
+        "2026": 4.38,
+        "realisasi": 5.11,
+        "capaian": 77.71,
+        "keterangan": "Realisasi 2024",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    },
+    {
+        "No": 4,
+        "Indikator": "PDRB Per Kapita (Juta Rp)",
+        "2023": 100.42,
+        "2024": 106.71,
+        "2026": 120.4,
+        "realisasi": 118.63,
+        "capaian": 89.02,
+        "keterangan": "Realisasi 2023",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    },
+    {
+        "No": 5,
+        "Indikator": "Indeks Pembangunan Manusia",
+        "2023": 69.32,
+        "2024": 69.9,
+        "2026": 71.07,
+        "realisasi": 71.53,
+        "capaian": 99.82,
+        "keterangan": "Realisasi 2024",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    },
+    {
+        "No": 6,
+        "Indikator": "Indeks Reformasi Birokrasi",
+        "2023": "CC",
+        "2024": "B",
+        "2026": "B",
+        "realisasi": "CC (58,18)",
+        "capaian": null,
+        "keterangan": "Realisasi 2023",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    },
+    {
+        "is_section": true,
+        "section_no": "II",
+        "label": "Indikator Kinerja Sasaran Strategis"
+    },
+    {
+        "No": 7,
+        "Indikator": "Tingkat Kemiskinan (%)",
+        "2023": 11.39,
+        "2024": 10.94,
+        "2026": 10.09,
+        "realisasi": 10.09,
+        "capaian": 97.62,
+        "keterangan": "Realisasi 2024",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    },
+    {
+        "No": 8,
+        "Indikator": "Tingkat Pengangguran Terbuka (%)",
+        "2023": 2.42,
+        "2024": 2.4,
+        "2026": 2.32,
+        "realisasi": 2.84,
+        "capaian": 85.79,
+        "keterangan": "Realisasi 2023",
+        "faktor_pendorong": "",
+        "faktor_penghambat": ""
+    }
+]

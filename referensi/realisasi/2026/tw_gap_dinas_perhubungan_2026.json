@@ -1,0 +1,299 @@
+{
+    "meta": {
+        "opd": "Dinas Perhubungan",
+        "opd_kode": "2.15.0.00.0.00.09.0000",
+        "tahun": 2026,
+        "document_type": "dpa"
+    },
+    "stats": {
+        "tw2_null_or_zero": {
+            "count": 19,
+            "sum_tw1": 392229204
+        },
+        "tw2_less_than_tw1": {
+            "count": 4,
+            "sum_tw1": 976195657,
+            "sum_tw2": 369124432,
+            "sum_gap": 607071225
+        }
+    },
+    "total_rows": 23,
+    "rows": [
+        {
+            "kategori": "TW2_LEBIH_KECIL_DARI_TW1",
+            "tw1_id": 844,
+            "tw2_id": 4169,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 616,
+            "kode_sub_kegiatan": "2.15.01.2.08.0004",
+            "nama_sub_kegiatan": "Penyediaan Jasa Pelayanan Umum Kantor",
+            "tw1_keuangan": 590162493,
+            "tw2_keuangan": 245461016,
+            "gap": 344701477
+        },
+        {
+            "kategori": "TW2_LEBIH_KECIL_DARI_TW1",
+            "tw1_id": 840,
+            "tw2_id": 4165,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 610,
+            "kode_sub_kegiatan": "2.15.01.2.06.0009",
+            "nama_sub_kegiatan": "Penyelenggaraan Rapat Koordinasi dan Konsultasi SKPD",
+            "tw1_keuangan": 330375186,
+            "tw2_keuangan": 94720000,
+            "gap": 235655186
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 856,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 564,
+            "kode_sub_kegiatan": "2.15.02.2.06.0017",
+            "nama_sub_kegiatan": "Penataan Manajemen dan Rekayasa Lalu Lintas untuk Jaringan Jalan Kabupaten/Kota",
+            "tw1_keuangan": 100705000,
+            "tw2_keuangan": null,
+            "gap": 100705000
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 838,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 608,
+            "kode_sub_kegiatan": "2.15.01.2.06.0005",
+            "nama_sub_kegiatan": "Penyediaan Barang Cetakan dan Penggandaan",
+            "tw1_keuangan": 74486600,
+            "tw2_keuangan": null,
+            "gap": 74486600
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 854,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 560,
+            "kode_sub_kegiatan": "2.15.02.2.06.0004",
+            "nama_sub_kegiatan": "Pengawasan dan Pengendalian Efektivitas Pelaksanaan Kebijakan untuk Jalan Kabupaten/Kota",
+            "tw1_keuangan": 39628600,
+            "tw2_keuangan": null,
+            "gap": 39628600
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 842,
+            "tw2_id": 4167,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 614,
+            "kode_sub_kegiatan": "2.15.01.2.08.0001",
+            "nama_sub_kegiatan": "Penyediaan Jasa Surat Menyurat",
+            "tw1_keuangan": 35327974,
+            "tw2_keuangan": 0,
+            "gap": 35327974
+        },
+        {
+            "kategori": "TW2_LEBIH_KECIL_DARI_TW1",
+            "tw1_id": 846,
+            "tw2_id": 4170,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 618,
+            "kode_sub_kegiatan": "2.15.01.2.09.0002",
+            "nama_sub_kegiatan": "Penyediaan Jasa Pemeliharaan, Biaya Pemeliharaan, Pajak dan Perizinan Kendaraan Dinas Operasional atau Lapangan",
+            "tw1_keuangan": 34723650,
+            "tw2_keuangan": 12885000,
+            "gap": 21838650
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 836,
+            "tw2_id": 4179,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 606,
+            "kode_sub_kegiatan": "2.15.01.2.06.0003",
+            "nama_sub_kegiatan": "Penyediaan Peralatan Rumah Tangga",
+            "tw1_keuangan": 30303089,
+            "tw2_keuangan": 0,
+            "gap": 30303089
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 852,
+            "tw2_id": 4176,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 557,
+            "kode_sub_kegiatan": "2.15.02.2.05.0005",
+            "nama_sub_kegiatan": "Sosialisasi Standar Operasional Prosedur Pengujian Berkala Kendaraan Bermotor",
+            "tw1_keuangan": 28309800,
+            "tw2_keuangan": 0,
+            "gap": 28309800
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 820,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 586,
+            "kode_sub_kegiatan": "2.15.01.2.01.0011",
+            "nama_sub_kegiatan": "Penyusunan Dokumen Perencanaan Urusan Selain Renstra PD dan Renja PD",
+            "tw1_keuangan": 22715000,
+            "tw2_keuangan": null,
+            "gap": 22715000
+        },
+        {
+            "kategori": "TW2_LEBIH_KECIL_DARI_TW1",
+            "tw1_id": 855,
+            "tw2_id": 4180,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 562,
+            "kode_sub_kegiatan": "2.15.02.2.06.0015",
+            "nama_sub_kegiatan": "Forum Lalu Lintas dan Angkutan Jalan untuk Jaringan Jalan Kabupaten/Kota",
+            "tw1_keuangan": 20934328,
+            "tw2_keuangan": 16058416,
+            "gap": 4875912
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 839,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 609,
+            "kode_sub_kegiatan": "2.15.01.2.06.0008",
+            "nama_sub_kegiatan": "Fasilitasi Kunjungan Tamu",
+            "tw1_keuangan": 19308000,
+            "tw2_keuangan": null,
+            "gap": 19308000
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 853,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 559,
+            "kode_sub_kegiatan": "2.15.02.2.05.0008",
+            "nama_sub_kegiatan": "Koordinasi Penyelenggaraan Pengujian Berkala Kendaraan Bermotor",
+            "tw1_keuangan": 13128900,
+            "tw2_keuangan": null,
+            "gap": 13128900
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 827,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 593,
+            "kode_sub_kegiatan": "2.15.01.2.02.0008",
+            "nama_sub_kegiatan": "Penyusunan Pelaporan dan Analisis Prognosis Realisasi Anggaran",
+            "tw1_keuangan": 5782036,
+            "tw2_keuangan": null,
+            "gap": 5782036
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 824,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 590,
+            "kode_sub_kegiatan": "2.15.01.2.02.0005",
+            "nama_sub_kegiatan": "Koordinasi dan Penyusunan Laporan Keuangan Akhir Tahun SKPD",
+            "tw1_keuangan": 5149780,
+            "tw2_keuangan": null,
+            "gap": 5149780
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 823,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 589,
+            "kode_sub_kegiatan": "2.15.01.2.02.0003",
+            "nama_sub_kegiatan": "Pelaksanaan Penatausahaan dan\n\nPengujian/Verifikasi Keuangan SKPD",
+            "tw1_keuangan": 3224990,
+            "tw2_keuangan": null,
+            "gap": 3224990
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 815,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 581,
+            "kode_sub_kegiatan": "2.15.01.2.01.0001",
+            "nama_sub_kegiatan": "Penyusunan Dokumen Perencanaan Perangkat Daerah",
+            "tw1_keuangan": 3060000,
+            "tw2_keuangan": null,
+            "gap": 3060000
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 825,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 591,
+            "kode_sub_kegiatan": "2.15.01.2.02.0006",
+            "nama_sub_kegiatan": "Pengelolaan dan Penyiapan Bahan Tanggapan Pemeriksaan",
+            "tw1_keuangan": 2787445,
+            "tw2_keuangan": null,
+            "gap": 2787445
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 826,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 592,
+            "kode_sub_kegiatan": "2.15.01.2.02.0007",
+            "nama_sub_kegiatan": "Koordinasi dan Penyusunan Laporan Keuangan Bulanan/ Triwulanan/ Semesteran SKPD",
+            "tw1_keuangan": 2574890,
+            "tw2_keuangan": null,
+            "gap": 2574890
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 828,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 595,
+            "kode_sub_kegiatan": "2.15.01.2.03.0005",
+            "nama_sub_kegiatan": "Rekonsiliasi dan Penyusunan Laporan Barang Milik Daerah pada SKPD",
+            "tw1_keuangan": 1807525,
+            "tw2_keuangan": null,
+            "gap": 1807525
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 816,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 582,
+            "kode_sub_kegiatan": "2.15.01.2.01.0002",
+            "nama_sub_kegiatan": "Koordinasi dan Penyusunan Dokumen RKA-SKPD",
+            "tw1_keuangan": 1500000,
+            "tw2_keuangan": null,
+            "gap": 1500000
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 829,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 596,
+            "kode_sub_kegiatan": "2.15.01.2.03.0006",
+            "nama_sub_kegiatan": "Penatausahaan Barang Milik Daerah pada SKPD",
+            "tw1_keuangan": 1287445,
+            "tw2_keuangan": null,
+            "gap": 1287445
+        },
+        {
+            "kategori": "TW2_KOSONG_ATAU_0",
+            "tw1_id": 818,
+            "tw2_id": null,
+            "realisaseable_type": "App\\Models\\SubKegiatan",
+            "realisaseable_id": 584,
+            "kode_sub_kegiatan": "2.15.01.2.01.0006",
+            "nama_sub_kegiatan": "Koordinasi dan Penyusunan Laporan Capaian Kinerja dan Ikhtisar Realisasi Kinerja SKPD",
+            "tw1_keuangan": 1142130,
+            "tw2_keuangan": null,
+            "gap": 1142130
+        }
+    ]
+}

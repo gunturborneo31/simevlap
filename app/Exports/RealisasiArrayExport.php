@@ -4,31 +4,46 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
-class RealisasiArrayExport implements FromArray, WithEvents
+class RealisasiArrayExport implements FromArray, WithEvents, WithTitle
 {
     protected array $rows;
     protected array $styles;
     protected array $cols;
     protected array $merges;
     protected array $rowHeights;
+    protected string $sheetTitle;
 
-    public function __construct(array $rows = [], array $styles = [], array $cols = [], array $merges = [], array $rowHeights = [])
+    public function __construct(array $rows = [], array $styles = [], array $cols = [], array $merges = [], array $rowHeights = [], string $sheetTitle = 'Sheet1')
     {
         $this->rows = $rows;
         $this->styles = $styles;
         $this->cols = $cols;
         $this->merges = $merges;
         $this->rowHeights = $rowHeights;
+        $this->sheetTitle = trim($sheetTitle) !== '' ? trim($sheetTitle) : 'Sheet1';
     }
 
     public function array(): array
     {
         return $this->rows;
+    }
+
+    public function title(): string
+    {
+        $title = preg_replace('/[\\\\\/?*:\[\]]/', '', $this->sheetTitle) ?? 'Sheet1';
+        $title = trim($title);
+
+        if ($title === '') {
+            return 'Sheet1';
+        }
+
+        return mb_substr($title, 0, 31);
     }
 
     public function registerEvents(): array
@@ -58,8 +73,14 @@ class RealisasiArrayExport implements FromArray, WithEvents
                                 'startColor' => ['rgb' => ltrim(str_replace('#', '', (string)$st['bg']), '#')],
                             ];
                         }
-                        if (!empty($st['color'])) {
-                            $styleArray['font'] = ['color' => ['rgb' => ltrim(str_replace('#', '', (string)$st['color']), '#')]];
+                        if (!empty($st['color']) || !empty($st['bold'])) {
+                            $styleArray['font'] = [];
+                            if (!empty($st['color'])) {
+                                $styleArray['font']['color'] = ['rgb' => ltrim(str_replace('#', '', (string)$st['color']), '#')];
+                            }
+                            if (!empty($st['bold'])) {
+                                $styleArray['font']['bold'] = true;
+                            }
                         }
                     }
 

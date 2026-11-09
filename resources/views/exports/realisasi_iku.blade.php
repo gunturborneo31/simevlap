@@ -5,34 +5,43 @@
     <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #444; padding: 6px; font-size: 12px; }
-        th { background: #e6f4ea; }
+        th { background: #d9d9d9; text-align: center; font-weight: bold; }
+        .section-row { background: #ffc000; font-weight: bold; }
+        .data-row:nth-child(even) { background: #f9f9f9; }
     </style>
 </head>
 <body>
-    <h3>{{ $viewTitle ?? 'Realisasi IKU' }}</h3>
+    <h3>{{ $viewTitle ?? 'Realisasi IKU' }} - Tahun {{ $selectedYear ?? '' }}</h3>
     <table>
         <thead>
             <tr>
-                <th>No</th>
+                <th style="width:40px">No</th>
                 <th>Indikator</th>
-                <th>Satuan</th>
-                <th>Target 2026</th>
-                <th>Realisasi Tahun</th>
-                <th>Realisasi Fisik</th>
-                <th>Realisasi Keuangan</th>
+                <th style="width:120px">Target RKPD {{ $selectedYear ?? '' }}</th>
+                <th style="width:130px">Realisasi Tahun 2025</th>
+                <th style="width:130px">Capaian Tahun {{ $selectedYear ?? '' }} (%)</th>
+                <th style="width:140px">Faktor Pendorong</th>
+                <th style="width:140px">Faktor Penghambat</th>
             </tr>
         </thead>
         <tbody>
             @foreach($rows as $row)
-                <tr>
-                    <td>{{ $row['no'] }}</td>
-                    <td>{{ $row['indikator'] }}</td>
-                    <td>{{ $row['satuan'] }}</td>
-                    <td>{{ $row['target_2026'] }}</td>
-                    <td>{{ $row['realisasi_tahun'] }}</td>
-                    <td>{{ $row['realisasi_fisik'] }}</td>
-                    <td>{{ $row['realisasi_keuangan'] }}</td>
-                </tr>
+                @if(!empty($row['is_section']))
+                    <tr class="section-row">
+                        <td style="text-align:center">{{ $row['section_no'] ?? '' }}</td>
+                        <td colspan="6">{{ $row['label'] ?? '' }}</td>
+                    </tr>
+                @else
+                    <tr class="data-row">
+                        <td style="text-align:center">{{ $row['no'] ?? '' }}</td>
+                        <td>{{ $row['indikator'] ?? '-' }}</td>
+                        <td style="text-align:center">{{ $row['target_rkpd'] ?? '-' }}</td>
+                        <td style="text-align:center">{{ $row['realisasi'] ?? '-' }}</td>
+                        <td style="text-align:center">{{ isset($row['capaian']) && $row['capaian'] !== null ? number_format($row['capaian'], 2).'%' : '-' }}</td>
+                        <td>{{ $row['faktor_pendorong'] ?? '-' }}</td>
+                        <td>{{ $row['faktor_penghambat'] ?? '-' }}</td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>

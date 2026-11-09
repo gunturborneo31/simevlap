@@ -1,0 +1,257 @@
+row_index,kode_opd,nama_skpd,kode_sub,uraian,anggaran_2026,realisasi,kode_sub_kegiatan,mapping_status
+58,5.03.5.04.0.00.24.0000,"Badan Kepegawaian dan Pengembangan Sumber Daya Manusia",5.2.02.10.001.00002,"Belanja Modal Personal Computer",99259460,0,5.03.02.2.01.0002,low_confidence
+59,5.03.5.04.0.00.24.0000,"Badan Kepegawaian dan Pengembangan Sumber Daya Manusia",5.2.02.10.002.00003,"Belanja Modal Peralatan Personal Computer",31175854,0,5.03.01.2.06.0002,low_confidence
+60,5.03.5.04.0.00.24.0000,"Badan Kepegawaian dan Pengembangan Sumber Daya Manusia",5.2.06.01.001.00005,"Belanja Modal Aset Tidak Berwujud-Software",1614645000,75000000,5.03.02.2.01.0008,low_confidence
+61,5.03.5.04.0.00.24.0000,"Badan Kepegawaian dan Pengembangan Sumber Daya Manusia",5.2.06.01.001.00006,"Belanja Modal Aset Tidak Berwujud-Kajian",400000000,0,5.03.02.2.01.0008,low_confidence
+121,8.01.0.00.0.00.25.0000,"Badan Kesatuan Bangsa dan Politik",5.1.05.05.001.00001,"Belanja Hibah Uang kepada Badan dan Lembaga yang Bersifat Nirlaba, Sukarela dan Sosial yang Dibentuk Berdasarkan Peraturan Perundang-Undangan",472817964,0,8.01.06.2.01.0005,low_confidence
+122,8.01.0.00.0.00.25.0000,"Badan Kesatuan Bangsa dan Politik",5.1.05.07.001.00001,"Belanja Hibah berupa Bantuan Keuangan kepada Partai Politik",0,0,8.01.03.2.01.0003,low_confidence
+123,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.001.00001,"Belanja Gaji Pokok PNS",1186500000,683036647,1.05.03.2.01.0007,low_confidence
+124,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.001.00002,"Belanja Gaji Pokok PPPK",406149800,227598805,1.05.03.2.01.0007,low_confidence
+125,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.002.00001,"Belanja Tunjangan Keluarga PNS",133088424,77281790,1.05.03.2.02.0019,low_confidence
+126,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.002.00002,"Belanja Tunjangan Keluarga PPPK",69069616,10595707,1.05.03.2.02.0019,low_confidence
+127,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.003.00001,"Belanja Tunjangan Jabatan PNS",113470000,64840000,1.05.03.2.01.0007,low_confidence
+128,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.004.00001,"Belanja Tunjangan Fungsional PNS",72590000,30688000,1.05.03.2.01.0007,low_confidence
+129,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.004.00002,"Belanja Tunjangan Fungsional PPPK",27720000,15588332,1.05.03.2.01.0007,low_confidence
+130,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.006.00001,"Belanja Tunjangan Beras PNS",76035120,44775233,1.05.03.2.01.0007,low_confidence
+131,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.006.00002,"Belanja Tunjangan Beras PPPK",33458040,11513612,1.05.03.2.01.0007,low_confidence
+132,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.007.00001,"Belanja Tunjangan PPh/Tunjangan Khusus PNS",8400000,8400000,1.05.03.2.01.0007,low_confidence
+133,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.01.008.00001,"Belanja Pembulatan Gaji PNS",3104024,303110,1.05.03.2.01.0007,low_confidence
+134,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.02.001.00001,"Tambahan Penghasilan berdasarkan Beban Kerja PNS",4606000000,1981421295,1.05.03.2.04.0003,low_confidence
+135,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.02.001.00002,"Tambahan Penghasilan berdasarkan Beban Kerja PPPK",721000000,360500000,1.05.03.2.04.0003,low_confidence
+136,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.02.005.00001,"Tambahan Penghasilan berdasarkan Prestasi Kerja PNS",336000000,157000000,1.05.03.2.01.0007,low_confidence
+137,1.05.0.00.0.00.26.0000,"Badan Penanggulangan Bencana Daerah",5.1.01.02.005.00002,"Tambahan Penghasilan berdasarkan Prestasi Kerja PPPK",154000000,77000000,1.05.03.2.01.0007,low_confidence
+184,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.06.001.00001,"Pajak Hotel",25000000,0,5.02.04.2.01.0001,low_confidence
+185,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.06.007.00001,"Pajak Rumah Penginapan dan Sejenisnya",0,12300000,5.02.04.2.01.0002,low_confidence
+186,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.07.002.00001,"Pajak Rumah Makan dan Sejenisnya",500000000,14119500,5.02.04.2.01.0007,low_confidence
+188,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.09.001.00001,"Pajak Reklame Papan/Billboard/Videotron/ Megatron",56808487,27512510,5.02.04.2.01.0001,low_confidence
+189,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.10.001.00001,"Pajak Penerangan Jalan Dihasilkan Sendiri",0,0,5.02.04.2.01.0001,low_confidence
+190,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.10.002.00001,"Pajak Penerangan Jalan Sumber Lain",0,0,5.02.04.2.01.0001,low_confidence
+191,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.12.001.00001,"Pajak Air Tanah",0,3696,5.02.04.2.01.0007,low_confidence
+192,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.13.001.00001,"Pajak Sarang Burung Walet",22500000,3010000,5.02.04.2.01.0001,low_confidence
+193,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.14.037.00001,"Pajak Mineral bukan Logam dan Batuan Lainnya",282479223,118862131,5.02.02.2.02.0005,low_confidence
+194,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.15.001.00001,PBBP2,200075100,53661157,5.02.04.2.01.0007,low_confidence
+195,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.16.001.00001,"BPHTB-Pemindahan Hak",1000000000,4067500,5.02.04.2.01.0007,low_confidence
+197,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.20.001.00001,"Opsen PKB",463980000,483095999,5.02.04.2.01.0002,low_confidence
+198,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.01.21.001.00001,"Opsen BBNKB",2389200000,1591121106,5.02.01.2.02.0001,low_confidence
+199,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.02.03.007.00001,"Retribusi Persetujuan Bangunan Gedung",0,0,5.02.01.2.09.0011,low_confidence
+200,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.04.12.006.00001,"Pendapatan Denda Pajak Hotel",0,0,5.02.02.2.01.0010,low_confidence
+201,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.04.12.009.00001,"Pendapatan Denda Pajak Reklame Papan/ Billboard/Videotron/Megatron",0,0,5.02.02.2.01.0010,low_confidence
+202,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.04.12.015.00001,"Pendapatan Denda PBBP2",0,0,5.02.02.2.01.0010,low_confidence
+203,5.02.0.00.0.00.22.0000,"Badan Pendapatan Daerah",4.1.04.27.001.00122,"Pendapatan Denda PBBP2",916180,0,5.02.02.2.01.0010,low_confidence
+206,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.04.001.00001,"Hasil Kerja Sama Daerah",510285000,0,5.02.02.2.01.0007,low_confidence
+209,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.07.001.00001,"Pendapatan Bunga atas Penempatan Uang Pemerintah Daerah",0,12106467021,5.02.02.2.02.0008,low_confidence
+210,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.08.001.00001,"Tuntutan Ganti Kerugian Daerah terhadap Bendahara",1452577795,6433304342.09,5.02.02.2.03.0007,low_confidence
+211,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.09.001.00001,"Penerimaan Komisi, Potongan, atau Bentuk Lain",236482102,85,5.02.02.2.02.0007,low_confidence
+212,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.11.001.00001,"Pendapatan Denda atas Keterlambatan Pelaksanaan Pekerjaan",4248514695,1215104007.7,5.02.02.2.03.0006,low_confidence
+213,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.15.004.00001,"Pendapatan dari Pengembalian Kelebihan Pembayaran Perjalanan Dinas Dalam Negeri-Perjalanan Dinas Biasa",67645000,306243201.99,5.02.02.2.03.0002,low_confidence
+216,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.15.034.00001,"Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Hibah Uang kepada Badan dan Lembaga yang Bersifat Nirlaba, Sukarela dan Sosial yang Dibentuk Berdasarkan Peraturan Perundang-Undangan",0,2565505,5.02.02.2.02.0008,low_confidence
+217,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.15.037.00001,"Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial Uang yang direncanakan kepada Individu",0,10000000,5.02.02.2.02.0008,low_confidence
+218,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.15.038.00001,"Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Bantuan Sosial Uang yang Direncanakan kepada Keluarga",0,138000000,5.02.02.2.02.0008,low_confidence
+219,5.02.4.01.0.00.23.0000,"Badan Pengelola Keuangan dan Aset Daerah",4.1.04.15.061.00041,"Pendapatan dari Pengembalian Kelebihan Pembayaran Belanja Modal Bangunan Gedung Tempat Tinggal-Mess/Wisma/Bungalow/Tempat Peristirahatan",0,61230000,5.02.02.2.03.0002,low_confidence
+643,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",4.1.02.01.001.00001,"Retribusi Pelayanan Kesehatan di Puskesmas",190177000,0,1.02.02.2.01.0014,low_confidence
+644,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",4.1.02.01.001.00003,"Retribusi Pelayanan Kesehatan di Puskesmas Pembantu",0,0,1.02.02.2.01.0014,low_confidence
+647,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",4.1.04.09.001.00001,"Penerimaan Komisi, Potongan, atau Bentuk Lain",0,0,1.02.02.2.02.0014,low_confidence
+648,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",4.3.03.02.001.00001,"Pendapatan Dana Kapitasi JKN pada FKTP",3290457900,0,1.02.02.2.01.0003,low_confidence
+649,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",4.3.03.05.001.00001,"Pendapatan Klaim Pelayanan Kesehatan/Nonkapitasi",1475898000,0,1.02.02.2.01.0003,low_confidence
+775,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.01.003.00004,"Belanja Modal Electric Generating Set",566766000,0,1.02.02.2.01.0003,low_confidence
+776,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.01.003.00005,"Belanja Modal Pompa",8928408,0,1.02.02.2.01.0003,low_confidence
+777,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.01.003.00006,"Belanja Modal Mesin Bor",0,0,1.02.01.2.07.0006,low_confidence
+778,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.01.003.00014,"Belanja Modal Peralatan SAR Mountenering",2237526,0,1.02.01.2.06.0002,low_confidence
+779,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.02.002.00001,"Belanja Modal Kendaraan Tak Bermotor Angkutan Barang",32996139,0,1.02.01.2.03.0005,low_confidence
+780,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.03.002.00007,"Belanja Modal Perkakas Bengkel Kerja",108000,0,1.02.02.2.02.0016,low_confidence
+784,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.05.002.00001,"Belanja Modal Mebel",530727554,0,1.02.02.2.01.0003,low_confidence
+790,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.05.003.00003,"Belanja Modal Kursi Kerja Pejabat",0,0,1.02.02.2.02.0016,low_confidence
+791,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.05.003.00007,"Belanja Modal Lemari dan Arsip Pejabat",0,0,1.02.02.2.01.0009,low_confidence
+792,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.06.001.00001,"Belanja Modal Peralatan Studio Audio",8288300,0,1.02.01.2.06.0002,low_confidence
+793,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.06.001.00002,"Belanja Modal Peralatan Studio Video dan Film",11630038,0,1.02.01.2.06.0002,low_confidence
+794,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.06.003.00010,"Belanja Modal Peralatan Antena SHF/Parabola",0,0,1.02.01.2.06.0002,low_confidence
+795,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.06.003.00047,"Belanja Modal Sumber Tenaga",201899000,0,1.02.02.2.01.0004,low_confidence
+805,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.10.001.00002,"Belanja Modal Personal Computer",564082218,0,1.02.02.2.01.0003,low_confidence
+806,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.10.002.00003,"Belanja Modal Peralatan Personal Computer",170875976,0,1.02.01.2.06.0002,low_confidence
+807,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.10.002.00004,"Belanja Modal Peralatan Jaringan",8659098,0,1.02.01.2.06.0002,low_confidence
+809,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.02.99.099.09999,"Belanja Modal Peralatan dan Mesin BLUD",400597220,0,1.02.01.2.07.0006,low_confidence
+811,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.03.01.001.00006,"Belanja Modal Bangunan Kesehatan",28860589480,4234100000,1.02.01.2.02.0001,low_confidence
+812,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.03.01.001.00033,"Belanja Modal Bangunan Parkir",0,0,1.02.02.2.01.0003,low_confidence
+813,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.04.03.001.00005,"Belanja Modal Instalasi Air Bersih/Air Baku Lainnya",209790000,0,1.02.02.2.01.0003,low_confidence
+814,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.04.03.002.00004,"Belanja Modal Instalasi Air Kotor Lainnya",472471500,0,1.02.02.2.01.0003,low_confidence
+815,1.02.2.14.0.00.02.0000,"Dinas Kesehatan, Pengendalian Penduduk dan KB",5.2.06.99.099.09999,"Belanja Modal Aset Lainnya BLUD",60000000,0,1.02.01.2.09.0007,low_confidence
+887,3.27.2.09.3.25.13.0000,"Dinas Ketahanan Pangan dan Pertanian",5.1.05.05.002.00001,"Belanja Hibah Uang kepada Badan dan Lembaga Nirlaba, Sukarela dan Sosial yang Telah Memiliki Surat Keterangan Terdaftar",400000000,0,2.09.03.2.01.0008,low_confidence
+1108,3.26.2.19.0.00.12.0000,"Dinas Pariwisata, Pemuda dan Olahraga",5.1.05.05.001.00001,"Belanja Hibah Uang kepada Badan dan Lembaga yang Bersifat Nirlaba, Sukarela dan Sosial yang Dibentuk Berdasarkan Peraturan Perundang-Undangan",0,0,2.19.02.2.01.0015,low_confidence
+1109,3.26.2.19.0.00.12.0000,"Dinas Pariwisata, Pemuda dan Olahraga",5.1.05.05.002.00001,"Belanja Hibah Uang kepada Badan dan Lembaga Nirlaba, Sukarela dan Sosial yang Telah Memiliki Surat Keterangan Terdaftar",2852000000,0,2.19.03.2.04.0006,low_confidence
+1295,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",4.1.04.09.001.00001,"Penerimaan Komisi, Potongan, atau Bentuk Lain",0,0,1.01.02.2.01.0049,low_confidence
+1381,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.1.05.06.001.00001,"Belanja Hibah Uang Dana BOS yang Diterima oleh Satdikdas Negeri",0,0,1.01.02.2.01.0029,low_confidence
+1382,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.1.05.06.002.00001,"Belanja Hibah Uang Dana BOS yang Diterima oleh Satdikdas Swasta",0,0,1.01.02.2.01.0029,low_confidence
+1383,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.1.05.08.001.00001,"Belanja Hibah Dana BOSP-BOS",16690560000,0,1.01.02.2.01.0029,low_confidence
+1388,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.02.05.002.00001,"Belanja Modal Mebel",1466205412,0,1.01.02.2.01.0014,low_confidence
+1394,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.02.10.001.00002,"Belanja Modal Personal Computer",2990358885,0,1.01.02.2.01.0003,low_confidence
+1396,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.02.10.002.00003,"Belanja Modal Peralatan Personal Computer",35865096,0,1.01.01.2.06.0002,low_confidence
+1397,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.02.10.002.00004,"Belanja Modal Peralatan Jaringan",250483952,0,1.01.01.2.06.0002,low_confidence
+1398,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.02.19.001.00006,"Belanja Modal Peralatan Olahraga Lainnya",0,0,1.01.01.2.06.0002,low_confidence
+1399,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.02.89.001.00001,"Belanja Modal Peralatan dan Mesin BOSP-BOS Reguler",2508360400,0,1.01.02.2.01.0006,low_confidence
+1401,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00005,"Belanja Modal Bangunan Gedung Laboratorium",0,0,1.01.01.2.09.0011,low_confidence
+1402,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00006,"Belanja Modal Bangunan Kesehatan",0,0,1.01.02.2.01.0004,low_confidence
+1403,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00008,"Belanja Modal Bangunan Gedung Tempat Ibadah",0,0,1.01.01.2.09.0011,low_confidence
+1404,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00009,"Belanja Modal Bangunan Gedung Tempat Pertemuan",0,0,1.01.01.2.09.0011,low_confidence
+1405,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00010,"Belanja Modal Bangunan Gedung Tempat Pendidikan",26030101334,232399815,1.01.01.2.09.0011,low_confidence
+1406,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00013,"Belanja Modal Bangunan Gedung untuk Pos Jaga",0,0,1.01.01.2.09.0011,low_confidence
+1407,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00016,"Belanja Modal Bangunan Gedung Perpustakaan",275585200,0,1.01.01.2.09.0011,low_confidence
+1408,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00025,"Belanja Modal Bangunan Terbuka",3111005500,0,1.01.02.2.01.0003,low_confidence
+1410,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.001.00033,"Belanja Modal Bangunan Parkir",0,0,1.01.02.2.02.0010,low_confidence
+1411,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.01.002.00004,"Belanja Modal Mess/Wisma/Bungalow/Tempat Peristirahatan",7952439267,0,1.01.02.2.01.0006,low_confidence
+1412,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.03.04.001.00004,"Belanja Modal Pagar",4313791334,0,1.01.02.2.01.0003,low_confidence
+1413,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.04.02.002.00004,"Belanja Modal Saluran Pembuang Pasang Surut",173920000,0,1.01.02.2.01.0003,low_confidence
+1414,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.04.02.004.00003,"Belanja Modal Bangunan Pembawa Pengaman Sungai/Pantai",1839198300,0,1.01.02.2.01.0003,low_confidence
+1415,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.04.03.005.00009,"Belanja Modal Instalasi Pembangkit Listrik Tenaga Surya (PLTS)",0,0,1.01.01.2.06.0001,low_confidence
+1416,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.06.01.001.00005,"Belanja Modal Aset Tidak Berwujud-Software",896000000,0,1.01.02.2.01.0003,low_confidence
+1417,1.01.2.22.5.04.01.0000,"Dinas Pendidikan dan Kebudayaan",5.2.06.01.001.00006,"Belanja Modal Aset Tidak Berwujud-Kajian",1850020000,0,1.01.02.2.01.0003,low_confidence
+1418,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",4.1.02.02.008.00001,"Retribusi Pelayanan Kepelabuhanan",70000000,0,2.15.03.2.03.0001,low_confidence
+1508,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.01.01.003.00005,"Belanja Modal Tanah Lapangan Pengujian/Pengolahan",0,0,2.15.02.2.05.0005,low_confidence
+1509,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.01.003.00004,"Belanja Modal Electric Generating Set",519232400,0,2.15.02.2.02.0002,low_confidence
+1510,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.01.003.00005,"Belanja Modal Pompa",8285550,0,2.15.02.2.01.0004,low_confidence
+1512,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.02.001.00002,"Belanja Modal Kendaraan Bermotor Penumpang",1541286000,0,2.15.01.2.07.0002,low_confidence
+1513,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.02.001.00006,"Belanja Modal Kendaraan Bermotor Khusus",157684380,0,2.15.02.2.05.0005,low_confidence
+1514,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.02.002.00001,"Belanja Modal Kendaraan Tak Bermotor Angkutan Barang",26255760,0,2.15.02.2.05.0005,low_confidence
+1520,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.05.002.00001,"Belanja Modal Mebel",183123322,0,2.15.02.2.01.0004,low_confidence
+1523,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.06.001.00002,"Belanja Modal Peralatan Studio Video dan Film",85777749,85777749,2.15.01.2.06.0002,low_confidence
+1524,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.06.001.00005,"Belanja Modal Peralatan Studio Pemetaan/Peralatan Ukur Tanah",8795979,8789640,2.15.01.2.06.0002,low_confidence
+1527,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.10.001.00002,"Belanja Modal Personal Computer",258616491,203849643,2.15.02.2.01.0004,low_confidence
+1528,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.10.002.00003,"Belanja Modal Peralatan Personal Computer",127870803,93340345,2.15.01.2.06.0002,low_confidence
+1529,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.10.002.00004,"Belanja Modal Peralatan Jaringan",75585376,16058416,2.15.02.2.06.0015,low_confidence
+1532,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.15.004.00004,"Belanja Modal Peralatan Fasilitas Bantu Pelayanan dan Pengamanan Bandar Udara",130000000,0,2.15.03.2.03.0001,low_confidence
+1533,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.18.001.00003,"Belanja Modal Rambu-Rambu Lalu Lintas Darat Lainnya",0,0,2.15.02.2.01.0004,low_confidence
+1534,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.02.19.001.00006,"Belanja Modal Peralatan Olahraga Lainnya",0,0,2.15.01.2.09.0006,low_confidence
+1536,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.03.01.001.00018,"Belanja Modal Bangunan Gedung Terminal/Pelabuhan/Bandara",0,0,2.15.01.2.07.0009,low_confidence
+1537,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.04.01.001.00010,"Belanja Modal Jalan Lainnya",400000000,0,2.15.02.2.02.0002,low_confidence
+1538,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.04.01.002.00011,"Belanja Modal Jembatan Labuh/Sandar pada Terminal",325000000,0,2.15.02.2.02.0002,low_confidence
+1539,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.04.02.004.00003,"Belanja Modal Bangunan Pembawa Pengaman Sungai/Pantai",0,0,2.15.03.2.03.0001,low_confidence
+1540,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.04.02.004.00006,"Belanja Modal Bangunan Pelengkap Pengaman Sungai",0,0,2.15.03.2.03.0001,low_confidence
+1541,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.04.04.002.00003,"Belanja Modal Jaringan Listrik Lainnya",0,0,2.15.02.2.06.0015,low_confidence
+1542,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.06.01.001.00005,"Belanja Modal Aset Tidak Berwujud-Software",0,0,2.15.02.2.01.0004,low_confidence
+1543,2.15.0.00.0.00.09.0000,"Dinas Perhubungan",5.2.06.01.001.00006,"Belanja Modal Aset Tidak Berwujud-Kajian",6649755000,0,2.15.02.2.02.0002,low_confidence
+1602,1.06.2.08.0.00.05.0000,"Dinas Sosial, Pemberdayaan Perempuan Perlindungan ...",5.1.06.01.001.00001,"Belanja Bantuan Sosial Uang yang Direncanakan kepada Individu",200000000,0,1.06.04.2.01.0006,low_confidence
+1605,1.06.2.08.0.00.05.0000,"Dinas Sosial, Pemberdayaan Perempuan Perlindungan ...",5.1.06.04.001.00001,"Belanja Bantuan Sosial Uang yang Direncanakan kepada Lembaga Non Pemerintahan (Bidang Pendidikan, Keagamaan dan Bidang Lainnya)",0,0,1.06.04.2.01.0006,low_confidence
+1666,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.001.00001,"Belanja Gaji Pokok PNS",551407648,242498575,7.01.06.2.01.0016,low_confidence
+1667,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.001.00002,"Belanja Gaji Pokok PPPK",476471800,266597308,7.01.06.2.01.0016,low_confidence
+1668,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.002.00001,"Belanja Tunjangan Keluarga PNS",74863200,44615950,7.01.06.2.01.0016,low_confidence
+1669,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.002.00002,"Belanja Tunjangan Keluarga PPPK",47575554,10978974,7.01.06.2.01.0016,low_confidence
+1670,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.003.00001,"Belanja Tunjangan Jabatan PNS",0,0,7.01.06.2.01.0016,low_confidence
+1671,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.004.00001,"Belanja Tunjangan Fungsional PNS",25036000,13597998,7.01.06.2.01.0016,low_confidence
+1672,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.005.00001,"Belanja Tunjangan Fungsional Umum PNS",37301000,20549818,7.01.06.2.01.0016,low_confidence
+1673,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.005.00002,"Belanja Tunjangan Fungsional Umum PPPK",32900000,7050000,7.01.06.2.01.0016,low_confidence
+1674,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.006.00001,"Belanja Tunjangan Beras PNS",72380000,33240780,7.01.06.2.01.0016,low_confidence
+1675,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.006.00002,"Belanja Tunjangan Beras PPPK",39541320,9124920,7.01.06.2.01.0016,low_confidence
+1676,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.007.00001,"Belanja Tunjangan PPh/Tunjangan Khusus PNS",5000000,3156299,7.01.06.2.01.0016,low_confidence
+1677,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.008.00001,"Belanja Pembulatan Gaji PNS",94446,7063,7.01.06.2.01.0016,low_confidence
+1678,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.01.008.00002,"Belanja Pembulatan Gaji PPPK",19118,2140,7.01.06.2.01.0016,low_confidence
+1679,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.02.001.00001,"Tambahan Penghasilan berdasarkan Beban Kerja PNS",1733200000,651700000,7.01.06.2.01.0016,low_confidence
+1680,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.02.001.00002,"Tambahan Penghasilan berdasarkan Beban Kerja PPPK",847000000,423500000,7.01.06.2.01.0016,low_confidence
+1681,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.02.005.00001,"Tambahan Penghasilan berdasarkan Prestasi Kerja PNS",182000000,59000000,7.01.06.2.01.0016,low_confidence
+1682,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.01.02.005.00002,"Tambahan Penghasilan berdasarkan Prestasi Kerja PPPK",182000000,91000000,7.01.06.2.01.0016,low_confidence
+1683,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00004,"Belanja Bahan-Bahan Bakar dan Pelumas",302619840,129890000,7.01.06.2.01.0016,low_confidence
+1684,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00024,"Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",35848900,7500000,7.01.06.2.01.0016,low_confidence
+1685,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00025,"Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",84091380,33500000,7.01.06.2.01.0016,low_confidence
+1686,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00027,"Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",6000000,3750000,7.01.06.2.01.0016,low_confidence
+1687,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00029,"Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer",58926015,13500000,7.01.06.2.01.0016,low_confidence
+1688,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00030,"Belanja Alat/Bahan untuk Kegiatan Kantor-Perabot Kantor",11989320,5000000,7.01.06.2.01.0016,low_confidence
+1689,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00032,"Belanja Alat/Bahan untuk Kegiatan Kantor-Perlengkapan Dinas",0,0,7.01.06.2.01.0016,low_confidence
+1690,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00043,"Belanja Natura dan Pakan-Natura",360000,0,7.01.06.2.01.0016,low_confidence
+1691,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00052,"Belanja Makanan dan Minuman Rapat",12580000,0,7.01.06.2.01.0016,low_confidence
+1692,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00053,"Belanja Makanan dan Minuman Jamuan Tamu",52800000,6000000,7.01.06.2.01.0016,low_confidence
+1693,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00058,"Belanja Makanan dan Minuman Aktivitas Lapangan",10752000,0,7.01.06.2.01.0016,low_confidence
+1694,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.01.001.00066,"Belanja Pakaian Dinas Upacara (PDU)",0,0,7.01.06.2.01.0016,low_confidence
+1695,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.02.001.00026,"Belanja Jasa Tenaga Administrasi",0,0,7.01.06.2.01.0016,low_confidence
+1696,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.02.001.00067,"Belanja Pembayaran Pajak, Bea, dan Perizinan",3000000,0,7.01.06.2.01.0016,low_confidence
+1697,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.02.001.00080,"Belanja Honorarium Penanggungjawaban Pengelola Keuangan",184200000,81740000,7.01.06.2.01.0016,low_confidence
+1698,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.02.001.00081,"Belanja Honorarium Pengadaan Barang/Jasa",0,0,7.01.06.2.01.0016,low_confidence
+1699,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.02.001.00086,"Belanja jasa Pegawai Pemerintah dengan Perjanjian Kerja (PPPK) Paruh Waktu pada jabatan tenaga teknis",1159772900,615510000,7.01.06.2.01.0016,low_confidence
+1700,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.02.001.00087,"Belanja Jasa Pegawai Pemerintah dengan Perjanjian Kerja (PPPK) Paruh Waktu pada Jabatan Pengelola Umum Operasional",0,0,7.01.06.2.01.0016,low_confidence
+1701,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.02.001.00088,"Belanja jasa Pegawai Pemerintah dengan Perjanjian Kerja (PPPK) Paruh Waktu pada jabatan operator layanan operasional",0,0,7.01.06.2.01.0016,low_confidence
+1702,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.03.002.00022,"Belanja Pemeliharaan Alat Besar-Alat Bantu-Electric Generating Set",14380000,0,7.01.06.2.01.0016,low_confidence
+1703,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.03.002.00036,"Belanja Pemeliharaan Alat Angkutan-Alat Angkutan Darat Bermotor-Kendaraan Bermotor Penumpang",11208000,11200000,7.01.06.2.01.0016,low_confidence
+1704,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.03.002.00038,"Belanja Pemeliharaan Alat Angkutan-Alat Angkutan Darat Bermotor-Kendaraan Bermotor Beroda Dua",7530000,7530000,7.01.06.2.01.0016,low_confidence
+1705,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.03.002.00117,"Belanja Pemeliharaan Alat Kantor dan Rumah Tangga-Alat Kantor-Alat Kantor Lainnya",0,0,7.01.06.2.01.0016,low_confidence
+1706,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.03.002.00405,"Belanja Pemeliharaan Komputer-Komputer Unit-Personal Computer",0,0,7.01.06.2.01.0016,low_confidence
+1707,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.03.002.00409,"Belanja Pemeliharaan Komputer-Peralatan Komputer-Peralatan Personal Computer",0,0,7.01.06.2.01.0016,low_confidence
+1708,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.04.001.00001,"Belanja Perjalanan Dinas Biasa",170168000,35360000,7.01.06.2.01.0016,low_confidence
+1709,7.01.0.00.0.00.19.0000,"Kecamatan Laham",5.1.02.04.001.00003,"Belanja Perjalanan Dinas Dalam Kota",492524000,116770000,7.01.06.2.01.0016,low_confidence
+1750,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.001.00001,"Belanja Gaji Pokok PNS",898161600,336153384,7.01.02.2.01.0001,low_confidence
+1751,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.001.00002,"Belanja Gaji Pokok PPPK",224252000,109209980,7.01.03.2.01.0003,low_confidence
+1752,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.002.00001,"Belanja Tunjangan Keluarga PNS",106616160,38703218,7.01.03.2.01.0003,low_confidence
+1753,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.002.00002,"Belanja Tunjangan Keluarga PPPK",36425200,15289391,7.01.02.2.01.0002,low_confidence
+1754,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.003.00001,"Belanja Tunjangan Jabatan PNS",141120000,20234750,7.01.03.2.01.0003,low_confidence
+1755,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.005.00001,"Belanja Tunjangan Fungsional Umum PNS",32760000,13095000,7.01.02.2.01.0002,low_confidence
+1756,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.005.00002,"Belanja Tunjangan Fungsional Umum PPPK",13650000,7128332,7.01.02.2.01.0001,low_confidence
+1757,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.006.00001,"Belanja Tunjangan Beras PNS",48552000,22595040,7.01.03.2.01.0003,low_confidence
+1758,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.006.00002,"Belanja Tunjangan Beras PPPK",20230000,11345800,7.01.02.2.01.0001,low_confidence
+1759,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.007.00001,"Belanja Tunjangan PPh/Tunjangan Khusus PNS",83244000,3359987,7.01.03.2.01.0003,low_confidence
+1760,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.007.00002,"Belanja Tunjangan PPh/Tunjangan Khusus PPPK",11144000,416372,7.01.02.2.01.0001,low_confidence
+1761,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.008.00001,"Belanja Pembulatan Gaji PNS",260400,4336,7.01.02.2.01.0001,low_confidence
+1762,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.01.008.00002,"Belanja Pembulatan Gaji PPPK",38500,2941,7.01.02.2.01.0001,low_confidence
+1763,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.02.001.00001,"Tambahan Penghasilan berdasarkan Beban Kerja PNS",2646560000,958000000,7.01.01.2.05.0009,low_confidence
+1764,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.02.001.00002,"Tambahan Penghasilan berdasarkan Beban Kerja PPPK",343000000,206500000,7.01.01.2.05.0009,low_confidence
+1765,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.02.005.00001,"Tambahan Penghasilan berdasarkan Prestasi Kerja PNS",0,0,7.01.01.2.05.0009,low_confidence
+1766,7.01.0.00.0.00.18.0000,"Kecamatan Long Bagun",5.1.01.02.005.00002,"Tambahan Penghasilan berdasarkan Prestasi Kerja PPPK",0,0,7.01.01.2.05.0009,low_confidence
+1820,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00004,"Belanja Bahan-Bahan Bakar dan Pelumas",171043680,57014560,X.XX.01.2.02.0002,low_confidence
+1821,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00010,"Belanja Bahan-Isi Tabung Gas",14601936,4867312,7.01.06.2.01.0012,low_confidence
+1822,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00013,"Belanja Suku Cadang-Suku Cadang Alat Angkutan",28175450,14087725,X.XX.01.2.02.0002,low_confidence
+1823,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00014,"Belanja Suku Cadang-Suku Cadang Alat Besar",21619296,756407,7.01.06.2.01.0012,low_confidence
+1824,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00024,"Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor",79703934,17252090,X.XX.01.2.02.0002,low_confidence
+1825,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00025,"Belanja Alat/Bahan untuk Kegiatan Kantor- Kertas dan Cover",10210522,1996283,7.01.06.2.01.0012,low_confidence
+1826,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00027,"Belanja Alat/Bahan untuk Kegiatan Kantor-Benda Pos",0,0,7.01.06.2.01.0012,low_confidence
+1827,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00029,"Belanja Alat/Bahan untuk Kegiatan Kantor-Bahan Komputer",32761436,0,X.XX.01.2.02.0002,low_confidence
+1828,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00030,"Belanja Alat/Bahan untuk Kegiatan Kantor-Perabot Kantor",14590372,0,7.01.06.2.01.0012,low_confidence
+1829,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00031,"Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Listrik",20645842,0,7.01.06.2.01.0012,low_confidence
+1830,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00039,"Belanja Barang untuk Dijual/Diserahkan kepada Masyarakat",9290000,0,7.01.06.2.01.0012,low_confidence
+1831,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00052,"Belanja Makanan dan Minuman Rapat",69380000,0,X.XX.01.2.02.0002,low_confidence
+1832,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00053,"Belanja Makanan dan Minuman Jamuan Tamu",0,0,7.01.06.2.01.0012,low_confidence
+1833,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00064,"Belanja Pakaian Dinas Lapangan (PDL)",0,0,7.01.06.2.01.0012,low_confidence
+1834,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.01.001.00066,"Belanja Pakaian Dinas Upacara (PDU)",0,0,7.01.06.2.01.0012,low_confidence
+1835,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.02.001.00026,"Belanja Jasa Tenaga Administrasi",1442431500,742424400,X.XX.01.2.02.0002,low_confidence
+1836,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.02.001.00060,"Belanja Tagihan Air",6000000,2000000,7.01.06.2.01.0012,low_confidence
+1837,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.02.001.00061,"Belanja Tagihan Listrik",66000000,14850000,X.XX.01.2.02.0002,low_confidence
+1838,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.02.001.00080,"Belanja Honorarium Penanggungjawaban Pengelola Keuangan",171600000,85800000,X.XX.01.2.02.0002,low_confidence
+1840,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.03.002.00036,"Belanja Pemeliharaan Alat Angkutan-Alat Angkutan Darat Bermotor-Kendaraan Bermotor Penumpang",69792000,0,X.XX.01.2.02.0002,low_confidence
+1841,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.04.001.00001,"Belanja Perjalanan Dinas Biasa",349942400,93557200,7.01.06.2.01.0012,low_confidence
+1842,7.01.0.00.0.00.20.0000,"Kecamatan Long Hubung",5.1.02.04.001.00003,"Belanja Perjalanan Dinas Dalam Kota",670570000,236868800,7.01.06.2.01.0012,low_confidence
+1843,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.001.00001,"Belanja Gaji Pokok PNS",1477011200,639407728,7.01.01.2.06.0004,low_confidence
+1844,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.001.00002,"Belanja Gaji Pokok PPPK",354697000,191703146,7.01.01.2.06.0004,low_confidence
+1845,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.002.00001,"Belanja Tunjangan Keluarga PNS",131600000,65634256,7.01.03.2.06.0010,low_confidence
+1846,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.002.00002,"Belanja Tunjangan Keluarga PPPK",73710000,16130438,7.01.03.2.06.0010,low_confidence
+1847,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.003.00001,"Belanja Tunjangan Jabatan PNS",53200000,26960000,7.01.01.2.06.0004,low_confidence
+1848,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.004.00001,"Belanja Tunjangan Fungsional PNS",4956000,0,7.01.01.2.06.0004,low_confidence
+1849,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.005.00001,"Belanja Tunjangan Fungsional Umum PNS",63000000,26240000,7.01.01.2.06.0004,low_confidence
+1850,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.005.00002,"Belanja Tunjangan Fungsional Umum PPPK",37170000,12798332,7.01.01.2.06.0004,low_confidence
+1851,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.006.00001,"Belanja Tunjangan Beras PNS",86800000,39975840,7.01.01.2.06.0004,low_confidence
+1852,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.006.00002,"Belanja Tunjangan Beras PPPK",44100000,14230530,7.01.01.2.06.0004,low_confidence
+1853,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.007.00001,"Belanja Tunjangan PPh/Tunjangan Khusus PNS",6300000,5397037,7.01.01.2.06.0004,low_confidence
+1854,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.008.00001,"Belanja Pembulatan Gaji PNS",2100000,9798,7.01.01.2.06.0004,low_confidence
+1855,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.01.008.00002,"Belanja Pembulatan Gaji PPPK",392000,3818,7.01.01.2.06.0004,low_confidence
+1856,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.02.001.00001,"Tambahan Penghasilan berdasarkan Beban Kerja PNS",3409000000,1510900000,7.01.01.2.06.0004,low_confidence
+1857,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.02.001.00002,"Tambahan Penghasilan berdasarkan Beban Kerja PPPK",609000000,304500000,7.01.01.2.06.0004,low_confidence
+1858,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.02.002.00001,"Tambahan Penghasilan berdasarkan Tempat Bertugas PNS",364000000,161000000,7.01.01.2.06.0004,low_confidence
+1859,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.02.002.00002,"Tambahan Penghasilan berdasarkan Tempat Bertugas PPPK",126000000,63000000,7.01.01.2.06.0004,low_confidence
+1860,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.02.005.00001,"Tambahan Penghasilan berdasarkan Prestasi Kerja PNS",364000000,161000000,7.01.01.2.06.0004,low_confidence
+1861,7.01.0.00.0.00.17.0000,"Kecamatan Long Pahangai",5.1.01.02.005.00002,"Tambahan Penghasilan berdasarkan Prestasi Kerja PPPK",126000000,63000000,7.01.01.2.06.0004,low_confidence
+1947,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.01.003.00005,"Belanja Modal Pompa",0,0,1.05.02.2.01.0003,low_confidence
+1948,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.01.003.00014,"Belanja Modal Peralatan SAR Mountenering",6986628,0,1.05.01.2.06.0002,low_confidence
+1950,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.02.001.00004,"Belanja Modal Kendaraan Bermotor Beroda Dua",0,0,1.05.01.2.09.0002,low_confidence
+1951,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.02.001.00006,"Belanja Modal Kendaraan Bermotor Khusus",0,0,1.05.01.2.09.0002,low_confidence
+1954,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.05.002.00001,"Belanja Modal Mebel",115830456,115440018,1.05.02.2.01.0003,low_confidence
+1958,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.05.003.00007,"Belanja Modal Lemari dan Arsip Pejabat",0,0,1.05.02.2.01.0003,low_confidence
+1959,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.06.001.00002,"Belanja Modal Peralatan Studio Video dan Film",95254986,39738000,1.05.01.2.06.0002,low_confidence
+1960,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.06.001.00005,"Belanja Modal Peralatan Studio Pemetaan/Peralatan Ukur Tanah",39152150,0,1.05.01.2.06.0002,low_confidence
+1962,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.10.001.00002,"Belanja Modal Personal Computer",301028781,181447501,1.05.02.2.01.0006,low_confidence
+1963,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.10.002.00003,"Belanja Modal Peralatan Personal Computer",63155776,50649300,1.05.01.2.06.0002,low_confidence
+1964,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.10.002.00004,"Belanja Modal Peralatan Jaringan",0,0,1.05.01.2.06.0002,low_confidence
+1965,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.15.002.00002,"Belanja Modal Masker",264000000,0,1.05.02.2.01.0006,low_confidence
+1966,1.05.0.00.0.00.04.0000,"Satuan Polisi Pamong Praja",5.2.02.15.002.00005,"Belanja Modal Sepatu Lapangan",33168970,0,1.05.02.2.01.0003,low_confidence
+2062,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.01.003.00005,"Belanja Modal Pompa",0,0,4.02.02.2.01.0001,low_confidence
+2063,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.05.001.00002,"Belanja Modal Mesin Hitung/Mesin Jumlah",0,0,4.02.02.2.01.0001,low_confidence
+2066,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.05.002.00001,"Belanja Modal Mebel",0,0,4.02.02.2.01.0001,low_confidence
+2069,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.05.003.00007,"Belanja Modal Lemari dan Arsip Pejabat",0,0,4.02.02.2.01.0001,low_confidence
+2070,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.06.001.00002,"Belanja Modal Peralatan Studio Video dan Film",0,0,4.02.01.2.06.0002,low_confidence
+2072,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.10.001.00002,"Belanja Modal Personal Computer",0,0,4.02.02.2.01.0001,low_confidence
+2073,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.10.002.00003,"Belanja Modal Peralatan Personal Computer",11327565,0,4.02.01.2.06.0002,low_confidence
+2074,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.02.19.001.00002,"Belanja Modal Peralatan Permainan",0,0,4.02.01.2.06.0002,low_confidence
+2075,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.06.01.001.00005,"Belanja Modal Aset Tidak Berwujud-Software",90500075,0,4.02.02.2.01.0001,low_confidence
+2076,4.02.0.00.0.00.15.0000,"Sekretariat DPRD",5.2.06.01.001.00006,"Belanja Modal Aset Tidak Berwujud-Kajian",1438632000,0,4.02.02.2.03.0001,low_confidence

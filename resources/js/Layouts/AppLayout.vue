@@ -5,15 +5,22 @@
         <span class="shrink-0 text-lg font-bold tracking-tight text-white">SIMEVLAP 2.0</span>
 
         <nav class="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto whitespace-nowrap pr-2">
-          <NavItem v-if="canAccessDashboard" :href="route('dashboard')">Dashboard</NavItem>
-          <NavItem v-if="canAccessDataDasar" :href="route('data-dasar.index')">Data Dasar</NavItem>
-          <NavItem v-if="canAccessDokumen" :href="route('dokumen.index')">Dokumen</NavItem>
-          <NavItem v-if="canAccessRealisasi" :href="route('realisasi.index')">Realisasi</NavItem>
-          <NavItem v-if="isVerifikator" :href="route('verifikator.index')">Verifikator</NavItem>
-          <NavItem :href="route('resume.index')">Resume</NavItem>
+          <template v-if="isTamu">
+            <NavItem :href="route('resume.index')">Resume</NavItem>
+            <NavItem :href="route('resume2.index')">Resume 2</NavItem>
+          </template>
+          <template v-else>
+            <NavItem v-if="canAccessDashboard" :href="route('dashboard')">Dashboard</NavItem>
+            <NavItem v-if="canAccessDataDasar" :href="route('data-dasar.index')">Data Dasar</NavItem>
+            <NavItem v-if="canAccessDokumen" :href="route('dokumen.index')">Dokumen</NavItem>
+            <NavItem v-if="canAccessRealisasi" :href="route('realisasi.index')">Realisasi</NavItem>
+            <NavItem v-if="isVerifikator" :href="route('verifikator.index')">Verifikator</NavItem>
+            <NavItem :href="route('resume.index')">Resume</NavItem>
+            <NavItem :href="route('resume2.index')">Resume 2</NavItem>
+          </template>
         </nav>
 
-        <template v-if="canAccessSettings">
+        <template v-if="canAccessSettings && !isTamu">
           <div class="relative shrink-0 group" ref="settingsDropdownRef">
             <button
               class="inline-flex items-center gap-1 rounded-md border border-[#C7EA46]/80 bg-emerald-950/20 px-3 py-2 text-sm font-medium text-emerald-50 transition-colors hover:border-[#C7EA46] hover:bg-emerald-900/50"
@@ -93,14 +100,19 @@ defineProps({
 const page = usePage();
 const userRoles = computed(() => page.props.auth?.user?.roles ?? []);
 const isPimpinan = computed(() => userRoles.value.includes('pimpinan'));
+const isTamu = computed(() => userRoles.value.includes('tamu'));
 const isAdmin = computed(() => userRoles.value.includes('admin'));
 const isVerifikator = computed(() => userRoles.value.includes('verifikator'));
 const isOpd = computed(() => userRoles.value.includes('opd'));
-const canAccessDashboard = computed(() => !isPimpinan.value);
-const canAccessDataDasar = computed(() => !isPimpinan.value && !isOpd.value && !isAdmin.value);
-const canAccessDokumen = computed(() => !isPimpinan.value && !isAdmin.value);
-const canAccessRealisasi = computed(() => !isPimpinan.value);
+const canAccessDashboard = computed(() => !isPimpinan.value && !isTamu.value);
+const canAccessDataDasar = computed(() => !isPimpinan.value && !isTamu.value && !isOpd.value && !isAdmin.value);
+const canAccessDokumen = computed(() => !isPimpinan.value && !isTamu.value && !isAdmin.value);
+const canAccessRealisasi = computed(() => !isPimpinan.value && !isTamu.value);
 const canAccessSettings = computed(() => {
+  if (isTamu.value) {
+    return false;
+  }
+
   return userRoles.value.includes('superadmin') || userRoles.value.includes('admin');
 });
 

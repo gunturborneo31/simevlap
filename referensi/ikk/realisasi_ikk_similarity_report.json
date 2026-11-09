@@ -1,0 +1,38 @@
+{
+    "generated_at": "2026-07-29T15:50:43+00:00",
+    "master_ikk_count": 252,
+    "source_realisasi_count": 542,
+    "added_count": 0,
+    "updated_count": 4,
+    "backup_file": "realisasi ikk.json.bak_auto_similarity_20260729155043",
+    "matches": [
+        {
+            "indikator_ikk": "Persentase sasaran dan program RKPD yang konsisten dengan RPJMD",
+            "matched_to": "Swadaya Masyarakat Terhadap Program pemberdayanan Masyarakat",
+            "score": 0.3754,
+            "capaian_2025": "0.02",
+            "opd": null
+        },
+        {
+            "indikator_ikk": "persentase ketersediaan dokumen perencanaan tepat waktu",
+            "matched_to": "Persentase ketersediaan dokumen perencanaan bidang perekonomian dan SDA (sumber daya alam)",
+            "score": 0.6305,
+            "capaian_2025": 35.56,
+            "opd": "AUTO-SIMILARITY"
+        },
+        {
+            "indikator_ikk": "Persentase kebijakan inovasi yang diterapkan di\ndaerah",
+            "matched_to": "Persentase dokumen kebencanaan yang telah ditetapkan dan masih berlaku",
+            "score": 0.5274,
+            "capaian_2025": 33.3333333,
+            "opd": null
+        },
+        {
+            "indikator_ikk": "Persentase perangkat daerah yang difasilitasi dalam penerapan inovasi Daerah",
+            "matched_to": "Persentase Perangkat daerah yang telah menggunakan sandi dalam komunkasi Perangkat\nDaerah",
+            "score": 0.52,
+            "capaian_2025": 100,
+            "opd": "AUTO-SIMILARITY"
+        }
+    ]
+}

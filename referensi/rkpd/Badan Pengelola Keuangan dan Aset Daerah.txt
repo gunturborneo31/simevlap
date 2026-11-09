@@ -1,0 +1,40 @@
+Badan Pengelola Keuangan dan Aset Daerah
+Source: 131.382.543.688,99
+App: 131.382.543.678,00
+Selisih: 10,99
+
+Badan Perencanaan Pembangunan, Penelitian dan Pengembangan Daerah
+Source: 49.121.089.093,23
+App: 49.121.089.092,00
+Selisih: 1,23
+
+Dinas Ketahanan Pangan dan Pertanian
+Source: 42.747.438.929,60
+App: 42.747.438.929,00
+Selisih: 0,60
+
+Dinas Komunikasi dan Informatika, Statistik, dan Persandian
+Source: 41.740.169.526,93
+App: 41.740.169.526,00
+Selisih: 0,93
+
+Dinas Pekerjaan Umum dan Penataan Ruang, Perumahan dan Kawasan Pemukiman
+Source: 799.129.414.857,00
+App: 799.129.414.855,00
+Selisih: 2,00
+
+Dinas Penanaman Modal dan Pelayanan Perijinan Terpadu
+Source: 9.253.186.734,50
+App: 9.253.186.732,00
+Selisih: 2,50
+
+Dinas Sosial, Pemberdayaan Perempuan Perlindungan Anak
+Source: 28.983.473.102,15
+App: 28.983.473.100,00
+Selisih: 2,15
+
+Rumah Sakit Pratama Nawacita Datah Dave
+Source: 9.298.753.278,60
+App: 9.298.753.278,00
+Selisih: 0,60
+

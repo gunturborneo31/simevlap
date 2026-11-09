@@ -1,0 +1,26 @@
+kategori,tw1_id,tw2_id,realisaseable_type,realisaseable_id,kode_sub_kegiatan,nama_sub_kegiatan,tw1_keuangan,tw2_keuangan,gap
+TW2_LEBIH_KECIL_DARI_TW1,844,4169,"App\Models\SubKegiatan",616,2.15.01.2.08.0004,"Penyediaan Jasa Pelayanan Umum Kantor",590162493,245461016,344701477
+TW2_LEBIH_KECIL_DARI_TW1,840,4165,"App\Models\SubKegiatan",610,2.15.01.2.06.0009,"Penyelenggaraan Rapat Koordinasi dan Konsultasi SKPD",330375186,94720000,235655186
+TW2_KOSONG_ATAU_0,856,,"App\Models\SubKegiatan",564,2.15.02.2.06.0017,"Penataan Manajemen dan Rekayasa Lalu Lintas untuk Jaringan Jalan Kabupaten/Kota",100705000,,100705000
+TW2_KOSONG_ATAU_0,838,,"App\Models\SubKegiatan",608,2.15.01.2.06.0005,"Penyediaan Barang Cetakan dan Penggandaan",74486600,,74486600
+TW2_KOSONG_ATAU_0,854,,"App\Models\SubKegiatan",560,2.15.02.2.06.0004,"Pengawasan dan Pengendalian Efektivitas Pelaksanaan Kebijakan untuk Jalan Kabupaten/Kota",39628600,,39628600
+TW2_KOSONG_ATAU_0,842,4167,"App\Models\SubKegiatan",614,2.15.01.2.08.0001,"Penyediaan Jasa Surat Menyurat",35327974,0,35327974
+TW2_LEBIH_KECIL_DARI_TW1,846,4170,"App\Models\SubKegiatan",618,2.15.01.2.09.0002,"Penyediaan Jasa Pemeliharaan, Biaya Pemeliharaan, Pajak dan Perizinan Kendaraan Dinas Operasional atau Lapangan",34723650,12885000,21838650
+TW2_KOSONG_ATAU_0,836,4179,"App\Models\SubKegiatan",606,2.15.01.2.06.0003,"Penyediaan Peralatan Rumah Tangga",30303089,0,30303089
+TW2_KOSONG_ATAU_0,852,4176,"App\Models\SubKegiatan",557,2.15.02.2.05.0005,"Sosialisasi Standar Operasional Prosedur Pengujian Berkala Kendaraan Bermotor",28309800,0,28309800
+TW2_KOSONG_ATAU_0,820,,"App\Models\SubKegiatan",586,2.15.01.2.01.0011,"Penyusunan Dokumen Perencanaan Urusan Selain Renstra PD dan Renja PD",22715000,,22715000
+TW2_LEBIH_KECIL_DARI_TW1,855,4180,"App\Models\SubKegiatan",562,2.15.02.2.06.0015,"Forum Lalu Lintas dan Angkutan Jalan untuk Jaringan Jalan Kabupaten/Kota",20934328,16058416,4875912
+TW2_KOSONG_ATAU_0,839,,"App\Models\SubKegiatan",609,2.15.01.2.06.0008,"Fasilitasi Kunjungan Tamu",19308000,,19308000
+TW2_KOSONG_ATAU_0,853,,"App\Models\SubKegiatan",559,2.15.02.2.05.0008,"Koordinasi Penyelenggaraan Pengujian Berkala Kendaraan Bermotor",13128900,,13128900
+TW2_KOSONG_ATAU_0,827,,"App\Models\SubKegiatan",593,2.15.01.2.02.0008,"Penyusunan Pelaporan dan Analisis Prognosis Realisasi Anggaran",5782036,,5782036
+TW2_KOSONG_ATAU_0,824,,"App\Models\SubKegiatan",590,2.15.01.2.02.0005,"Koordinasi dan Penyusunan Laporan Keuangan Akhir Tahun SKPD",5149780,,5149780
+TW2_KOSONG_ATAU_0,823,,"App\Models\SubKegiatan",589,2.15.01.2.02.0003,"Pelaksanaan Penatausahaan dan
+
+Pengujian/Verifikasi Keuangan SKPD",3224990,,3224990
+TW2_KOSONG_ATAU_0,815,,"App\Models\SubKegiatan",581,2.15.01.2.01.0001,"Penyusunan Dokumen Perencanaan Perangkat Daerah",3060000,,3060000
+TW2_KOSONG_ATAU_0,825,,"App\Models\SubKegiatan",591,2.15.01.2.02.0006,"Pengelolaan dan Penyiapan Bahan Tanggapan Pemeriksaan",2787445,,2787445
+TW2_KOSONG_ATAU_0,826,,"App\Models\SubKegiatan",592,2.15.01.2.02.0007,"Koordinasi dan Penyusunan Laporan Keuangan Bulanan/ Triwulanan/ Semesteran SKPD",2574890,,2574890
+TW2_KOSONG_ATAU_0,828,,"App\Models\SubKegiatan",595,2.15.01.2.03.0005,"Rekonsiliasi dan Penyusunan Laporan Barang Milik Daerah pada SKPD",1807525,,1807525
+TW2_KOSONG_ATAU_0,816,,"App\Models\SubKegiatan",582,2.15.01.2.01.0002,"Koordinasi dan Penyusunan Dokumen RKA-SKPD",1500000,,1500000
+TW2_KOSONG_ATAU_0,829,,"App\Models\SubKegiatan",596,2.15.01.2.03.0006,"Penatausahaan Barang Milik Daerah pada SKPD",1287445,,1287445
+TW2_KOSONG_ATAU_0,818,,"App\Models\SubKegiatan",584,2.15.01.2.01.0006,"Koordinasi dan Penyusunan Laporan Capaian Kinerja dan Ikhtisar Realisasi Kinerja SKPD",1142130,,1142130
