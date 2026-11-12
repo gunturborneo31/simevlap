@@ -2018,7 +2018,17 @@ const kertasKerjaTotals = computed(() => {
     return acc;
   }, { rkpd: 0, apbd: 0, realisasiKeuangan: 0, kinerjaSum: 0, kinerjaCount: 0 });
 
-  // Capaian kinerja total = rata-rata capaian kinerja baris ringkasan yang memiliki target.
+  // Capaian kinerja total = rata-rata capaian kinerja baris ringkasan yang memiliki target;
+  // bila tidak ada (mis. program tanpa indikator), pakai semua baris yang bernilai.
+  if (totals.kinerjaCount === 0) {
+    (Array.isArray(tableData.value) ? tableData.value : []).forEach((row) => {
+      const v = row?.capaian_kinerja;
+      if (v !== null && v !== undefined && v !== '' && !Number.isNaN(Number(v))) {
+        totals.kinerjaSum += Number(v);
+        totals.kinerjaCount += 1;
+      }
+    });
+  }
   totals.capaianKinerja = totals.kinerjaCount > 0
     ? Math.round((totals.kinerjaSum / totals.kinerjaCount) * 100) / 100
     : null;

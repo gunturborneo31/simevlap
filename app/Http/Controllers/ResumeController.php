@@ -1457,7 +1457,19 @@ class ResumeController extends Controller
     {
         $header1 = ['Kode Rek', 'Program / Kegiatan / Sub Kegiatan', 'RKPD', '', '', '', 'APBD', '', '', '', 'Realisasi', '', 'Capaian', '', 'Faktor', ''];
         $header2 = ['', '', 'Indikator', 'Target', 'Satuan', 'Pagu', 'Indikator', 'Target', 'Satuan', 'Pagu', 'Kinerja (TW '.$triwulan.')', 'Keuangan (TW '.$triwulan.')', 'Kinerja', 'Keuangan', 'Pendorong', 'Penghambat'];
-        $opdRow = [$opdName, '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
+        $totals = $this->kertasKerjaOpdTotals($rows);
+        // Baris OPD: nama + akumulasi pagu, realisasi keuangan, dan capaian (sama seperti tampilan).
+        $opdRow = [
+            $opdName, '', '', '', '',
+            $this->formatRupiahCell($totals['rkpd']),
+            '', '', '',
+            $this->formatRupiahCell($totals['apbd']),
+            '',
+            $this->formatRupiahCell($totals['realisasi_keuangan']),
+            $this->formatCapaianCell($totals['capaian_kinerja']),
+            $this->formatCapaianCell($totals['capaian_keuangan']),
+            '', '',
+        ];
 
         $aoa = [$header1, $header2, $opdRow];
         foreach ($rows as $row) {
@@ -1499,6 +1511,11 @@ class ResumeController extends Controller
                     $bg = '#FDBA74';
                     $fg = '#000000';
                     $bold = true;
+                    if ($c === 12) {
+                        ['bg' => $bg, 'fg' => $fg] = $this->resolveCapaianColor($totals['capaian_kinerja']);
+                    } elseif ($c === 13) {
+                        ['bg' => $bg, 'fg' => $fg] = $this->resolveCapaianColor($totals['capaian_keuangan']);
+                    }
                 } else {
                     $row = $rows[$r - 3] ?? [];
                     $level = (string) ($row['level'] ?? '');
@@ -1550,7 +1567,9 @@ class ResumeController extends Controller
             ['s' => ['r' => 0, 'c' => 10], 'e' => ['r' => 0, 'c' => 11]],
             ['s' => ['r' => 0, 'c' => 12], 'e' => ['r' => 0, 'c' => 13]],
             ['s' => ['r' => 0, 'c' => 14], 'e' => ['r' => 0, 'c' => 15]],
-            ['s' => ['r' => 2, 'c' => 0], 'e' => ['r' => 2, 'c' => 15]],
+            ['s' => ['r' => 2, 'c' => 0], 'e' => ['r' => 2, 'c' => 4]],
+            ['s' => ['r' => 2, 'c' => 6], 'e' => ['r' => 2, 'c' => 8]],
+            ['s' => ['r' => 2, 'c' => 14], 'e' => ['r' => 2, 'c' => 15]],
         ];
 
         $cols = [12, 35, 16, 8, 8, 13, 16, 8, 8, 13, 11, 13, 9, 9, 18, 18];
@@ -1563,6 +1582,42 @@ class ResumeController extends Controller
             'cols' => $cols,
             'merges' => $merges,
             'rowHeights' => $rowHeights,
+        ];
+    }
+
+    /**
+     * Akumulasi baris OPD kertas kerja dari baris program (sama dengan kertasKerjaTotals di TableView):
+     * pagu & realisasi keuangan dijumlah, capaian kinerja = rata-rata, capaian keuangan = realisasi / pagu APBD.
+     */
+    private function kertasKerjaOpdTotals(array $rows): array
+    {
+        $summary = array_values(array_filter($rows, fn ($row) => ($row['level'] ?? '') === 'program'));
+        if (!$summary) {
+            $summary = $rows;
+        }
+
+        $rkpd = $apbd = $realisasi = 0.0;
+        foreach ($summary as $row) {
+            $rkpd += (float) ($row['rkpd_pagu'] ?? 0);
+            $apbd += (float) ($row['apbd_pagu'] ?? 0);
+            $realisasi += (float) ($row['realisasi_keuangan'] ?? 0);
+        }
+
+        // Rata-rata capaian kinerja baris ringkasan; bila tidak ada yang bertarget, pakai semua baris yang bernilai.
+        $kinerjaValues = fn (array $list) => array_map('floatval', array_filter(
+            array_map(fn ($row) => $row['capaian_kinerja'] ?? null, $list),
+            fn ($v) => $v !== null && $v !== '' && is_numeric($v)
+        ));
+        $kinerja = $kinerjaValues($summary) ?: $kinerjaValues($rows);
+        $kinerjaSum = array_sum($kinerja);
+        $kinerjaCount = count($kinerja);
+
+        return [
+            'rkpd' => $rkpd,
+            'apbd' => $apbd,
+            'realisasi_keuangan' => $realisasi,
+            'capaian_kinerja' => $kinerjaCount > 0 ? round($kinerjaSum / $kinerjaCount, 2) : null,
+            'capaian_keuangan' => $apbd > 0 ? round($realisasi / $apbd * 100, 2) : null,
         ];
     }
 
