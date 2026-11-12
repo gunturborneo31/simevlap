@@ -97,13 +97,19 @@ class Resume2Controller extends Controller
 
     public function index(): Response
     {
-        $items = [];
+        // Menu gabungan Resume: tabel realisasi & kertas kerja memakai halaman Resume lama.
+        $items = [
+            ['label' => 'Realisasi IKU', 'href' => route('resume.index', ['view' => 'realisasi', 'table' => 'iku'])],
+            ['label' => 'Realisasi IKK', 'href' => route('resume.index', ['view' => 'realisasi', 'table' => 'ikk'])],
+            ['label' => 'Realisasi', 'href' => route('resume.index', ['view' => 'realisasi', 'table' => 'dpa-readonly', 'page_mode' => 'realisasi', 'document_type' => 'dpa', 'tw' => 3, 'triwulan' => 3])],
+            ['label' => 'Kertas Kerja', 'href' => route('resume.index', ['view' => 'kertas-kerja', 'table' => 'tabel-1', 'page_mode' => 'realisasi', 'document_type' => 'dpa', 'tw' => 3, 'triwulan' => 3])],
+        ];
         foreach (self::SECTIONS as $slug => $section) {
             $items[] = ['label' => $section['title'], 'href' => route('resume2.section', $slug)];
         }
 
         return Inertia::render('Resume2/Index', [
-            'breadcrumbs' => [['label' => 'Resume 2', 'href' => route('resume2.index')]],
+            'breadcrumbs' => [['label' => 'Resume', 'href' => route('resume2.index')]],
             'items' => $items,
         ]);
     }
@@ -119,7 +125,7 @@ class Resume2Controller extends Controller
 
         return Inertia::render('Resume2/Index', [
             'breadcrumbs' => [
-                ['label' => 'Resume 2', 'href' => route('resume2.index')],
+                ['label' => 'Resume', 'href' => route('resume2.index')],
                 ['label' => $config['title'], 'href' => route('resume2.section', $section)],
             ],
             'items' => $items,
@@ -138,7 +144,7 @@ class Resume2Controller extends Controller
 
         return Inertia::render('Resume2/Table', [
             'breadcrumbs' => [
-                ['label' => 'Resume 2', 'href' => route('resume2.index')],
+                ['label' => 'Resume', 'href' => route('resume2.index')],
                 ['label' => $config['title'], 'href' => route('resume2.section', $section)],
                 ['label' => "Tabel {$nomor}", 'href' => route('resume2.table', [$section, $tabel])],
             ],

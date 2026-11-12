@@ -419,7 +419,7 @@
                       type="number"
                       step="0.01"
                       min="0"
-                      :value="(getRealisasiTwValue(col.komponen, col.tw, 'fisik') !== 0 ? getRealisasiTwValue(col.komponen, col.tw, 'fisik') : computeDefaultFisik(col.komponen, col.tw, col.indikatorTarget))"
+                      :value="(getRealisasiTwValue(col.komponen, col.tw, 'fisik') !== 0 ? getRealisasiTwValue(col.komponen, col.tw, 'fisik') : computeDefaultFisik(col.komponen, col.tw, col.indikatorTarget, col.satuan))"
                       @input="e => onRealisasiTwInput(col.komponen.id, col.tw, 'fisik', e.target.value)"
                       @blur="saveRealisasiTw(col.komponen, col.tw)"
                       class="w-full text-right bg-white border border-indigo-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -1531,19 +1531,40 @@ function computeRealisasiKeuanganSum(komponen, tw) {
   return ownValue;
 }
 
-function computeDefaultFisik(komponen, tw, indikatorTarget) {
-  let t = Number(indikatorTarget ?? 0);
-  if (!t || Number.isNaN(t)) {
-    // try to compute target from komponen's indicators or children
-    t = computeTargetFromKomponen(komponen);
+// Nilai awal input realisasi fisik (bila belum diisi). OPD tetap bisa mengubahnya sesuai realita.
+// - Satuan bulan    : mengikuti triwulan (TW1 = 3, TW2 = 6, TW3 = 9, TW4 = 12), maksimal sebesar target.
+// - Satuan semester : TW1 = 0 (belum), TW2 = 1, TW3 = 1, TW4 = 2, maksimal sebesar target.
+// - Satuan lain     : target x capaian keuangan TW tersebut, dibulatkan ke bawah (tanpa desimal)
+//                     (target 10 & keuangan 50% = 5; target 7 & keuangan 50% = 3).
+function computeDefaultFisik(komponen, tw, indikatorTarget, satuan = '') {
+  const parseTarget = (value) => {
+    const n = Number(String(value ?? '').trim().replace(',', '.'));
+    return Number.isFinite(n) ? n : 0;
+  };
+
+  let target = parseTarget(indikatorTarget);
+  if (target <= 0) {
+    // target dari indikator komponen atau turunannya
+    target = parseTarget(computeTargetFromKomponen(komponen));
   }
-  if (!t || Number.isNaN(t)) return 0;
-  if (Number(t) === 0) return 0;
-  if (Number(t) && Number(t) !== 0) {
-    if (Number(tw) === 1) return Number((t * 0.25).toFixed(2));
-    if (Number(tw) === 2) return Number((t * 0.5).toFixed(2));
+  if (target <= 0) return 0;
+
+  const twNumber = Number(tw) || 0;
+  const unit = String(satuan || '').toLowerCase();
+
+  if (unit.includes('semester')) {
+    return Math.min(Math.floor(twNumber / 2), target);
   }
-  return 0;
+  if (unit.includes('bulan')) {
+    return Math.min(twNumber * 3, target);
+  }
+
+  const pagu = Number(getEffectivePaguBySource(komponen, 'dpa') || 0);
+  if (pagu <= 0) return 0;
+  const keuangan = Number(computeRealisasiKeuanganSum(komponen, twNumber) || 0);
+  const persenKeuangan = Math.min(Math.max(keuangan / pagu, 0), 1);
+
+  return Math.floor(target * persenKeuangan);
 }
 
 function computeTargetFromKomponen(komponen) {
@@ -2671,6 +2692,7 @@ function renderRows(data, parentKey = '', parentProgram = null) {
               komponen,
               tw,
               indikatorTarget: ind.target_dpa ?? ind.target_indikator ?? null,
+              satuan: ind.satuan ?? '',
               class: 'px-2 py-1 align-top border-b border-r border-gray-300 min-w-[130px]'
             }))
             : []),

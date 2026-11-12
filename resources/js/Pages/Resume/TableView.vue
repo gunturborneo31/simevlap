@@ -399,7 +399,17 @@
               <td class="border border-black px-2 py-2 text-right">
                 {{ formatRupiah(kertasKerjaTotals.apbd) }}
               </td>
-              <td colspan="6" class="border border-black px-2 py-2"></td>
+              <td class="border border-black px-2 py-2"></td>
+              <td class="border border-black px-2 py-2 text-right">
+                {{ formatRupiah(kertasKerjaTotals.realisasiKeuangan) }}
+              </td>
+              <td :class="['border border-black px-2 py-2 text-center', kertasKerjaCapaianClass(kertasKerjaTotals.capaianKinerja)]">
+                {{ kertasKerjaCapaianText(kertasKerjaTotals.capaianKinerja) }}
+              </td>
+              <td :class="['border border-black px-2 py-2 text-center', kertasKerjaCapaianClass(kertasKerjaTotals.capaianKeuangan)]">
+                {{ kertasKerjaCapaianText(kertasKerjaTotals.capaianKeuangan) }}
+              </td>
+              <td colspan="2" class="border border-black px-2 py-2"></td>
             </tr>
             <tr
               v-for="(row, idx) in tableData"
@@ -1995,11 +2005,28 @@ const kertasKerjaSummaryRows = computed(() => {
   return summaryRows.length > 0 ? summaryRows : rows;
 });
 const kertasKerjaTotals = computed(() => {
-  return kertasKerjaSummaryRows.value.reduce((totals, row) => {
-    totals.rkpd += Number(row?.rkpd_pagu || 0);
-    totals.apbd += Number(row?.apbd_pagu || 0);
-    return totals;
-  }, { rkpd: 0, apbd: 0 });
+  const totals = kertasKerjaSummaryRows.value.reduce((acc, row) => {
+    acc.rkpd += Number(row?.rkpd_pagu || 0);
+    acc.apbd += Number(row?.apbd_pagu || 0);
+    // Akumulasi realisasi keuangan TW terpilih dari baris ringkasan (program = jumlah kegiatan/sub kegiatannya).
+    acc.realisasiKeuangan += Number(row?.realisasi_keuangan || 0);
+    const capaianKinerja = row?.capaian_kinerja;
+    if (capaianKinerja !== null && capaianKinerja !== undefined && capaianKinerja !== '' && !Number.isNaN(Number(capaianKinerja))) {
+      acc.kinerjaSum += Number(capaianKinerja);
+      acc.kinerjaCount += 1;
+    }
+    return acc;
+  }, { rkpd: 0, apbd: 0, realisasiKeuangan: 0, kinerjaSum: 0, kinerjaCount: 0 });
+
+  // Capaian kinerja total = rata-rata capaian kinerja baris ringkasan yang memiliki target.
+  totals.capaianKinerja = totals.kinerjaCount > 0
+    ? Math.round((totals.kinerjaSum / totals.kinerjaCount) * 100) / 100
+    : null;
+
+  totals.capaianKeuangan = totals.apbd > 0
+    ? Math.round((totals.realisasiKeuangan / totals.apbd) * 10000) / 100
+    : null;
+  return totals;
 });
 const metricOptions = [
   { value: 'program', label: 'Program' },

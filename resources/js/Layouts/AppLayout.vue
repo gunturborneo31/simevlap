@@ -6,8 +6,7 @@
 
         <nav class="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto whitespace-nowrap pr-2">
           <template v-if="isTamu">
-            <NavItem :href="route('resume.index')">Resume</NavItem>
-            <NavItem :href="route('resume2.index')">Resume 2</NavItem>
+            <NavItem :href="route('resume2.index')" :also-active="['/resume']">Resume</NavItem>
           </template>
           <template v-else>
             <NavItem v-if="canAccessDashboard" :href="route('dashboard')">Dashboard</NavItem>
@@ -15,8 +14,7 @@
             <NavItem v-if="canAccessDokumen" :href="route('dokumen.index')">Dokumen</NavItem>
             <NavItem v-if="canAccessRealisasi" :href="route('realisasi.index')">Realisasi</NavItem>
             <NavItem v-if="isVerifikator" :href="route('verifikator.index')">Verifikator</NavItem>
-            <NavItem :href="route('resume.index')">Resume</NavItem>
-            <NavItem :href="route('resume2.index')">Resume 2</NavItem>
+            <NavItem :href="route('resume2.index')" :also-active="['/resume']">Resume</NavItem>
           </template>
         </nav>
 

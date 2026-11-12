@@ -1,5 +1,5 @@
 <template>
-  <AppLayout title="Resume 2" :breadcrumbs="breadcrumbs">
+  <AppLayout title="Resume" :breadcrumbs="breadcrumbs">
     <div class="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       <Link v-for="item in items" :key="item.href" :href="item.href" class="r2-btn-menu">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="h-12 w-12" aria-hidden="true">

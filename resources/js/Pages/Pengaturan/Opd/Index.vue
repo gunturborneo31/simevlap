@@ -20,10 +20,10 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
-          <tr v-if="opds.data.length === 0">
+          <tr v-if="opds.length === 0">
             <td colspan="6" class="px-4 py-8 text-center text-gray-400">Belum ada data OPD.</td>
           </tr>
-          <tr v-for="opd in opds.data" :key="opd.id" class="hover:bg-gray-50">
+          <tr v-for="opd in opds" :key="opd.id" class="hover:bg-gray-50">
             <td class="px-4 py-3 font-mono text-gray-700">{{ opd.kode }}</td>
             <td class="px-4 py-3 text-gray-800">{{ opd.nama }}</td>
             <td class="px-4 py-3 text-gray-600">{{ opd.singkatan ?? '-' }}</td>
@@ -41,12 +41,8 @@
         </tbody>
       </table>
 
-      <div v-if="opds.last_page > 1" class="px-4 py-3 border-t border-gray-200 flex items-center justify-between text-sm text-gray-600">
-        <span>Menampilkan {{ opds.from }}–{{ opds.to }} dari {{ opds.total }} data</span>
-        <div class="flex gap-2">
-          <Link v-if="opds.prev_page_url" :href="opds.prev_page_url" class="px-3 py-1 border rounded hover:bg-gray-100">‹ Prev</Link>
-          <Link v-if="opds.next_page_url" :href="opds.next_page_url" class="px-3 py-1 border rounded hover:bg-gray-100">Next ›</Link>
-        </div>
+      <div v-if="opds.length" class="px-4 py-3 border-t border-gray-200 text-sm text-gray-600">
+        Menampilkan semua {{ opds.length }} data
       </div>
     </div>
 
@@ -98,10 +94,10 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import InputField from '@/Components/InputField.vue';
-import { Link, useForm, router } from '@inertiajs/vue3';
+import { useForm, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
-const props = defineProps({ opds: Object });
+const props = defineProps({ opds: Array });
 
 const showModal = ref(false);
 const showDeleteModal = ref(false);

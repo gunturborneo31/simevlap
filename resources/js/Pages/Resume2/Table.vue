@@ -1,5 +1,5 @@
 <template>
-  <AppLayout title="Resume 2" :breadcrumbs="breadcrumbs" :subtitle="description">
+  <AppLayout title="Resume" :breadcrumbs="breadcrumbs" :subtitle="description">
     <div class="mb-4 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-end">
       <div v-for="filter in filterOptions" :key="filter.name" class="w-full lg:w-auto lg:min-w-[220px]">
         <label :for="`r2-filter-${filter.name}`" class="mb-1 block text-xs font-medium text-gray-900">{{ filter.label }}</label>

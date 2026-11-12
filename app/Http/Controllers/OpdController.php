@@ -11,7 +11,8 @@ class OpdController extends Controller
 {
     public function index(): Response
     {
-        $opds = Opd::latest()->paginate(20);
+        // Jumlah OPD sedikit (puluhan), jadi semua ditampilkan sekaligus tanpa pagination.
+        $opds = Opd::latest()->get();
         return Inertia::render('Pengaturan/Opd/Index', ['opds' => $opds]);
     }
 

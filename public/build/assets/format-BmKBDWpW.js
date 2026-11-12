@@ -1,0 +1,1 @@
+function i(n,t=2){if(n==null||n==="")return"-";const r=Number(n);return Number.isNaN(r)?String(n):r.toLocaleString("id-ID",{maximumFractionDigits:t})}function e(n){if(!n)return"";try{return new Date(n).toLocaleDateString("id-ID")}catch{return""}}export{i as a,e as f};

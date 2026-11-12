@@ -203,7 +203,7 @@ class RealisasiController extends Controller
             'tahun' => 'required|integer',
             'tahun_ke' => 'nullable|integer|between:1,5',
             'triwulan' => 'required|integer|between:1,4',
-            'realisasi_fisik' => 'required|numeric|min:0|max:100',
+            'realisasi_fisik' => 'required|numeric|min:0|max:99999999',
             'realisasi_keuangan' => 'nullable|numeric|min:0',
             'sisa_anggaran' => 'nullable|numeric|min:0',
             'catatan' => 'nullable|string',
@@ -238,7 +238,7 @@ class RealisasiController extends Controller
         }
 
         $validated = $request->validate([
-            'realisasi_fisik' => 'required|numeric|min:0|max:100',
+            'realisasi_fisik' => 'required|numeric|min:0|max:99999999',
             'realisasi_keuangan' => 'nullable|numeric|min:0',
             'sisa_anggaran' => 'nullable|numeric|min:0',
             'catatan' => 'nullable|string',

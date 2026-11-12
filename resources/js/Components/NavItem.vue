@@ -12,14 +12,14 @@
 import { computed } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 
-const props = defineProps({ href: String, icon: String });
+const props = defineProps({ href: String, icon: String, alsoActive: { type: Array, default: () => [] } });
 
 const page = usePage();
 const isActive = computed(() => {
   try {
     // Cocokkan per segmen path agar /resume2 tidak ikut mengaktifkan menu /resume.
-    const path = new URL(props.href, window.location.origin).pathname;
-    return page.url === path || (page.url.startsWith(path) && /^[/?#]/.test(page.url.slice(path.length)));
+    const matches = (path) => page.url === path || (page.url.startsWith(path) && /^[/?#]/.test(page.url.slice(path.length)));
+    return [new URL(props.href, window.location.origin).pathname, ...props.alsoActive].some(matches);
   } catch {
     return false;
   }

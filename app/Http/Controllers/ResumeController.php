@@ -25,10 +25,15 @@ use App\Exports\AllOpdKertasKerjaExport;
 
 class ResumeController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request): Response|\Illuminate\Http\RedirectResponse
     {
         $currentView = $request->string('view')->toString();
         $currentTable = $request->string('table')->toString();
+
+        // Menu Resume lama disembunyikan: menu gabungan ada di halaman Resume 2.
+        if ($currentView === '' && $currentTable === '' && !$request->query('debug_opd_id')) {
+            return redirect()->route('resume2.index');
+        }
         $filterBasis = $this->sanitizeFilterBasis($request->string('basis')->toString());
         $tableData = [];
         $availableYears = $this->getAvailableYears();
@@ -4835,18 +4840,14 @@ class ResumeController extends Controller
             $twValue = is_array($twValue) ? $twValue : [];
 
             $realisasiKinerja = (float) ($twValue['fisik'] ?? 0);
-            $realisasiKeuangan = (float) ($twValue['keuangan'] ?? 0);
+            // Program/kegiatan = akumulasi sub kegiatannya (sama seperti halaman realisasi DPA).
+            $realisasiKeuangan = $this->sumKertasKerjaKeuangan($item, $triwulan);
             $paguRkpd = (float) ($item['pagu_renja'] ?? 0);
             $paguApbd = (float) ($item['pagu_dpa'] ?? ($item['pagu'] ?? 0));
 
             $targetForCapaian = $apbdTargetNum > 0 ? $apbdTargetNum : $rkpdTargetNum;
 
-            // Aturan khusus TW2: jika realisasi fisik belum terisi, isi otomatis dari 50% target
-            // dengan perlakuan ganjil/genap sesuai kebutuhan bisnis.
-            if ($triwulan === 2 && $realisasiKinerja <= 0 && $targetForCapaian > 0) {
-                $realisasiKinerja = $this->calculateKertasKerjaTw2Fisik($targetForCapaian);
-            }
-
+            // Realisasi kinerja memakai isian OPD apa adanya (tanpa pengisian otomatis).
             $capaianKinerja = $targetForCapaian > 0
                 ? round(($realisasiKinerja / $targetForCapaian) * 100, 2)
                 : null;
@@ -4893,6 +4894,36 @@ class ResumeController extends Controller
         }
     }
 
+    /**
+     * Realisasi keuangan satu node pada triwulan tertentu: jumlah turunannya bila ada nilainya,
+     * selain itu nilai node sendiri.
+     */
+    private function sumKertasKerjaKeuangan(mixed $node, int $triwulan): float
+    {
+        $item = is_array($node) ? $node : (is_object($node) ? json_decode(json_encode($node), true) : []);
+
+        $realisasiTw = $item['realisasi_tw'] ?? [];
+        $realisasiTw = is_array($realisasiTw) ? $realisasiTw : (is_object($realisasiTw) ? json_decode(json_encode($realisasiTw), true) : []);
+        $twValue = $realisasiTw[$triwulan] ?? ($realisasiTw[(string) $triwulan] ?? []);
+        $twValue = is_array($twValue) ? $twValue : (is_object($twValue) ? (array) $twValue : []);
+        $own = (float) ($twValue['keuangan'] ?? 0);
+
+        $children = $item['children'] ?? [];
+        if ($children instanceof Collection) {
+            $children = $children->all();
+        }
+        if (!is_array($children) || $children === []) {
+            return $own;
+        }
+
+        $childrenTotal = 0.0;
+        foreach ($children as $child) {
+            $childrenTotal += $this->sumKertasKerjaKeuangan($child, $triwulan);
+        }
+
+        return $childrenTotal > 0 ? $childrenTotal : $own;
+    }
+
     private function toNumericValue(mixed $value): float
     {
         if ($value === null) {
@@ -4911,33 +4942,6 @@ class ResumeController extends Controller
         $clean = str_replace(',', '.', $clean);
 
         return is_numeric($clean) ? (float) $clean : 0;
-    }
-
-    private function calculateKertasKerjaTw2Fisik(float $target): float
-    {
-        if ($target <= 0) {
-            return 0;
-        }
-
-        $roundedTarget = round($target);
-        $isIntegerTarget = abs($target - $roundedTarget) < 0.000001;
-
-        // Jika target bukan integer, gunakan 50% langsung agar tetap proporsional.
-        if (! $isIntegerTarget) {
-            return round($target * 0.5, 2);
-        }
-
-        $targetInt = (int) $roundedTarget;
-
-        if ($targetInt === 1) {
-            return 0.5;
-        }
-
-        if ($targetInt % 2 === 0) {
-            return (float) ($targetInt / 2);
-        }
-
-        return (float) floor($targetInt / 2);
     }
 
     private function sanitizeFilterBasis(string $basis): string
